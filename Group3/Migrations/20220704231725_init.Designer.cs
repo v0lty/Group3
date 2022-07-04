@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Group3.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220704121749_intial")]
-    partial class intial
+    [Migration("20220704231725_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,15 +50,15 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "075bee9b-26a7-45bc-90a3-e9c07b670cb0",
-                            ConcurrencyStamp = "579791a9-2cbe-452f-b5fb-594ca7dcd27d",
+                            Id = "46831bbf-91d4-4c35-b1f8-2e103a1b9b0b",
+                            ConcurrencyStamp = "fbc3ba79-b759-40b2-a086-87a4c6f0c61a",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "7bbf7d16-c936-4bd5-a216-2b115912ee4f",
-                            ConcurrencyStamp = "10ddd858-4274-4a99-bf80-d6fb85d6160a",
+                            Id = "c543c2e9-e509-4db0-9f8e-21ac3799a454",
+                            ConcurrencyStamp = "a254454f-cf46-4fa7-b7cd-f53e11f7f514",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -144,10 +144,10 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "36487774-4446-4dea-994a-d07798915da3",
+                            Id = "36a1aa80-9a59-4f5d-b713-1866f5062195",
                             AccessFailedCount = 0,
-                            Birthdate = new DateTime(1983, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "417c4ea6-7f06-429a-b179-153174f6edaa",
+                            Birthdate = new DateTime(1964, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "63af2d06-eb73-473b-ba61-9413349c3085",
                             Email = "admin@fakemail.net",
                             EmailConfirmed = false,
                             FirstName = "John",
@@ -155,11 +155,30 @@ namespace Group3.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@FAKEMAIL.NET",
                             NormalizedUserName = "ADMIN@FAKEMAIL.NET",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIzE966e+gUhMdu0cOeOGIFpMEeZgeRkp0rrcJ0sFaeletgfhlYVHKlH/HUBUCSK7Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEK1g0o57EZgFuqroz811b+xbXyLKbkZ9K4GLfTNXirCgVpVSAuzzmPAwXZ3O+f0aHg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "84c793cd-e820-4d64-80f1-bed3064df8a4",
+                            SecurityStamp = "60cbf834-3eb2-478f-b3bf-488a3c4afe6c",
                             TwoFactorEnabled = false,
                             UserName = "admin@fakemail.net"
+                        },
+                        new
+                        {
+                            Id = "74909f9a-0dc9-4a9e-b5db-705d36e5e5da",
+                            AccessFailedCount = 0,
+                            Birthdate = new DateTime(1993, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "4d49c617-0622-4218-9bdc-48a9d63b434e",
+                            Email = "user@fakemail.net",
+                            EmailConfirmed = false,
+                            FirstName = "Johan",
+                            LastName = "Svensson",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "USER@FAKEMAIL.NET",
+                            NormalizedUserName = "USER@FAKEMAIL.NET",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA8aHPfSENWysun7+4cGmBfbCCCvRGtq+80w5FbBkepnJ1vd3JY7jOozQWE0ipE+KA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "bbf58871-4196-41e3-8a3c-8da9b887f120",
+                            TwoFactorEnabled = false,
+                            UserName = "user@fakemail.net"
                         });
                 });
 
@@ -180,8 +199,185 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "36487774-4446-4dea-994a-d07798915da3",
-                            RoleId = "075bee9b-26a7-45bc-90a3-e9c07b670cb0"
+                            UserId = "36a1aa80-9a59-4f5d-b713-1866f5062195",
+                            RoleId = "46831bbf-91d4-4c35-b1f8-2e103a1b9b0b"
+                        },
+                        new
+                        {
+                            UserId = "74909f9a-0dc9-4a9e-b5db-705d36e5e5da",
+                            RoleId = "c543c2e9-e509-4db0-9f8e-21ac3799a454"
+                        });
+                });
+
+            modelBuilder.Entity("Group3.Models.Category", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "ce4dc927-0b9f-4aa5-9873-c5777414800c",
+                            Name = "Category 1"
+                        },
+                        new
+                        {
+                            Id = "12dc1c81-05d8-4add-bcd4-0c483f3ecdbb",
+                            Name = "Category 2"
+                        });
+                });
+
+            modelBuilder.Entity("Group3.Models.Message", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ReceiverId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(10000);
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Message");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "4f39e550-dab6-4cbc-b2bf-6ad160808035",
+                            ReceiverId = "74909f9a-0dc9-4a9e-b5db-705d36e5e5da",
+                            Text = "Message 1",
+                            Time = new DateTime(2022, 7, 2, 1, 17, 24, 830, DateTimeKind.Local).AddTicks(244),
+                            UserId = "36a1aa80-9a59-4f5d-b713-1866f5062195"
+                        },
+                        new
+                        {
+                            Id = "10cfa12d-8cf7-442b-ae56-7e14be840c0f",
+                            ReceiverId = "36a1aa80-9a59-4f5d-b713-1866f5062195",
+                            Text = "Message 2",
+                            Time = new DateTime(2022, 6, 26, 1, 17, 24, 830, DateTimeKind.Local).AddTicks(570),
+                            UserId = "74909f9a-0dc9-4a9e-b5db-705d36e5e5da"
+                        });
+                });
+
+            modelBuilder.Entity("Group3.Models.Post", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(10000);
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TopicId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TopicId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Posts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "c099c586-a5c3-4578-93a5-cce0e30b1125",
+                            Text = "Test in post 1",
+                            Time = new DateTime(2022, 7, 4, 1, 17, 24, 827, DateTimeKind.Local).AddTicks(6667),
+                            TopicId = "7da41190-bf6d-46e9-8656-1252feff8385",
+                            UserId = "74909f9a-0dc9-4a9e-b5db-705d36e5e5da"
+                        },
+                        new
+                        {
+                            Id = "4316bcbe-ad6a-4cfe-9697-f5987a72e79f",
+                            Text = "Text in post 2",
+                            Time = new DateTime(2022, 7, 3, 1, 17, 24, 829, DateTimeKind.Local).AddTicks(8918),
+                            TopicId = "76e729aa-7b1c-4a6a-bbde-c748a3742a24",
+                            UserId = "36a1aa80-9a59-4f5d-b713-1866f5062195"
+                        },
+                        new
+                        {
+                            Id = "4f330921-d9a1-4f03-9084-467d23fd700f",
+                            Text = "Text in post 3",
+                            Time = new DateTime(2022, 6, 30, 1, 17, 24, 829, DateTimeKind.Local).AddTicks(8984),
+                            TopicId = "76e729aa-7b1c-4a6a-bbde-c748a3742a24",
+                            UserId = "36a1aa80-9a59-4f5d-b713-1866f5062195"
+                        });
+                });
+
+            modelBuilder.Entity("Group3.Models.Topic", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CategoryId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Topics");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "7da41190-bf6d-46e9-8656-1252feff8385",
+                            CategoryId = "ce4dc927-0b9f-4aa5-9873-c5777414800c",
+                            Name = "Topic 2",
+                            UserId = "36a1aa80-9a59-4f5d-b713-1866f5062195"
+                        },
+                        new
+                        {
+                            Id = "76e729aa-7b1c-4a6a-bbde-c748a3742a24",
+                            CategoryId = "12dc1c81-05d8-4add-bcd4-0c483f3ecdbb",
+                            Name = "Topic 1",
+                            UserId = "74909f9a-0dc9-4a9e-b5db-705d36e5e5da"
                         });
                 });
 
@@ -287,6 +483,39 @@ namespace Group3.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Group3.Models.Message", b =>
+                {
+                    b.HasOne("Group3.Models.ApplicationUser", "Receiver")
+                        .WithMany()
+                        .HasForeignKey("ReceiverId");
+
+                    b.HasOne("Group3.Models.ApplicationUser", "User")
+                        .WithMany("Messages")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Group3.Models.Post", b =>
+                {
+                    b.HasOne("Group3.Models.Topic", "Topic")
+                        .WithMany("Posts")
+                        .HasForeignKey("TopicId");
+
+                    b.HasOne("Group3.Models.ApplicationUser", "User")
+                        .WithMany("Posts")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Group3.Models.Topic", b =>
+                {
+                    b.HasOne("Group3.Models.Category", "Category")
+                        .WithMany("Topics")
+                        .HasForeignKey("CategoryId");
+
+                    b.HasOne("Group3.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

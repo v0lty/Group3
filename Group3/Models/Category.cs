@@ -1,23 +1,18 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Group3.Models
 {
     public class Category
     {
+        public string Id { get; set; }
 
-        public int Id { get; set; }
+        [StringLength(200, MinimumLength = 1)]
+        public string Name { get; set; }
 
-        public string CategoryName { get; set; }
+        [StringLength(200)]
+        public string Text { get; set; }
 
         public List<Topic> Topics { get; set; }
-
-
     }
 }

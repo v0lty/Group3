@@ -1,9 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 
 namespace Group3.Models
 {
@@ -11,18 +9,20 @@ namespace Group3.Models
     {
         [Required, Display(Name = "First Name")]
         [StringLength(50, MinimumLength = 3)]
-        public virtual string FirstName { get; set; }
+        public string FirstName { get; set; }
 
         [Required, Display(Name = "Last Name")]
         [StringLength(50, MinimumLength = 3)]
-        public virtual string LastName { get; set; }
+        public string LastName { get; set; }
 
         [Required, Display(Name = "Birthdate")]
         [DataType(DataType.Date)]
-        public virtual DateTime Birthdate { get; set; }
+        public DateTime Birthdate { get; set; }
 
-        public virtual ICollection<ApplicationUserRole> UserRoles { get; set; }
+        public ICollection<ApplicationUserRole> UserRoles { get; set; }
 
         public List<Post> Posts { get; set; }
+
+        public List<Message> Messages { get; set; }
     }
 }

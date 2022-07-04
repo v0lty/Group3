@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 using Group3.Models;
+
 
 namespace Group3.Controllers
 {
@@ -22,15 +24,16 @@ namespace Group3.Controllers
             this.userManager = userManager;
         }
 
-        public IActionResult Index(string id)
+        public IActionResult Index()
         {
             ViewBag.Roles = new SelectList(roleManager.Roles, "Name", "Name");
             return View(new AdminViewModel(roleManager, userManager));
         }
 
-        public async Task<IActionResult> QueryUserRoles(string id)
+        public IActionResult QueryUserRoles(string id)
         {
-            var user = await userManager.FindByIdAsync(id);
+            // userManager.FindByIdAsync(id); would require LazyLoading for user.UserRoles to be loaded
+            var user = userManager.Users.Include(u => u.UserRoles).ThenInclude(ur => ur.Role).Where(x => x.Id == id).FirstOrDefault();
             if (user != null) {
                 return Json(user.UserRoles.Select(x => x.Role.Name).ToList());
             }
@@ -43,7 +46,7 @@ namespace Group3.Controllers
         {
             ViewBag.Roles = new SelectList(roleManager.Roles, "Name", "Name");
 
-            var user = await userManager.FindByIdAsync(id);
+            var user = userManager.Users.Include(u => u.UserRoles).ThenInclude(ur => ur.Role).Where(x => x.Id == id).FirstOrDefault();
             if (user != null) {
                 var userRoles = user.UserRoles.Select(x => x.Role.Name).ToList();
 

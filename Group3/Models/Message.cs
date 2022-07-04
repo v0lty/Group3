@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Group3.Models
 {
-    public class Post
+    public class Message 
     {
         [Key]
         public string Id { get; set; }
@@ -12,13 +12,13 @@ namespace Group3.Models
 
         public ApplicationUser User { get; set; }
 
+        public string ReceiverId { get; set; }
+
+        public ApplicationUser Receiver { get; set; }
+
         [StringLength(10000, MinimumLength = 1)]
         public string Text { get; set; }
 
         public DateTime Time { get; set; }
-
-        public Topic Topic { get; set; }
-
-        public string TopicId { get; set; }
     }
 }
