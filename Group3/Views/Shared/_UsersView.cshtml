@@ -1,0 +1,121 @@
+﻿@model IEnumerable<Group3.Models.ApplicationUser>
+
+<div class="row border-bottom py-2">
+    <div class="col text-truncate">
+        <strong>Usernam</strong>
+    </div>
+    <div class="col text-truncate">
+        <strong>Name</strong>
+    </div>
+    <div class="col text-truncate">
+        <strong>Birthdate</strong>
+    </div>
+    <div class="col text-truncate">
+        <strong>Roles</strong>
+    </div>
+    <div class="col-2">
+    </div>
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col text-truncate border-end border-bottom">
+            @Html.DisplayFor(modelItem => item.UserName)
+        </div>
+        <div class="col text-truncate border-end border-bottom">
+            @String.Format($"{item.FirstName} {item.LastName}")
+        </div>
+        <div class="col text-truncate border-end border-bottom">
+            @Html.DisplayFor(modelItem => item.Birthdate)
+        </div>
+        <div class="col text-truncate border-end border-bottom">           
+            @String.Join(", ", item.UserRoles.Select(x => x.Role.Name))
+        </div>
+        <div class="col-2 text-truncate border-bottom">    
+            <button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#editUserModal" data-user="@item.Id">Manage Roles</button>
+            <button type="button" class="btn btn-link p-0" onclick="removeUser('@item.Id')">Delete</button>           
+        </div>
+    </div>
+}
+
+<!--EDIT USER MODAL-->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Manage Roles</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm" method="post" asp-action="ManageUserRoles">
+                    <input type="submit" id="submitEditForm" class="d-none" />
+                    <input type="text" id="activeUserInput" class="d-none" />
+                    <div id="editUserPanel">
+                        @foreach (var item in ViewBag.Roles) {
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="@item.Text" />
+                                <label class="form-check-label">@item.Text</label>
+                            </div>
+                        }
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <label for="submitEditForm" class="btn btn-primary">Submit</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#editUserModal').on('show.bs.modal', function (event) {
+        var userID = $(event.relatedTarget).data('user');
+        $("#activeUserInput").val(userID);
+        $.get("Admin/QueryUserRoles/" + userID, function (data) {
+            $(data).each(function (index, item) {
+                $('#' + item).prop('checked', true);
+            });
+        });
+    });
+
+    $('#editUserModal').on('hide.bs.modal', function (event) {
+        $("#editUserPanel").find(".form-check-input").each(function () {
+            $(this).prop('checked', false);
+        });
+    });
+
+    $('#editUserForm').on('submit', function (event) {
+        event.preventDefault();
+        var roles = $("#editUserPanel input:checkbox:checked").map(function () {
+            return $(this).attr("id");
+        }).get(); 
+        $.ajax({
+            url: $(this).attr('action'),
+            type: $(this).attr('method'),
+            data: {
+                id: $("#activeUserInput").val(),
+                selectedRoles: roles
+            },
+            success: function (result) {
+                $('#editUserModal').modal('toggle');
+                window.location.reload();
+            },
+            error: function (result) {
+                alert(result.responseText);
+            }
+        });
+    });
+
+    function removeUser(id) {
+        $.ajax({
+            url: "Admin/RemoveUser/" + id, type: 'POST', data: null,
+            success: function (result) {
+                window.location.reload();
+            },
+            error: function (result) {
+                alert(result.responseText);
+            }
+        });
+    }
+</script>
