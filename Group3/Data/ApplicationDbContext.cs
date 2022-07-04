@@ -64,6 +64,41 @@ namespace Group3.Data
                 UserId = userID
             });
 
+            /*
+             * modelBuilder.Entity<Person>()
+                .HasOne(p => p.City)
+                .WithMany(c => c.People)
+                .HasForeignKey(p => p.CityId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<City>()
+                .HasOne(p => p.Country)
+                .WithMany(c => c.Cities)
+                .HasForeignKey(p => p.CountryId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Post>()
+                .HasOne(p => p.User)
+                .WithMany(user => user.Posts)
+                .HasForeignKey(p => p.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+             */
+
+            modelBuilder.Entity<Post>()
+                .HasOne(post => post.User)
+                .WithMany(user => user.Posts)
+                .HasForeignKey(p => p.UserId);
+
+            modelBuilder.Entity<Post>()
+                .HasOne(post => post.Topic)
+                .WithMany(topic => topic.Posts)
+                .HasForeignKey(p => p.TopicId);
+
+            modelBuilder.Entity<Topic>()
+                .HasOne(topic => topic.Category)
+                .WithMany(category => category.Topics)
+                .HasForeignKey(topic => topic.CategoryId);
+
             modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser()
             {
                 Id = userID,

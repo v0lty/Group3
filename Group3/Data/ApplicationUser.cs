@@ -22,5 +22,7 @@ namespace Group3.Models
         public virtual DateTime Birthdate { get; set; }
 
         public virtual ICollection<ApplicationUserRole> UserRoles { get; set; }
+
+        public List<Post> Posts { get; set; }
     }
 }
