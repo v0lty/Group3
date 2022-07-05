@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Group3.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220704231725_init")]
-    partial class init
+    [Migration("20220705075726_intitial")]
+    partial class intitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,15 +50,15 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "46831bbf-91d4-4c35-b1f8-2e103a1b9b0b",
-                            ConcurrencyStamp = "fbc3ba79-b759-40b2-a086-87a4c6f0c61a",
+                            Id = "fa94d534-37c1-4dc7-bcc4-7b275a127276",
+                            ConcurrencyStamp = "f8001dd1-242a-4a7c-9906-7db9829397e4",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c543c2e9-e509-4db0-9f8e-21ac3799a454",
-                            ConcurrencyStamp = "a254454f-cf46-4fa7-b7cd-f53e11f7f514",
+                            Id = "54d43647-7e09-4a7b-87d8-1ac17f4c9aa0",
+                            ConcurrencyStamp = "1a16effe-381d-4a6b-a02d-76d2d3bcb542",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -144,10 +144,10 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "36a1aa80-9a59-4f5d-b713-1866f5062195",
+                            Id = "026f670c-e89b-40e2-928b-40aefec1e036",
                             AccessFailedCount = 0,
                             Birthdate = new DateTime(1964, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "63af2d06-eb73-473b-ba61-9413349c3085",
+                            ConcurrencyStamp = "f2f755e6-fbe8-42ce-afda-2db8ff4b1617",
                             Email = "admin@fakemail.net",
                             EmailConfirmed = false,
                             FirstName = "John",
@@ -155,18 +155,18 @@ namespace Group3.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@FAKEMAIL.NET",
                             NormalizedUserName = "ADMIN@FAKEMAIL.NET",
-                            PasswordHash = "AQAAAAEAACcQAAAAEK1g0o57EZgFuqroz811b+xbXyLKbkZ9K4GLfTNXirCgVpVSAuzzmPAwXZ3O+f0aHg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIBiMe+z42rz5jn4KZpBS0C93gamSqubW69qJE+uabNc4UVM/Ytl46nJtgMWuc3SSw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "60cbf834-3eb2-478f-b3bf-488a3c4afe6c",
+                            SecurityStamp = "54f1eb25-c176-45e2-b7b7-271af12147c8",
                             TwoFactorEnabled = false,
                             UserName = "admin@fakemail.net"
                         },
                         new
                         {
-                            Id = "74909f9a-0dc9-4a9e-b5db-705d36e5e5da",
+                            Id = "1a7b9a00-5c45-4098-9bf8-2d4b0a7d01af",
                             AccessFailedCount = 0,
                             Birthdate = new DateTime(1993, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "4d49c617-0622-4218-9bdc-48a9d63b434e",
+                            ConcurrencyStamp = "6f349c96-ea6e-45fe-abde-12065d8793f3",
                             Email = "user@fakemail.net",
                             EmailConfirmed = false,
                             FirstName = "Johan",
@@ -174,9 +174,9 @@ namespace Group3.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@FAKEMAIL.NET",
                             NormalizedUserName = "USER@FAKEMAIL.NET",
-                            PasswordHash = "AQAAAAEAACcQAAAAEA8aHPfSENWysun7+4cGmBfbCCCvRGtq+80w5FbBkepnJ1vd3JY7jOozQWE0ipE+KA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIdh+oH6MIt+UIkQyL5h3+YN+Zi/bfi1J85mo2syWD00TsjoDJpYTTB+LwNlRhPT9A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bbf58871-4196-41e3-8a3c-8da9b887f120",
+                            SecurityStamp = "9af16974-0e70-4550-8f1d-762afa2fef09",
                             TwoFactorEnabled = false,
                             UserName = "user@fakemail.net"
                         });
@@ -199,13 +199,13 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "36a1aa80-9a59-4f5d-b713-1866f5062195",
-                            RoleId = "46831bbf-91d4-4c35-b1f8-2e103a1b9b0b"
+                            UserId = "026f670c-e89b-40e2-928b-40aefec1e036",
+                            RoleId = "fa94d534-37c1-4dc7-bcc4-7b275a127276"
                         },
                         new
                         {
-                            UserId = "74909f9a-0dc9-4a9e-b5db-705d36e5e5da",
-                            RoleId = "c543c2e9-e509-4db0-9f8e-21ac3799a454"
+                            UserId = "1a7b9a00-5c45-4098-9bf8-2d4b0a7d01af",
+                            RoleId = "54d43647-7e09-4a7b-87d8-1ac17f4c9aa0"
                         });
                 });
 
@@ -229,12 +229,12 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ce4dc927-0b9f-4aa5-9873-c5777414800c",
+                            Id = "daa01cd1-8b8c-4141-b22a-f5fd0c0f845f",
                             Name = "Category 1"
                         },
                         new
                         {
-                            Id = "12dc1c81-05d8-4add-bcd4-0c483f3ecdbb",
+                            Id = "8b42aace-f3b3-4e68-9df0-f7178e545b13",
                             Name = "Category 2"
                         });
                 });
@@ -268,19 +268,19 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4f39e550-dab6-4cbc-b2bf-6ad160808035",
-                            ReceiverId = "74909f9a-0dc9-4a9e-b5db-705d36e5e5da",
+                            Id = "e4f83a27-5b1c-4276-8526-5e65355abfd3",
+                            ReceiverId = "1a7b9a00-5c45-4098-9bf8-2d4b0a7d01af",
                             Text = "Message 1",
-                            Time = new DateTime(2022, 7, 2, 1, 17, 24, 830, DateTimeKind.Local).AddTicks(244),
-                            UserId = "36a1aa80-9a59-4f5d-b713-1866f5062195"
+                            Time = new DateTime(2022, 7, 2, 9, 57, 25, 810, DateTimeKind.Local).AddTicks(2520),
+                            UserId = "026f670c-e89b-40e2-928b-40aefec1e036"
                         },
                         new
                         {
-                            Id = "10cfa12d-8cf7-442b-ae56-7e14be840c0f",
-                            ReceiverId = "36a1aa80-9a59-4f5d-b713-1866f5062195",
+                            Id = "9c4cc0a9-f47f-43e2-a622-2d504986d7b1",
+                            ReceiverId = "026f670c-e89b-40e2-928b-40aefec1e036",
                             Text = "Message 2",
-                            Time = new DateTime(2022, 6, 26, 1, 17, 24, 830, DateTimeKind.Local).AddTicks(570),
-                            UserId = "74909f9a-0dc9-4a9e-b5db-705d36e5e5da"
+                            Time = new DateTime(2022, 6, 26, 9, 57, 25, 810, DateTimeKind.Local).AddTicks(2712),
+                            UserId = "1a7b9a00-5c45-4098-9bf8-2d4b0a7d01af"
                         });
                 });
 
@@ -313,27 +313,27 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c099c586-a5c3-4578-93a5-cce0e30b1125",
+                            Id = "14acbe09-ce4d-4106-bb84-55311a8ec5d5",
                             Text = "Test in post 1",
-                            Time = new DateTime(2022, 7, 4, 1, 17, 24, 827, DateTimeKind.Local).AddTicks(6667),
-                            TopicId = "7da41190-bf6d-46e9-8656-1252feff8385",
-                            UserId = "74909f9a-0dc9-4a9e-b5db-705d36e5e5da"
+                            Time = new DateTime(2022, 7, 4, 9, 57, 25, 808, DateTimeKind.Local).AddTicks(1898),
+                            TopicId = "79f1f254-d612-40c9-8685-73024a5bdc17",
+                            UserId = "1a7b9a00-5c45-4098-9bf8-2d4b0a7d01af"
                         },
                         new
                         {
-                            Id = "4316bcbe-ad6a-4cfe-9697-f5987a72e79f",
+                            Id = "f4f1bc1d-4c46-4725-8069-5401047bbbe4",
                             Text = "Text in post 2",
-                            Time = new DateTime(2022, 7, 3, 1, 17, 24, 829, DateTimeKind.Local).AddTicks(8918),
-                            TopicId = "76e729aa-7b1c-4a6a-bbde-c748a3742a24",
-                            UserId = "36a1aa80-9a59-4f5d-b713-1866f5062195"
+                            Time = new DateTime(2022, 7, 3, 9, 57, 25, 810, DateTimeKind.Local).AddTicks(1806),
+                            TopicId = "a26fa704-44af-4031-a53d-38c88553243a",
+                            UserId = "026f670c-e89b-40e2-928b-40aefec1e036"
                         },
                         new
                         {
-                            Id = "4f330921-d9a1-4f03-9084-467d23fd700f",
+                            Id = "31adc1d1-a846-478c-9c3b-40121a18349b",
                             Text = "Text in post 3",
-                            Time = new DateTime(2022, 6, 30, 1, 17, 24, 829, DateTimeKind.Local).AddTicks(8984),
-                            TopicId = "76e729aa-7b1c-4a6a-bbde-c748a3742a24",
-                            UserId = "36a1aa80-9a59-4f5d-b713-1866f5062195"
+                            Time = new DateTime(2022, 6, 30, 9, 57, 25, 810, DateTimeKind.Local).AddTicks(1859),
+                            TopicId = "a26fa704-44af-4031-a53d-38c88553243a",
+                            UserId = "026f670c-e89b-40e2-928b-40aefec1e036"
                         });
                 });
 
@@ -367,17 +367,17 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7da41190-bf6d-46e9-8656-1252feff8385",
-                            CategoryId = "ce4dc927-0b9f-4aa5-9873-c5777414800c",
+                            Id = "79f1f254-d612-40c9-8685-73024a5bdc17",
+                            CategoryId = "daa01cd1-8b8c-4141-b22a-f5fd0c0f845f",
                             Name = "Topic 2",
-                            UserId = "36a1aa80-9a59-4f5d-b713-1866f5062195"
+                            UserId = "026f670c-e89b-40e2-928b-40aefec1e036"
                         },
                         new
                         {
-                            Id = "76e729aa-7b1c-4a6a-bbde-c748a3742a24",
-                            CategoryId = "12dc1c81-05d8-4add-bcd4-0c483f3ecdbb",
+                            Id = "a26fa704-44af-4031-a53d-38c88553243a",
+                            CategoryId = "8b42aace-f3b3-4e68-9df0-f7178e545b13",
                             Name = "Topic 1",
-                            UserId = "74909f9a-0dc9-4a9e-b5db-705d36e5e5da"
+                            UserId = "1a7b9a00-5c45-4098-9bf8-2d4b0a7d01af"
                         });
                 });
 
