@@ -12,6 +12,20 @@ using Group3.Models;
 // remove C:\Users\%USER%\MyDB.mdf
 // remove C:\Users\%USER%\MyDB_log.ldf
 
+// UPDATE DATABSE (in Package Manager Console execute these two commands)
+// Add-Migration init
+// Update-Database
+
+// INSTALL NPM For React & Javascript
+// RightClick On Client
+// RightClick ClientApp Folder -> Click 'Open In Terminal' -> (Type this in the Developer PowerShell) npm install
+
+// LIBRARIES THAT WE USE
+// https://nodejs.org/en/ and install 16.15.1 LTS version of Node.JS
+
+// INSTALL AXIOS
+// RightClick ClientApp Folder -> Click 'Open In Terminal' -> (Type this in the Developer PowerShell) npm install axios
+
 namespace Group3.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string, IdentityUserClaim<string>,

@@ -7,6 +7,9 @@ using System.Text.Json.Serialization;
 
 namespace Group3.Controllers
 {
+
+    [ApiController]
+    [Route("[controller]")]
     public class APIController : Controller
     {
 
@@ -25,7 +28,14 @@ namespace Group3.Controllers
         public JsonResult GetAllPosts()
         {
 
-            var posts = dbContext.Posts.Include(post => post.User).Include(post => post.Topic).ToArray();
+            var posts = dbContext.Posts.Include(post => post.User).Include(post => post.Topic).ToArray()
+                .Select(post => 
+                new
+                {
+                    post.Id,
+                    post.Time,
+                    post.Text
+                }).ToArray();
 
             var postdata = JsonSerializer.Serialize(posts, new JsonSerializerOptions()
             {
