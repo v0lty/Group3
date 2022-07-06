@@ -50,11 +50,6 @@ namespace Group3.Data
                 .WithMany(category => category.Topics)
                 .HasForeignKey(topic => topic.CategoryId);
 
-            //modelBuilder.Entity<Topic>()
-            //    .HasMany(topic => topic.Posts)
-            //    .WithOne(post => post.Topic)
-            //    .HasPrincipalKey(post => post.Id);
-
             modelBuilder.Entity<ApplicationUserRole>(userRole =>
             {
                 userRole.HasKey(ur => new { ur.UserId, ur.RoleId });
