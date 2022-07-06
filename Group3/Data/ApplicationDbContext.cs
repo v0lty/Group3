@@ -5,27 +5,6 @@ using System;
 
 using Group3.Models;
 
-// DELETE DATABASE:
-// remove migration folder
-// sqllocaldb stop (command in package manager console)
-// sqllocaldb delete
-// remove C:\Users\%USER%\MyDB.mdf
-// remove C:\Users\%USER%\MyDB_log.ldf
-
-// UPDATE DATABSE (in Package Manager Console execute these two commands)
-// Add-Migration init
-// Update-Database
-
-// INSTALL NPM For React & Javascript
-// RightClick On Client
-// RightClick ClientApp Folder -> Click 'Open In Terminal' -> (Type this in the Developer PowerShell) npm install
-
-// LIBRARIES THAT WE USE
-// https://nodejs.org/en/ and install 16.15.1 LTS version of Node.JS
-
-// INSTALL AXIOS
-// RightClick ClientApp Folder -> Click 'Open In Terminal' -> (Type this in the Developer PowerShell) npm install axios
-
 namespace Group3.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string, IdentityUserClaim<string>,
@@ -49,16 +28,20 @@ namespace Group3.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Category>().HasKey(c => new { c.Id });
+            modelBuilder.Entity<Topic>().HasKey(t => new { t.Id });
+            modelBuilder.Entity<Post>().HasKey(p => new { p.Id });
+            modelBuilder.Entity<Message>().HasKey(m => new { m.Id });
+            modelBuilder.Entity<ApplicationUser>().HasKey(u => new { u.Id });
+
             modelBuilder.Entity<ApplicationUser>()
                 .HasMany(user => user.Posts)
                 .WithOne(post => post.User)
-                .HasPrincipalKey(user => user.Id)
                 .HasForeignKey(post => post.UserId);
 
             modelBuilder.Entity<Post>()
                 .HasOne(post => post.Topic)
                 .WithMany(topic => topic.Posts)
-                .HasPrincipalKey(topic => topic.Id)
                 .HasForeignKey(post => post.TopicId)
                 .OnDelete(DeleteBehavior.NoAction);
 

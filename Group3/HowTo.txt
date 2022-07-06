@@ -1,0 +1,25 @@
+﻿DELETE DATABASE:
+Solution Explorer:
+-> Remove 'Migrations' folder
+Execute in Packet Manager Console:
+-> sqllocaldb stop
+-> sqllocaldb delete
+Remove C:\Users\%USER%\MyDB.mdf
+Remove C:\Users\%USER%\MyDB_log.ldf
+
+UPDATE DATABSE: 
+Execute in Packet Manager Console:
+-> Add-Migration 'name'
+-> Update-Database
+
+INSTALL NPM, AXIOS, BOOTSTRAP:
+Right-Click on ClientApp folder -> 'Open In Terminal' 
+Execute in Developer PowerShell:
+-> npm install
+-> npm install axios
+-> npm install react-bootstrap bootstrap
+
+LIBRARIES:
+.NET 6.0
+.NET 3.1
+https://nodejs.org/en/ -> Node.Js version 16.15.1 LTS 

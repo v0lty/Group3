@@ -7,6 +7,8 @@ namespace Group3.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        public string Name { get { return string.Format($"{FirstName} {LastName}"); } }
+
         [Required, Display(Name = "First Name")]
         [StringLength(50, MinimumLength = 3)]
         public string FirstName { get; set; }
