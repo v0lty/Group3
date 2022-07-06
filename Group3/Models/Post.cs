@@ -20,5 +20,10 @@ namespace Group3.Models
         public Topic Topic { get; set; }
 
         public string TopicId { get; set; }
+
+        public string ReferenceId { get; set; }
+
+        public Post Reference { get; set; }
+
     }
 }

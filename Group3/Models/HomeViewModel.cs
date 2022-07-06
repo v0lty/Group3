@@ -17,11 +17,7 @@ namespace Group3.Models
         { 
             get 
             { 
-                return Context.Users.Include(u => u.Messages)
-                                    .ThenInclude(u => u.User)
-                                    .Include(u => u.Messages)
-                                    .ThenInclude(u => u.Receiver)
-                                    .Include(u => u.Posts).Where(x => x.UserName == Principal.Identity.Name).FirstOrDefault(); 
+                return Context.Users.Include(u => u.Posts).Where(x => x.UserName == Principal.Identity.Name).FirstOrDefault(); 
             } 
         }
 

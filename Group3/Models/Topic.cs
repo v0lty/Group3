@@ -11,8 +11,8 @@ namespace Group3.Models
         [StringLength(200, MinimumLength = 3)]
         public string Name { get; set; }
 
-        [StringLength(200)]
-        public string Text { get; set; }
+        [StringLength(1000)]
+        public string Description { get; set; }
 
         public Category Category { get; set; }
 

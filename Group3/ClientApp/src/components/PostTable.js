@@ -15,7 +15,7 @@ export const PostTable = props => {
             <tbody>
                 {
                     props.posts.map(post => 
-                        <tr>
+                        <tr key={ post.Id }>
                             <td>{post.Id}</td>
                             <td>{post.Time}</td>
                             <td>{post.Text}</td>

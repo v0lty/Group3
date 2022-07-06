@@ -23,6 +23,5 @@ namespace Group3.Models
 
         public List<Post> Posts { get; set; }
 
-        public List<Message> Messages { get; set; }
     }
 }

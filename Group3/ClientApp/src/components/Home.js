@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { PostTable } from './PostTable'
 import axios from 'axios'
+import {PostForm } from './PostForm'
 
 export class Home extends Component {
     static displayName = Home.name;
@@ -11,6 +12,7 @@ export class Home extends Component {
         super(props);
         this.state = { posts: [] };
         this.updatePosts = this.updatePosts.bind(this);
+        this.onPostFormSubmit = this.onPostFormSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -19,7 +21,6 @@ export class Home extends Component {
 
     async updatePosts() {
         await axios.get(this.baseURL + 'GetAllPosts').then((response) => {
-            console.log(response);
         if (response.status == 200) {
             this.setState({ posts: JSON.parse(response.data) });
         }
@@ -30,12 +31,17 @@ export class Home extends Component {
         });
     }
 
-
+    onPostFormSubmit(e) {
+        e.preventDefault();
+        console.log(e);
+    }
 
     render() {
-        console.log(this.state.posts);
-      return (
-          <PostTable posts={ this.state.posts}/>
+        return (
+            <div>
+                <PostForm onSubmit={ this.onPostFormSubmit } />
+                <PostTable posts={this.state.posts} />
+            </div>
     );
   }
 }
