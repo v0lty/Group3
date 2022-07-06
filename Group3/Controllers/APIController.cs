@@ -4,6 +4,8 @@ using Group3.Data;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Group3.Models;
+using System;
 
 namespace Group3.Controllers
 {
@@ -14,8 +16,6 @@ namespace Group3.Controllers
     {
 
         private readonly ApplicationDbContext dbContext;
-
-
 
         public APIController(ApplicationDbContext Context)
         {
@@ -47,5 +47,29 @@ namespace Group3.Controllers
 
             return new JsonResult(postdata);
         }
+
+        [HttpPost]
+        [Route("CreatePost")]
+        public JsonResult CreatePost(string text)
+        {
+            var post = new Post { Text = text, Time = DateTime.Now, Topic = dbContext.Topics.FirstOrDefault(), User = dbContext.Users.FirstOrDefault() };
+            dbContext.Posts.Add(post);
+            dbContext.SaveChanges();
+            return new JsonResult(post);
+
+        }
+
+        /*
+         * GetPostByID
+         * EditPost
+         * RemovePost
+         * 
+         * CreateTopic
+         * EditTopic
+         * RemoveTopic
+         * 
+         * CreatCategory
+         * 
+         */
     }
 }

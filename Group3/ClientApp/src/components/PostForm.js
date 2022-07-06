@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 
 export function PostForm(props) {
     return (
-        <Form onSubmit={() => props.onSubmit}>
+        <Form onSubmit={ props.onSubmit }>
             <Form.Group controlId="formText">
                 <Form.Label>Text</Form.Label>
                 <Form.Control type="text"required/>

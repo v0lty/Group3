@@ -59,12 +59,18 @@ namespace Group3.Data
                 .HasOne(post => post.Topic)
                 .WithMany(topic => topic.Posts)
                 .HasPrincipalKey(topic => topic.Id)
-                .HasForeignKey(post => post.TopicId);
+                .HasForeignKey(post => post.TopicId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Topic>()
                 .HasOne(topic => topic.Category)
                 .WithMany(category => category.Topics)
                 .HasForeignKey(topic => topic.CategoryId);
+
+            //modelBuilder.Entity<Topic>()
+            //    .HasMany(topic => topic.Posts)
+            //    .WithOne(post => post.Topic)
+            //    .HasPrincipalKey(post => post.Id);
 
             modelBuilder.Entity<ApplicationUserRole>(userRole =>
             {
@@ -117,22 +123,22 @@ namespace Group3.Data
                 PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "password")
             });
 
-            var category1 = new Category { Id = Guid.NewGuid().ToString(), Name = "News" };
-            var category2 = new Category { Id = Guid.NewGuid().ToString(), Name = "Frontend" };
-            var category3 = new Category { Id = Guid.NewGuid().ToString(), Name = "Backend" };
-            var category4 = new Category { Id = Guid.NewGuid().ToString(), Name = "Random" };
+            var category1 = new Category { Id = -1, Name = "News" };
+            var category2 = new Category { Id = -2, Name = "Frontend" };
+            var category3 = new Category { Id = -3, Name = "Backend" };
+            var category4 = new Category { Id = -4, Name = "Random" };
 
-            var topic1 = new Topic { Id = Guid.NewGuid().ToString(), Name = "Trending", Description = "Upgrade your project to 6.0", CategoryId = category1.Id, UserId = adminUserRole.UserId };
-            var topic2 = new Topic { Id = Guid.NewGuid().ToString(), Name = "HTML", Description = "What ever about HTML", CategoryId = category2.Id, UserId = userUserRole.UserId };
-            var topic3 = new Topic { Id = Guid.NewGuid().ToString(), Name = "CSS", Description = "Do it with style", CategoryId = category2.Id, UserId = userUserRole.UserId };
-            var topic4 = new Topic { Id = Guid.NewGuid().ToString(), Name = "Entity Framework", Description = "Your prefered database", CategoryId = category3.Id, UserId = userUserRole.UserId };
+            var topic1 = new Topic { Id = -1, Name = "Trending", Description = "Upgrade your project to 6.0", CategoryId = category1.Id, UserId = adminUserRole.UserId };
+            var topic2 = new Topic { Id = -2, Name = "HTML", Description = "What ever about HTML", CategoryId = category2.Id, UserId = userUserRole.UserId };
+            var topic3 = new Topic { Id = -3, Name = "CSS", Description = "Do it with style", CategoryId = category2.Id, UserId = userUserRole.UserId };
+            var topic4 = new Topic { Id = -4, Name = "Entity Framework", Description = "Your prefered database", CategoryId = category3.Id, UserId = userUserRole.UserId };
 
-            var post1 = new Post { Id = Guid.NewGuid().ToString(), Text = "<b>Visual Studio 6.0</b> news news news more news", Time = DateTime.Now.AddDays(-1), TopicId = topic1.Id, UserId = userUserRole.UserId };
-            var post2 = new Post { Id = Guid.NewGuid().ToString(), Text = "What is header for?", Time = DateTime.Now.AddDays(-2), TopicId = topic2.Id, UserId = adminUserRole.UserId };
-            var post3 = new Post { Id = Guid.NewGuid().ToString(), Text = "HoW do I make a table?", ReferenceId = post2.Id, Time = DateTime.Now.AddDays(-5), TopicId = topic2.Id, UserId = adminUserRole.UserId };
+            var post1 = new Post { Id = -1, Text = "<b>Visual Studio 6.0</b> news news news more news", Time = DateTime.Now.AddDays(-1), TopicId = topic1.Id, UserId = userUserRole.UserId };
+            var post2 = new Post { Id = -2, Text = "What is header for?", Time = DateTime.Now.AddDays(-2), TopicId = topic2.Id, UserId = adminUserRole.UserId };
+            var post3 = new Post { Id = -3, Text = "HoW do I make a table?", Time = DateTime.Now.AddDays(-5), TopicId = topic2.Id, UserId = adminUserRole.UserId };
 
-            var message1 = new Message { Id = Guid.NewGuid().ToString(), UserId = adminUserRole.UserId, ReceiverId = userUserRole.UserId, Text = "Hello there", Time = DateTime.Now.AddDays(-3) };
-            var message2 = new Message { Id = Guid.NewGuid().ToString(), UserId = userUserRole.UserId, ReceiverId = adminUserRole.UserId, Text = "Hello yourself", Time = DateTime.Now.AddDays(-9) };
+            var message1 = new Message { Id = -1, UserId = adminUserRole.UserId, ReceiverId = userUserRole.UserId, Text = "Hello there", Time = DateTime.Now.AddDays(-3) };
+            var message2 = new Message { Id = -2, UserId = userUserRole.UserId, ReceiverId = adminUserRole.UserId, Text = "Hello yourself", Time = DateTime.Now.AddDays(-9) };
 
             modelBuilder.Entity<Category>().HasData(category1);
             modelBuilder.Entity<Category>().HasData(category2);

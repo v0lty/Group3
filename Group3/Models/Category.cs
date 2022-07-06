@@ -5,7 +5,7 @@ namespace Group3.Models
 {
     public class Category
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [StringLength(200, MinimumLength = 1)]
         public string Name { get; set; }

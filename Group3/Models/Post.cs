@@ -1,12 +1,14 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Group3.Models
 {
     public class Post
     {
         [Key]
-        public string Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int Id { get; set; }
 
         public string UserId { get; set; }
 
@@ -19,11 +21,11 @@ namespace Group3.Models
 
         public Topic Topic { get; set; }
 
-        public string TopicId { get; set; }
+        public int TopicId { get; set; }
 
-        public string ReferenceId { get; set; }
+        // public int ReferenceId { get; set; }
 
-        public Post Reference { get; set; }
+        // public Post Reference { get; set; }
 
     }
 }

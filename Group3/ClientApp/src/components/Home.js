@@ -33,7 +33,18 @@ export class Home extends Component {
 
     onPostFormSubmit(e) {
         e.preventDefault();
-        console.log(e);
+        let value = e.target.elements['formText'].value;
+        console.log(value);
+        axios.post(this.baseURL + 'CreatePost', null, {
+            params: {
+                text: value
+            }
+        }).then((response) => {
+            console.log(response);
+        })
+            .catch((error) => {
+                alert(error + '\nMessage: ' + error.response.data.responseText);
+            });
     }
 
     render() {

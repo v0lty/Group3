@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Group3.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220706092626_Init")]
-    partial class Init
+    [Migration("20220706130532_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,15 +50,15 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "00fe3799-418d-42dc-888f-f01c84fbb94e",
-                            ConcurrencyStamp = "37e95675-3d92-44bf-8d8a-778bdb9b5916",
+                            Id = "3276ad5f-ab60-4ab7-9d3d-c0bdaabee84e",
+                            ConcurrencyStamp = "cc6d57c3-cc5a-460a-a3e3-f846d3fa42d5",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "53194d96-7e44-45a8-9475-906cc30ad0ba",
-                            ConcurrencyStamp = "768658a1-0725-44b6-908d-f221e8ce6c99",
+                            Id = "8345faff-e799-458e-ad6f-83086963d786",
+                            ConcurrencyStamp = "9288b918-9a23-4e81-96a1-ca85d9f90538",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -144,10 +144,10 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "26f03524-8c47-4581-9540-cd5714d6d503",
+                            Id = "f0078253-30b0-47cf-b00a-9966787e0f3d",
                             AccessFailedCount = 0,
                             Birthdate = new DateTime(1964, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "fbaebcb9-61be-4406-9649-a43d61d5ecae",
+                            ConcurrencyStamp = "3b8a3568-531d-4682-99c4-0b8faf0cbb79",
                             Email = "admin@fakemail.net",
                             EmailConfirmed = false,
                             FirstName = "John",
@@ -155,18 +155,18 @@ namespace Group3.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@FAKEMAIL.NET",
                             NormalizedUserName = "ADMIN@FAKEMAIL.NET",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHSTzL1SS4mCKISsaN++XuhJ5ncQ0M5h3n+MtDC3qzu2UhpBAv3qaaxMh/gXIDxo0g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKkMJG/2GvvxuEsLjdrNqqIGubnQ/lCjzDh5D7ESz++2svA3AZtmaK9x0tZ/2XbfVQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "49ec0080-eadd-4735-ab7c-1e040f95b749",
+                            SecurityStamp = "b102b616-bd0b-4624-a996-c77429e8bb50",
                             TwoFactorEnabled = false,
                             UserName = "admin@fakemail.net"
                         },
                         new
                         {
-                            Id = "cd2fbc12-ec6f-4261-8378-45481805ae11",
+                            Id = "022055ef-ed9a-4c70-bd79-2afb307ed29b",
                             AccessFailedCount = 0,
                             Birthdate = new DateTime(1993, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "74c88546-bde1-48f8-aec6-f9c56b32ca38",
+                            ConcurrencyStamp = "d2071da6-2129-4371-b519-9c7f02514f16",
                             Email = "user@fakemail.net",
                             EmailConfirmed = false,
                             FirstName = "Johan",
@@ -174,9 +174,9 @@ namespace Group3.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@FAKEMAIL.NET",
                             NormalizedUserName = "USER@FAKEMAIL.NET",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDgt1NNshKK9E47bhRRxdjbAwwEAu53UQPzTfl5NRVTJ1f4Z4cbFpaHSCR+KJE7ilA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJhmkd/g84wlfeJNjIBXMncUuTvyWs+4kGOS5YXpZEHK7a81aJO0nzwtZWf4mia2Cw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b872e466-e8b4-4c03-a549-6a1931ffc7e5",
+                            SecurityStamp = "0d8918ce-e00f-4d2f-bc6c-344b817da504",
                             TwoFactorEnabled = false,
                             UserName = "user@fakemail.net"
                         });
@@ -199,20 +199,22 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "26f03524-8c47-4581-9540-cd5714d6d503",
-                            RoleId = "00fe3799-418d-42dc-888f-f01c84fbb94e"
+                            UserId = "f0078253-30b0-47cf-b00a-9966787e0f3d",
+                            RoleId = "3276ad5f-ab60-4ab7-9d3d-c0bdaabee84e"
                         },
                         new
                         {
-                            UserId = "cd2fbc12-ec6f-4261-8378-45481805ae11",
-                            RoleId = "53194d96-7e44-45a8-9475-906cc30ad0ba"
+                            UserId = "022055ef-ed9a-4c70-bd79-2afb307ed29b",
+                            RoleId = "8345faff-e799-458e-ad6f-83086963d786"
                         });
                 });
 
             modelBuilder.Entity("Group3.Models.Category", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(200)")
@@ -229,20 +231,22 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2be600fc-fa7c-4e08-ac8f-c8217bd2cb42",
+                            Id = -1,
                             Name = "News"
                         },
                         new
                         {
-                            Id = "9e2e9f4e-abf2-43af-9b89-48fe9e63ea78",
+                            Id = -2,
                             Name = "Frontend"
                         });
                 });
 
             modelBuilder.Entity("Group3.Models.Message", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ReceiverId")
                         .HasColumnType("nvarchar(450)");
@@ -268,29 +272,26 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "49faa65a-d116-4767-b668-2153fb3c6bd6",
-                            ReceiverId = "cd2fbc12-ec6f-4261-8378-45481805ae11",
+                            Id = -1,
+                            ReceiverId = "022055ef-ed9a-4c70-bd79-2afb307ed29b",
                             Text = "Hello there",
-                            Time = new DateTime(2022, 7, 3, 11, 26, 26, 580, DateTimeKind.Local).AddTicks(8713),
-                            UserId = "26f03524-8c47-4581-9540-cd5714d6d503"
+                            Time = new DateTime(2022, 7, 3, 15, 5, 32, 175, DateTimeKind.Local).AddTicks(9504),
+                            UserId = "f0078253-30b0-47cf-b00a-9966787e0f3d"
                         },
                         new
                         {
-                            Id = "d63f79bc-e40c-4a73-96af-c36a9250e50a",
-                            ReceiverId = "26f03524-8c47-4581-9540-cd5714d6d503",
+                            Id = -2,
+                            ReceiverId = "f0078253-30b0-47cf-b00a-9966787e0f3d",
                             Text = "Hello yourself",
-                            Time = new DateTime(2022, 6, 27, 11, 26, 26, 580, DateTimeKind.Local).AddTicks(8876),
-                            UserId = "cd2fbc12-ec6f-4261-8378-45481805ae11"
+                            Time = new DateTime(2022, 6, 27, 15, 5, 32, 175, DateTimeKind.Local).AddTicks(9666),
+                            UserId = "022055ef-ed9a-4c70-bd79-2afb307ed29b"
                         });
                 });
 
             modelBuilder.Entity("Group3.Models.Post", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ReferenceId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)")
@@ -299,15 +300,13 @@ namespace Group3.Migrations
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("TopicId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("TopicId")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ReferenceId");
 
                     b.HasIndex("TopicId");
 
@@ -318,38 +317,39 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2cc189e8-f576-4762-a3cf-5bd781fb2172",
+                            Id = -1,
                             Text = "<b>Visual Studio 6.0</b> news news news more news",
-                            Time = new DateTime(2022, 7, 5, 11, 26, 26, 579, DateTimeKind.Local).AddTicks(3476),
-                            TopicId = "bd2321ec-13db-43da-9d6c-2d101a5034fe",
-                            UserId = "cd2fbc12-ec6f-4261-8378-45481805ae11"
+                            Time = new DateTime(2022, 7, 5, 15, 5, 32, 174, DateTimeKind.Local).AddTicks(194),
+                            TopicId = -1,
+                            UserId = "022055ef-ed9a-4c70-bd79-2afb307ed29b"
                         },
                         new
                         {
-                            Id = "ed682cc0-86ba-4ee0-bbfa-bfe75365703f",
+                            Id = -2,
                             Text = "What is header for?",
-                            Time = new DateTime(2022, 7, 4, 11, 26, 26, 580, DateTimeKind.Local).AddTicks(7852),
-                            TopicId = "66f2a57c-656f-4481-98b1-fb1097296514",
-                            UserId = "26f03524-8c47-4581-9540-cd5714d6d503"
+                            Time = new DateTime(2022, 7, 4, 15, 5, 32, 175, DateTimeKind.Local).AddTicks(8675),
+                            TopicId = -2,
+                            UserId = "f0078253-30b0-47cf-b00a-9966787e0f3d"
                         },
                         new
                         {
-                            Id = "8561c670-9786-458f-9d84-b8c3ec1932c9",
-                            ReferenceId = "ed682cc0-86ba-4ee0-bbfa-bfe75365703f",
+                            Id = -3,
                             Text = "HoW do I make a table?",
-                            Time = new DateTime(2022, 7, 1, 11, 26, 26, 580, DateTimeKind.Local).AddTicks(8118),
-                            TopicId = "66f2a57c-656f-4481-98b1-fb1097296514",
-                            UserId = "26f03524-8c47-4581-9540-cd5714d6d503"
+                            Time = new DateTime(2022, 7, 1, 15, 5, 32, 175, DateTimeKind.Local).AddTicks(8694),
+                            TopicId = -2,
+                            UserId = "f0078253-30b0-47cf-b00a-9966787e0f3d"
                         });
                 });
 
             modelBuilder.Entity("Group3.Models.Topic", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CategoryId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(1000)")
@@ -373,19 +373,19 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "bd2321ec-13db-43da-9d6c-2d101a5034fe",
-                            CategoryId = "2be600fc-fa7c-4e08-ac8f-c8217bd2cb42",
+                            Id = -1,
+                            CategoryId = -1,
                             Description = "Upgrade your project to 6.0",
                             Name = "Trending",
-                            UserId = "26f03524-8c47-4581-9540-cd5714d6d503"
+                            UserId = "f0078253-30b0-47cf-b00a-9966787e0f3d"
                         },
                         new
                         {
-                            Id = "66f2a57c-656f-4481-98b1-fb1097296514",
-                            CategoryId = "9e2e9f4e-abf2-43af-9b89-48fe9e63ea78",
+                            Id = -2,
+                            CategoryId = -2,
                             Description = "What ever about HTML",
                             Name = "HTML",
-                            UserId = "cd2fbc12-ec6f-4261-8378-45481805ae11"
+                            UserId = "022055ef-ed9a-4c70-bd79-2afb307ed29b"
                         });
                 });
 
@@ -506,13 +506,11 @@ namespace Group3.Migrations
 
             modelBuilder.Entity("Group3.Models.Post", b =>
                 {
-                    b.HasOne("Group3.Models.Post", "Reference")
-                        .WithMany()
-                        .HasForeignKey("ReferenceId");
-
                     b.HasOne("Group3.Models.Topic", "Topic")
                         .WithMany("Posts")
-                        .HasForeignKey("TopicId");
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("Group3.Models.ApplicationUser", "User")
                         .WithMany("Posts")
@@ -523,7 +521,9 @@ namespace Group3.Migrations
                 {
                     b.HasOne("Group3.Models.Category", "Category")
                         .WithMany("Topics")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Group3.Models.ApplicationUser", "User")
                         .WithMany()
