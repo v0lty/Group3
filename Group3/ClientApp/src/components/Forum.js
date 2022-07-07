@@ -20,7 +20,7 @@ export default function Forum() {
     }
 
     const updatePosts = async () => {
-        console.log('updatePosts');
+
         await axios.get(baseURL + 'GetAllPosts').then((response) => {         
             setPosts(JSON.parse(response.data));            
         }).catch((error) => {
