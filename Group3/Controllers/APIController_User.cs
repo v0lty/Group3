@@ -30,10 +30,22 @@ namespace Group3.Controllers
         {
             var result = await signInManager.PasswordSignInAsync(email, password, true, lockoutOnFailure: false);
             if (result.Succeeded) {
-                // User is null untill redirect forcing cookie to update
+                // User is null untill redirect that force cookie to update
                 // https://stackoverflow.com/questions/54706650/null-reference-exception-for-claimstype-in-identitycore-getting-claims-as-null
-                var user = await userManager.FindByEmailAsync(email);
-                return new JsonResult(user);
+                var user = dbContext.Users.Where(x => x.UserName == email).Select(user => new { // await userManager.FindByEmailAsync(email);
+                        user.Id,
+                        user.Name,
+                        user.UserName,
+                        Birthdate = user.Birthdate.ToShortDateString(),
+                        user.Email
+                    }).FirstOrDefault();
+
+                var userdata = JsonSerializer.Serialize(user, new JsonSerializerOptions() {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    WriteIndented = true,
+                });        
+
+                return new JsonResult(userdata);
             }            
             else {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;

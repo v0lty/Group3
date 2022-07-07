@@ -1,4 +1,5 @@
 ﻿import React, { Components, useEffect, useState } from 'react';
+import Button from 'react-bootstrap/Button';
 
 export const PostTable = props => {
     return (
@@ -10,7 +11,8 @@ export const PostTable = props => {
                     <th>Date</th>
                     <th>Category</th>
                     <th>Topic</th>
-                    <th>Text</th>                                    
+                    <th>Text</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,7 +24,8 @@ export const PostTable = props => {
                             <td>{post.Time}</td>
                             <td>{post.Topic.Category.Name}</td>
                             <td>{post.Topic.Name}</td>
-                            <td>{post.Text}</td>                                                   
+                            <td>{post.Text}</td>
+                            <td><Button className="" onClick={() => props.onDelete(post.Id)}>Delete</Button></td>
                         </tr>
                     )
                 }

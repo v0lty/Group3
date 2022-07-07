@@ -1,19 +1,39 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
+import Home from './components/Home';
+import Menu from './components/Menu';
+import Forum from './components/Forum';
+import Login from './components/Login';
 import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
-import { Forum } from './components/Forum';
+import { Container } from 'reactstrap';
+import { AuthContext } from "./components/Context";
+
 import './custom.css'
 
-export default class App extends Component {
-  static displayName = App.name;
+export default function App() {
+    const [user, setUser] = useState(null);
 
-  render () {
+    const signInHandler = (user) => {
+        setUser(user);
+    };
+
+    const signOutHandler = () => {
+        setUser(null);
+    };
+
     return (
-      <Layout>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/forum' component={Forum} />
-      </Layout>
+        <AuthContext.Provider value={{ signIn: signInHandler, signOut: signOutHandler, user: user }}>
+            <Menu />
+            <Container>
+                <Route exact path='/'>
+                    <Home />
+                </Route>
+                <Route exact path='/forum'>
+                    <Forum />
+                </Route>
+                <Route exact path='/login'>
+                    <Login />
+                </Route>
+            </Container>
+        </AuthContext.Provider>
     );
-  }
 }

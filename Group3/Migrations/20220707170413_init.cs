@@ -257,8 +257,8 @@ namespace Group3.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "0c27bee7-f210-4eef-800d-bdf33b708471", "bb845cfa-eec7-4d88-8b5c-11a1cbbe4d35", "Admin", "ADMIN" },
-                    { "177586fe-ab3a-441a-8e21-afc723d1f913", "9743ec50-fea1-40ed-9e57-4199624843c1", "User", "USER" }
+                    { "531a693e-770a-4ae3-a3b8-6aae1be433a3", "9a775122-28b3-495c-a6bc-ef44a6cba8da", "Admin", "ADMIN" },
+                    { "10e55a07-4839-443e-8f2a-036314c9dedc", "46a58639-f89c-4092-9b37-915533f48635", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -266,8 +266,8 @@ namespace Group3.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "Birthdate", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "6ba5f4ef-3506-403d-a538-37f0276ada55", 0, new DateTime(1964, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "4ffe7f4b-8e0c-4103-91a6-ecc7305de244", "admin@fakemail.net", false, "John", "Doe", false, null, "ADMIN@FAKEMAIL.NET", "ADMIN@FAKEMAIL.NET", "AQAAAAEAACcQAAAAEKc2QsXdfPYn1LhJcepGuNm9CGA5Mb1StPKbH7a2KabfvdFV7RZAd3D5ouASfwqgrg==", null, false, "8e3baf10-8891-42d5-9df2-f71feaf251ed", false, "admin@fakemail.net" },
-                    { "cc84e26b-5ab9-425c-bf0c-5252b1ad32d5", 0, new DateTime(1993, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), "605c6897-8474-4da6-808d-fe321676ff03", "user@fakemail.net", false, "Johan", "Svensson", false, null, "USER@FAKEMAIL.NET", "USER@FAKEMAIL.NET", "AQAAAAEAACcQAAAAEAXxFDacEHIPm+wBAQ2DWBSqfu6U7WKyacep/XfKGOzz8MVm5gAoRH/j+Ifel+w87Q==", null, false, "5a955b85-02d9-45fb-8595-12bba6e33048", false, "user@fakemail.net" }
+                    { "46d13e82-601c-4688-9bac-2c7edef996a6", 0, new DateTime(1964, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "1e942333-0247-4246-9d63-7a72630a8585", "admin@fakemail.net", false, "John", "Doe", false, null, "ADMIN@FAKEMAIL.NET", "ADMIN@FAKEMAIL.NET", "AQAAAAEAACcQAAAAEGFgTskkbUvRRb3GaV0TqMVs6GFKCsNbe38AinIjmXEo4ln/kzwggOXctSCKivhh5Q==", null, false, "735232e8-1c47-4276-80cf-6b02a31611fa", false, "admin@fakemail.net" },
+                    { "9faa5975-508c-467c-82ef-054625c852b1", 0, new DateTime(1993, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), "d74a2230-5ddd-4185-8d13-2f12e9d507e1", "user@fakemail.net", false, "Johan", "Svensson", false, null, "USER@FAKEMAIL.NET", "USER@FAKEMAIL.NET", "AQAAAAEAACcQAAAAEGdvq6Ph5rjYcQsthaqbBD5v1iKI2IPPIrQg3s9ixIg9DYW8/2c/RfyvQ0CVlxKoGw==", null, false, "e26028f3-2d95-4112-bc41-75701a6da30f", false, "user@fakemail.net" }
                 });
 
             migrationBuilder.InsertData(
@@ -284,8 +284,8 @@ namespace Group3.Migrations
                 columns: new[] { "UserId", "RoleId" },
                 values: new object[,]
                 {
-                    { "6ba5f4ef-3506-403d-a538-37f0276ada55", "0c27bee7-f210-4eef-800d-bdf33b708471" },
-                    { "cc84e26b-5ab9-425c-bf0c-5252b1ad32d5", "177586fe-ab3a-441a-8e21-afc723d1f913" }
+                    { "46d13e82-601c-4688-9bac-2c7edef996a6", "531a693e-770a-4ae3-a3b8-6aae1be433a3" },
+                    { "9faa5975-508c-467c-82ef-054625c852b1", "10e55a07-4839-443e-8f2a-036314c9dedc" }
                 });
 
             migrationBuilder.InsertData(
@@ -293,8 +293,8 @@ namespace Group3.Migrations
                 columns: new[] { "Id", "ReceiverId", "Text", "Time", "UserId" },
                 values: new object[,]
                 {
-                    { -1, "cc84e26b-5ab9-425c-bf0c-5252b1ad32d5", "Hello there", new DateTime(2022, 7, 3, 18, 24, 36, 248, DateTimeKind.Local).AddTicks(1661), "6ba5f4ef-3506-403d-a538-37f0276ada55" },
-                    { -2, "6ba5f4ef-3506-403d-a538-37f0276ada55", "Hello yourself", new DateTime(2022, 6, 27, 18, 24, 36, 248, DateTimeKind.Local).AddTicks(1945), "cc84e26b-5ab9-425c-bf0c-5252b1ad32d5" }
+                    { -1, "9faa5975-508c-467c-82ef-054625c852b1", "Hello there", new DateTime(2022, 7, 4, 19, 4, 12, 895, DateTimeKind.Local).AddTicks(6776), "46d13e82-601c-4688-9bac-2c7edef996a6" },
+                    { -2, "46d13e82-601c-4688-9bac-2c7edef996a6", "Hello yourself", new DateTime(2022, 6, 28, 19, 4, 12, 895, DateTimeKind.Local).AddTicks(7053), "9faa5975-508c-467c-82ef-054625c852b1" }
                 });
 
             migrationBuilder.InsertData(
@@ -302,24 +302,24 @@ namespace Group3.Migrations
                 columns: new[] { "Id", "CategoryId", "Description", "Name", "UserId" },
                 values: new object[,]
                 {
-                    { -1, -1, "Upgrade your project to 6.0", "Trending", "6ba5f4ef-3506-403d-a538-37f0276ada55" },
-                    { -2, -2, "What ever about HTML", "HTML", "cc84e26b-5ab9-425c-bf0c-5252b1ad32d5" }
+                    { -1, -1, "Upgrade your project to 6.0", "Trending", "46d13e82-601c-4688-9bac-2c7edef996a6" },
+                    { -2, -2, "What ever about HTML", "HTML", "9faa5975-508c-467c-82ef-054625c852b1" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Posts",
                 columns: new[] { "Id", "Text", "Time", "TopicId", "UserId" },
-                values: new object[] { -1, "<b>Visual Studio 6.0</b> news news news more news", new DateTime(2022, 7, 5, 18, 24, 36, 245, DateTimeKind.Local).AddTicks(9939), -1, "cc84e26b-5ab9-425c-bf0c-5252b1ad32d5" });
+                values: new object[] { -1, "<b>Visual Studio 6.0</b> news news news more news", new DateTime(2022, 7, 6, 19, 4, 12, 893, DateTimeKind.Local).AddTicks(710), -1, "9faa5975-508c-467c-82ef-054625c852b1" });
 
             migrationBuilder.InsertData(
                 table: "Posts",
                 columns: new[] { "Id", "Text", "Time", "TopicId", "UserId" },
-                values: new object[] { -2, "What is header for?", new DateTime(2022, 7, 4, 18, 24, 36, 248, DateTimeKind.Local).AddTicks(404), -2, "6ba5f4ef-3506-403d-a538-37f0276ada55" });
+                values: new object[] { -2, "What is header for?", new DateTime(2022, 7, 5, 19, 4, 12, 895, DateTimeKind.Local).AddTicks(5528), -2, "46d13e82-601c-4688-9bac-2c7edef996a6" });
 
             migrationBuilder.InsertData(
                 table: "Posts",
                 columns: new[] { "Id", "Text", "Time", "TopicId", "UserId" },
-                values: new object[] { -3, "HoW do I make a table?", new DateTime(2022, 7, 1, 18, 24, 36, 248, DateTimeKind.Local).AddTicks(433), -2, "6ba5f4ef-3506-403d-a538-37f0276ada55" });
+                values: new object[] { -3, "HoW do I make a table?", new DateTime(2022, 7, 2, 19, 4, 12, 895, DateTimeKind.Local).AddTicks(5559), -2, "46d13e82-601c-4688-9bac-2c7edef996a6" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

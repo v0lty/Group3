@@ -1,12 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
+import { AuthContext } from "./Context";
 
-export class Home extends Component {
+export default function Home() {
+    const authContext = useContext(AuthContext);
 
-    render() {
-        return (
-            <div>
-                <h1>Hello..</h1>
-            </div>
-        );
-    }
+    return (
+        <div>
+            {authContext.user == null && (
+                <div>
+                    <h3>Hello stranger..</h3>
+                </div>
+            )}
+            {authContext.user != null && (
+                <div>
+                    <h3>Welcome {authContext?.user?.Name}!</h3>
+                    <a>Id: {authContext?.user?.Id}</a><br/>
+                    <a>Email: {authContext?.user?.Email}</a><br />
+                    <a>Birthdate: {authContext?.user?.Birthdate}</a><br />
+                </div>
+            )}
+        </div>
+    );
 }

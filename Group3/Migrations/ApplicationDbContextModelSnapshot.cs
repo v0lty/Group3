@@ -48,15 +48,15 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0c27bee7-f210-4eef-800d-bdf33b708471",
-                            ConcurrencyStamp = "bb845cfa-eec7-4d88-8b5c-11a1cbbe4d35",
+                            Id = "531a693e-770a-4ae3-a3b8-6aae1be433a3",
+                            ConcurrencyStamp = "9a775122-28b3-495c-a6bc-ef44a6cba8da",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "177586fe-ab3a-441a-8e21-afc723d1f913",
-                            ConcurrencyStamp = "9743ec50-fea1-40ed-9e57-4199624843c1",
+                            Id = "10e55a07-4839-443e-8f2a-036314c9dedc",
+                            ConcurrencyStamp = "46a58639-f89c-4092-9b37-915533f48635",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -142,10 +142,10 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6ba5f4ef-3506-403d-a538-37f0276ada55",
+                            Id = "46d13e82-601c-4688-9bac-2c7edef996a6",
                             AccessFailedCount = 0,
                             Birthdate = new DateTime(1964, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "4ffe7f4b-8e0c-4103-91a6-ecc7305de244",
+                            ConcurrencyStamp = "1e942333-0247-4246-9d63-7a72630a8585",
                             Email = "admin@fakemail.net",
                             EmailConfirmed = false,
                             FirstName = "John",
@@ -153,18 +153,18 @@ namespace Group3.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@FAKEMAIL.NET",
                             NormalizedUserName = "ADMIN@FAKEMAIL.NET",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKc2QsXdfPYn1LhJcepGuNm9CGA5Mb1StPKbH7a2KabfvdFV7RZAd3D5ouASfwqgrg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGFgTskkbUvRRb3GaV0TqMVs6GFKCsNbe38AinIjmXEo4ln/kzwggOXctSCKivhh5Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8e3baf10-8891-42d5-9df2-f71feaf251ed",
+                            SecurityStamp = "735232e8-1c47-4276-80cf-6b02a31611fa",
                             TwoFactorEnabled = false,
                             UserName = "admin@fakemail.net"
                         },
                         new
                         {
-                            Id = "cc84e26b-5ab9-425c-bf0c-5252b1ad32d5",
+                            Id = "9faa5975-508c-467c-82ef-054625c852b1",
                             AccessFailedCount = 0,
                             Birthdate = new DateTime(1993, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "605c6897-8474-4da6-808d-fe321676ff03",
+                            ConcurrencyStamp = "d74a2230-5ddd-4185-8d13-2f12e9d507e1",
                             Email = "user@fakemail.net",
                             EmailConfirmed = false,
                             FirstName = "Johan",
@@ -172,9 +172,9 @@ namespace Group3.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@FAKEMAIL.NET",
                             NormalizedUserName = "USER@FAKEMAIL.NET",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAXxFDacEHIPm+wBAQ2DWBSqfu6U7WKyacep/XfKGOzz8MVm5gAoRH/j+Ifel+w87Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGdvq6Ph5rjYcQsthaqbBD5v1iKI2IPPIrQg3s9ixIg9DYW8/2c/RfyvQ0CVlxKoGw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5a955b85-02d9-45fb-8595-12bba6e33048",
+                            SecurityStamp = "e26028f3-2d95-4112-bc41-75701a6da30f",
                             TwoFactorEnabled = false,
                             UserName = "user@fakemail.net"
                         });
@@ -197,13 +197,13 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "6ba5f4ef-3506-403d-a538-37f0276ada55",
-                            RoleId = "0c27bee7-f210-4eef-800d-bdf33b708471"
+                            UserId = "46d13e82-601c-4688-9bac-2c7edef996a6",
+                            RoleId = "531a693e-770a-4ae3-a3b8-6aae1be433a3"
                         },
                         new
                         {
-                            UserId = "cc84e26b-5ab9-425c-bf0c-5252b1ad32d5",
-                            RoleId = "177586fe-ab3a-441a-8e21-afc723d1f913"
+                            UserId = "9faa5975-508c-467c-82ef-054625c852b1",
+                            RoleId = "10e55a07-4839-443e-8f2a-036314c9dedc"
                         });
                 });
 
@@ -271,18 +271,18 @@ namespace Group3.Migrations
                         new
                         {
                             Id = -1,
-                            ReceiverId = "cc84e26b-5ab9-425c-bf0c-5252b1ad32d5",
+                            ReceiverId = "9faa5975-508c-467c-82ef-054625c852b1",
                             Text = "Hello there",
-                            Time = new DateTime(2022, 7, 3, 18, 24, 36, 248, DateTimeKind.Local).AddTicks(1661),
-                            UserId = "6ba5f4ef-3506-403d-a538-37f0276ada55"
+                            Time = new DateTime(2022, 7, 4, 19, 4, 12, 895, DateTimeKind.Local).AddTicks(6776),
+                            UserId = "46d13e82-601c-4688-9bac-2c7edef996a6"
                         },
                         new
                         {
                             Id = -2,
-                            ReceiverId = "6ba5f4ef-3506-403d-a538-37f0276ada55",
+                            ReceiverId = "46d13e82-601c-4688-9bac-2c7edef996a6",
                             Text = "Hello yourself",
-                            Time = new DateTime(2022, 6, 27, 18, 24, 36, 248, DateTimeKind.Local).AddTicks(1945),
-                            UserId = "cc84e26b-5ab9-425c-bf0c-5252b1ad32d5"
+                            Time = new DateTime(2022, 6, 28, 19, 4, 12, 895, DateTimeKind.Local).AddTicks(7053),
+                            UserId = "9faa5975-508c-467c-82ef-054625c852b1"
                         });
                 });
 
@@ -319,25 +319,25 @@ namespace Group3.Migrations
                         {
                             Id = -1,
                             Text = "<b>Visual Studio 6.0</b> news news news more news",
-                            Time = new DateTime(2022, 7, 5, 18, 24, 36, 245, DateTimeKind.Local).AddTicks(9939),
+                            Time = new DateTime(2022, 7, 6, 19, 4, 12, 893, DateTimeKind.Local).AddTicks(710),
                             TopicId = -1,
-                            UserId = "cc84e26b-5ab9-425c-bf0c-5252b1ad32d5"
+                            UserId = "9faa5975-508c-467c-82ef-054625c852b1"
                         },
                         new
                         {
                             Id = -2,
                             Text = "What is header for?",
-                            Time = new DateTime(2022, 7, 4, 18, 24, 36, 248, DateTimeKind.Local).AddTicks(404),
+                            Time = new DateTime(2022, 7, 5, 19, 4, 12, 895, DateTimeKind.Local).AddTicks(5528),
                             TopicId = -2,
-                            UserId = "6ba5f4ef-3506-403d-a538-37f0276ada55"
+                            UserId = "46d13e82-601c-4688-9bac-2c7edef996a6"
                         },
                         new
                         {
                             Id = -3,
                             Text = "HoW do I make a table?",
-                            Time = new DateTime(2022, 7, 1, 18, 24, 36, 248, DateTimeKind.Local).AddTicks(433),
+                            Time = new DateTime(2022, 7, 2, 19, 4, 12, 895, DateTimeKind.Local).AddTicks(5559),
                             TopicId = -2,
-                            UserId = "6ba5f4ef-3506-403d-a538-37f0276ada55"
+                            UserId = "46d13e82-601c-4688-9bac-2c7edef996a6"
                         });
                 });
 
@@ -377,7 +377,7 @@ namespace Group3.Migrations
                             CategoryId = -1,
                             Description = "Upgrade your project to 6.0",
                             Name = "Trending",
-                            UserId = "6ba5f4ef-3506-403d-a538-37f0276ada55"
+                            UserId = "46d13e82-601c-4688-9bac-2c7edef996a6"
                         },
                         new
                         {
@@ -385,7 +385,7 @@ namespace Group3.Migrations
                             CategoryId = -2,
                             Description = "What ever about HTML",
                             Name = "HTML",
-                            UserId = "cc84e26b-5ab9-425c-bf0c-5252b1ad32d5"
+                            UserId = "9faa5975-508c-467c-82ef-054625c852b1"
                         });
                 });
 

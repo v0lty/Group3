@@ -1,68 +1,82 @@
-﻿import React, { Component } from 'react';
-import axios from 'axios'
+﻿import React, { useState, useContext, useEffect  } from 'react';
 import { PostTable } from './PostTable'
 import { PostForm } from './PostForm'
+import { AuthContext } from "./Context";
+import axios from 'axios'
 
-export class Forum extends Component {
+export default function Forum() {
+    const authContext = useContext(AuthContext);
+    const [posts, setPosts] = useState([]);
+    const [topics, setTopics] = useState([]);
+    const baseURL = 'http://localhost:13021/API/';
 
-    baseURL = 'http://localhost:13021/API/';
-
-    constructor(props) {
-        super(props);
-        this.state = { posts: [], topics: [] };
-        this.updatePosts = this.updatePosts.bind(this);
-        this.updateTopics = this.updateTopics.bind(this);
-        this.onPostFormSubmit = this.onPostFormSubmit.bind(this);
-    }
-        
-    componentDidMount() {
-        this.updatePosts();
-        this.updateTopics();
-    }
-
-    async updateTopics() {
-        await axios.get(this.baseURL + 'GetAllTopics').then((response) => {
-            if (response.status == 200) {
-                this.setState({ topics: JSON.parse(response.data) });
-            }
+    const updateTopics = async () => {
+        await axios.get(baseURL + 'GetAllTopics').then((response) => {
+            setTopics(JSON.parse(response.data));           
         }).catch((error) => {
             alert(error + '\nMessage: ' + error.response.data.responseText);
-            this.setState({ topics: null });
+            setTopics([]);
         });
     }
 
-    async updatePosts() {
-        await axios.get(this.baseURL + 'GetAllPosts').then((response) => {
-            if (response.status == 200) {
-                this.setState({ posts: JSON.parse(response.data) });
-            }
+    const updatePosts = async () => {
+        console.log('updatePosts');
+        await axios.get(baseURL + 'GetAllPosts').then((response) => {         
+            setPosts(JSON.parse(response.data));            
         }).catch((error) => {
             alert(error + '\nMessage: ' + error.response.data.responseText);
-            this.setState({ posts: null });
+            setPosts([]);
         });
     }
 
-    onPostFormSubmit(e) {
+    useEffect(() => {
+        updateTopics();
+        updatePosts();
+    }, [])
+
+    const onFormSubmit = async (e) => {
         e.preventDefault();
+
+        if (authContext.user == null) {
+            alert("You need to sign in first!");
+            return;
+        }
         
-        axios.post(this.baseURL + 'CreatePost', null, {
+        axios.post(baseURL + 'CreatePost', null, {
             params: {
                 text: e.target.elements['formText'].value,
+                userId: authContext.user.Id,
                 topicId: e.target.elements['formTopic'].value
             }
         }).then((response) => {
-            this.updatePosts();
+            updatePosts();
         }).catch((error) => {
             alert(error + '\nMessage: ' + error.response.data.responseText);
         });
     }
 
-    render() {
-        return (
-            <div>
-                <PostForm topics={this.state.topics} onSubmit={this.onPostFormSubmit} />
-                <PostTable posts={this.state.posts} />
-            </div>
-        );
+    const onFormDelete = async (id) => {
+
+        if (authContext.user == null) {
+            alert("You need to sign in first!");
+            return;
+        }
+
+        axios.post(baseURL + 'DeletePost', null, {
+            params: {
+                postId: id,
+            }
+        }).then((response) => {
+            updatePosts();
+        }).catch((error) => {
+            alert(error + '\nMessage: ' + error.response.data.responseText);
+        });
     }
+
+    return (
+        <div>
+            <PostForm topics={topics} onSubmit={onFormSubmit} />
+            <PostTable posts={posts} onDelete={onFormDelete} />
+        </div>
+    );
 }

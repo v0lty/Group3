@@ -4,8 +4,8 @@ Solution Explorer:
 Execute in Packet Manager Console:
 -> sqllocaldb stop
 -> sqllocaldb delete
-Remove C:\Users\%USER%\MyDB.mdf
-Remove C:\Users\%USER%\MyDB_log.ldf
+Remove C:\Users\%USERNAME%\MyDB.mdf
+Remove C:\Users\%USERNAME%\MyDB_log.ldf
 
 UPDATE DATABSE: 
 Execute in Packet Manager Console:

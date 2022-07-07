@@ -28,12 +28,6 @@ namespace Group3.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Category>().HasKey(c => new { c.Id });
-            modelBuilder.Entity<Topic>().HasKey(t => new { t.Id });
-            modelBuilder.Entity<Post>().HasKey(p => new { p.Id });
-            modelBuilder.Entity<Message>().HasKey(m => new { m.Id });
-            modelBuilder.Entity<ApplicationUser>().HasKey(u => new { u.Id });
-
             modelBuilder.Entity<ApplicationUser>()
                 .HasMany(user => user.Posts)
                 .WithOne(post => post.User)

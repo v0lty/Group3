@@ -50,12 +50,12 @@ namespace Group3.Controllers
 
         [HttpPost]
         [Route("CreatePost")]
-        public async Task<JsonResult> CreatePost(string topicId, string text)
+        public async Task<JsonResult> CreatePost(string userId, string topicId, string text)
         {
             var post = new Post {
                 Text = text,
                 Time = DateTime.Now,
-                User = dbContext.Users.ToArray()[new Random().Next(0, dbContext.Users.Count<ApplicationUser>())], // random user 
+                User = await dbContext.Users.FindAsync(userId), 
                 Topic = await dbContext.Topics.FindAsync(int.Parse(topicId))
             };        
 
@@ -65,6 +65,29 @@ namespace Group3.Controllers
                 return new JsonResult(post);
             }
             catch (Exception ex) {
+                // Response.StatusCode != 200(OK) will raise an error in axios.post that invokes the .catch() block
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                // This sets response.data.responseText that gives more detailed info
+                return new JsonResult(new { Success = "False", responseText = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("DeletePost")]
+        public async Task<JsonResult> DeletePost(string postId)
+        {
+            try {
+                var post = await dbContext.Posts.FindAsync(int.Parse(postId));
+                if (post == null)
+                    throw new Exception("Post not found.");
+
+                dbContext.Posts.Remove(post);
+                dbContext.SaveChanges();
+
+                return new JsonResult(null);
+            }
+            catch (Exception ex)
+            {
                 // Response.StatusCode != 200(OK) will raise an error in axios.post that invokes the .catch() block
                 Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
                 // This sets response.data.responseText that gives more detailed info

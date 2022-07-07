@@ -1,13 +1,16 @@
-﻿import React, { Components, useEffect, useState } from 'react';
+﻿import React, { Components, useEffect, useState, useContext } from 'react';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
+import { AuthContext } from "./Context";
 
-export function PostForm(props) {    
+export function PostForm(props) {
+    const authContext = useContext(AuthContext);
+
     return (
         <Form onSubmit={props.onSubmit}>
             <Form.Group className="m-2" controlId="formTopic">
                 <Form.Label>Topic</Form.Label>
-                <Form.Select className="p-2 border border-secondary rounded w-100" defaultValue='0' required>
+                <Form.Select className="p-2 border border-info rounded w-100" defaultValue='0' required>
                     {props.topics?.map((topic, index) =>
                         <option key={topic.Id} value={topic.Id}>{topic.Name}</option>
                     )}
