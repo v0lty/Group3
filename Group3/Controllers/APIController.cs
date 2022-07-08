@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Group3.Controllers
 {
+    // Use [Authorize(Roles = "Admin")] to limit access for a certain role
+
     // CONSTRUCTOR & GENERAL
     [ApiController]
     [Route("[controller]")]
