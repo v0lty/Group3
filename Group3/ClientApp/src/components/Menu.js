@@ -1,14 +1,24 @@
 import React, { useState, useContext } from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import './Menu.css';
 import { AuthContext } from "./Context";
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { useHistory } from "react-router-dom";
 
 export default function Menu() {
     const authContext = useContext(AuthContext);
-    const [collapsed, setCollapsed] = useState(false);   
+    const [collapsed, setCollapsed] = useState(true);   
+    const history = useHistory();
+
+    function routeChange(path) {
+        history.push(path);
+    }
+
+    function logout() {
+        authContext.signOut();
+        routeChange('/');
+    }
 
     return (
         <header>
@@ -19,21 +29,21 @@ export default function Menu() {
                     <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!collapsed} navbar>
                         <ul className="navbar-nav flex-grow">
                             <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                                <NavLink tag={Link} to="/">Home</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/forum">Forum</NavLink>
+                                <NavLink tag={Link} to="/forum">Forum</NavLink>
                             </NavItem>
                             <NavItem>
                                 {authContext.user == null && (
-                                    <NavLink tag={Link} className="text-dark" to="/login">Login</NavLink>
+                                    <NavLink tag={Link} to="/login">Login</NavLink>
                                 )}
                                 {authContext.user != null && (
                                     <DropdownButton variant="light" title={authContext?.user.Email} id="userButton">
-                                        <Dropdown.Item>Profile</Dropdown.Item>
-                                        <Dropdown.Item>Messages</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => routeChange('/profile')}>Profile</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => routeChange('/messages')}>Messages</Dropdown.Item>
                                         <Dropdown.Divider />
-                                        <Dropdown.Item onClick={authContext.signOut}>Logout</Dropdown.Item>
+                                        <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
                                     </DropdownButton>
                                 )}   
                             </NavItem>

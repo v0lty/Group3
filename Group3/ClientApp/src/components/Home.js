@@ -1,4 +1,5 @@
 import React, { Component, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from "./Context";
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
             {authContext.user == null && (
                 <div>
                     <h3>Hello stranger..</h3>
+                    <Link to="/login">Login</Link>
                 </div>
             )}
             {authContext.user != null && (

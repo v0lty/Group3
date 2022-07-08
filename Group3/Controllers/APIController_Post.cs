@@ -83,14 +83,11 @@ namespace Group3.Controllers
 
                 dbContext.Posts.Remove(post);
                 dbContext.SaveChanges();
-
                 return new JsonResult(null);
             }
             catch (Exception ex)
             {
-                // Response.StatusCode != 200(OK) will raise an error in axios.post that invokes the .catch() block
                 Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
-                // This sets response.data.responseText that gives more detailed info
                 return new JsonResult(new { Success = "False", responseText = ex.Message });
             }
         }
