@@ -1,4 +1,5 @@
 ﻿using Group3.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -72,6 +73,7 @@ namespace Group3.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [Route("DeletePost")]
         public async Task<JsonResult> DeletePost(string postId)

@@ -21,8 +21,7 @@ export default function App() {
         }).catch((error) => {
             setUser(null);
         });
-    }
-
+    }    
     const signOut = async () => {
         await axios.get('http://localhost:13021/API/SignOut').then((response) => {
         }).catch((error) => {
@@ -31,6 +30,7 @@ export default function App() {
     }
 
     useEffect(() => {
+        // TODO: await function
         getUser();
     }, [])
 
