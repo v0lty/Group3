@@ -1,7 +1,7 @@
 ﻿import React, { Components, useEffect, useState, useContext } from 'react';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
-import { AuthContext } from "./Context";
+import { AuthContext } from "./UserAuthentication";
 
 export function PostForm(props) {
     const authContext = useContext(AuthContext);

@@ -13,11 +13,15 @@ namespace Group3.Controllers
     // USER RELATED FUNCTIONS
     public partial class APIController : Controller
     {
+        /// <summary>
+        /// Check if a User cookie exist before attempting to Sign in. No error should be thrown here.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        [Route("GetUser")]
-        public JsonResult GetUser()
-        {
-            var user = dbContext.Users.Include(u => u.Posts).Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+        [Route("QueryCurrentUser")]       
+        public JsonResult QueryCurrentUser()
+        {           
+            var user = dbContext.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
             if (user != null) {
 
                 var userdata = JsonSerializer.Serialize(user, new JsonSerializerOptions() {
@@ -27,10 +31,8 @@ namespace Group3.Controllers
 
                 return new JsonResult(userdata);
             }
-            else {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
-                return new JsonResult(new { Success = "False", responseText = string.Format($"User is not signed in or cookie is not set yet.'") });
-            }
+
+            return new JsonResult(null);
         }
 
         [HttpPost]

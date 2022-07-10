@@ -1,7 +1,7 @@
 ﻿import React, { useState, useContext, useEffect  } from 'react';
 import { PostTable } from './PostTable'
 import { PostForm } from './PostForm'
-import { AuthContext } from "./Context";
+import { AuthContext } from "./UserAuthentication";
 import axios from 'axios'
 
 export default function Forum() {

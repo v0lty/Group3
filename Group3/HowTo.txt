@@ -1,4 +1,4 @@
-﻿DELETE DATABASE:
+﻿DELETE LOCAL DATABASE:
 Solution Explorer:
 -> Remove 'Migrations' folder
 Execute in Packet Manager Console:
@@ -7,7 +7,18 @@ Execute in Packet Manager Console:
 Remove C:\Users\%USERNAME%\MyDB.mdf
 Remove C:\Users\%USERNAME%\MyDB_log.ldf
 
-UPDATE DATABSE: 
+DELETE REMOTE DATABASE:
+freeasphosting.net
+User: group3
+Pass: group3
+-> Manage Databases
+-> Remove Database (group3_test)
+-> Add Database:
+name: group3_test
+user: group3_test
+pass: group3_test
+
+UPDATE DATABASE: 
 Execute in Packet Manager Console:
 -> Add-Migration 'name'
 -> Update-Database
@@ -16,8 +27,10 @@ INSTALL NPM, AXIOS, BOOTSTRAP:
 Right-Click on ClientApp folder -> 'Open In Terminal' 
 Execute in Developer PowerShell:
 -> npm install
+-> npm install eslint-plugin-react-hooks@next
 -> npm install axios
 -> npm install react-bootstrap bootstrap
+-> npm install --save bootstrap@5
 
 LIBRARIES:
 .NET 6.0
