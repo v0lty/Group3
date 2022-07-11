@@ -20,6 +20,8 @@ namespace Group3.Data
 
         public DbSet<Message> Messages { get; set; }
 
+        public DbSet<Picture> Pictures { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
@@ -43,6 +45,16 @@ namespace Group3.Data
                 .HasOne(topic => topic.Category)
                 .WithMany(category => category.Topics)
                 .HasForeignKey(topic => topic.CategoryId);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(user => user.Pictures)
+                .WithOne(picture => picture.User)
+                .HasForeignKey(picture => picture.UserId);
+
+            modelBuilder.Entity<Post>()
+                .HasMany(post => post.Pictures)
+                .WithOne(picture => picture.Post)
+                .HasForeignKey(picture => picture.PostId);
 
             modelBuilder.Entity<ApplicationUserRole>(userRole =>
             {
@@ -69,7 +81,7 @@ namespace Group3.Data
             modelBuilder.Entity<ApplicationUserRole>().HasData(adminUserRole);
             modelBuilder.Entity<ApplicationUserRole>().HasData(userUserRole);
 
-            modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser()
+            var user1 = new ApplicationUser()
             {
                 Id = adminUserRole.UserId,
                 Email = "admin@fakemail.net",
@@ -80,9 +92,9 @@ namespace Group3.Data
                 LastName = "Doe",
                 Birthdate = new DateTime(1964, 07, 15),
                 PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "password")
-            });
+            };
 
-            modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser()
+            var user2 = new ApplicationUser()
             {
                 Id = userUserRole.UserId,
                 Email = "user@fakemail.net",
@@ -93,7 +105,11 @@ namespace Group3.Data
                 LastName = "Svensson",
                 Birthdate = new DateTime(1993, 10, 18),
                 PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "password")
-            });
+            };
+
+            modelBuilder.Entity<ApplicationUser>().HasData(user1);
+
+            modelBuilder.Entity<ApplicationUser>().HasData(user2);
 
             var category1 = new Category { Id = -1, Name = "News" };
             var category2 = new Category { Id = -2, Name = "Frontend" };
@@ -105,12 +121,17 @@ namespace Group3.Data
             var topic3 = new Topic { Id = -3, Name = "CSS", Description = "Do it with style", CategoryId = category2.Id, UserId = userUserRole.UserId };
             var topic4 = new Topic { Id = -4, Name = "Entity Framework", Description = "Your prefered database", CategoryId = category3.Id, UserId = userUserRole.UserId };
 
-            var post1 = new Post { Id = -1, Text = "<b>Visual Studio 6.0</b> news news news more news", Time = DateTime.Now.AddDays(-1), TopicId = topic1.Id, UserId = userUserRole.UserId };
-            var post2 = new Post { Id = -2, Text = "What is header for?", Time = DateTime.Now.AddDays(-2), TopicId = topic2.Id, UserId = adminUserRole.UserId };
-            var post3 = new Post { Id = -3, Text = "HoW do I make a table?", Time = DateTime.Now.AddDays(-5), TopicId = topic2.Id, UserId = adminUserRole.UserId };
+            var post1 = new Post { Id = -1, Text = "<b>Visual Studio 6.0</b> news news news more news", Time = DateTime.Now.AddDays(-1), TopicId = topic1.Id, UserId = user2.Id };
+            var post2 = new Post { Id = -2, Text = "My head is empty, should I fill it with something?", Time = DateTime.Now.AddDays(-2), TopicId = topic2.Id, UserId = user1.Id };
+            var post3 = new Post { Id = -3, Text = "HoW do I make a table?", Time = DateTime.Now.AddDays(-5), TopicId = topic2.Id, UserId = user1.Id };
 
-            var message1 = new Message { Id = -1, UserId = adminUserRole.UserId, ReceiverId = userUserRole.UserId, Text = "Hello there", Time = DateTime.Now.AddDays(-3) };
-            var message2 = new Message { Id = -2, UserId = userUserRole.UserId, ReceiverId = adminUserRole.UserId, Text = "Hello yourself", Time = DateTime.Now.AddDays(-9) };
+            var message1 = new Message { Id = -1, UserId = user1.Id, ReceiverId = user2.Id, Text = "Hello there", Time = DateTime.Now.AddDays(-3) };
+            var message2 = new Message { Id = -2, UserId = user2.Id, ReceiverId = user1.Id, Text = "Hello yourself", Time = DateTime.Now.AddDays(-9) };
+
+            var picture1 = new Picture { Id = -1, Path = string.Format($"Pictures/{user1.Email}/picture1.jpg"), UserId = user1.Id, PostId = null };
+            var picture2 = new Picture { Id = -2, Path = string.Format($"Pictures/{user2.Email}/abc.jpg"), UserId = user2.Id, PostId = null };
+            var picture3 = new Picture { Id = -3, Path = string.Format($"Pictures/{user1.Email}/postPic1.jpg"), UserId = user1.Id, PostId = post1.Id };
+            var picture4 = new Picture { Id = -4, Path = string.Format($"Pictures/{user2.Email}/postPic2.jpg"), UserId = user2.Id, PostId = post2.Id };
 
             modelBuilder.Entity<Category>().HasData(category1);
             modelBuilder.Entity<Category>().HasData(category2);

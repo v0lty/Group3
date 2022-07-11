@@ -25,5 +25,7 @@ namespace Group3.Models
 
         public List<Post> Posts { get; set; }
 
+        public List<Picture> Pictures { get; set; }
+
     }
 }
