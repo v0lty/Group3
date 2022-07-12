@@ -7,3 +7,11 @@
 .modal {
     padding-top: 10rem;
 }
+
+.sidenav {
+    left: 0 !important;
+    top: 0 !important;
+    z-index: 1000;
+    overflow-x: hidden !important;
+    width: 160px !important;
+}

@@ -19,6 +19,8 @@ export default function Forum() {
         API.getAllPosts().then((posts) => {
             setPosts(posts);
         });
+
+        API.getAllCategories()
     }
 
     useEffect(() => {

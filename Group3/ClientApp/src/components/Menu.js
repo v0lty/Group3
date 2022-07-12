@@ -70,7 +70,7 @@ export default function Menu() {
                 </Modal.Footer>
             </Modal>
 
-            <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white shadow mb-3" light>
+            <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white shadow" light>
                 <Container>
                     <NavbarBrand tag={Link} to="/"><b>LOGO</b></NavbarBrand>
                     <NavbarToggler onClick={() => setcollapsedMenu(!collapsedMenu)} />

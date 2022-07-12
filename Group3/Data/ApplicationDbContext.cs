@@ -136,6 +136,8 @@ namespace Group3.Data
 
             modelBuilder.Entity<Category>().HasData(category1);
             modelBuilder.Entity<Category>().HasData(category2);
+            modelBuilder.Entity<Category>().HasData(category3);
+            modelBuilder.Entity<Category>().HasData(category4);
             modelBuilder.Entity<Topic>().HasData(topic1);
             modelBuilder.Entity<Topic>().HasData(topic2);
             modelBuilder.Entity<Post>().HasData(post1);

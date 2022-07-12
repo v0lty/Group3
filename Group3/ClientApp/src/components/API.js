@@ -27,6 +27,18 @@ const API = {
     deletePost: async (params) => {
         return trackPromise(post(baseURL + 'DeletePost', params));
     },
+    getAllCategories: async () => {
+        return trackPromise(get(baseURL + 'GetAllCategories'));
+    },
+    getCategoryById: async (params) => {
+        return trackPromise(post(baseURL + 'GetCategoryById', params));
+    },
+    getTopicById: async (params) => {
+        return trackPromise(post(baseURL + 'GetTopicById', params));
+    },
+    editUser: async (params) => {
+        return trackPromise(post(baseURL + 'EditUser', params));
+    },
 }
 
 export const get = (url) => {

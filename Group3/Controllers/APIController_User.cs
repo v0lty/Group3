@@ -59,5 +59,25 @@ namespace Group3.Controllers
 
             return new JsonResult(null);
         }
+
+        [HttpPost]
+        [Route("EditUser")]
+        public JsonResult EditUser(string email, string firstName, string lastName)
+        {
+            var user = dbContext.Users.Where(x => x.Email == email).FirstOrDefault();
+            if (user == null) {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return new JsonResult(new { Success = "False", responseText = string.Format($"Could not find user '{email}.'") });
+            }
+
+            user.Email = email;
+            user.FirstName = firstName;
+            user.LastName = lastName;
+
+            dbContext.Users.Update(user);
+            dbContext.SaveChanges();
+
+            return new JsonResult(user);
+        }
     }
 }
