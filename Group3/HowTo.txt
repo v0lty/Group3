@@ -27,6 +27,15 @@ Right-Click on ClientApp folder -> 'Open In Terminal'
 Execute in Developer PowerShell:
 -> npm install
 
+// eslint error:
+-> npm uninstall eslint-plugin-react-hooks@next
+-> npm install react-promise-tracker --force
+
+// conflict error:
+-> change package.json (maybe on line)
+-> save
+-> repeat
+
 LIBRARIES:
 .NET 3.1
 https://nodejs.org/en/ -> Node.Js version 16.15.1 LTS 
