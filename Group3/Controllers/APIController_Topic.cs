@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace Group3.Controllers
 {
@@ -13,22 +11,11 @@ namespace Group3.Controllers
         [Route("GetAllTopics")]
         public JsonResult GetAllTopics()
         {
-            var posts = this.dbContext.Topics
+            var topics = this.dbContext.Topics
                 .Include(topic => topic.Posts)
-                .ThenInclude(post => post.User).ToArray()
-                .Select(topic => new {
-                    topic.Id,
-                    topic.Name,
-                    topic.Description
-                }).ToArray();
+                .ThenInclude(post => post.User).ToArray();
 
-            var topicdata = JsonSerializer.Serialize(posts, new JsonSerializerOptions()
-            {
-                ReferenceHandler = ReferenceHandler.Preserve,
-                WriteIndented = true,
-            });
-
-            return new JsonResult(topicdata);
+            return new JsonResult(topics);
         }
     }
 }

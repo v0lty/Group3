@@ -1,58 +1,52 @@
 import React, { useState, useContext, useEffect } from 'react';
+import API from "./API";
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useHistory } from "react-router-dom";
-import { AuthContext, queryCurrentUser } from "./UserAuthentication";
-import axios from 'axios'
+import { AuthContext } from "./UserAuthentication";
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 
 export default function Menu() {
     const authContext = useContext(AuthContext);
+    const history = useHistory();
     const [collapsedMenu, setcollapsedMenu] = useState(true);
     const [collapsedUser, setCollapsedUser] = useState(true);
-    const history = useHistory();
 
     function routeChange(path) {
         history.push(path);
     }
 
     useEffect(() => {
-        async function fetchCurrentUser() {
-            authContext.setUser(await queryCurrentUser());
-        }
-        fetchCurrentUser();
+        API.getCurrentUser().then((user) => {
+            authContext.setUser(user)
+        });
     }, [])
 
-    const signOut = async () => {
-        axios.get('http://localhost:13021/api/SignOut');
-        authContext.setUser(null);
+    const signOutUser = async () => {
+        API.signOut().then(() => {
+            authContext.setUser(null);
+            routeChange('/');
+        });
     }
 
     const submitSignIn = async (e) => {
         e.preventDefault();
 
-        await axios.post('http://localhost:13021/api/SignIn', null, {
-            params: {
-                email: e.target.elements['formEmail'].value,
-                password: e.target.elements['formPassword'].value
-            }
-        }).then((response) => {
-            authContext.setUser(JSON.parse(response.data));
-            setCollapsedUser(true);
-        }).catch((error) => {
-            alert(error + '\nMessage: ' + error.response?.data?.responseText);
+       API.signIn({
+            email: e.target.elements['formEmail'].value,
+            password: e.target.elements['formPassword'].value
+        }).then((user) => {
+            authContext.setUser(user);
             setCollapsedUser(true);
         });
     }
 
-    const handleClose = () => setCollapsedUser(true);
-
     return (
         <header>
-            <Modal show={!collapsedUser} onHide={handleClose} backdrop={false}>
+            <Modal show={!collapsedUser} onHide={() => setCollapsedUser(true)} backdrop={false}>
                 <Modal.Header closeButton>
                     <Modal.Title>
                         Sign in
@@ -78,8 +72,8 @@ export default function Menu() {
 
             <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white shadow mb-3" light>
                 <Container>
-                    <NavbarBrand tag={Link} to="/">LOGO</NavbarBrand>
-                    <NavbarToggler onClick={() => setcollapsedMenu(!collapsedMenu)} className="mr-2" />
+                    <NavbarBrand tag={Link} to="/"><b>LOGO</b></NavbarBrand>
+                    <NavbarToggler onClick={() => setcollapsedMenu(!collapsedMenu)} />
                     <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!collapsedMenu} navbar>
                         <ul className="navbar-nav flex-grow">
                             <NavItem>
@@ -97,7 +91,7 @@ export default function Menu() {
                                         <Dropdown.Item onClick={() => routeChange('/profile')}>Profile</Dropdown.Item>
                                         <Dropdown.Item onClick={() => routeChange('/messages')}>Messages</Dropdown.Item>
                                         <Dropdown.Divider />
-                                        <Dropdown.Item onClick={() => signOut()}>Logout</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => signOutUser()}>Logout</Dropdown.Item>
                                     </DropdownButton>
                                 )}   
                             </NavItem>

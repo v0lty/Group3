@@ -9,6 +9,7 @@ using Group3.Data;
 using Group3.Models;
 using System;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Newtonsoft.Json.Serialization;
 
 namespace Group3
 {
@@ -30,9 +31,12 @@ namespace Group3
                 options.Cookie.IsEssential = true;
             });
 
-            services.AddControllers().AddNewtonsoftJson(options =>
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            );
+            services.AddControllers().AddNewtonsoftJson(options => 
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver(); 
+            });
+        
 
             services.AddDbContext<Data.ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));

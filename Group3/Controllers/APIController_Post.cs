@@ -1,11 +1,8 @@
 ﻿using Group3.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Group3.Controllers
@@ -19,34 +16,11 @@ namespace Group3.Controllers
         {
             var posts = dbContext.Posts
                 .Include(post => post.User)
+                .Include(post => post.Pictures)
                 .Include(post => post.Topic)
-                .ThenInclude(topic => topic.Category).ToArray()
-                .Select(post => new {
-                    post.Id,
-                    Time = post.Time.ToString("g"),
-                    post.Text,
-                    User = new {
-                        post.User,
-                        post.User.Id,
-                        post.User.UserName,
-                        post.User.Name,
-                    },
-                    Topic = new {
-                        post.Topic.Id,
-                        post.Topic.Name,
-                        Category = new {
-                            post.Topic.Category.Id,
-                            post.Topic.Category.Name,
-                        }
-                    }
-                }).ToArray();
+                .ThenInclude(topic => topic.Category).ToArray();
 
-            var postdata = JsonSerializer.Serialize(posts, new JsonSerializerOptions() {
-                ReferenceHandler = ReferenceHandler.Preserve,
-                WriteIndented = true,
-            });            
-
-            return new JsonResult(postdata);
+            return new JsonResult(posts);
         }
 
         [HttpPost]

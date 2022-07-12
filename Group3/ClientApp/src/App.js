@@ -7,14 +7,25 @@ import Messages from './components/Messages';
 import { Route } from 'react-router';
 import { Container } from 'reactstrap';
 import { AuthContextProvider } from "./components/UserAuthentication";
+import { usePromiseTracker } from "react-promise-tracker";
+import Spinner from 'react-bootstrap/Spinner'
 
 import './custom.css'
+
+const LoadingIndicator = props => {
+    const { promiseInProgress } = usePromiseTracker();
+    return (promiseInProgress &&
+        <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+        </Spinner>
+    );
+}
 
 export default function App() {
     return (
         <AuthContextProvider>
-            <Menu />           
-            <Container>
+            <Menu />            
+            <Container>                
                 <Route exact path='/'>
                     <Home />
                 </Route>
@@ -27,6 +38,7 @@ export default function App() {
                 <Route exact path='/messages'>
                     <Messages />
                 </Route>
+                <LoadingIndicator />
             </Container>
         </AuthContextProvider>
     );

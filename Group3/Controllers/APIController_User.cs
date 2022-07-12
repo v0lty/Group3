@@ -1,11 +1,7 @@
-﻿using Group3.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Group3.Controllers
@@ -13,26 +9,18 @@ namespace Group3.Controllers
     // USER RELATED FUNCTIONS
     public partial class APIController : Controller
     {
-        /// <summary>
-        /// Check if a User cookie exist before attempting to Sign in. No error should be thrown here.
-        /// </summary>
-        /// <returns></returns>
         [HttpGet]
-        [Route("QueryCurrentUser")]       
-        public JsonResult QueryCurrentUser()
+        [Route("GetCurrentUser")]       
+        public JsonResult GetCurrentUser()
         {           
-            var user = dbContext.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
-            if (user != null) {
+            var user = dbContext.Users
+                .Where(x => x.UserName == User.Identity.Name)
+                .Include(x => x.Pictures)
+                .Include(x => x.UserRoles)
+                .ThenInclude(x => x.Role)
+                .FirstOrDefault();
 
-                var userdata = JsonSerializer.Serialize(user, new JsonSerializerOptions() {
-                    ReferenceHandler = ReferenceHandler.Preserve,
-                    WriteIndented = true,
-                });
-
-                return new JsonResult(userdata);
-            }
-
-            return new JsonResult(null);
+            return new JsonResult(user);
         }
 
         [HttpPost]
@@ -41,30 +29,15 @@ namespace Group3.Controllers
         {          
             var result = await signInManager.PasswordSignInAsync(email, password, true, lockoutOnFailure: false);
             if (result.Succeeded) {
-                // User is null untill redirect that force cookie to update
-                // https://stackoverflow.com/questions/54706650/null-reference-exception-for-claimstype-in-identitycore-getting-claims-as-null
+
                 var user = dbContext.Users
                     .Where(x => x.UserName == email)
-                    .Include(x => x.UserRoles)
+                    .Include(x => x.Pictures)
+                    .Include(x => x.UserRoles)                    
                     .ThenInclude(x => x.Role)
-                    .Select(user => new { 
-                        user.Id,
-                        user.Name,
-                        user.UserName,
-                        Birthdate = user.Birthdate.ToShortDateString(),
-                        user.Email,
-                        Roles = user.UserRoles.Select(role => new {
-                            role.Role.Id,
-                            role.Role.Name,                            
-                        })
-                    }).FirstOrDefault();
+                    .FirstOrDefault();
 
-                var userdata = JsonSerializer.Serialize(user, new JsonSerializerOptions() {
-                    ReferenceHandler = ReferenceHandler.Preserve,
-                    WriteIndented = true,
-                });        
-
-                return new JsonResult(userdata);
+                return new JsonResult(user);
             }            
             else {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;

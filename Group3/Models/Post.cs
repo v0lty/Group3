@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -22,6 +23,8 @@ namespace Group3.Models
         public Topic Topic { get; set; }
 
         public int TopicId { get; set; }
+
+        public List<Picture> Pictures { get; set; }
 
         // public int ReferenceId { get; set; }
 

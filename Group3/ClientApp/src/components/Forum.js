@@ -1,31 +1,23 @@
-﻿import React, { useState, useContext, useEffect  } from 'react';
+﻿import React, { useState, useContext, useEffect } from 'react';
+import API from "./API";
 import { PostTable } from './PostTable'
 import { PostForm } from './PostForm'
 import { AuthContext } from "./UserAuthentication";
-import axios from 'axios'
 
 export default function Forum() {
     const authContext = useContext(AuthContext);
     const [posts, setPosts] = useState([]);
     const [topics, setTopics] = useState([]);
-    const baseURL = 'http://localhost:13021/API/';
 
     const updateTopics = async () => {
-        await axios.get(baseURL + 'GetAllTopics').then((response) => {
-            setTopics(JSON.parse(response.data));           
-        }).catch((error) => {
-            alert(error + '\nMessage: ' + error.response.data.responseText);
-            setTopics([]);
+        API.getAllTopics().then((topics) => {
+            setTopics(topics);
         });
     }
 
     const updatePosts = async () => {
-
-        await axios.get(baseURL + 'GetAllPosts').then((response) => {         
-            setPosts(JSON.parse(response.data));            
-        }).catch((error) => {
-            alert(error + '\nMessage: ' + error.response.data.responseText);
-            setPosts([]);
+        API.getAllPosts().then((posts) => {
+            setPosts(posts);
         });
     }
 
@@ -34,24 +26,20 @@ export default function Forum() {
         updatePosts();
     }, [])
 
-    const onFormSubmit = async (e) => {
-        e.preventDefault();
+    const onFormSubmit = async (event) => {
+        event.preventDefault();
 
         if (authContext.user == null) {
             alert("You need to sign in first!");
             return;
         }
-        
-        axios.post(baseURL + 'CreatePost', null, {
-            params: {
-                text: e.target.elements['formText'].value,
-                userId: authContext.user.Id,
-                topicId: e.target.elements['formTopic'].value
-            }
-        }).then((response) => {
+
+        API.createPost({
+            text: event.target.elements['formText'].value,
+            userId: authContext.user.Id,
+            topicId: event.target.elements['formTopic'].value
+        }).then(() => {
             updatePosts();
-        }).catch((error) => {
-            alert(error + '\nMessage: ' + error.response.data.responseText);
         });
     }
 
@@ -62,14 +50,8 @@ export default function Forum() {
             return;
         }
 
-        axios.post(baseURL + 'DeletePost', null, {
-            params: {
-                postId: id,
-            }
-        }).then((response) => {
+        API.deletePost({postId: id}).then(() => {
             updatePosts();
-        }).catch((error) => {
-            alert(error + '\nMessage: ' + error.response.data.responseText);
         });
     }
 
