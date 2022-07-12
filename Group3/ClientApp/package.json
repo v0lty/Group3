@@ -23,7 +23,6 @@
     "cross-env": "^5.2.0",
     "eslint-config-react-app": "^5.2.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react-hooks": "^4.7.0-next-dd2d65227-20220708",
     "nan": "^2.15.0",
     "react-scripts": "^5.0.0",
     "typescript": "^3.9.10"

@@ -28,7 +28,7 @@ Execute in Developer PowerShell:
 -> npm install
 
 // eslint error:
--> npm uninstall eslint-plugin-react-hooks@next
+-> npm uninstall eslint-plugin-react-hooks
 -> npm install react-promise-tracker --force
 
 // conflict error:
