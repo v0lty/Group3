@@ -3,7 +3,7 @@ import { trackPromise } from 'react-promise-tracker';
 
 // API CALLS HERE:
 
-const baseURL = 'http://localhost:13021/API/';
+const baseURL = 'http://localhost:5000/API/';
 
 const API = {
     getCurrentUser: async () => { 
@@ -38,6 +38,9 @@ const API = {
     },
     editUser: async (params) => {
         return trackPromise(post(baseURL + 'EditUser', params));
+    },
+    createUser: async (params) => {
+        return trackPromise(post(baseURL + 'CreateUser', params));
     },
 }
 

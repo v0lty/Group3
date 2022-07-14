@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+﻿import React, { Component, useState, useEffect } from 'react';
 import Home from './components/Home';
 import Menu from './components/Menu';
 import Forum from './components/Forum';
@@ -12,6 +12,7 @@ import { AuthContextProvider } from "./components/UserAuthentication";
 import { usePromiseTracker } from "react-promise-tracker";
 import Spinner from 'react-bootstrap/Spinner'
 import Sidebar from './components/Sidebar';
+import Signup from './components/Signup';
 
 import './custom.css'
 
@@ -55,6 +56,10 @@ export default function App() {
                 <Route exact path='/topic/:id'>
                     <Topic />
                 </Route>
+                <Route exact path='/signup'>
+                    <Signup />
+                </Route>
+
                 <LoadingIndicator />
             </Container>
         </AuthContextProvider>
