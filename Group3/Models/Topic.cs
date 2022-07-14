@@ -25,5 +25,7 @@ namespace Group3.Models
         public string UserId { get; set; }
 
         public List<Post> Posts { get; set; }
+
+        public int PostsCount { get { return Posts != null ? Posts.Count : 0; } }
     }
 }

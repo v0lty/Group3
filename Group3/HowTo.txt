@@ -22,7 +22,7 @@ Execute in Packet Manager Console:
 -> Add-Migration 'name'
 -> Update-Database
 
-INSTALL NPM, AXIOS, BOOTSTRAP:
+INSTALL NPM:
 Right-Click on ClientApp folder -> 'Open In Terminal' 
 Execute in Developer PowerShell:
 -> npm install
@@ -31,10 +31,12 @@ Execute in Developer PowerShell:
 -> npm uninstall eslint-plugin-react-hooks
 -> npm install react-promise-tracker --force
 
-// conflict error:
--> change package.json (maybe on line)
--> save
--> repeat
+ESLIT CONFLICT
+-> delete this in package.json:
+
+  "eslintConfig": {
+    "extends": "react-app"
+  },
 
 LIBRARIES:
 .NET 3.1

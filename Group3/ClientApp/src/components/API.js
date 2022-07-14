@@ -36,6 +36,9 @@ const API = {
     getTopicById: async (params) => {
         return trackPromise(post(baseURL + 'GetTopicById', params));
     },
+    getHotTopics: async () => {
+        return trackPromise(get(baseURL + 'GetHotTopics'));
+    },
     editUser: async (params) => {
         return trackPromise(post(baseURL + 'EditUser', params));
     },

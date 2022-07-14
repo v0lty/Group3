@@ -20,7 +20,7 @@ export default function Category() {
 
     useEffect(() => {
         updateCategories();
-    }, [])
+    }, [id])
 
     return (
         <div>

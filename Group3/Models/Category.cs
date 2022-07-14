@@ -17,5 +17,7 @@ namespace Group3.Models
         public string Text { get; set; }
 
         public List<Topic> Topics { get; set; }
+
+        public int TopicsCount { get { return Topics != null ? Topics.Count : 0; } }        
     }
 }

@@ -30,15 +30,15 @@ export default function Profile(props) {
 
                 <Form.Group className="m-2" controlId="formEmail">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control defaultValue={ authContext.user.Email } />
+                    <Form.Control defaultValue={ authContext.user?.Email } />
                 </Form.Group>
                 <Form.Group className="m-2" controlId="formFirstName">
                     <Form.Label>FirstName</Form.Label>
-                    <Form.Control defaultValue={authContext.user.FirstName} />
+                    <Form.Control defaultValue={authContext.user?.FirstName} />
                 </Form.Group>
                 <Form.Group className="m-2" controlId="formLastName">
                     <Form.Label>LastName</Form.Label>
-                    <Form.Control defaultValue={authContext.user.LastName} />
+                    <Form.Control defaultValue={authContext.user?.LastName} />
                 </Form.Group>        
                 <Button className="m-2" type="submit">Save User</Button>
             </Form>

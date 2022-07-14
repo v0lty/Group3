@@ -44,5 +44,23 @@ namespace Group3.Controllers
                 return new JsonResult(new { Success = "False", responseText = ex.Message });
             }
         }
+
+        [HttpGet]
+        [Route("GetHotTopics")]
+        public JsonResult GetHotTopics()
+        {
+            var topics = this.dbContext.Topics
+                .Include(topic => topic.Posts)
+                .Take(10)
+                .ToList();
+
+            if (topics.Count > 0) {
+                topics.Sort((x, y) => x.Posts.Count.CompareTo(y.Posts.Count));                
+            }
+
+            return new JsonResult(topics);
+        }
+
+        //data.Sort((x, y) => x.Name.CompareTo(y.Name));
     }
 }

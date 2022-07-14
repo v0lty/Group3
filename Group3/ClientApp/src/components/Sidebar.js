@@ -1,41 +1,14 @@
 ﻿import React, { useState, useContext, useEffect } from 'react';
-import { AuthContext } from "./UserAuthentication";
-import API from "./API";
-import Button from 'react-bootstrap/Button';
-import { useHistory } from "react-router-dom";
 
-export default function Template() {
-    const authContext = useContext(AuthContext);
-    const [categories, setCategories] = useState([]);
-    const history = useHistory();
+import CategoriesView from "./sidebar/CategoriesView";
+import TopicsView from "./sidebar/TopicsView";
 
-    const updateCategories = async () => {
-        API.getAllCategories().then((categories) => {            
-            setCategories(categories);
-        });
-    }
-
-    function routeChange(path) {
-        history.push(path);
-    }
-
-    useEffect(() => {
-        updateCategories();        
-    }, [])
-
-    const onCategoryClick = (id) => {
-        routeChange('/category/' + id);
-    }
+export default function Sidebar() {
 
     return (
         <div>
-            {
-                categories.map(category =>
-                    <div key={category?.Id }>
-                        <Button onClick={() => onCategoryClick(category.Id) } variant="link">{category.Name}</Button>
-                    </div>
-                )
-            }
+            <CategoriesView />
+            <TopicsView />
         </div>
     );
 }

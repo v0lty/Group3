@@ -14,22 +14,21 @@ export default function Topic() {
         API.getTopicById({
             topicId: id,
         }).then((topic) => {
-            console.log(topic);
             setTopic(topic);
         });
     }
 
     useEffect(() => {
         updateTopic();
-    }, [])
+    }, [id])
 
     return (
         <div>
             <p>{topic?.Name}:</p>
             {
                 topic?.Posts?.map(post =>
-                    <div>
-                        <a key={post?.Id}>{post?.Text}</a>
+                    <div key={post?.Id}>
+                        <a>{post?.Text}</a>
                         <br />
                     </div>
                 )
