@@ -45,6 +45,9 @@ const API = {
     createUser: async (params) => {
         return trackPromise(post(baseURL + 'CreateUser', params));
     },
+    getNews: async () => {
+        return trackPromise(get(baseURL + 'GetNews'));
+    },
 }
 
 export const get = (url) => {

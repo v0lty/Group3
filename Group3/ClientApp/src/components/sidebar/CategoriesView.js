@@ -21,13 +21,14 @@ export default function CategoriesView() {
         history.push(path);
     }
 
-    useEffect(() => {
+    useEffect(() => { 
         updateCategories();
     }, [])
 
     const onCategoryClick = (id) => {
         routeChange('/category/' + id);
     }
+
     var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     return (
