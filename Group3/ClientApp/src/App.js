@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import Home from './components/Home';
 import Menu from './components/Menu';
 import Footer from './components/Footer';
@@ -12,6 +12,7 @@ import { AuthContextProvider } from "./components/UserAuthentication";
 import { usePromiseTracker } from "react-promise-tracker";
 import Spinner from 'react-bootstrap/Spinner'
 import Sidebar from './components/Sidebar';
+import Signup from './components/Signup';
 
 import './custom.css'
 
@@ -52,6 +53,9 @@ export default function App() {
                             </Route>
                             <Route exact path='/messages'>
                                 <Messages />
+                            </Route>
+                            <Route exact path='/signup'>
+                                <Signup />
                             </Route>
                             <div className="d-flex justify-content-center">
                                 <LoadingIndicator />

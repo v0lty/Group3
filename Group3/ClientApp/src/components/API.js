@@ -42,6 +42,9 @@ const API = {
     editUser: async (params) => {
         return trackPromise(post(baseURL + 'EditUser', params));
     },
+    createUser: async (params) => {
+        return trackPromise(post(baseURL + 'CreateUser', params));
+    },
 }
 
 export const get = (url) => {

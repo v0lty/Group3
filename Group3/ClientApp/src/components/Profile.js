@@ -16,7 +16,8 @@ export default function Profile(props) {
         API.editUser( {
             email: event.target.elements['formEmail'].value,
             firstName: event.target.elements['formFirstName'].value,
-            lastName: event.target.elements['formLastName'].value
+            lastName: event.target.elements['formLastName'].value,
+            birthdate: event.target.elements['formBirthdate'].value
         }).then((user) => {
             authContext.setUser(user);
         });
@@ -33,13 +34,17 @@ export default function Profile(props) {
                     <Form.Control defaultValue={ authContext.user?.Email } />
                 </Form.Group>
                 <Form.Group className="m-2" controlId="formFirstName">
-                    <Form.Label>FirstName</Form.Label>
-                    <Form.Control defaultValue={authContext.user?.FirstName} />
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control defaultValue={authContext.user.FirstName} />
                 </Form.Group>
                 <Form.Group className="m-2" controlId="formLastName">
-                    <Form.Label>LastName</Form.Label>
-                    <Form.Control defaultValue={authContext.user?.LastName} />
-                </Form.Group>        
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control defaultValue={authContext.user.LastName} />
+                </Form.Group>
+                <Form.Group className="m-2" controlId="formBirthdate">
+                    <Form.Label>Date Of Birth</Form.Label>
+                    <Form.Control type="date" paceholder="yyyy/mm/dd" />
+                </Form.Group>  
                 <Button className="m-2" type="submit">Save User</Button>
             </Form>
         </div>

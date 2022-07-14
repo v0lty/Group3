@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Group3.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -62,7 +64,7 @@ namespace Group3.Controllers
 
         [HttpPost]
         [Route("EditUser")]
-        public JsonResult EditUser(string email, string firstName, string lastName)
+        public JsonResult EditUser(string email, string firstName, string lastName, DateTime birthdate)
         {
             var user = dbContext.Users.Where(x => x.Email == email).FirstOrDefault();
             if (user == null) {
@@ -73,11 +75,42 @@ namespace Group3.Controllers
             user.Email = email;
             user.FirstName = firstName;
             user.LastName = lastName;
+            user.Birthdate = birthdate;
 
             dbContext.Users.Update(user);
             dbContext.SaveChanges();
 
             return new JsonResult(user);
         }
+        [HttpPost]
+        [Route("CreateUser")]
+        public JsonResult CreateUser(string email, string firstName, string lastName, DateTime birthdate, string password)
+        {
+            var existingUser = dbContext.Users.Where(x => x.Email == email).FirstOrDefault();
+            if (existingUser != null)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return new JsonResult(new { Success = "False", responseText = string.Format($"User already exist '{email}.'") });
+
+            }
+            var user = new ApplicationUser()
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Birthdate = birthdate,
+                Email = email,
+                UserName = email,
+                NormalizedUserName = email.ToUpper(),
+                NormalizedEmail = email.ToUpper(),
+                PhoneNumber = String.Empty,
+                PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, password),
+
+            };
+            dbContext.Users.Add(user);
+            dbContext.SaveChanges();
+            this.userManager.AddToRoleAsync(user, "User");
+            return new JsonResult(user);
+        }
+
     }
 }

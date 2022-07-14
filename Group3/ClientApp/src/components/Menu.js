@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+﻿import React, { useState, useContext, useEffect } from 'react';
 import API from "./API";
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -81,6 +81,9 @@ export default function Menu() {
                         </NavItem>
                         <NavItem>
                             <NavLink tag={Link} to="/forum">Forum</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} to="/signup">SignUp</NavLink>
                         </NavItem>
                         <NavItem>
                             {authContext.user == null && (
