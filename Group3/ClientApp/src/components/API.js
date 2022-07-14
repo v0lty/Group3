@@ -3,7 +3,7 @@ import { trackPromise } from 'react-promise-tracker';
 
 // API CALLS HERE:
 
-const baseURL = 'http://localhost:13021/API/';
+const baseURL = '/API/';
 
 const API = {
     getCurrentUser: async () => { 
