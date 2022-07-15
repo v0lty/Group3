@@ -4,6 +4,8 @@ import API from "./API";
 import { useParams } from 'react-router';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import Badge from 'react-bootstrap/Badge';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 export default function Topic() {
     const authContext = useContext(AuthContext);
@@ -24,15 +26,22 @@ export default function Topic() {
 
     return (
         <div>
-            <p>{topic?.Name}:</p>
-            {
-                topic?.Posts?.map(post =>
-                    <div key={post?.Id}>
-                        <a>{post?.Text}</a>
-                        <br />
-                    </div>
-                )
-            }
+            <div className="p-3">
+                <h5>{topic?.Category?.Name + ' > ' + topic?.Name}</h5>
+            </div>
+            <ListGroup as="ol" >
+                {topic?.Posts?.map(post =>
+                    <ListGroup.Item key={post.Id} as="li" className="d-flex justify-content-between align-items-start border-0 border-top" onClick={() => console.log('Click')}>
+                        <div className="ms-2 me-auto">
+                            <div className="fw-bold">{post.Text}</div>
+                            {post.Time} - {post.User.Name}
+                        </div>
+                        <Badge bg="dark" pill>
+                            {Math.floor(Math.random() * 90)}
+                        </Badge>
+                    </ListGroup.Item>
+                )}
+            </ListGroup>
         </div>
     );
 }

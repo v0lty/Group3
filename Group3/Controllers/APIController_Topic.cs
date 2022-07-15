@@ -28,7 +28,9 @@ namespace Group3.Controllers
             try {
                 var topic = dbContext.Topics
                     .Where(x => x.Id == int.Parse(topicId))
+                    .Include(x => x.Category)
                     .Include(x => x.Posts)
+                    .ThenInclude(x => x.User)
                     .FirstOrDefault();
 
                 if (topic == null)
