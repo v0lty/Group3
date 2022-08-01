@@ -17,6 +17,10 @@ export function PostForm(props) {
                 </Form.Select>
             </Form.Group>
             <Form.Group className="m-2" controlId="formText">
+                <RichTextEditor
+                    value={this.state.value}
+                    onChange={this.onChange}
+                />
                 <Form.Label>Text</Form.Label>
                 <Form.Control type="text" required />
             </Form.Group>

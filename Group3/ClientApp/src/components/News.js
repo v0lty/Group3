@@ -21,7 +21,7 @@ export default function News() {
     return (
         <div>
             {newsCategory?.Topics.map(topic =>
-                <p>{topic?.Name}</p>
+                <p key={topic?.Id}>{topic?.Name}</p>
             )}
         </div>
     

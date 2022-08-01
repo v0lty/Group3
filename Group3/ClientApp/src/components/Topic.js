@@ -3,7 +3,6 @@ import { AuthContext } from "./UserAuthentication";
 import API from "./API";
 import { useParams } from 'react-router';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import Badge from 'react-bootstrap/Badge';
 import ListGroup from 'react-bootstrap/ListGroup';
 
