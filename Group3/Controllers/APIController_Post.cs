@@ -16,7 +16,7 @@ namespace Group3.Controllers
         public JsonResult GetAllPosts()
         {
             var posts = dbContext.Posts
-                .Include(post => post.User)
+                .Include(post => post.Aurthor)
                 .Include(post => post.Pictures)
                 .Include(post => post.Topic)
                 .ThenInclude(topic => topic.Category).ToArray();
@@ -31,7 +31,7 @@ namespace Group3.Controllers
             var post = new Post {
                 Text = text,
                 Time = DateTime.Now,
-                User = await dbContext.Users.FindAsync(userId), 
+                Aurthor = await dbContext.Users.FindAsync(userId), 
                 Topic = await dbContext.Topics.FindAsync(int.Parse(topicId))
             };        
 

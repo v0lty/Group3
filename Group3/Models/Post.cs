@@ -7,13 +7,12 @@ namespace Group3.Models
 {
     public class Post
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public string UserId { get; set; }
+        public string AurthorId { get; set; }
 
-        public ApplicationUser User { get; set; }
+        public ApplicationUser Aurthor { get; set; }
 
         [StringLength(10000, MinimumLength = 1)]
         public string Text { get; set; }
@@ -29,6 +28,5 @@ namespace Group3.Models
         // public int ReferenceId { get; set; }
 
         // public Post Reference { get; set; }
-
     }
 }

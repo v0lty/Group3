@@ -2,6 +2,19 @@
 import Button from 'react-bootstrap/Button';
 import parse from 'html-react-parser'
 
+//export const PostComponent = props => {
+//    <div>
+//        <UserComponent user={props.post.user} />
+//        <p>props.post.Title</p>
+//        <p>props.post.Text</p>
+//    </div>
+
+//}
+//export const UserComponent = props => {
+//    <img>
+//    <p>props.user.Name</p>    
+//}
+
 export const PostTable = props => {
     return (
         <table className='table mt-3'>
@@ -21,7 +34,7 @@ export const PostTable = props => {
                     props.posts.map(post =>
                         <tr key={post.Id}>
                             <td>{post.Id}</td>
-                            <td>{post.User.Name}</td>
+                            <td>{post.Aurthor.Name}</td>
                             <td>{post.Time}</td>
                             <td>{post.Topic.Category.Name}</td>
                             <td>{post.Topic.Name}</td>

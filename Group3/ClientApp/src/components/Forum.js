@@ -4,7 +4,7 @@ import { PostTable } from './PostTable'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import { AuthContext } from "./UserAuthentication";
-import RichTextEditor from 'react-rte';
+import RichTextEditor from 'react-rte'; // https://github.com/sstur/react-rte
 
 export default function Forum() {
     const authContext = useContext(AuthContext);
@@ -63,7 +63,6 @@ export default function Forum() {
 
     const onChange = (value) => {
         setValue(value); 
-        console.log(value.toString('html'));
     };
 
     const toolbarConfig = {

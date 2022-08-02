@@ -6,8 +6,7 @@ namespace Group3.Models
 {
     public class Topic
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [StringLength(200, MinimumLength = 3)]
@@ -20,9 +19,9 @@ namespace Group3.Models
 
         public int CategoryId { get; set; }
 
-        public ApplicationUser User { get; set; }
+        public ApplicationUser Aurthor { get; set; }
 
-        public string UserId { get; set; }
+        public string AurthorId { get; set; }
 
         public List<Post> Posts { get; set; }
 

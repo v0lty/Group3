@@ -16,7 +16,7 @@ namespace Group3.Controllers
         {
             var topics = this.dbContext.Topics
                 .Include(topic => topic.Posts)
-                .ThenInclude(post => post.User).ToArray();
+                .ThenInclude(post => post.Aurthor).ToArray();
 
             return new JsonResult(topics);
         }
@@ -30,7 +30,7 @@ namespace Group3.Controllers
                     .Where(x => x.Id == int.Parse(topicId))
                     .Include(x => x.Category)
                     .Include(x => x.Posts)
-                    .ThenInclude(x => x.User)
+                    .ThenInclude(x => x.Aurthor)
                     .FirstOrDefault();
 
                 if (topic == null)

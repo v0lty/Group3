@@ -48,6 +48,12 @@ const API = {
     getNews: async () => {
         return trackPromise(get(baseURL + 'GetNews'));
     },
+    getMessages: async (params) => {
+        return trackPromise(post(baseURL + 'GetMessages', params));
+    },
+    getChats: async (params) => {
+        return trackPromise(post(baseURL + 'GetChats', params));
+    },
 }
 
 export const get = (url) => {
