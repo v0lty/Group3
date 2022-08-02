@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\public\Pictures\admin%40fakemail.net\" />
+    <Folder Include="ClientApp\src\components\img\" />
   </ItemGroup>
 
 </Project>

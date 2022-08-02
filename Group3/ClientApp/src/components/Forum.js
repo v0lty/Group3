@@ -89,7 +89,7 @@ export default function Forum() {
         <div>
             <Form onSubmit={onFormSubmit}>
                 <Form.Group className="m-2" controlId="formTopic">
-                    <Form.Label>Topic</Form.Label>
+                    <Form.Label>Topic:</Form.Label>
                     <Form.Select className="p-2 border border-info rounded w-100" defaultValue='0' required>
                         {topics?.map((topic, index) =>
                             <option key={topic.Id} value={topic.Id}>{topic.Name}</option>

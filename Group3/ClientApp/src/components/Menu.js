@@ -10,6 +10,8 @@ import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
+
+
 export default function Menu() {
     const authContext = useContext(AuthContext);
     const history = useHistory();
@@ -72,22 +74,22 @@ export default function Menu() {
             </Modal>
 
             <Navbar className="navbar-expand-sm navbar-toggleable-sm">     
-                <NavbarBrand tag={Link} to="/"className="text-secondary fw-bold">LOGO</NavbarBrand>
+                <NavbarBrand tag={Link} to="/" className="text-secondary fw-bold"><img src={require('./img/Com-Logo.jpg')} /></NavbarBrand>
                 <NavbarToggler onClick={() => setcollapsedMenu(!collapsedMenu)} />
                 <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!collapsedMenu} navbar>
                     <ul className="navbar-nav flex-grow">
                         <NavItem>
-                            <NavLink tag={Link} to="/">Home</NavLink>
+                            <NavLink tag={Link} to="/"><h7 style={{ color: "#1c4966" }}>HOME</h7></NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} to="/forum">Forum</NavLink>
+                            <NavLink tag={Link} to="/forum"><h7 style={{ color: "#1c4966" }}>FORUM</h7></NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} to="/signup">SignUp</NavLink>
+                            <NavLink tag={Link} to="/signup"><h7 style={{ color: "#1c4966" }}>SIGN UP</h7></NavLink>
                         </NavItem>
                         <NavItem>
                             {authContext.user == null && (
-                                <NavLink tag={Link} to="#" onClick={() => setCollapsedUser(!collapsedUser)}>Login</NavLink>
+                                <NavLink tag={Link} to="#" onClick={() => setCollapsedUser(!collapsedUser)}><h7 style={{ color: "#1c4966" }}>LOG IN</h7></NavLink>
                             )}
                             {authContext.user != null && (
                                 <DropdownButton variant="link" title={authContext?.user.Name} id="userButton">

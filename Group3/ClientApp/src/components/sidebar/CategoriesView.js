@@ -34,7 +34,7 @@ export default function CategoriesView() {
     return (
         <div className="d-flex flex-column align-items-stretch border-0 shadow mb-3">
             <div className="p-3">
-                <h5>Categories</h5>
+                <h6 style={{ color: "#1c4966" }}>CATEGORIES</h6>
             </div>
             <ListGroup as="ol" >                
                 {categories.map(category =>
