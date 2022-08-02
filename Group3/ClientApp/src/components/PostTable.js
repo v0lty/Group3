@@ -26,6 +26,7 @@ export const PostTable = props => {
                     <th>Category</th>
                     <th>Topic</th>
                     <th>Text</th>
+                    <th>Replay</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -39,6 +40,7 @@ export const PostTable = props => {
                             <td>{post.Topic.Category.Name}</td>
                             <td>{post.Topic.Name}</td>
                             <td> <div> {parse(post?.Text)}</div></td>
+                            <td>{post.ReferenceId } </td>
                             <td><Button className="" onClick={() => props.onDelete(post.Id)}>Delete</Button></td>
                         </tr>
                     )

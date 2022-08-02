@@ -25,8 +25,8 @@ namespace Group3.Models
 
         public List<Picture> Pictures { get; set; }
 
-        // public int ReferenceId { get; set; }
+        public int? ReferenceId { get; set; }
 
-        // public Post Reference { get; set; }
+        public Post Reference { get; set; }
     }
 }

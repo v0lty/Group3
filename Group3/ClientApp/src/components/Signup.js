@@ -60,7 +60,10 @@ export default function Signup(props) {
                     <Form.Label>Confirm</Form.Label>
                     <Form.Control type="password" />
                 </Form.Group>
-
+                <Form.Group controlId="formPicture" className="m-2">
+                    <Form.Label>Select profile picture</Form.Label>
+                    <Form.Control type="file" />
+                </Form.Group>
                 <Button className="m-2" type="submit">Submit</Button>
             </Form>
         </div>

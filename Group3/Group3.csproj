@@ -27,8 +27,4 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ClientApp\public\Pictures\admin%40fakemail.net\" />
-  </ItemGroup>
-
 </Project>

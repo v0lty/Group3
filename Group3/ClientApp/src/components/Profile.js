@@ -44,7 +44,11 @@ export default function Profile(props) {
                 <Form.Group className="m-2" controlId="formBirthdate">
                     <Form.Label>Date Of Birth</Form.Label>
                     <Form.Control type="date" paceholder="yyyy/mm/dd" />
-                </Form.Group>  
+                </Form.Group>
+                <Form.Group controlId="formPicture" className="m-2">
+                    <Form.Label>Select profile picture</Form.Label>
+                    <Form.Control type="file" />
+                </Form.Group>
                 <Button className="m-2" type="submit">Save User</Button>
             </Form>
         </div>
