@@ -9,11 +9,10 @@ import { useHistory } from "react-router-dom";
 export default function Signup(props) {
     const authContext = useContext(AuthContext);
     const history = useHistory();
+
     const onFormSubmit = async (event) => {
         event.preventDefault();
-        console.log('click Submit');
 
-        console.log(event.target.elements);
         API.createUser({
             firstName: event.target.elements['formFirstName'].value,
             lastName: event.target.elements['formLastName'].value,
@@ -21,10 +20,9 @@ export default function Signup(props) {
             email: event.target.elements['formEmail'].value,
             password: event.target.elements['formPassword'].value,
             confirm: event.target.elements['formConfirm'].value   
-
         }).then((user) => {
             authContext.setUser(user);
-            alert("Account has created");
+            alert("Account has been created!");
             history.push("/");
         });
     }
@@ -32,7 +30,6 @@ export default function Signup(props) {
     return (
         <div>
             <h1>Create account</h1>
-
             <Form onSubmit={onFormSubmit}> 
                 <Form.Group className="m-2" controlId="formFirstName">
                     <Form.Label>FirstName</Form.Label>

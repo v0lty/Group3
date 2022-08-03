@@ -1,18 +1,16 @@
 ﻿import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext, queryCurrentUser } from "./UserAuthentication";
 import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import API from "./API";
 
 export default function Profile(props) {
     const authContext = useContext(AuthContext);
+    const [pictures, setPictures] = useState([]);
 
     const onFormSubmit = async (event) => {
         event.preventDefault();
-        console.log('click Submit');
 
-        console.log(event.target.elements);
         API.editUser( {
             email: event.target.elements['formEmail'].value,
             firstName: event.target.elements['formFirstName'].value,
@@ -23,54 +21,75 @@ export default function Profile(props) {
         });
     }
 
+    const updatePictures = async () => {
+        await API.getUserPictures({
+            userId: authContext?.user?.Id,
+        }).then((pictures) => {
+            setPictures(pictures);
+        });
+    }
+
+    useEffect(() => {
+        const updatePicturesAsync = async () => {
+            await updatePictures();
+        }
+        updatePicturesAsync();
+    }, [])
+
+    const removePicture = async (pictureId) => {
+        await API.removePicture({
+            pictureId: pictureId,
+        }).then(() => {
+            updatePictures();
+        });
+    }
+
     return (
         <div>
-            <h1>Profile</h1>
 
-            <Form onSubmit={onFormSubmit}>
-
-                <Form.Group className="m-2" controlId="formEmail">
+            <h3>Profile</h3>
+            <Form className="shadow p-3 mb-3" onSubmit={onFormSubmit}>
+                <Form.Group controlId="formEmail">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control defaultValue={ authContext.user?.Email } />
+                    <Form.Control defaultValue={ authContext?.user?.Email } />
                 </Form.Group>
-                <Form.Group className="m-2" controlId="formFirstName">
+                <Form.Group controlId="formFirstName">
                     <Form.Label>First Name</Form.Label>
-                    <Form.Control defaultValue={authContext.user.FirstName} />
+                    <Form.Control defaultValue={authContext?.user?.FirstName} />
                 </Form.Group>
-                <Form.Group className="m-2" controlId="formLastName">
+                <Form.Group controlId="formLastName">
                     <Form.Label>Last Name</Form.Label>
-                    <Form.Control defaultValue={authContext.user.LastName} />
+                    <Form.Control defaultValue={authContext?.user?.LastName} />
                 </Form.Group>
-                <Form.Group className="m-2" controlId="formBirthdate">
+                <Form.Group controlId="formBirthdate">
                     <Form.Label>Date Of Birth</Form.Label>
                     <Form.Control type="date" paceholder="yyyy/mm/dd" />
-                </Form.Group>
-                <Form.Group controlId="formPicture" className="m-2">
-                    <Form.Label>Select profile picture</Form.Label>
-                    <Form.Control type="file" />
-                </Form.Group>
-                <Button className="m-2" type="submit">Save User</Button>
+                </Form.Group>  
+                <Button className="mt-3" type="submit">Save</Button>
             </Form>
+
+            <h3>Gallery</h3>
+            <div className="shadow p-3">
+                <div className="d-flex">
+                    {pictures?.map((picture, pictureIndex) =>
+                        <div key={pictureIndex}>
+                            <img className="profile-picture p-2" src={`../Pictures/${picture.Path}`}></img>
+                            <a onClick={() => removePicture(picture.Id)}>X</a>
+                        </div>
+                    )}
+                </div>
+                <input type="file" name="imageInput" onChange={(event) => {
+                    
+                    const formData = new FormData();
+                    formData.append("file", event.target.files[0], authContext.user.Email + '/' + event.target.files[0].name);
+
+                    API.uploadFile(formData)
+                        .then((picture) => {
+                            updatePictures();
+                        });
+                    }}
+                />
+            </div>
         </div>
     );
 }
-
-
-//<div className="pt-3">
-//    <h3>Welcome {authContext?.user?.Name}!</h3>
-//    <br />
-//    <span>Id: {authContext?.user?.Id}</span><br />
-//    <span>Email: {authContext?.user?.Email}</span><br />
-//    <span>Birthdate: {authContext?.user?.Birthdate}</span><br />
-//    <span>Pictures:</span><br /> {
-//        authContext?.user?.Pictures?.map(pic =>
-//            <div key={pic?.Id}><span>{pic.Path}</span><br /></div>
-//        )
-//    }
-//    <span>Roles:</span><br /> {
-//        authContext?.user?.UserRoles?.map(userrole =>
-//            <div key={userrole?.Role.Id}><span>{userrole.Role.Name}</span><br /></div>
-//        )
-//    }
-//    <br />
-//</div>

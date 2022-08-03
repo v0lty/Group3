@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Group3.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220802093400_init")]
+    [Migration("20220803140905_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,15 +50,15 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "cd1a7286-e59a-4c11-b417-b942c0a7cfa8",
-                            ConcurrencyStamp = "31a5b28a-7523-46f7-a803-e739c7ceeee9",
+                            Id = "fc2ba267-fa9b-431a-839a-c05ad619c2d4",
+                            ConcurrencyStamp = "589e8be0-b702-455b-ba64-0511e6a6cfe4",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "e5d712b1-6fbd-4405-98bc-086e13284885",
-                            ConcurrencyStamp = "7e97457c-9c7d-4c55-84be-d9d5caffca7d",
+                            Id = "0c08befd-5a74-4356-b855-a28c40bc7213",
+                            ConcurrencyStamp = "95f03dfb-dad2-460f-9030-7f326adf04fb",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -144,10 +144,10 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4ea8ff59-2816-413a-9f9f-abf044186299",
+                            Id = "2715666f-24c9-4c14-9529-b9e2d17fa15a",
                             AccessFailedCount = 0,
                             Birthdate = new DateTime(1964, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "826a2d0d-ca9c-417d-961e-616be3a3cfc4",
+                            ConcurrencyStamp = "f8e4317b-62cb-46d0-95b2-e454e1b7792b",
                             Email = "admin@fakemail.net",
                             EmailConfirmed = false,
                             FirstName = "John",
@@ -155,18 +155,18 @@ namespace Group3.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@FAKEMAIL.NET",
                             NormalizedUserName = "ADMIN@FAKEMAIL.NET",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFaQxevJxYtF3EE0YBA5wQsdNUF8MeIoeOxgsIJsoSumgEdYPzF5aZZSF9LEpngXDA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECLwQaX/FPZQuSPMH9w9waWMDS4gbg8meueG/1aNsVRIbp2J4eN4Q4wbKyibSYIf0A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fc15e927-b2eb-463e-a75a-9f846b48361e",
+                            SecurityStamp = "41a16988-3332-45f6-961d-c99cda5430cb",
                             TwoFactorEnabled = false,
                             UserName = "admin@fakemail.net"
                         },
                         new
                         {
-                            Id = "75f65c96-69c1-453b-aa79-223dd2f8f54f",
+                            Id = "a617eae3-db4f-41b9-bf50-1fc7eaebb6d9",
                             AccessFailedCount = 0,
                             Birthdate = new DateTime(1993, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "af9db03d-488c-464c-ae60-304a679ab1c4",
+                            ConcurrencyStamp = "e4d548d4-fb51-4b25-8b96-03af21b27751",
                             Email = "sara@fakemail.net",
                             EmailConfirmed = false,
                             FirstName = "Sara",
@@ -174,18 +174,18 @@ namespace Group3.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "SARA@FAKEMAIL.NET",
                             NormalizedUserName = "SARA@FAKEMAIL.NET",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDf92+XS/2rgq8P0Mgnd9xr7kf75n0u8bPh11AMlmIZ5N8EUJQn4KlpMcmrvQhuTug==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENaaMnoe79AkWO2vQV+DYbNyBbaTeRIEmEke29nXsS3xbJRsE+eJm8jOmMNixVNe8w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "859930e2-88e1-446a-afcd-11a6b1569bc8",
+                            SecurityStamp = "3f472f26-3b28-4545-8153-16b5d74fb71a",
                             TwoFactorEnabled = false,
                             UserName = "sara@fakemail.net"
                         },
                         new
                         {
-                            Id = "d7cc17d1-1ecd-43f1-abab-bd1fae5100ca",
+                            Id = "ab3db1fe-d76d-4fe2-a41b-3149d6c8c2aa",
                             AccessFailedCount = 0,
                             Birthdate = new DateTime(1985, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "8da7c4e3-eb7c-4fe3-8a2e-3dd77dd86eac",
+                            ConcurrencyStamp = "a33c8415-2daa-4060-9825-653c50bc8922",
                             Email = "bertil@fakemail.net",
                             EmailConfirmed = false,
                             FirstName = "Bertil",
@@ -193,9 +193,9 @@ namespace Group3.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "BERTIL@FAKEMAIL.NET",
                             NormalizedUserName = "BERTIL@FAKEMAIL.NET",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKlB96VQE8p1S3+B++xz418wG5tKCRFaYZVdb0KkAQsqaZ9qZfu2IhX+fFIfSiTmNQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDANy4B7Vo339v/sMIEBiqKRSzA7TL3mCuVh5byYlPDekKwedz/GwhhHcjixqPlxRQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3744c07f-658d-4407-9379-14cefc1470d6",
+                            SecurityStamp = "b5da8878-d340-4255-bb1a-879efd66ceb6",
                             TwoFactorEnabled = false,
                             UserName = "bertil@fakemail.net"
                         });
@@ -218,18 +218,18 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "4ea8ff59-2816-413a-9f9f-abf044186299",
-                            RoleId = "cd1a7286-e59a-4c11-b417-b942c0a7cfa8"
+                            UserId = "2715666f-24c9-4c14-9529-b9e2d17fa15a",
+                            RoleId = "fc2ba267-fa9b-431a-839a-c05ad619c2d4"
                         },
                         new
                         {
-                            UserId = "75f65c96-69c1-453b-aa79-223dd2f8f54f",
-                            RoleId = "e5d712b1-6fbd-4405-98bc-086e13284885"
+                            UserId = "a617eae3-db4f-41b9-bf50-1fc7eaebb6d9",
+                            RoleId = "0c08befd-5a74-4356-b855-a28c40bc7213"
                         },
                         new
                         {
-                            UserId = "d7cc17d1-1ecd-43f1-abab-bd1fae5100ca",
-                            RoleId = "e5d712b1-6fbd-4405-98bc-086e13284885"
+                            UserId = "ab3db1fe-d76d-4fe2-a41b-3149d6c8c2aa",
+                            RoleId = "0c08befd-5a74-4356-b855-a28c40bc7213"
                         });
                 });
 
@@ -297,85 +297,85 @@ namespace Group3.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "4ea8ff59-2816-413a-9f9f-abf044186299",
+                            UserId = "2715666f-24c9-4c14-9529-b9e2d17fa15a",
                             MessageId = -1,
                             Id = -1
                         },
                         new
                         {
-                            UserId = "75f65c96-69c1-453b-aa79-223dd2f8f54f",
+                            UserId = "a617eae3-db4f-41b9-bf50-1fc7eaebb6d9",
                             MessageId = -1,
                             Id = -1
                         },
                         new
                         {
-                            UserId = "d7cc17d1-1ecd-43f1-abab-bd1fae5100ca",
+                            UserId = "ab3db1fe-d76d-4fe2-a41b-3149d6c8c2aa",
                             MessageId = -1,
                             Id = -1
                         },
                         new
                         {
-                            UserId = "4ea8ff59-2816-413a-9f9f-abf044186299",
+                            UserId = "2715666f-24c9-4c14-9529-b9e2d17fa15a",
                             MessageId = -2,
                             Id = -1
                         },
                         new
                         {
-                            UserId = "75f65c96-69c1-453b-aa79-223dd2f8f54f",
+                            UserId = "a617eae3-db4f-41b9-bf50-1fc7eaebb6d9",
                             MessageId = -2,
                             Id = -1
                         },
                         new
                         {
-                            UserId = "d7cc17d1-1ecd-43f1-abab-bd1fae5100ca",
+                            UserId = "ab3db1fe-d76d-4fe2-a41b-3149d6c8c2aa",
                             MessageId = -2,
                             Id = -1
                         },
                         new
                         {
-                            UserId = "4ea8ff59-2816-413a-9f9f-abf044186299",
+                            UserId = "2715666f-24c9-4c14-9529-b9e2d17fa15a",
                             MessageId = -3,
                             Id = -2
                         },
                         new
                         {
-                            UserId = "75f65c96-69c1-453b-aa79-223dd2f8f54f",
+                            UserId = "a617eae3-db4f-41b9-bf50-1fc7eaebb6d9",
                             MessageId = -3,
                             Id = -2
                         },
                         new
                         {
-                            UserId = "d7cc17d1-1ecd-43f1-abab-bd1fae5100ca",
+                            UserId = "ab3db1fe-d76d-4fe2-a41b-3149d6c8c2aa",
                             MessageId = -3,
                             Id = -2
                         },
                         new
                         {
-                            UserId = "4ea8ff59-2816-413a-9f9f-abf044186299",
+                            UserId = "2715666f-24c9-4c14-9529-b9e2d17fa15a",
                             MessageId = -4,
                             Id = -2
                         },
                         new
                         {
-                            UserId = "75f65c96-69c1-453b-aa79-223dd2f8f54f",
+                            UserId = "a617eae3-db4f-41b9-bf50-1fc7eaebb6d9",
                             MessageId = -4,
                             Id = -2
                         },
                         new
                         {
-                            UserId = "d7cc17d1-1ecd-43f1-abab-bd1fae5100ca",
+                            UserId = "ab3db1fe-d76d-4fe2-a41b-3149d6c8c2aa",
                             MessageId = -4,
                             Id = -2
                         },
                         new
                         {
-                            UserId = "75f65c96-69c1-453b-aa79-223dd2f8f54f",
+                            UserId = "a617eae3-db4f-41b9-bf50-1fc7eaebb6d9",
                             MessageId = -5,
                             Id = -3
                         },
                         new
                         {
-                            UserId = "d7cc17d1-1ecd-43f1-abab-bd1fae5100ca",
+                            UserId = "ab3db1fe-d76d-4fe2-a41b-3149d6c8c2aa",
                             MessageId = -5,
                             Id = -3
                         });
@@ -408,37 +408,37 @@ namespace Group3.Migrations
                         new
                         {
                             Id = -1,
-                            AurthorId = "4ea8ff59-2816-413a-9f9f-abf044186299",
+                            AurthorId = "2715666f-24c9-4c14-9529-b9e2d17fa15a",
                             Text = "Hello Sara and Bertil my name is John!",
-                            Time = new DateTime(2022, 7, 30, 11, 34, 0, 482, DateTimeKind.Local).AddTicks(7373)
+                            Time = new DateTime(2022, 7, 31, 16, 9, 4, 834, DateTimeKind.Local).AddTicks(6188)
                         },
                         new
                         {
                             Id = -2,
-                            AurthorId = "75f65c96-69c1-453b-aa79-223dd2f8f54f",
+                            AurthorId = "a617eae3-db4f-41b9-bf50-1fc7eaebb6d9",
                             Text = "Hello John!",
-                            Time = new DateTime(2022, 7, 31, 11, 34, 0, 482, DateTimeKind.Local).AddTicks(8184)
+                            Time = new DateTime(2022, 8, 1, 16, 9, 4, 834, DateTimeKind.Local).AddTicks(6929)
                         },
                         new
                         {
                             Id = -3,
-                            AurthorId = "d7cc17d1-1ecd-43f1-abab-bd1fae5100ca",
+                            AurthorId = "ab3db1fe-d76d-4fe2-a41b-3149d6c8c2aa",
                             Text = "What's up??",
-                            Time = new DateTime(2022, 8, 1, 11, 34, 0, 482, DateTimeKind.Local).AddTicks(8210)
+                            Time = new DateTime(2022, 8, 2, 16, 9, 4, 834, DateTimeKind.Local).AddTicks(6957)
                         },
                         new
                         {
                             Id = -4,
-                            AurthorId = "4ea8ff59-2816-413a-9f9f-abf044186299",
+                            AurthorId = "2715666f-24c9-4c14-9529-b9e2d17fa15a",
                             Text = "Umm..",
-                            Time = new DateTime(2022, 8, 1, 11, 34, 0, 482, DateTimeKind.Local).AddTicks(8215)
+                            Time = new DateTime(2022, 8, 2, 16, 9, 4, 834, DateTimeKind.Local).AddTicks(6961)
                         },
                         new
                         {
                             Id = -5,
-                            AurthorId = "d7cc17d1-1ecd-43f1-abab-bd1fae5100ca",
+                            AurthorId = "ab3db1fe-d76d-4fe2-a41b-3149d6c8c2aa",
                             Text = "Message from Bertil to Sara",
-                            Time = new DateTime(2022, 8, 1, 11, 34, 0, 482, DateTimeKind.Local).AddTicks(8218)
+                            Time = new DateTime(2022, 8, 2, 16, 9, 4, 834, DateTimeKind.Local).AddTicks(6965)
                         });
                 });
 
@@ -470,28 +470,28 @@ namespace Group3.Migrations
                         new
                         {
                             Id = -1,
-                            Path = "Pictures/admin@fakemail.net/picture1.jpg",
-                            UserId = "4ea8ff59-2816-413a-9f9f-abf044186299"
+                            Path = "admin@fakemail.net/picture1.jpg",
+                            UserId = "2715666f-24c9-4c14-9529-b9e2d17fa15a"
                         },
                         new
                         {
                             Id = -2,
-                            Path = "Pictures/sara@fakemail.net/abc.jpg",
-                            UserId = "75f65c96-69c1-453b-aa79-223dd2f8f54f"
+                            Path = "sara@fakemail.net/picture2.jpg",
+                            UserId = "a617eae3-db4f-41b9-bf50-1fc7eaebb6d9"
                         },
                         new
                         {
                             Id = -3,
-                            Path = "Pictures/admin@fakemail.net/postPic1.jpg",
+                            Path = "admin@fakemail.net/picture3.jpg",
                             PostId = -1,
-                            UserId = "4ea8ff59-2816-413a-9f9f-abf044186299"
+                            UserId = "2715666f-24c9-4c14-9529-b9e2d17fa15a"
                         },
                         new
                         {
                             Id = -4,
-                            Path = "Pictures/sara@fakemail.net/postPic2.jpg",
+                            Path = "sara@fakemail.net/picture4.jpg",
                             PostId = -2,
-                            UserId = "75f65c96-69c1-453b-aa79-223dd2f8f54f"
+                            UserId = "a617eae3-db4f-41b9-bf50-1fc7eaebb6d9"
                         });
                 });
 
@@ -532,34 +532,34 @@ namespace Group3.Migrations
                         new
                         {
                             Id = -1,
-                            AurthorId = "75f65c96-69c1-453b-aa79-223dd2f8f54f",
+                            AurthorId = "a617eae3-db4f-41b9-bf50-1fc7eaebb6d9",
                             Text = "<b>Visual Studio 6.0</b> news news news more news",
-                            Time = new DateTime(2022, 8, 1, 11, 34, 0, 479, DateTimeKind.Local).AddTicks(9279),
+                            Time = new DateTime(2022, 8, 2, 16, 9, 4, 832, DateTimeKind.Local).AddTicks(126),
                             TopicId = -1
                         },
                         new
                         {
                             Id = -2,
-                            AurthorId = "4ea8ff59-2816-413a-9f9f-abf044186299",
+                            AurthorId = "2715666f-24c9-4c14-9529-b9e2d17fa15a",
                             Text = "My head is empty, should I fill it with something?",
-                            Time = new DateTime(2022, 7, 31, 11, 34, 0, 482, DateTimeKind.Local).AddTicks(4488),
+                            Time = new DateTime(2022, 8, 1, 16, 9, 4, 834, DateTimeKind.Local).AddTicks(3603),
                             TopicId = -2
                         },
                         new
                         {
                             Id = -3,
-                            AurthorId = "4ea8ff59-2816-413a-9f9f-abf044186299",
+                            AurthorId = "2715666f-24c9-4c14-9529-b9e2d17fa15a",
                             Text = "HoW do I make a table?",
-                            Time = new DateTime(2022, 7, 28, 11, 34, 0, 482, DateTimeKind.Local).AddTicks(4562),
+                            Time = new DateTime(2022, 7, 29, 16, 9, 4, 834, DateTimeKind.Local).AddTicks(3671),
                             TopicId = -2
                         },
                         new
                         {
                             Id = -4,
-                            AurthorId = "4ea8ff59-2816-413a-9f9f-abf044186299",
+                            AurthorId = "2715666f-24c9-4c14-9529-b9e2d17fa15a",
                             ReferenceId = -3,
                             Text = "I dont know",
-                            Time = new DateTime(2022, 7, 29, 11, 34, 0, 482, DateTimeKind.Local).AddTicks(4569),
+                            Time = new DateTime(2022, 7, 30, 16, 9, 4, 834, DateTimeKind.Local).AddTicks(3678),
                             TopicId = -2
                         });
                 });
@@ -597,7 +597,7 @@ namespace Group3.Migrations
                         new
                         {
                             Id = -1,
-                            AurthorId = "4ea8ff59-2816-413a-9f9f-abf044186299",
+                            AurthorId = "2715666f-24c9-4c14-9529-b9e2d17fa15a",
                             CategoryId = -1,
                             Description = "Upgrade your project to 6.0",
                             Name = "Trending"
@@ -605,7 +605,7 @@ namespace Group3.Migrations
                         new
                         {
                             Id = -2,
-                            AurthorId = "75f65c96-69c1-453b-aa79-223dd2f8f54f",
+                            AurthorId = "a617eae3-db4f-41b9-bf50-1fc7eaebb6d9",
                             CategoryId = -2,
                             Description = "What ever about HTML",
                             Name = "HTML"

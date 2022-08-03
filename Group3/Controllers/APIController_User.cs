@@ -82,19 +82,18 @@ namespace Group3.Controllers
 
             return new JsonResult(user);
         }
+
         [HttpPost]
         [Route("CreateUser")]
         public JsonResult CreateUser(string email, string firstName, string lastName, DateTime birthdate, string password)
         {
             var existingUser = dbContext.Users.Where(x => x.Email == email).FirstOrDefault();
-            if (existingUser != null)
-            {
+            if (existingUser != null) {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
                 return new JsonResult(new { Success = "False", responseText = string.Format($"User already exist '{email}.'") });
-
             }
-            var user = new ApplicationUser()
-            {
+
+            var user = new ApplicationUser() {
                 FirstName = firstName,
                 LastName = lastName,
                 Birthdate = birthdate,
@@ -104,13 +103,13 @@ namespace Group3.Controllers
                 NormalizedEmail = email.ToUpper(),
                 PhoneNumber = String.Empty,
                 PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, password),
-
             };
+
             dbContext.Users.Add(user);
             dbContext.SaveChanges();
             this.userManager.AddToRoleAsync(user, "User");
+
             return new JsonResult(user);
         }
-
     }
 }

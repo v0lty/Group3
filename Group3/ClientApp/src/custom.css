@@ -8,6 +8,14 @@
     padding-top: 10rem;
 }
 
+.bg-gray {
+    background-color: rgba(50, 50, 50, 0.1);
+}
+
+.float-bottom {
+    display: flex;
+    align-items: flex-end;
+}
 
 body {
     height: 100vh;
@@ -18,7 +26,11 @@ body {
     background-size: contain;
 }
 
-
+.profile-picture {
+    width: 150px;
+    height: 200px;
+    object-fit: fill;
+}
 
 .content {
     background-color: white;

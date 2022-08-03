@@ -54,6 +54,21 @@ const API = {
     getChats: async (params) => {
         return trackPromise(post(baseURL + 'GetChats', params));
     },
+    uploadFile: async (params) => {
+        return trackPromise(postData(baseURL + 'UploadFile', params));
+    },
+    getUserPictures: async (params) => {
+        return trackPromise(post(baseURL + 'GetUserPictures', params));
+    },
+    removePicture: async (params) => {
+        return trackPromise(post(baseURL + 'RemovePicture', params));
+    },
+    getPostsByTopic: async (params) => {
+        return trackPromise(post(baseURL + 'GetPostsByTopic', params));
+    },
+    createTopic: async (params) => {
+        return trackPromise(post(baseURL + 'CreateTopic', params));
+    }
 }
 
 export const get = (url) => {
@@ -75,6 +90,21 @@ export const post = (url, params) => {
     const promise = new Promise((resolve, reject) => {
         console.log('Sending POST: ' + url + ' Params: ', params);
         resolve(axios.post(url, null, { params: params })
+            .then((response) => response.data)
+            .catch((error) => {
+                if (window.confirm(error + '\nMessage: ' + error.response.data.responseText + '\n\nRetry?')) {
+                    // recursive call
+                    return post(url, params);
+                }
+            }));
+    });
+    return promise;
+}
+
+export const postData = (url, params) => {
+    const promise = new Promise((resolve, reject) => {
+        console.log('Sending POST: ' + url + ' Form: ', params);
+        resolve(axios.post(url, params)
             .then((response) => response.data)
             .catch((error) => {
                 if (window.confirm(error + '\nMessage: ' + error.response.data.responseText + '\n\nRetry?')) {

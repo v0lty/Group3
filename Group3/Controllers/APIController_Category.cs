@@ -14,7 +14,12 @@ namespace Group3.Controllers
         [Route("GetAllCategories")]
         public JsonResult GetAllCategories()
         {
-            var categories = this.dbContext.Categories.ToArray();
+            var categories = this.dbContext.Categories
+                .Include(cat => cat.Topics)
+                .ThenInclude(topic => topic.Posts)
+                .ThenInclude(post => post.Aurthor)
+                .ThenInclude(user => user.Pictures)
+                .ToArray();
             return new JsonResult(categories);
         }
 

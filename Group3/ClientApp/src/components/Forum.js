@@ -5,107 +5,94 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import { AuthContext } from "./UserAuthentication";
 import RichTextEditor from 'react-rte'; // https://github.com/sstur/react-rte
+import PostComponent from './PostComponent';
+import Badge from 'react-bootstrap/Badge';
+import ListGroup from 'react-bootstrap/ListGroup';
+import { useHistory } from "react-router-dom";
+import Modal from 'react-bootstrap/Modal'
 
 export default function Forum() {
     const authContext = useContext(AuthContext);
-    const [posts, setPosts] = useState([]);
-    const [topics, setTopics] = useState([]);
-    const [value, setValue] = useState(RichTextEditor.createEmptyValue());
+    const [categories, setCategories] = useState([]);
+    const [collapsedTopicModal, setCollapsedTopicModal] = useState(true);
+    const [activeCategory, setActiveCategory] = useState(null);
+    const history = useHistory();
 
-    const updateTopics = async () => {
-        API.getAllTopics().then((topics) => {
-            setTopics(topics);
+    const updateCategories = async () => {
+        API.getAllCategories().then((categories) => {
+            setCategories(categories);
         });
-    }
-
-    const updatePosts = async () => {
-        API.getAllPosts().then((posts) => {
-            setPosts(posts);
-        });
-
-        API.getAllCategories()
     }
 
     useEffect(() => {
-        updateTopics();
-        updatePosts();
+        updateCategories();
     }, [])
 
-    const onFormSubmit = async (event) => {
-        event.preventDefault();
-
-        if (authContext.user == null) {
-            alert("You need to sign in first!");
-            return;
-        }
-
-        API.createPost({
-            text: value.toString('html'),
-            userId: authContext.user.Id,
-            topicId: event.target.elements['formTopic'].value
-        }).then(() => {
-            setValue(RichTextEditor.createEmptyValue());
-            updatePosts();
-        });
+    function routeChange(path) {
+        history.push(path);
     }
 
-    const onFormDelete = async (id) => {
-
-        if (authContext.user == null) {
-            alert("You need to sign in first!");
-            return;
-        }
-
-        API.deletePost({postId: id}).then(() => {
-            updatePosts();
-        });
+    const onTopicClick = (id) => {
+        console.log(id);
+        routeChange('/topic/' + id);
     }
 
-    const onChange = (value) => {
-        setValue(value); 
-    };
-
-    const toolbarConfig = {
-        // Optionally specify the groups to display (displayed in the order listed).
-        display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'LINK_BUTTONS', 'BLOCK_TYPE_DROPDOWN', 'HISTORY_BUTTONS'],
-        INLINE_STYLE_BUTTONS: [
-            { label: 'Bold', style: 'BOLD', className: 'custom-css-class' },
-            { label: 'Italic', style: 'ITALIC' },
-            { label: 'Underline', style: 'UNDERLINE' }
-        ],
-        BLOCK_TYPE_DROPDOWN: [
-            { label: 'Normal', style: 'unstyled' },
-            { label: 'Heading Large', style: 'header-one' },
-            { label: 'Heading Medium', style: 'header-two' },
-            { label: 'Heading Small', style: 'header-three' }
-        ],
-        BLOCK_TYPE_BUTTONS: [
-            { label: 'UL', style: 'unordered-list-item' },
-            { label: 'OL', style: 'ordered-list-item' }
-        ]
-    };
+    const submitTopic = async (e) => {
+        e.preventDefault();
+        console.log(e.target.elements['formName'].value);
+        console.log(activeCategory);
+        API.createTopic({
+            name: e.target.elements['formName'].value,
+            categoryId: activeCategory
+        }).then((user) => {
+            setCollapsedTopicModal(true);
+            updateCategories();
+        });
+    }
 
     return (
         <div>
-            <Form onSubmit={onFormSubmit}>
-                <Form.Group className="m-2" controlId="formTopic">
-                    <Form.Label>Topic</Form.Label>
-                    <Form.Select className="p-2 border border-info rounded w-100" defaultValue='0' required>
-                        {topics?.map((topic, index) =>
-                            <option key={topic.Id} value={topic.Id}>{topic.Name}</option>
-                        )}
-                    </Form.Select>
-                </Form.Group>
-                <Form.Group className="m-2" controlId="formText">
-                    <RichTextEditor
-                        value={value}
-                        onChange={onChange}
-                        toolbarConfig={toolbarConfig}
-                        required />
-                </Form.Group>
-                <Button className="m-2" type="submit">Send</Button>
-            </Form>
-            <PostTable posts={posts} onDelete={onFormDelete} />
+            <Modal show={!collapsedTopicModal} onHide={() => setCollapsedTopicModal(true)} backdrop={false}>
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        Create Topic
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={submitTopic}>
+                        <input type="submit" id="submitInput" className="d-none" />
+                        <Form.Group className="m-2" controlId="formName">
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control type="text" required />
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <label htmlFor="submitInput" className="btn btn-primary">Submit</label>
+                </Modal.Footer>
+            </Modal>
+
+            {categories.map((category, categoryIndex) =>
+                <div key={categoryIndex} >
+                <ListGroup.Item key={category.Id} as="li" className="d-flex justify-content-between align-items-start border-0 border-top">
+                    <div className="ms-2 me-auto">
+                        <div className="fw-bold">{category.Name}</div>
+                        <ul>
+                                {category?.Topics.map(topic =>
+                            <li>
+                                        <button className="btn btn-link" onClick={() => onTopicClick(topic.Id)}>{topic.Name}</button>
+                                        </li>
+                                )}
+                        </ul>
+                    </div>
+                    <Badge bg="info" pill>
+                        Posts: {Math.floor(Math.random() * 99)}
+                    </Badge>
+                        
+                    </ListGroup.Item>
+                    <button className="btn btn-link" onClick={() => { setActiveCategory(category.Id); setCollapsedTopicModal(false); }}>Create new Topic</button>
+                </div>
+            )}
         </div>
     );
 }

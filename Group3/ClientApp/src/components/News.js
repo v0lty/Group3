@@ -9,7 +9,6 @@ export default function News() {
   
     const updateNews = async () => {
         API.getNews().then((newsCategory) => {
-            console.log(newsCategory);
             setNewsCategory(newsCategory);
         });
     }

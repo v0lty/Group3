@@ -11,7 +11,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 export default function Category() {
     const authContext = useContext(AuthContext);
     const { id } = useParams();
-    const [category, setCategory] = useState(null);
+    const [category, setCategory] = useState(null);    
     const history = useHistory();
 
     const updateCategories = async () => {
@@ -30,11 +30,13 @@ export default function Category() {
         history.push(path);
     }
 
+
+
     return (
         <div>
             <div className="p-3">
                 <h5>{category?.Name}</h5>
-            </div>
+            </div>                        
             <ListGroup as="ol" >
                 {category?.Topics?.map(topic =>
                     <ListGroup.Item key={topic.Id} as="li" className="d-flex justify-content-between align-items-start border-0 border-top" onClick={() => routeChange('/topic/' + topic.Id)}>
@@ -45,9 +47,10 @@ export default function Category() {
                         <Badge bg="dark" pill>
                             {Math.floor(Math.random() * 90)}
                         </Badge>
+                        
                     </ListGroup.Item>
-                )}
-            </ListGroup>
+                )}                
+            </ListGroup>            
         </div>
     );
 }

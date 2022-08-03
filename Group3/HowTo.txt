@@ -19,7 +19,7 @@ pass: group3_test
 
 UPDATE DATABASE: 
 Execute in Packet Manager Console:
--> Add-Migration 'name'
+-> Add-Migration 'init'
 -> Update-Database
 
 INSTALL NPM:

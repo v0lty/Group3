@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Group3.Models
 {
@@ -27,6 +28,19 @@ namespace Group3.Models
 
         public List<Picture> Pictures { get; set; }
 
+        public Picture ProfilePicture { get { return (Pictures != null && Pictures.Count > 0) ? Pictures[0] : null; } }
+
+        public String _Role
+        {
+            get
+            {
+                if (UserRoles == null)
+                    return string.Empty;
+
+                var roles = UserRoles.Select(x => x.Role.Name).ToList();                
+                return string.Join(",", roles);
+            }
+        }
         public List<Chat> Chats { get; set; }
     }
 }

@@ -19,8 +19,7 @@ export default function Messages() {
     };
 
     return (
-        <div>
-            
+        <div>            
             <h2>Messages</h2><br/>
             {chats.map((chat, chatIndex) =>
                 <div key={chatIndex} className="border rounded m-2 p-3">

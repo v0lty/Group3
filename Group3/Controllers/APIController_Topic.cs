@@ -31,6 +31,7 @@ namespace Group3.Controllers
                     .Include(x => x.Category)
                     .Include(x => x.Posts)
                     .ThenInclude(x => x.Aurthor)
+                    .ThenInclude(x => x.Pictures)
                     .FirstOrDefault();
 
                 if (topic == null)
@@ -63,6 +64,21 @@ namespace Group3.Controllers
             return new JsonResult(topics);
         }
 
-        //data.Sort((x, y) => x.Name.CompareTo(y.Name));
-    }
+        [HttpPost]
+        [Route("CreateTopic")]
+        public JsonResult CreateTopic(string name, string categoryId)
+        {
+            var topic = new Topic() { 
+                Name = name,
+                CategoryId = int.Parse(categoryId) 
+            };
+
+            dbContext.Topics.Add(topic);
+            dbContext.SaveChanges();
+
+            return new JsonResult(topic);
+        }
+
+            //data.Sort((x, y) => x.Name.CompareTo(y.Name));
+        }
 }
