@@ -158,6 +158,7 @@ namespace Group3.Data
             var picture2 = new Picture { Id = -2, Path = string.Format($"{user2.Email}/picture2.jpg"), UserId = user2.Id, PostId = null };
             var picture3 = new Picture { Id = -3, Path = string.Format($"{user1.Email}/picture3.jpg"), UserId = user1.Id, PostId = post1.Id };
             var picture4 = new Picture { Id = -4, Path = string.Format($"{user2.Email}/picture4.jpg"), UserId = user2.Id, PostId = post2.Id };
+            var picture5 = new Picture { Id = -5, Path = string.Format($"{user3.Email}/picture5.jpg"), UserId = user3.Id, PostId = null };
 
             var message1 = new Message { Id = -1, AurthorId = user1.Id, Time = DateTime.Now.AddDays(-3), Text = $"Hello {user2.FirstName} and {user3.FirstName} my name is {user1.FirstName}!" };
             var message2 = new Message { Id = -2, AurthorId = user2.Id, Time = DateTime.Now.AddDays(-2), Text = $"Hello {user1.FirstName}!" };
@@ -212,6 +213,7 @@ namespace Group3.Data
             modelBuilder.Entity<Picture>().HasData(picture2);
             modelBuilder.Entity<Picture>().HasData(picture3);
             modelBuilder.Entity<Picture>().HasData(picture4);
+            modelBuilder.Entity<Picture>().HasData(picture5);
         }
     }
 }

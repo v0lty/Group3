@@ -38,6 +38,10 @@ export default function Forum() {
     }
 
     const submitTopic = async (e) => {
+        if (authContext.user == null) {
+            alert("You need to sign in first!");
+            return;
+        }
         e.preventDefault();
         console.log(e.target.elements['formName'].value);
         console.log(activeCategory);
@@ -87,8 +91,7 @@ export default function Forum() {
                     </div>
                     <Badge bg="info" pill>
                         Posts: {Math.floor(Math.random() * 99)}
-                    </Badge>
-                        
+                    </Badge>   
                     </ListGroup.Item>
                     <button className="btn btn-link" onClick={() => { setActiveCategory(category.Id); setCollapsedTopicModal(false); }}>Create new Topic</button>
                 </div>

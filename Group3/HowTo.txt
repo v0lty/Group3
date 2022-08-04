@@ -14,7 +14,7 @@ Pass: group3
 -> Manage Databases
 -> Remove Database (group3_test)
 -> Add Database:
-Database name: group3_test
+Database name: group3_test  ( we named it: group3_ )
 pass: group3_test
 
 UPDATE DATABASE: 
