@@ -93,7 +93,9 @@ export default function Forum() {
                         Posts: {Math.floor(Math.random() * 99)}
                     </Badge>   
                     </ListGroup.Item>
-                    <button className="btn btn-link" onClick={() => { setActiveCategory(category.Id); setCollapsedTopicModal(false); }}>Create new Topic</button>
+                    {authContext.user != null &&
+                        <button className="btn btn-link" onClick={() => { setActiveCategory(category.Id); setCollapsedTopicModal(false); }}>Create new Topic</button>
+                    }
                 </div>
             )}
         </div>
