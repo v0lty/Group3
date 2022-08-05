@@ -1,8 +1,8 @@
 ﻿import React, { useState, useContext, useEffect } from 'react';
-import { AuthContext, queryCurrentUser } from "./UserAuthentication";
+import { AuthContext, queryCurrentUser } from "../UserAuthentication";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import API from "./API";
+import API from "../API";
 
 export default function Profile(props) {
     const authContext = useContext(AuthContext);
@@ -79,9 +79,18 @@ export default function Profile(props) {
                     )}
                 </div>
                 <input type="file" name="imageInput" onChange={(event) => {
-                    
+
+              
+                    const file = event.target.files[0];
                     const formData = new FormData();
-                    formData.append("file", event.target.files[0], authContext.user.Email + '/' + event.target.files[0].name);
+
+                    console.log(authContext.user.Email);
+                    console.log(file);
+
+                    formData.append(
+                        "file",
+                        file,
+                        authContext.user.Email + '/' + file.name);
 
                     API.uploadFile(formData)
                         .then((picture) => {

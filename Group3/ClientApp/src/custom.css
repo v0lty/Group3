@@ -12,9 +12,20 @@
     background-color: rgba(50, 50, 50, 0.1);
 }
 
+.new-post-editor {
+    min-height: 250px;
+}
+
 .float-bottom {
     display: flex;
     align-items: flex-end;
+}
+
+blockquote, q {
+    border: 1px solid rgba(50, 50, 93, 0.25);
+    margin: 1em;
+    padding: 1em;
+    background-color: #dae6f1
 }
 
 body {
@@ -28,7 +39,7 @@ body {
 
 .profile-picture {
     width: 150px;
-    height: 200px;
+    height: 175px;
     object-fit: fill;
 }
 

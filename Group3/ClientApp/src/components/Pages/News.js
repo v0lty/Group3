@@ -1,7 +1,7 @@
 ﻿import React, { useState, useContext, useEffect } from 'react';
-import { AuthContext } from "./UserAuthentication";
+import { AuthContext } from "../UserAuthentication";
 
-import API from "./API";
+import API from "../API";
 
 export default function News() {
     const authContext = useContext(AuthContext);

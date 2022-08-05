@@ -1,7 +1,7 @@
 ﻿import React, { useState, useContext, useEffect } from 'react';
 
-import CategoriesView from "./sidebar/CategoriesView";
-import TopicsView from "./sidebar/TopicsView";
+import CategoriesView from "./CategoriesView";
+import TopicsView from "./TopicsView";
 
 export default function Sidebar() {
 

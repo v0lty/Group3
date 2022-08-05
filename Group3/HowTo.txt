@@ -16,6 +16,7 @@ Pass: group3
 -> Add Database:
 Database name: group3_test
 pass: group3_test
+-> Remove 'Migrations' folder
 
 UPDATE DATABASE: 
 Execute in Packet Manager Console:

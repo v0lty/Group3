@@ -1,9 +1,9 @@
 ﻿import React, { useState, useContext, useEffect } from 'react';
-import { AuthContext, queryCurrentUser } from "./UserAuthentication";
+import { AuthContext, queryCurrentUser } from "../UserAuthentication";
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
-import API from "./API";
+import API from "../API";
 import { useHistory } from "react-router-dom";
 
 export default function Signup(props) {
@@ -23,7 +23,7 @@ export default function Signup(props) {
         }).then((user) => {
             authContext.setUser(user);
             alert("Account has been created!");
-            history.push("/");
+            history.push("/profile");
         });
     }
 
@@ -56,11 +56,7 @@ export default function Signup(props) {
                 <Form.Group className="m-2" controlId="formConfirm">
                     <Form.Label>Confirm</Form.Label>
                     <Form.Control type="password" />
-                </Form.Group>
-                <Form.Group controlId="formPicture" className="m-2">
-                    <Form.Label>Select profile picture</Form.Label>
-                    <Form.Control type="file" />
-                </Form.Group>
+                </Form.Group>    
                 <Button className="m-2" type="submit">Submit</Button>
             </Form>
         </div>

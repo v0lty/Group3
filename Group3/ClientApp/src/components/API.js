@@ -68,6 +68,18 @@ const API = {
     },
     createTopic: async (params) => {
         return trackPromise(post(baseURL + 'CreateTopic', params));
+    },
+    getPostById: async (params) => {
+        return trackPromise(post(baseURL + 'GetPostById', params));
+    },
+    editPost: async (params) => {
+        return trackPromise(post(baseURL + 'EditPost', params));
+    },
+    reportPost: async (params) => {
+        return trackPromise(post(baseURL + 'ReportPost', params));
+    },
+    upVotePost: async (params) => {
+        return trackPromise(post(baseURL + 'UpVotePost', params));
     }
 }
 

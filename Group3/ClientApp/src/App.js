@@ -1,18 +1,20 @@
 ﻿import React from 'react';
-import Home from './components/Home';
+import Home from './components/Pages/Home';
 import Menu from './components/Menu';
 import Footer from './components/Footer';
-import Forum from './components/Forum';
-import Profile from './components/Profile';
-import Messages from './components/Messages';
-import Category from './components/Category';
-import Topic from './components/Topic';
+import Forum from './components/Pages/Forum';
+import Profile from './components/Pages/Profile';
+import Messages from './components/Pages/Messages';
+import Category from './components/Pages/Category';
+import Topic from './components/Pages/Topic';
 import { Route } from 'react-router';
 import { AuthContextProvider } from "./components/UserAuthentication";
 import { usePromiseTracker } from "react-promise-tracker";
 import Spinner from 'react-bootstrap/Spinner'
 import Sidebar from './components/Sidebar';
-import Signup from './components/Signup';
+import Signup from './components/Pages/Signup';
+import { Post, PostPath } from './components/Pages/Post';
+import Managment from './components/Pages/Managment';
 
 import './custom.css'
 
@@ -32,10 +34,10 @@ export default function App() {
                 <Menu />
                 <div className="flex-grow-1 overflow-auto p-2 mt-3">                    
                     <div className="row m-0 p-0">
-                        <div className="col-2">
+                        <div className="col-2" style={{ minWidth: 250 }}>
                             <Sidebar />
                         </div>
-                        <div className="col-8">
+                        <div className="col">
                             <Route exact path='/'>
                                 <Home />
                             </Route>  
@@ -48,6 +50,9 @@ export default function App() {
                             <Route exact path='/topic/:id'>
                                 <Topic />
                             </Route>
+                            <Route exact path='/post/:id'>
+                                <PostPath />
+                            </Route>
                             <Route exact path='/profile'>
                                 <Profile />
                             </Route>
@@ -56,6 +61,9 @@ export default function App() {
                             </Route>
                             <Route exact path='/signup'>
                                 <Signup />
+                            </Route>
+                            <Route exact path='/managment'>
+                                <Managment />
                             </Route>
                             <div className="d-flex justify-content-center">
                                 <LoadingIndicator />

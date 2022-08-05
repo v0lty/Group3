@@ -54,7 +54,9 @@ namespace Group3.Controllers
         {
             var topics = this.dbContext.Topics
                 .Include(topic => topic.Posts)
-                .Take(10)
+                .ToList()
+                .OrderByDescending(x => x.PostsCount)
+                .Take(5)
                 .ToList();
 
             if (topics.Count > 0) {

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -22,24 +23,40 @@ namespace Group3.Controllers
             var currentUser = dbContext.Users
                   .Where(x => x.UserName == User.Identity.Name)
                   .FirstOrDefault();
+            if (currentUser != null)
+            {
+                var pictures = this.dbContext.Pictures
+                    .Where(x => x.UserId == currentUser.Id)
+                    .ToArray();
 
+                return new JsonResult(pictures);
+            }
 
-            var pictures = this.dbContext.Pictures
-                .Where(x => x.UserId == currentUser.Id)
-                .ToArray();
-
-            return new JsonResult(pictures);
+            return new JsonResult(null);
         }
 
         [HttpPost("UploadFile")]
         public async Task<JsonResult> UploadFile([FromForm] IFormFile file)
         {
+            if (file == null)
+                return new JsonResult(null);
+
             string rootPath = Path.Combine(hostEnvironment.ContentRootPath, "ClientApp\\public\\Pictures\\");
             string filePath = Path.Combine(rootPath, file.FileName);
 
-            using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+            // Create Folder
+            Directory.CreateDirectory(filePath.Split('/')[0] + "\\");
+         
+            try
             {
-                await file.CopyToAsync(fileStream);
+                // Create File
+                using (Stream fileStream = new FileStream(filePath, FileMode.CreateNew))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+            }
+            catch(Exception) {
+                // Possible File already Exist due to FileMode.CreateNew
             }
 
             var currentUser = dbContext.Users
@@ -53,7 +70,6 @@ namespace Group3.Controllers
 
             return new JsonResult(picture);
         }
-
 
         [HttpPost("RemovePicture")]
         public async Task<JsonResult> RemovePicture(string pictureId)

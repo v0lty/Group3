@@ -1,6 +1,6 @@
 ﻿import React, { useState, useContext, useEffect } from 'react';
-import API from "./API";
-import { AuthContext } from "./UserAuthentication";
+import API from "../API";
+import { AuthContext } from "../UserAuthentication";
 
 export default function Messages() {
     const authContext = useContext(AuthContext);

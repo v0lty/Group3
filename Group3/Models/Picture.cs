@@ -16,9 +16,5 @@ namespace Group3.Models
         public string UserId { get; set; }
 
         public ApplicationUser User { get; set; }
-
-        public int? PostId { get; set; }
-
-        public virtual Post Post { get; set; }
     }
 }

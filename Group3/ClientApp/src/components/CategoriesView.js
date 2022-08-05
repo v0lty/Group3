@@ -1,6 +1,6 @@
 ﻿import React, { useState, useContext, useEffect } from 'react';
-import { AuthContext } from "../UserAuthentication";
-import API from "../API";
+import { AuthContext } from "./UserAuthentication";
+import API from "./API";
 import Button from 'react-bootstrap/Button';
 import { useHistory } from "react-router-dom";
 import Badge from 'react-bootstrap/Badge';
@@ -41,7 +41,7 @@ export default function CategoriesView() {
                     <ListGroup.Item key={category.Id} as="li" className="d-flex justify-content-between align-items-start border-0 border-top" onClick={() => onCategoryClick(category.Id)}>
                         <div className="ms-2 me-auto">
                             <div className="fw-bold">{category.Name}</div>
-                            {category.Text != null ? category.Text : "Description.."}
+                            {category.Text != null ? category.Text : "Description"}
                         </div>
                         <Badge bg="info" pill>
                             {days[Math.floor(Math.random() * 6)]}

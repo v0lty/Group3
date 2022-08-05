@@ -48,7 +48,26 @@ namespace Group3.Controllers
             return new JsonResult(posts);
         }
 
-            [HttpPost]
+        [HttpPost]
+        [Route("GetPostById")]
+        public JsonResult GetPostById(string postId)
+        {
+            var post = dbContext.Posts
+                .Where(x => x.Id == int.Parse(postId))
+                .Include(post => post.Aurthor)
+                .ThenInclude(user => user.Pictures)
+                .Include(post => post.Aurthor)
+                .ThenInclude(user => user.UserRoles)
+                .ThenInclude(role => role.Role)
+                .Include(post => post.Pictures)
+                .Include(post => post.Topic)
+                .ThenInclude(topic => topic.Category)
+                .FirstOrDefault();
+
+            return new JsonResult(post);
+        }
+
+        [HttpPost]
         [Route("CreatePost")]
         public async Task<JsonResult> CreatePost(string userId, string topicId, string text)
         {
@@ -73,6 +92,27 @@ namespace Group3.Controllers
         }
 
         [HttpPost]
+        [Route("EditPost")]
+        public async Task<JsonResult> EditPost(string postId, string postText)
+        {
+            try {
+                var post = await dbContext.Posts.FindAsync(int.Parse(postId));
+                if (post == null)
+                    throw new Exception("Post not found.");
+
+                post.Text = postText;
+                dbContext.SaveChanges();
+
+                return new JsonResult(post);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return new JsonResult(new { Success = "False", responseText = ex.Message });
+            }
+        }
+
+        [HttpPost]
         [Route("DeletePost")]
         public async Task<JsonResult> DeletePost(string postId)
         {
@@ -82,7 +122,7 @@ namespace Group3.Controllers
                     throw new Exception("Post not found.");
 
                 dbContext.Posts.Remove(post);
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
                 return new JsonResult(null);
             }
             catch (Exception ex)
@@ -91,5 +131,34 @@ namespace Group3.Controllers
                 return new JsonResult(new { Success = "False", responseText = ex.Message });
             }
         }
+
+        [HttpPost]
+        [Route("ReportPost")]
+        public JsonResult ReportPost(string postId)
+        {
+            var post = dbContext.Posts.Where(x => x.Id == int.Parse(postId)).FirstOrDefault();
+            if (post != null) {
+                post.Reports++;
+
+                dbContext.SaveChanges();
+            }
+
+            return new JsonResult(post.Reports);
+        }
+
+        [HttpPost]
+        [Route("UpVotePost")]
+        public JsonResult UpVotePost(string postId)
+        {
+            var post = dbContext.Posts.Where(x => x.Id == int.Parse(postId)).FirstOrDefault();
+            if (post != null) {
+                post.Votes++;
+                dbContext.SaveChanges();
+            }
+
+            return new JsonResult(post.Votes);
+        }
+
+        // UpVotePost
     }
 }

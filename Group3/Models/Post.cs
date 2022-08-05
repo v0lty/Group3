@@ -9,7 +9,7 @@ namespace Group3.Models
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
+        
         public string AurthorId { get; set; }
 
         public ApplicationUser Aurthor { get; set; }
@@ -25,8 +25,8 @@ namespace Group3.Models
 
         public List<Picture> Pictures { get; set; }
 
-        public int? ReferenceId { get; set; }
+        public int Reports { get; set; }
 
-        public Post Reference { get; set; }
+        public int Votes { get; set; }
     }
 }

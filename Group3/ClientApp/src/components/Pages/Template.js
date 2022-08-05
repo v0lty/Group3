@@ -1,8 +1,8 @@
 ﻿import React, { useState, useContext, useEffect } from 'react';
 // user 
-import { AuthContext } from "./UserAuthentication";
+import { AuthContext } from "../UserAuthentication";
 // front-end API
-import API from "./API";
+import API from "../API";
 
 export default function Template() { 
     // user hook (global state)

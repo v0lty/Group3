@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { AuthContext } from "./UserAuthentication";
+import { AuthContext } from "../UserAuthentication";
 import News from "./News";
 
 export default function Home() {
@@ -12,4 +12,3 @@ export default function Home() {
         </div>
     );
 }
-

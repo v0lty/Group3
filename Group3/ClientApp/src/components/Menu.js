@@ -83,11 +83,18 @@ export default function Menu() {
                             <NavLink tag={Link} to="/forum">Forum</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} to="/signup">SignUp</NavLink>
+                            {(authContext.user != null && authContext.user.HasAuthority) && (
+                                <NavLink tag={Link} to="/managment">Managment</NavLink>
+                            )}
                         </NavItem>
                         <NavItem>
                             {authContext.user == null && (
-                                <NavLink tag={Link} to="#" onClick={() => setCollapsedUser(!collapsedUser)}>Login</NavLink>
+                                <NavLink tag={Link} to="/signup">SignUp</NavLink>
+                            )}                            
+                        </NavItem>
+                        <NavItem>
+                            {authContext.user == null && (
+                                <NavLink tag={Link} to="#" onClick={() => setCollapsedUser(!collapsedUser)}>SignIn</NavLink>
                             )}
                             {authContext.user != null && (
                                 <DropdownButton variant="link" title={authContext?.user.Name} id="userButton">
