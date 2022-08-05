@@ -81,11 +81,13 @@ export default function Topic() {
                     visible={modalVisible}
                     onHide={() => { setModalVisible(!modalVisible); }}
                 />
+                {authContext.user != null && 
                 <button
                     className="btn btn-link my-2"
                     onClick={() => { setModalVisible(!modalVisible); }}>
                     Create new Post
-                </button>
+                    </button>
+                }
             </div>
         </div>
     );
