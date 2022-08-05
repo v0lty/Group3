@@ -70,9 +70,10 @@ export const Category = props => {
                         </Badge>                        
                     </ListGroup.Item>
                 )}
-            </ListGroup>                        
+            </ListGroup>     
+            {authContext.user != null && 
             <button className="btn btn-link" onClick={onTopicCreate}>Create a new Topic in {category?.Name}</button>
-
+            }
             <Modal show={modalVisible} onHide={() => setModalVisible(false)} backdrop={false}>
                 <Modal.Header closeButton>
                     <Modal.Title>
