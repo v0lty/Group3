@@ -18,7 +18,9 @@ namespace Group3.Controllers
             var category = this.dbContext.Categories
                 .Where(x => x.Name == "News")
                 .Include(x => x.Topics)
+                .ThenInclude(x => x.Subjects)
                 .ThenInclude(x => x.Posts)
+                .ThenInclude(x => x.Aurthor)
                 .FirstOrDefault();
 
             return new JsonResult(category);

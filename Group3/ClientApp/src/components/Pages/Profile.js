@@ -80,17 +80,10 @@ export default function Profile(props) {
                 </div>
                 <input type="file" name="imageInput" onChange={(event) => {
 
-              
                     const file = event.target.files[0];
                     const formData = new FormData();
 
-                    console.log(authContext.user.Email);
-                    console.log(file);
-
-                    formData.append(
-                        "file",
-                        file,
-                        authContext.user.Email + '/' + file.name);
+                    formData.append("file", file, authContext.user.Email + '/' + file.name);
 
                     API.uploadFile(formData)
                         .then((picture) => {

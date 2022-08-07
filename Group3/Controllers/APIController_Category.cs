@@ -16,9 +16,7 @@ namespace Group3.Controllers
         {
             var categories = this.dbContext.Categories
                 .Include(cat => cat.Topics)
-                .ThenInclude(topic => topic.Posts)
-                .ThenInclude(post => post.Aurthor)
-                .ThenInclude(user => user.Pictures)
+                .ThenInclude(topic => topic.Subjects)
                 .ToArray();
             return new JsonResult(categories);
         }

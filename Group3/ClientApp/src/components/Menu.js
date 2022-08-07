@@ -93,10 +93,9 @@ export default function Menu() {
                             )}                            
                         </NavItem>
                         <NavItem>
-                            {authContext.user == null && (
+                            {authContext.user == null ? (
                                 <NavLink tag={Link} to="#" onClick={() => setCollapsedUser(!collapsedUser)}>SignIn</NavLink>
-                            )}
-                            {authContext.user != null && (
+                            ) : (                            
                                 <DropdownButton variant="link" title={authContext?.user.Name} id="userButton">
                                     <Dropdown.Item onClick={() => routeChange('/profile')} ><i className="fa fa-gear" />  Profile</Dropdown.Item>
                                     <Dropdown.Item onClick={() => routeChange('/messages')}><i className="fa fa-envelope" /> Messages</Dropdown.Item>

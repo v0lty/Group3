@@ -2,6 +2,7 @@
 import { AuthContext } from "../UserAuthentication";
 
 import API from "../API";
+import Category from './Category';
 
 export default function News() {
     const authContext = useContext(AuthContext);
@@ -19,9 +20,7 @@ export default function News() {
 
     return (
         <div>
-            {newsCategory?.Topics.map(topic =>
-                <p key={topic?.Id}>{topic?.Name}</p>
-            )}
+            <Category category={newsCategory} onUpdate={updateNews} />
         </div>
     
     );

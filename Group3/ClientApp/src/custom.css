@@ -9,7 +9,7 @@
 }
 
 .bg-gray {
-    background-color: rgba(50, 50, 50, 0.1);
+    background-color: RGBA(108, 117, 125, 0.15);
 }
 
 .new-post-editor {
@@ -21,8 +21,14 @@
     align-items: flex-end;
 }
 
+.scrollable-100 {
+    height: 60vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
 blockquote, q {
-    border: 1px solid rgba(50, 50, 93, 0.25);
+    border: 1px solid RGBA(13, 110, 253, 0.15);
     margin: 1em;
     padding: 1em;
     background-color: #dae6f1
@@ -114,3 +120,116 @@ footer .fa {
 .category-view a:hover {
     opacity: 0.3;
 }
+
+.profile-image-small {
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+    object-fit: fill;
+}
+
+.profile-image-extra-small {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    object-fit: fill;
+}
+
+.speech-bubble-right {
+    float: right;
+    position: relative;
+    background: RGBA(13, 110, 253, 0.15);
+    border-radius: .4em;
+}
+
+    .speech-bubble-right:after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 0;
+        height: 0;
+        border: 1.938em solid transparent;
+        border-left-color: RGBA(13, 110, 253, 0.15);
+        border-right: 0;
+        border-top: 0;
+        margin-top: -0.969em;
+        margin-right: -1.937em;
+    }
+
+.chat-bubble {
+    min-height: 100px;
+    width: 75%;
+    margin: 20px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.speech-bubble-left {
+    float: left;
+    position: relative;
+    background: RGBA(108, 117, 125, 0.15);
+    border-radius: .4em;
+}
+
+    .speech-bubble-left:after, button-speech-bubble {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 0;
+        height: 0;
+        border: 1.938em solid transparent;
+        border-right-color: RGBA(108, 117, 125, 0.15);
+        border-left: 0;
+        border-top: 0;
+        margin-top: -0.969em;
+        margin-left: -1.937em;
+    }
+
+.speech-bubble-left-light {
+  
+    position: relative;
+    background: white;
+    border-radius: .4em;
+}
+
+    .speech-bubble-left-light:after, button-speech-bubble {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 30%;
+        width: 0;
+        height: 0;
+        border: 1.938em solid transparent;
+        border-right-color: white;
+        border-left: 0;
+        border-top: 0;
+        margin-top: -0.969em;
+        margin-left: -1.937em;
+    }
+
+
+
+.button-speech-bubble {
+    position: relative;
+    background: RGBA(13, 110, 253, 0.15);
+    border-radius: .4em;
+    min-height: 65px;
+}
+
+    .button-speech-bubble:after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 0;
+        height: 0;
+        border: 1.938em solid transparent;
+        border-left-color: RGBA(13, 110, 253, 0.15);
+        border-right: 0;
+        border-top: 0;
+        margin-top: -0.969em;
+        margin-right: -1.937em;
+    }
+

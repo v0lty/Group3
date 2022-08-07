@@ -25,7 +25,41 @@ namespace Group3.Controllers
             return new JsonResult(user);
         }
 
+        [HttpGet]
+        [Route("GetAllUsers")]
+        public JsonResult GetAllUsers()
+        {
+            var users = dbContext.Users
+                .Include(x => x.Pictures)
+                .Include(x => x.UserRoles)
+                .ThenInclude(x => x.Role);
+
+            return new JsonResult(users);
+        }
+
         [HttpPost]
+        [Route("GetUserByName")]
+        public JsonResult GetUserByName(string search)
+        {
+            var users = dbContext.Users
+                .Include(x => x.Pictures)
+                .Include(x => x.UserRoles)
+                .ThenInclude(x => x.Role)
+                .ToList();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                var filters = search.Split(',').ToList();
+
+                users = users.Where(s => filters.Any(t => !string.IsNullOrWhiteSpace(t.Trim()) && (
+                           s.Name.Contains(t.Trim(), StringComparison.OrdinalIgnoreCase)
+                       || s.Email.Contains(t.Trim(), StringComparison.OrdinalIgnoreCase)))).ToList();
+            }
+
+            return new JsonResult(users);
+    }
+
+    [HttpPost]
         [Route("SignIn")]
         public async Task<JsonResult> SignIn(string email, string password)
         {          

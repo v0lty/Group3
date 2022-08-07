@@ -1,6 +1,7 @@
 ﻿import React, { useState, useContext, useEffect } from 'react';
 import RichTextEditor from 'react-rte'; // https://github.com/sstur/react-rte
 import Modal from 'react-bootstrap/Modal'
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form'
 
 export const InputModal = props => {
@@ -18,7 +19,11 @@ export const InputModal = props => {
 
     const onSubmit = async (event) => {
         event.preventDefault();
-        props?.onSubmit(value.toString('html'));
+
+        props?.onSubmit(
+            event,
+            props?.useTitle ? event.target.elements['titleInput'].value : "",
+            value.toString('html'));
     }
 
     const toolbarConfig = {
@@ -51,9 +56,15 @@ export const InputModal = props => {
             <Modal.Body>
                 <Form onSubmit={onSubmit}>
                     <input type="submit" id="submitInput" className="d-none" />
-                    <Form.Group className="m-2" controlId="formInput">
-                        <RichTextEditor
-                            className="new-post-editor"
+                    {props?.useTitle &&
+                        <Form.Group className="m-2">                        
+                        <FloatingLabel label={props?.inputTitle} className="mb-3">
+                            <Form.Control type="text" placeholder={props?.inputTitle} id="titleInput" />
+                            </FloatingLabel>                       
+                        </Form.Group>
+                    }
+                    <Form.Group className="m-2">
+                        <RichTextEditor id="textInput" className="new-post-editor"
                             value={value}
                             onChange={onChange}
                             toolbarConfig={toolbarConfig}

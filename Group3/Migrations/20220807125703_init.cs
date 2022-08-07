@@ -42,7 +42,8 @@ namespace Group3.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(maxLength: 50, nullable: false),
                     LastName = table.Column<string>(maxLength: 50, nullable: false),
-                    Birthdate = table.Column<DateTime>(nullable: false)
+                    Birthdate = table.Column<DateTime>(nullable: false),
+                    Location = table.Column<string>(maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -197,6 +198,7 @@ namespace Group3.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(maxLength: 200, nullable: true),
+                    Description = table.Column<string>(maxLength: 200, nullable: true),
                     CategoryId = table.Column<int>(nullable: false),
                     AurthorId = table.Column<string>(nullable: true)
                 },
@@ -224,7 +226,6 @@ namespace Group3.Migrations
                     UserId = table.Column<string>(nullable: false),
                     MessageId = table.Column<int>(nullable: false),
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
@@ -244,6 +245,33 @@ namespace Group3.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Subjects",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(maxLength: 200, nullable: true),
+                    TopicId = table.Column<int>(nullable: false),
+                    AurthorId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subjects", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Subjects_AspNetUsers_AurthorId",
+                        column: x => x.AurthorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Subjects_Topics_TopicId",
+                        column: x => x.TopicId,
+                        principalTable: "Topics",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Posts",
                 columns: table => new
                 {
@@ -252,7 +280,7 @@ namespace Group3.Migrations
                     AurthorId = table.Column<string>(nullable: true),
                     Text = table.Column<string>(maxLength: 10000, nullable: true),
                     Time = table.Column<DateTime>(nullable: false),
-                    TopicId = table.Column<int>(nullable: false),
+                    SubjectId = table.Column<int>(nullable: false),
                     Reports = table.Column<int>(nullable: false),
                     Votes = table.Column<int>(nullable: false)
                 },
@@ -264,12 +292,13 @@ namespace Group3.Migrations
                         column: x => x.AurthorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Posts_Topics_TopicId",
-                        column: x => x.TopicId,
-                        principalTable: "Topics",
-                        principalColumn: "Id");
+                        name: "FK_Posts_Subjects_SubjectId",
+                        column: x => x.SubjectId,
+                        principalTable: "Subjects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -296,7 +325,7 @@ namespace Group3.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -304,19 +333,19 @@ namespace Group3.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "3ba57f22-cadf-42e1-9aca-f7aa4eb1d145", "679856e9-85a8-4122-abc1-ad4bcb988676", "Admin", "ADMIN" },
-                    { "6de84da1-d6fd-4f17-84a0-39d098eeac43", "b3ea367a-a484-4a53-ab48-3c3af6627b02", "User", "USER" },
-                    { "87b24ab2-7440-48f1-b18b-d51453cde95e", "b4ecfbe7-1ab0-41e2-bd82-4628decd23a5", "Moderator", "MODERATOR" }
+                    { "fcb2afa4-c8ec-408c-8c08-cf34234493bf", "fbd11b6d-b810-40c6-83c1-62039de7d3a9", "Admin", "ADMIN" },
+                    { "ca6897bb-6983-49a9-8a69-90010f20cbbd", "63a6ceaa-bcfd-44c7-ad10-c2c155906644", "User", "USER" },
+                    { "5fcab190-8e3b-4b61-bf58-34c03c25d81d", "93211696-c581-423b-8835-c5a021c3edc9", "Moderator", "MODERATOR" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "Birthdate", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                columns: new[] { "Id", "AccessFailedCount", "Birthdate", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "Location", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "3ead9f54-2b0e-44fb-b5f5-6fcf1bf1b4b6", 0, new DateTime(1964, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "f81759a6-4263-4da5-9e80-fffca2051e41", "admin@fakemail.net", false, "John", "Doe", false, null, "ADMIN@FAKEMAIL.NET", "ADMIN@FAKEMAIL.NET", "AQAAAAEAACcQAAAAEF3rkHL/9ULWZXFSm/HCsZrE6cm1fS50GYJyaSvBh49YOVwUgvAnxjenCik3TolzIQ==", null, false, "2d8464dd-4724-413a-bac8-74d4547473f9", false, "admin@fakemail.net" },
-                    { "4c9712e9-1359-439a-b161-e4f4d5047148", 0, new DateTime(1993, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), "58039ac2-4d04-496c-a099-e0609a6bf54d", "sara@fakemail.net", false, "Sara", "Svensson", false, null, "SARA@FAKEMAIL.NET", "SARA@FAKEMAIL.NET", "AQAAAAEAACcQAAAAECNZ+a1quVGXJ0X87/9mTtFnpt6AOYEUw6z7O0Bv9GDanLzGguPgE25MkUkkzVqayQ==", null, false, "ff6dd937-b3b6-4a3c-9514-0c3a59337895", false, "sara@fakemail.net" },
-                    { "bd6d91b2-9082-4ac6-b69c-57c4b48bef6b", 0, new DateTime(1985, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "4bff0ade-5250-4f37-b101-be540ede5234", "bertil@fakemail.net", false, "Bertil", "Johansson", false, null, "BERTIL@FAKEMAIL.NET", "BERTIL@FAKEMAIL.NET", "AQAAAAEAACcQAAAAEGH1+8uiId5vn5A4FpPWUlF9xR8eVu8HCLlPtmBCeQqOwjfGfqIxSUHWHalLuYO7uA==", null, false, "4b241ebf-c679-4003-8bf8-bfefe3bffe37", false, "bertil@fakemail.net" }
+                    { "141b2307-27c7-4a38-9ad7-4183d4343876", 0, new DateTime(1964, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "f5eea05f-6b15-4a4b-9d7b-30a4f7df9070", "admin@fakemail.net", false, "John", "Doe", "America", false, null, "ADMIN@FAKEMAIL.NET", "ADMIN@FAKEMAIL.NET", "AQAAAAEAACcQAAAAEBndc1Qn+FmMwX6ruOoO/wsdjUfCSScVJfbmMZuZ5/w4R2mtJS9sjIaiHchT70K9ww==", null, false, "a5e2aca8-8b4b-49fd-a027-b0737243dfaa", false, "admin@fakemail.net" },
+                    { "da3a4e5f-558b-4580-bc65-ff951c1c5d33", 0, new DateTime(1993, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), "42f6f609-ee26-4613-883c-f114673cd1a8", "sara@fakemail.net", false, "Sara", "Svensson", "Danmark", false, null, "SARA@FAKEMAIL.NET", "SARA@FAKEMAIL.NET", "AQAAAAEAACcQAAAAEDTxnaJ+wO0hEesPPSNg2mlBF942Xi0hzq99eFGgM8x8f2dLnrAsN+aJMdmraKwTPQ==", null, false, "70f02e1e-6222-43b2-8589-1136479fd210", false, "sara@fakemail.net" },
+                    { "04363ba0-d213-4e19-a0d2-d38cc893af3b", 0, new DateTime(1985, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "74df0717-dbec-499b-a0e3-0f0bed01966f", "bertil@fakemail.net", false, "Bertil", "Johansson", "Sweden", false, null, "BERTIL@FAKEMAIL.NET", "BERTIL@FAKEMAIL.NET", "AQAAAAEAACcQAAAAEPUESof0nvYGDXSkOR2e+lAWGaFbJUvVTs+uRIkSJrB+VY7DUEkMgF1VADCjf4iHGA==", null, false, "e2d93a2c-0989-4c2d-882a-40f0ec3cf45c", false, "bertil@fakemail.net" }
                 });
 
             migrationBuilder.InsertData(
@@ -334,9 +363,9 @@ namespace Group3.Migrations
                 columns: new[] { "UserId", "RoleId" },
                 values: new object[,]
                 {
-                    { "3ead9f54-2b0e-44fb-b5f5-6fcf1bf1b4b6", "3ba57f22-cadf-42e1-9aca-f7aa4eb1d145" },
-                    { "4c9712e9-1359-439a-b161-e4f4d5047148", "6de84da1-d6fd-4f17-84a0-39d098eeac43" },
-                    { "bd6d91b2-9082-4ac6-b69c-57c4b48bef6b", "87b24ab2-7440-48f1-b18b-d51453cde95e" }
+                    { "141b2307-27c7-4a38-9ad7-4183d4343876", "fcb2afa4-c8ec-408c-8c08-cf34234493bf" },
+                    { "da3a4e5f-558b-4580-bc65-ff951c1c5d33", "ca6897bb-6983-49a9-8a69-90010f20cbbd" },
+                    { "04363ba0-d213-4e19-a0d2-d38cc893af3b", "5fcab190-8e3b-4b61-bf58-34c03c25d81d" }
                 });
 
             migrationBuilder.InsertData(
@@ -344,11 +373,11 @@ namespace Group3.Migrations
                 columns: new[] { "Id", "AurthorId", "Text", "Time" },
                 values: new object[,]
                 {
-                    { -1, "3ead9f54-2b0e-44fb-b5f5-6fcf1bf1b4b6", "Hello Sara and Bertil my name is John!", new DateTime(2022, 8, 2, 13, 8, 31, 849, DateTimeKind.Local).AddTicks(8149) },
-                    { -4, "3ead9f54-2b0e-44fb-b5f5-6fcf1bf1b4b6", "Umm..", new DateTime(2022, 8, 4, 13, 8, 31, 849, DateTimeKind.Local).AddTicks(9074) },
-                    { -2, "4c9712e9-1359-439a-b161-e4f4d5047148", "Hello John!", new DateTime(2022, 8, 3, 13, 8, 31, 849, DateTimeKind.Local).AddTicks(9041) },
-                    { -3, "bd6d91b2-9082-4ac6-b69c-57c4b48bef6b", "What's up??", new DateTime(2022, 8, 4, 13, 8, 31, 849, DateTimeKind.Local).AddTicks(9070) },
-                    { -5, "bd6d91b2-9082-4ac6-b69c-57c4b48bef6b", "Message from Bertil to Sara", new DateTime(2022, 8, 4, 13, 8, 31, 849, DateTimeKind.Local).AddTicks(9078) }
+                    { -1, "141b2307-27c7-4a38-9ad7-4183d4343876", "Hello Sara and Bertil my name is John!", new DateTime(2022, 8, 4, 14, 57, 2, 631, DateTimeKind.Local).AddTicks(6373) },
+                    { -4, "141b2307-27c7-4a38-9ad7-4183d4343876", "Umm..", new DateTime(2022, 8, 6, 14, 57, 2, 631, DateTimeKind.Local).AddTicks(7198) },
+                    { -2, "da3a4e5f-558b-4580-bc65-ff951c1c5d33", "Hello John!", new DateTime(2022, 8, 5, 14, 57, 2, 631, DateTimeKind.Local).AddTicks(7165) },
+                    { -3, "04363ba0-d213-4e19-a0d2-d38cc893af3b", "What's up??", new DateTime(2022, 8, 6, 14, 57, 2, 631, DateTimeKind.Local).AddTicks(7193) },
+                    { -5, "04363ba0-d213-4e19-a0d2-d38cc893af3b", "Message from Bertil to Sara", new DateTime(2022, 8, 6, 14, 57, 2, 631, DateTimeKind.Local).AddTicks(7202) }
                 });
 
             migrationBuilder.InsertData(
@@ -356,20 +385,20 @@ namespace Group3.Migrations
                 columns: new[] { "Id", "Path", "PostId", "UserId" },
                 values: new object[,]
                 {
-                    { -1, "admin@fakemail.net/picture1.jpg", null, "3ead9f54-2b0e-44fb-b5f5-6fcf1bf1b4b6" },
-                    { -2, "sara@fakemail.net/picture2.jpg", null, "4c9712e9-1359-439a-b161-e4f4d5047148" },
-                    { -3, "admin@fakemail.net/picture3.jpg", null, "bd6d91b2-9082-4ac6-b69c-57c4b48bef6b" }
+                    { -1, "admin@fakemail.net/picture1.jpg", null, "141b2307-27c7-4a38-9ad7-4183d4343876" },
+                    { -2, "sara@fakemail.net/picture2.jpg", null, "da3a4e5f-558b-4580-bc65-ff951c1c5d33" },
+                    { -3, "admin@fakemail.net/picture3.jpg", null, "04363ba0-d213-4e19-a0d2-d38cc893af3b" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Topics",
-                columns: new[] { "Id", "AurthorId", "CategoryId", "Name" },
+                columns: new[] { "Id", "AurthorId", "CategoryId", "Description", "Name" },
                 values: new object[,]
                 {
-                    { -1, "3ead9f54-2b0e-44fb-b5f5-6fcf1bf1b4b6", -1, "Trending" },
-                    { -2, "3ead9f54-2b0e-44fb-b5f5-6fcf1bf1b4b6", -2, "HTML" },
-                    { -3, "3ead9f54-2b0e-44fb-b5f5-6fcf1bf1b4b6", -2, "CSS" },
-                    { -4, "4c9712e9-1359-439a-b161-e4f4d5047148", -3, "Entity Framework" }
+                    { -1, "141b2307-27c7-4a38-9ad7-4183d4343876", -1, "What's hot right now?", "Trending" },
+                    { -2, "141b2307-27c7-4a38-9ad7-4183d4343876", -2, "Tag TAG <b>TAG!</b>", "HTML" },
+                    { -3, "da3a4e5f-558b-4580-bc65-ff951c1c5d33", -2, "The necessary evil?", "CSS" },
+                    { -4, "da3a4e5f-558b-4580-bc65-ff951c1c5d33", -3, "Because SQL is even worse.", "Entity Framework" }
                 });
 
             migrationBuilder.InsertData(
@@ -377,31 +406,43 @@ namespace Group3.Migrations
                 columns: new[] { "UserId", "MessageId", "Id" },
                 values: new object[,]
                 {
-                    { "3ead9f54-2b0e-44fb-b5f5-6fcf1bf1b4b6", -1, -1 },
-                    { "bd6d91b2-9082-4ac6-b69c-57c4b48bef6b", -5, -3 },
-                    { "4c9712e9-1359-439a-b161-e4f4d5047148", -5, -3 },
-                    { "bd6d91b2-9082-4ac6-b69c-57c4b48bef6b", -3, -2 },
-                    { "4c9712e9-1359-439a-b161-e4f4d5047148", -3, -2 },
-                    { "3ead9f54-2b0e-44fb-b5f5-6fcf1bf1b4b6", -3, -2 },
-                    { "4c9712e9-1359-439a-b161-e4f4d5047148", -2, -1 },
-                    { "bd6d91b2-9082-4ac6-b69c-57c4b48bef6b", -2, -1 },
-                    { "bd6d91b2-9082-4ac6-b69c-57c4b48bef6b", -4, -2 },
-                    { "4c9712e9-1359-439a-b161-e4f4d5047148", -4, -2 },
-                    { "3ead9f54-2b0e-44fb-b5f5-6fcf1bf1b4b6", -4, -2 },
-                    { "bd6d91b2-9082-4ac6-b69c-57c4b48bef6b", -1, -1 },
-                    { "4c9712e9-1359-439a-b161-e4f4d5047148", -1, -1 },
-                    { "3ead9f54-2b0e-44fb-b5f5-6fcf1bf1b4b6", -2, -1 }
+                    { "141b2307-27c7-4a38-9ad7-4183d4343876", -1, -1 },
+                    { "04363ba0-d213-4e19-a0d2-d38cc893af3b", -5, -3 },
+                    { "da3a4e5f-558b-4580-bc65-ff951c1c5d33", -5, -3 },
+                    { "04363ba0-d213-4e19-a0d2-d38cc893af3b", -3, -2 },
+                    { "da3a4e5f-558b-4580-bc65-ff951c1c5d33", -3, -2 },
+                    { "141b2307-27c7-4a38-9ad7-4183d4343876", -3, -2 },
+                    { "da3a4e5f-558b-4580-bc65-ff951c1c5d33", -2, -1 },
+                    { "04363ba0-d213-4e19-a0d2-d38cc893af3b", -2, -1 },
+                    { "04363ba0-d213-4e19-a0d2-d38cc893af3b", -4, -2 },
+                    { "da3a4e5f-558b-4580-bc65-ff951c1c5d33", -4, -2 },
+                    { "141b2307-27c7-4a38-9ad7-4183d4343876", -4, -2 },
+                    { "04363ba0-d213-4e19-a0d2-d38cc893af3b", -1, -1 },
+                    { "da3a4e5f-558b-4580-bc65-ff951c1c5d33", -1, -1 },
+                    { "141b2307-27c7-4a38-9ad7-4183d4343876", -2, -1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Subjects",
+                columns: new[] { "Id", "AurthorId", "Name", "TopicId" },
+                values: new object[,]
+                {
+                    { -1, "141b2307-27c7-4a38-9ad7-4183d4343876", "HTML Tables?", -2 },
+                    { -2, "da3a4e5f-558b-4580-bc65-ff951c1c5d33", "Visual Studio 2022", -1 },
+                    { -3, "da3a4e5f-558b-4580-bc65-ff951c1c5d33", "Am I'm the chosen one?", -3 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Posts",
-                columns: new[] { "Id", "AurthorId", "Reports", "Text", "Time", "TopicId", "Votes" },
+                columns: new[] { "Id", "AurthorId", "Reports", "SubjectId", "Text", "Time", "Votes" },
                 values: new object[,]
                 {
-                    { -3, "3ead9f54-2b0e-44fb-b5f5-6fcf1bf1b4b6", 0, "How do I make a table?", new DateTime(2022, 7, 31, 13, 8, 31, 849, DateTimeKind.Local).AddTicks(5887), -2, 3 },
-                    { -1, "4c9712e9-1359-439a-b161-e4f4d5047148", 0, "<b>Visual Studio 6.0</b> news news news more news", new DateTime(2022, 8, 4, 13, 8, 31, 847, DateTimeKind.Local).AddTicks(669), -1, 1 },
-                    { -2, "3ead9f54-2b0e-44fb-b5f5-6fcf1bf1b4b6", 2, "My head is empty, should I fill it with something?", new DateTime(2022, 8, 3, 13, 8, 31, 849, DateTimeKind.Local).AddTicks(5783), -1, 0 },
-                    { -4, "4c9712e9-1359-439a-b161-e4f4d5047148", 1, "I dont know..", new DateTime(2022, 8, 1, 13, 8, 31, 849, DateTimeKind.Local).AddTicks(5896), -2, 0 }
+                    { -1, "da3a4e5f-558b-4580-bc65-ff951c1c5d33", 0, -2, "Is this version any good?", new DateTime(2022, 8, 5, 14, 57, 2, 629, DateTimeKind.Local).AddTicks(2997), 1 },
+                    { -2, "141b2307-27c7-4a38-9ad7-4183d4343876", 2, -2, "Maybe, but I'll stick with 2019!", new DateTime(2022, 8, 6, 14, 57, 2, 631, DateTimeKind.Local).AddTicks(4359), 0 },
+                    { -3, "141b2307-27c7-4a38-9ad7-4183d4343876", 0, -1, "How do I make a <b>table?</b>", new DateTime(2022, 8, 2, 14, 57, 2, 631, DateTimeKind.Local).AddTicks(4429), 3 },
+                    { -4, "da3a4e5f-558b-4580-bc65-ff951c1c5d33", 1, -1, "I dont know..", new DateTime(2022, 8, 3, 14, 57, 2, 631, DateTimeKind.Local).AddTicks(4436), 0 },
+                    { -5, "04363ba0-d213-4e19-a0d2-d38cc893af3b", 0, -1, "Me neither..", new DateTime(2022, 8, 7, 11, 57, 2, 631, DateTimeKind.Local).AddTicks(4440), 1 },
+                    { -6, "da3a4e5f-558b-4580-bc65-ff951c1c5d33", 0, -3, "WoW first post?!?", new DateTime(2019, 8, 7, 14, 57, 2, 631, DateTimeKind.Local).AddTicks(4460), 1 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -469,8 +510,18 @@ namespace Group3.Migrations
                 column: "AurthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Posts_TopicId",
+                name: "IX_Posts_SubjectId",
                 table: "Posts",
+                column: "SubjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subjects_AurthorId",
+                table: "Subjects",
+                column: "AurthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subjects_TopicId",
+                table: "Subjects",
                 column: "TopicId");
 
             migrationBuilder.CreateIndex(
@@ -515,6 +566,9 @@ namespace Group3.Migrations
 
             migrationBuilder.DropTable(
                 name: "Posts");
+
+            migrationBuilder.DropTable(
+                name: "Subjects");
 
             migrationBuilder.DropTable(
                 name: "Topics");

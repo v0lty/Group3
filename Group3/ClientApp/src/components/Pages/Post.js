@@ -1,6 +1,5 @@
 ﻿import React, { useContext, useState, useEffect } from 'react';
 import moment from "moment";
-import UserComponent from '../UserComponent';
 import AuthContext from "../UserAuthentication";
 import RichTextEditor from 'react-rte';
 import API from "../API";
@@ -26,7 +25,14 @@ export const PostPath = () => {
     }, [id])
 
     return (
-        <Post post={post} onEdit={updatePost} onDelete={() => { history.push('/'); }}/>
+        <div>
+            <h5 className="m-0 p-0 pb-3">
+                <a className="text-decoration-none" href={`/category/${post?.Subject?.Topic?.Category?.Id}`}>{post?.Subject?.Topic?.Category?.Name}</a>
+                {" > "}
+                <a className="text-decoration-none" href={`/topic/${post?.Subject?.Topic?.Id}`}>{post?.Subject?.Topic?.Name}</a>
+            </h5>
+            <Post post={post} onUpdate={updatePost} onEdit={updatePost} onDelete={() => { history.push('/'); }} />
+        </div>
     );
 }
 
@@ -61,7 +67,7 @@ export const Post = props => {
         });
     };
 
-    const onDelete = async (id) => {
+    const onDelete = (id) => {
         API.deletePost({
             postId: id
         }).then(() => {
@@ -73,7 +79,7 @@ export const Post = props => {
         API.reportPost({
             postId: id,
         }).then((num) => {
-            alert("Post reported, thank you!");
+            alert("Post was reported, thank you!");
         });
     }
 
@@ -89,42 +95,57 @@ export const Post = props => {
         <div className="mb-4 bg-gray">
             <div className="row p-2">
                 <div>
-                    <span>{moment(props?.post?.Time).fromNow()}</span>                  
-                    {/*<button className="btn border-0 float-end p-0 px-2">{Math.floor(Math.random() *  5)} &#128078;</button> */}               
-                    <button className="btn border-0 float-end p-0 px-2" onClick={() => onVote(props?.post?.Id)}>{props?.post?.Votes} &#128077;</button>
+                    {/*TIME*/}
+                    <span><b>{moment(props?.post?.Time).fromNow()}</b></span>
+                    {/*VOTE*/}
+                    <button className="btn border-0 float-end p-0 px-2 fw-bold" onClick={() => onVote(props?.post?.Id)}>{props?.post?.Votes} &#128077;</button>
                 </div>
             </div>
             <div className="row">
-                <div className="col-2" style={{ minWidth: 175}}>
-                    <UserComponent user={ props?.post?.Aurthor } />
+                <div className="col-1 mb-4" style={{ minWidth: 175 }}>
+                    {/*USER*/}
+                    <div>
+                        <div className="row m-0">
+                            <img className="profile-picture" src={`../Pictures/${props?.post?.Aurthor.ProfilePicture?.Path}`}></img>
+                        </div>
+                        <div className="row m-0">
+                            <h5>{props?.post?.Aurthor?.Name}</h5>
+                            <div>
+                                <span className="text-info fw-bold">{props?.post?.Aurthor?.RoleString}</span><br />
+                                <span className="text-muted"><b>{moment().diff(props?.post?.Aurthor?.Birthdate, 'years')}</b> years old</span><br />
+                                <span className="text-muted">from <b>{props?.post?.Aurthor?.Location}</b></span><br />                               
+                                <span>with <b className="text-danger">{props?.post?.Aurthor?.PostsCount}</b> posts.</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="col px-4">
-                    <div className="bg-light p-2 pb-2 h-100">
-                        {editMode == true && (
+                <div className="col pe-4 px-2" style={{ minWidth: 250 },{ minHeight: 100 }}>
+                    <div className="bg-light p-2 pb-2 h-100 speech-bubble-left-light">
+
+                        {editMode == true ? (
+                            /*EDIT*/
                             <div>
                                 <RichTextEditor className="new-post-editor" value={value} onChange={onChange} />
                                 <button className="btn btn-secondary my-2" onClick={onSave}>Save</button>
                             </div>
-                        )}
-                        {editMode == false && (
+                        ) : (
+                            /*TEXT*/
                             <div dangerouslySetInnerHTML={{ __html: props?.post?.Text }} />
                         )}
-                        
                     </div>
                 </div>
                 <div className="row">
                     <div>
-                        {(authContext?.user?.Id == props?.post?.Aurthor?.Id || authContext?.user?.HasAuthority) && (
+                        {(authContext?.user?.Id == props?.post?.Aurthor?.Id || authContext?.user?.HasAuthority) ? (
                             <div>                                
                                 <button className="btn btn-link float-end" onClick={() => onDelete(props?.post?.Id)}>Delete</button>
                                 <button className="btn btn-link float-end" onClick={() => onEditClick(props?.post)}>Edit</button>
                             </div>
+                        ) : (
+                            <button className="btn btn-link float-end" onClick={() => onReport(props?.post.Id)}>Report</button>
                         )}
-                        {authContext?.user?.Id != props?.post?.Aurthor?.Id && (
-                            <div>                                
-                                <button className="btn btn-link float-end" onClick={() => props.onQuote(props?.post)}>Quote</button>
-                                <button className="btn btn-link float-end" onClick={() => onReport(props?.post.Id)}>Report</button>
-                            </div>
+                        {authContext?.user?.Id != props?.post?.Aurthor?.Id && (                            
+                            <button className="btn btn-link float-end" onClick={() => props.onQuote(props?.post)}>Quote</button>
                         )}
                     </div>
                 </div>

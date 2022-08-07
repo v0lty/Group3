@@ -15,7 +15,7 @@ namespace Group3.Controllers
         public JsonResult GetAllTopics()
         {
             var topics = this.dbContext.Topics
-                .Include(topic => topic.Posts)
+                .Include(topic => topic.Subjects)
                 .ThenInclude(post => post.Aurthor).ToArray();
 
             return new JsonResult(topics);
@@ -29,10 +29,18 @@ namespace Group3.Controllers
                 var topic = dbContext.Topics
                     .Where(x => x.Id == int.Parse(topicId))
                     .Include(x => x.Category)
-                    .Include(x => x.Posts)
+                    .Include(x => x.Subjects)
                     .ThenInclude(x => x.Aurthor)
                     .ThenInclude(x => x.Pictures)
+                    .Include(x => x.Subjects)
+                    .ThenInclude(x => x.Posts)
+                    .ThenInclude(x => x.Aurthor)
+                    .ThenInclude(x => x.UserRoles)
+                    .ThenInclude(x => x.Role)                    
                     .FirstOrDefault();
+
+                topic.Subjects.ForEach(x => x.Posts.Sort((x, y) => x.Time.CompareTo(y.Time)));
+                topic.Subjects.ForEach(x => x.Posts.ForEach(y => y.Aurthor.Posts = dbContext.Posts.Where(z => z.Aurthor.Id == y.Aurthor.Id).ToList()));
 
                 if (topic == null)
                     throw new Exception("Topic not found.");
@@ -53,14 +61,17 @@ namespace Group3.Controllers
         public JsonResult GetHotTopics()
         {
             var topics = this.dbContext.Topics
-                .Include(topic => topic.Posts)
+                .Include(x => x.Subjects)
+                .ThenInclude(x => x.Posts)
                 .ToList()
-                .OrderByDescending(x => x.PostsCount)
+                .OrderByDescending(x => x.SubjectsCount)
                 .Take(5)
                 .ToList();
 
-            if (topics.Count > 0) {
-                topics.Sort((x, y) => x.Posts.Count.CompareTo(y.Posts.Count));                
+            if (topics != null 
+             && topics.Count > 0) {
+                topics.Where(x => x.SubjectsCount == 0).ToList().ForEach(x => topics.Remove(x));
+                topics.Sort((x, y) => x.Subjects.Count.CompareTo(y.Subjects.Count));                
             }
 
             return new JsonResult(topics);
@@ -68,10 +79,11 @@ namespace Group3.Controllers
 
         [HttpPost]
         [Route("CreateTopic")]
-        public JsonResult CreateTopic(string name, string categoryId)
+        public JsonResult CreateTopic(string name, string description, string categoryId)
         {
             var topic = new Topic() { 
                 Name = name,
+                Description = description,
                 CategoryId = int.Parse(categoryId) 
             };
 
@@ -81,6 +93,28 @@ namespace Group3.Controllers
             return new JsonResult(topic);
         }
 
-            //data.Sort((x, y) => x.Name.CompareTo(y.Name));
+        [HttpPost]
+        [Route("DeleteTopic")]
+        public async Task<JsonResult> DeleteTopic(string topicId)
+        {
+            var topic = await dbContext.Topics.FindAsync(int.Parse(topicId));
+
+            try
+            {
+                if (topic == null) {
+                    throw new NullReferenceException("Topic not found!");
+                }
+
+                dbContext.Topics.Remove(topic);
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.NotFound;
+                return new JsonResult(new { Success = "False", responseText = ex.Message });
+            }
+
+            return new JsonResult(null);
         }
+    }
 }

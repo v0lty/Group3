@@ -2,7 +2,7 @@
 import API from "../API";
 import { AuthContext } from "../UserAuthentication";
 import ListGroup from 'react-bootstrap/ListGroup';
-import CategoryComponent from './Category'
+import Category from './Category'
 
 export default function Forum() {
     const authContext = useContext(AuthContext);
@@ -23,9 +23,7 @@ export default function Forum() {
             <ListGroup as="ol">
                 {categories.map((category, categoryIndex) => category.Name != "News" && (
                     <ListGroup.Item key={categoryIndex} as="li" className="border-0">
-                        <CategoryComponent
-                            category={category}
-                            onUpdate={updateCategories} />
+                        <Category category={category} onUpdate={updateCategories} />
                     </ListGroup.Item>
                 ))}
             </ListGroup>

@@ -19,9 +19,9 @@ namespace Group3.Models
 
         public DateTime Time { get; set; }
 
-        public Topic Topic { get; set; }
+        public Subject Subject { get; set; }
 
-        public int TopicId { get; set; }
+        public int SubjectId { get; set; }
 
         public List<Picture> Pictures { get; set; }
 

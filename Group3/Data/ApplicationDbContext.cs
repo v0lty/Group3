@@ -14,6 +14,7 @@ namespace Group3.Data
                                         IdentityUserToken<string>> {        
         public DbSet<Category> Categories { get; set; }
         public DbSet<Topic> Topics { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Picture> Pictures { get; set; }        
         public DbSet<Chat> Chats { get; set; }
@@ -30,23 +31,32 @@ namespace Group3.Data
             modelBuilder.Entity<ApplicationUser>()
                 .HasMany(user => user.Posts)
                 .WithOne(post => post.Aurthor)
-                .HasForeignKey(post => post.AurthorId);
+                .HasForeignKey(post => post.AurthorId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ApplicationUser>()
                 .HasMany(user => user.Pictures)
                 .WithOne(picture => picture.User)
-                .HasForeignKey(picture => picture.UserId);
+                .HasForeignKey(picture => picture.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Topic>()
                 .HasOne(topic => topic.Category)
                 .WithMany(category => category.Topics)
-                .HasForeignKey(topic => topic.CategoryId);
+                .HasForeignKey(topic => topic.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Subject>()
+                .HasOne(subject => subject.Topic)
+                .WithMany(topic => topic.Subjects)
+                .HasForeignKey(subject => subject.TopicId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Post>()
-                .HasOne(post => post.Topic)
-                .WithMany(topic => topic.Posts)
-                .HasForeignKey(post => post.TopicId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .HasOne(post => post.Subject)
+                .WithMany(subject => subject.Posts)
+                .HasForeignKey(post => post.SubjectId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Chat>()
                 .HasKey(ur => new { ur.UserId, ur.MessageId });
@@ -54,12 +64,14 @@ namespace Group3.Data
             modelBuilder.Entity<Chat>()
                 .HasOne(c => c.User)
                 .WithMany(u => u.Chats)
-                .HasForeignKey(c => c.UserId);
+                .HasForeignKey(c => c.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Chat>()
                 .HasOne(c => c.Message)
                 .WithMany(m => m.Chats)
-                .HasForeignKey(ur => ur.MessageId);
+                .HasForeignKey(ur => ur.MessageId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ApplicationUserRole>()
                 .HasKey(ur => new { ur.UserId, ur.RoleId });
@@ -91,6 +103,7 @@ namespace Group3.Data
                 NormalizedUserName = "ADMIN@FAKEMAIL.NET",
                 FirstName = "John",
                 LastName = "Doe",
+                Location = "America",
                 Birthdate = new DateTime(1964, 07, 15),
                 PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "password")
             };
@@ -105,6 +118,7 @@ namespace Group3.Data
                 FirstName = "Sara",
                 LastName = "Svensson",
                 Birthdate = new DateTime(1993, 10, 18),
+                Location = "Danmark",
                 PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "password")
             };
 
@@ -118,6 +132,7 @@ namespace Group3.Data
                 FirstName = "Bertil",
                 LastName = "Johansson",
                 Birthdate = new DateTime(1985, 10, 10),
+                Location = "Sweden",
                 PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "password")
             };
 
@@ -125,16 +140,21 @@ namespace Group3.Data
             var category2 = new Category { Id = -2, Name = "Frontend", Description = "Javascript, React and more." };
             var category3 = new Category { Id = -3, Name = "Backend", Description = "C++ and C#" };
 
-            var topic1 = new Topic { Id = -1, Name = "Trending", CategoryId = category1.Id, AurthorId = adminUserRole.UserId };
-            var topic2 = new Topic { Id = -2, Name = "HTML", CategoryId = category2.Id, AurthorId = user1.Id };
-            var topic3 = new Topic { Id = -3, Name = "CSS", CategoryId = category2.Id, AurthorId = user1.Id };
-            var topic4 = new Topic { Id = -4, Name = "Entity Framework", CategoryId = category3.Id, AurthorId = user2.Id };
+            var topic1 = new Topic { Id = -1, Name = "Trending", Description="What's hot right now?", CategoryId = category1.Id, AurthorId = adminUserRole.UserId };
+            var topic2 = new Topic { Id = -2, Name = "HTML", Description="Tag TAG <b>TAG!</b>", CategoryId = category2.Id, AurthorId = user1.Id };
+            var topic3 = new Topic { Id = -3, Name = "CSS", Description= "The necessary evil?", CategoryId = category2.Id, AurthorId = user2.Id };
+            var topic4 = new Topic { Id = -4, Name = "Entity Framework", Description="Because SQL is even worse.", CategoryId = category3.Id, AurthorId = user2.Id };
 
-            var post1 = new Post { Id = -1, Text = "<b>Visual Studio 6.0</b> news news news more news", Time = DateTime.Now.AddDays(-1), TopicId = topic1.Id, AurthorId = user2.Id, Reports = 0, Votes = 1 };
-            var post2 = new Post { Id = -2, Text = "My head is empty, should I fill it with something?", Time = DateTime.Now.AddDays(-2), TopicId = topic1.Id, AurthorId = user1.Id, Reports = 2, Votes = 0 };
-            var post3 = new Post { Id = -3, Text = "How do I make a table?", Time = DateTime.Now.AddDays(-5), TopicId = topic2.Id, AurthorId = user1.Id, Reports = 0, Votes = 3 };
-            var post4 = new Post { Id = -4, Text = "I dont know..", Time = DateTime.Now.AddDays(-4), TopicId = topic2.Id, AurthorId = user2.Id, Reports = 1, Votes = 0 };
-            var post5 = new Post { Id = -5, Text = "Me neither..", Time = DateTime.Now.AddHours(-3), TopicId = topic2.Id, AurthorId = user3.Id, Reports = 0, Votes = 1 };
+            var subject1 = new Subject { Id = -1, Name = "HTML Tables?", TopicId = topic2.Id, AurthorId = user1.Id };
+            var subject2 = new Subject { Id = -2, Name = "Visual Studio 2022", TopicId = topic1.Id, AurthorId = user2.Id };
+            var subject3 = new Subject { Id = -3, Name = "Am I'm the chosen one?", TopicId = topic3.Id, AurthorId = user2.Id };
+
+            var post1 = new Post { Id = -1, Text = "Is this version any good?", Time = DateTime.Now.AddDays(-2), SubjectId = subject2.Id, AurthorId = user2.Id, Reports = 0, Votes = 1 };
+            var post2 = new Post { Id = -2, Text = "Maybe, but I'll stick with 2019!", Time = DateTime.Now.AddDays(-1), SubjectId = subject2.Id, AurthorId = user1.Id, Reports = 2, Votes = 0 };
+            var post3 = new Post { Id = -3, Text = "How do I make a <b>table?</b>", Time = DateTime.Now.AddDays(-5), SubjectId = subject1.Id, AurthorId = user1.Id, Reports = 0, Votes = 3 };
+            var post4 = new Post { Id = -4, Text = "I dont know..", Time = DateTime.Now.AddDays(-4), SubjectId = subject1.Id, AurthorId = user2.Id, Reports = 1, Votes = 0 };
+            var post5 = new Post { Id = -5, Text = "Me neither..", Time = DateTime.Now.AddHours(-3), SubjectId = subject1.Id, AurthorId = user3.Id, Reports = 0, Votes = 1 };
+            var post6 = new Post { Id = -6, Text = "WoW first post?!?", Time = DateTime.Now.AddYears(-3), SubjectId = subject3.Id, AurthorId = user2.Id, Reports = 0, Votes = 1 };
 
             var picture1 = new Picture { Id = -1, Path = string.Format($"{user1.Email}/picture1.jpg"), UserId = user1.Id };
             var picture2 = new Picture { Id = -2, Path = string.Format($"{user2.Email}/picture2.jpg"), UserId = user2.Id };
@@ -148,26 +168,21 @@ namespace Group3.Data
 
             modelBuilder.Entity<ApplicationRole>().HasData(adminRole);
             modelBuilder.Entity<ApplicationRole>().HasData(userRole);
-            modelBuilder.Entity<ApplicationRole>().HasData(moderatorRole);
-            
+            modelBuilder.Entity<ApplicationRole>().HasData(moderatorRole);            
             modelBuilder.Entity<ApplicationUserRole>().HasData(adminUserRole);
             modelBuilder.Entity<ApplicationUserRole>().HasData(user1UserRole);
             modelBuilder.Entity<ApplicationUserRole>().HasData(user2UserRole);
-
             modelBuilder.Entity<ApplicationUser>().HasData(user1);
             modelBuilder.Entity<ApplicationUser>().HasData(user2);
             modelBuilder.Entity<ApplicationUser>().HasData(user3);
-
             modelBuilder.Entity<Message>().HasData(message1);
             modelBuilder.Entity<Message>().HasData(message2);
             modelBuilder.Entity<Message>().HasData(message3);
             modelBuilder.Entity<Message>().HasData(message4);
             modelBuilder.Entity<Message>().HasData(message5);
-
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -1, UserId = user1.Id, MessageId = message1.Id });
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -1, UserId = user2.Id, MessageId = message1.Id });
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -1, UserId = user3.Id, MessageId = message1.Id });
-
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -1, UserId = user1.Id, MessageId = message2.Id });
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -1, UserId = user2.Id, MessageId = message2.Id });
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -1, UserId = user3.Id, MessageId = message2.Id });
@@ -179,21 +194,22 @@ namespace Group3.Data
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -2, UserId = user3.Id, MessageId = message4.Id });
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -3, UserId = user2.Id, MessageId = message5.Id });
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -3, UserId = user3.Id, MessageId = message5.Id });
-
             modelBuilder.Entity<Category>().HasData(category1);
             modelBuilder.Entity<Category>().HasData(category2);
             modelBuilder.Entity<Category>().HasData(category3);
-
             modelBuilder.Entity<Topic>().HasData(topic1);
             modelBuilder.Entity<Topic>().HasData(topic2);
             modelBuilder.Entity<Topic>().HasData(topic3);
             modelBuilder.Entity<Topic>().HasData(topic4);
-
+            modelBuilder.Entity<Subject>().HasData(subject1);
+            modelBuilder.Entity<Subject>().HasData(subject2);
+            modelBuilder.Entity<Subject>().HasData(subject3);
             modelBuilder.Entity<Post>().HasData(post1);
             modelBuilder.Entity<Post>().HasData(post2);
             modelBuilder.Entity<Post>().HasData(post3);
             modelBuilder.Entity<Post>().HasData(post4);
-
+            modelBuilder.Entity<Post>().HasData(post5);
+            modelBuilder.Entity<Post>().HasData(post6);
             modelBuilder.Entity<Picture>().HasData(picture1);
             modelBuilder.Entity<Picture>().HasData(picture2);
             modelBuilder.Entity<Picture>().HasData(picture3);

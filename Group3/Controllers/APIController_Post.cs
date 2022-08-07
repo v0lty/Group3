@@ -22,26 +22,26 @@ namespace Group3.Controllers
                 .ThenInclude(user => user.UserRoles)
                 .ThenInclude(role => role.Role)                
                 .Include(post => post.Pictures)
-                .Include(post => post.Topic)
-                .ThenInclude(topic => topic.Category).ToArray();
+                .Include(post => post.Subject)
+                .ThenInclude(subject => subject.Topic).ToArray();
 
             return new JsonResult(posts);
         }
 
         [HttpPost]
-        [Route("GetPostsByTopic")]
-        public JsonResult GetPostsByTopic(string topicId)
+        [Route("GetPostsBySubject")]
+        public JsonResult GetPostsBySubject(string subjectId)
         {
             var posts = dbContext.Posts
-                .Where(x => x.TopicId == int.Parse(topicId))
+                .Where(x => x.SubjectId == int.Parse(subjectId))
                 .Include(post => post.Aurthor)
                 .ThenInclude(user => user.Pictures)
                 .Include(post => post.Aurthor)
                 .ThenInclude(user => user.UserRoles)
                 .ThenInclude(role => role.Role)
                 .Include(post => post.Pictures)
-                .Include(post => post.Topic)                
-                .ThenInclude(topic => topic.Category)
+                .Include(post => post.Subject)                
+                .ThenInclude(subject => subject.Topic)
                 .OrderBy(x => x.Time)
                 .ToArray();
 
@@ -60,7 +60,8 @@ namespace Group3.Controllers
                 .ThenInclude(user => user.UserRoles)
                 .ThenInclude(role => role.Role)
                 .Include(post => post.Pictures)
-                .Include(post => post.Topic)
+                .Include(post => post.Subject)
+                .ThenInclude(subject => subject.Topic)
                 .ThenInclude(topic => topic.Category)
                 .FirstOrDefault();
 
@@ -69,13 +70,13 @@ namespace Group3.Controllers
 
         [HttpPost]
         [Route("CreatePost")]
-        public async Task<JsonResult> CreatePost(string userId, string topicId, string text)
+        public async Task<JsonResult> CreatePost(string userId, string subjectId, string text)
         {
             var post = new Post {
                 Text = text,
                 Time = DateTime.Now,
                 Aurthor = await dbContext.Users.FindAsync(userId), 
-                Topic = await dbContext.Topics.FindAsync(int.Parse(topicId))
+                Subject = await dbContext.Subjects.FindAsync(int.Parse(subjectId))
             };        
 
             try {
@@ -159,6 +160,42 @@ namespace Group3.Controllers
             return new JsonResult(post.Votes);
         }
 
-        // UpVotePost
+        [HttpGet]
+        [Route("GetHotPosts")]
+        public JsonResult GetHotPosts()
+        {
+            var posts = this.dbContext.Posts
+                .Include(x => x.Aurthor)
+                .ThenInclude(x => x.Pictures)
+                .Include(x => x.Subject)
+                .ToList()
+                .OrderByDescending(x => x.Votes)
+                .Take(5)
+                .ToList();
+
+            if (posts.Count > 0)
+            {
+                posts.Where(x => x.Votes == 0).ToList().ForEach(x => posts.Remove(x));
+                posts.Sort((x, y) => x.Votes.CompareTo(y.Votes));
+            }
+
+            return new JsonResult(posts);
+        }
+
+        [HttpGet]
+        [Route("GetLatestPosts")]
+        public JsonResult GetLatestPosts()
+        {
+            var posts = this.dbContext.Posts
+                .Include(x => x.Aurthor)
+                .ThenInclude(x => x.Pictures)
+                .Include(x => x.Subject)
+                .ToList()
+                .OrderByDescending(x => x.Time)
+                .Take(5)
+                .ToList();
+
+            return new JsonResult(posts);
+        }
     }
 }

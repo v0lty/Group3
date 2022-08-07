@@ -1,83 +1,111 @@
 ﻿import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from "../UserAuthentication";
 import API from "../API";
-import { useParams } from 'react-router';
-import Post from './Post';
 import InputModal from '../InputModal';
-import moment from "moment";
+import ListGroup from 'react-bootstrap/ListGroup';
+import Badge from 'react-bootstrap/Badge';
+import { useHistory } from "react-router-dom";
+import { useParams } from 'react-router';
 
-export default function Topic() {
-    const authContext = useContext(AuthContext);
+// URL PATH -> LOCALHOST/TOPIC/{ID}
+export const TopicPath = () => {
     const { id } = useParams();
+    const history = useHistory();
     const [topic, setTopic] = useState(null);
-    const [input, setInput] = useState("");
-    const [posts, setPosts] = useState([]);
-    const [modalVisible, setModalVisible] = useState(false);
+
+    const updateTopic = async () => {     
+        API.getTopicById({
+            topicId: id,
+        }).then((topic) => {
+            setTopic(topic);           
+        });
+    }
 
     useEffect(() => {
         updateTopic();
     }, [id])
 
-    const updateTopic = async () => {
-        API.getTopicById({
-            topicId: id,
-        }).then((topic) => {
-            setTopic(topic);
-            updatePosts(topic.Id);
-        });
+    return (
+        <Topic topic={topic} onUpdate={updateTopic} />
+    );
+}
+
+// PROPS
+export const Topic = props => {
+    const authContext = useContext(AuthContext);
+    const [modalVisible, setModalVisible] = useState(false);
+    const history = useHistory();
+
+    const onSubjectClick = (id) => {
+        history.push('/subject/' + id);
     }
 
-    const updatePosts = async (id) => {
-        API.getPostsByTopic({
-            topicId: id,
-        }).then((posts) => {
-            setPosts(posts);
-        });
+    const onSubjectDelete = (subject) => {
+        if (subject.PostsCount === 0 ||
+            window.confirm(`WARNING!\n\nThis will delete '${subject.Name}' including Posts inside it.\nAre you REALLY sure?`)) {
+            API.deleteSubject({
+                subjectId: subject.Id,
+            }).then(() => {
+                props?.onUpdate();
+            });
+        }
     }
 
-    const onPostQuote = (post) => {
-        setInput(
-            `<blockquote>
-                <span>
-                    Quote by<a href="/post/${post.Id}">
-                        ${post.Aurthor.Name} @ 
-                        ${moment(post.Time).utc().format('YYYY/MM/DD HH:mm')}
-                    </a><br />
-                    ${post.Text}
-                </span>                                     
-             </blockquote>`
-        );
-        setModalVisible(!modalVisible)
-    }
-
-    const onCreatePostSubmit = (text) => {
-        API.createPost({
-            text: text,
-            userId: authContext.user.Id,
-            topicId: topic?.Id
-        }).then(() => {
-            setInput("");
-            updateTopic();
-            setModalVisible(!modalVisible)
+    const onSubjectSubmit = async (event, title, text) => {
+        if (title == "") {
+            alert("Subject can't be empty!");
+            return;
+        }
+        API.createSubject({
+            name: title,
+            topicId: props?.topic?.Id
+        }).then((subject) => {
+            API.createPost({
+                userId: authContext?.user?.Id,
+                subjectId: subject.Id,
+                text: text,                
+            }).then((post) => {
+                setModalVisible(false);
+                history.push('/subject/' + subject.Id);
+            });
         });
     }
 
     return (
         <div className="p-3">         
-            <h5 className="m-0 p-0 pb-3">{topic?.Category?.Name + ' > ' + topic?.Name}</h5>         
-            {posts?.map((post, postIndex) =>
-                <Post
-                    key={postIndex}
-                    post={post}        
-                    onUpdate={() => { updateTopic(); }}
-                    onQuote={onPostQuote}
-                />
-            )}
+            <h5 className="m-0 p-0 pb-3">
+                <a className="text-decoration-none" href={`/category/${props?.topic?.Category?.Id}`}>{props?.topic?.Category?.Name}</a>
+                {" > "}
+                <span>{props?.topic?.Name}</span>
+            </h5>
+            <ListGroup as="ol" className="pb-2">
+                {/*SUBJECTS*/}
+                {props?.topic?.Subjects?.map((subject, subjectIndex) =>
+                    <ListGroup.Item key={subjectIndex} as="li" className="d-flex justify-content-between align-items-start border-0 bg-gray m-1 mx-3">
+                        <div className="me-auto">
+                            {/*SUBJECT NAME*/}
+                            <div className=""><button className="btn btn-link fw-bold m-0 p-0" onClick={() => onSubjectClick(subject.Id)}>{subject.Name}</button></div>
+                        </div>
+                        <div className="row p-0 m-0">
+                            {/*Post COUNT*/}
+                            <Badge bg="dark" className="mb-1" pill>
+                                Posts: {subject.PostsCount}
+                            </Badge>
+                            {/*DELETE*/}
+                            {authContext?.user != null && authContext?.user?.HasAuthority &&
+                                <button className="btn btn-link p-0 m-0 text-danger" onClick={() => onSubjectDelete(subject)}>Delete Subject</button>
+                            }
+                        </div>
+                    </ListGroup.Item>
+                )}
+            </ListGroup>
             <div className="border-top">
-                <InputModal                    
-                    title="Create Post"
-                    input={input}
-                    onSubmit={onCreatePostSubmit}
+                <InputModal
+                    title="Create Subject"
+                    useTitle={true}
+                    title=""
+                    input=""
+                    onSubmit={onSubjectSubmit}
                     visible={modalVisible}
                     onHide={() => { setModalVisible(!modalVisible); }}
                 />
@@ -85,10 +113,12 @@ export default function Topic() {
                 <button
                     className="btn btn-link my-2"
                     onClick={() => { setModalVisible(!modalVisible); }}>
-                    Create new Post
+                    Create new Subject
                     </button>
                 }
             </div>
         </div>
     );
 }
+
+export default Topic;

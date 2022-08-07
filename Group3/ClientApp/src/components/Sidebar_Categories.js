@@ -1,12 +1,11 @@
 ﻿import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from "./UserAuthentication";
 import API from "./API";
-import Button from 'react-bootstrap/Button';
 import { useHistory } from "react-router-dom";
 import Badge from 'react-bootstrap/Badge';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-export default function CategoriesView() {
+export default function Sidebar_Categories() {
     const authContext = useContext(AuthContext);
     const [categories, setCategories] = useState([]);
     const history = useHistory();
@@ -17,34 +16,26 @@ export default function CategoriesView() {
         });
     }
 
-    function routeChange(path) {
-        history.push(path);
-    }
-
     useEffect(() => { 
         updateCategories();
     }, [])
 
     const onCategoryClick = (id) => {
-        routeChange('/category/' + id);
+        history.push('/category/' + id);
     }
 
-    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
     return (
-        <div className="d-flex flex-column align-items-stretch border-0 shadow mb-3">
-            <div className="p-3">
-                <h5>Categories</h5>
-            </div>
-            <ListGroup as="ol" >                
+        <div className="d-flex flex-column align-items-stretch border-0 mb-5">
+            <h5>Categories</h5>
+            <ListGroup as="ul" className="shadow">
                 {categories.map(category =>
-                    <ListGroup.Item key={category.Id} as="li" className="d-flex justify-content-between align-items-start border-0 border-top" onClick={() => onCategoryClick(category.Id)}>
+                    <ListGroup.Item key={category.Id} as="li" className="d-flex justify-content-between align-items-start border-0 border-top shadow" onClick={() => onCategoryClick(category.Id)}>
                         <div className="ms-2 me-auto">
                             <div className="fw-bold">{category.Name}</div>
                             {category.Text != null ? category.Text : "Description"}
                         </div>
-                        <Badge bg="info" pill>
-                            {days[Math.floor(Math.random() * 6)]}
+                        <Badge bg="success" pill>
+                            Topics: { category.TopicsCount }
                         </Badge>
                     </ListGroup.Item>
                 )}

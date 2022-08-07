@@ -22,9 +22,14 @@ namespace Group3.Models
         [DataType(DataType.Date)]
         public DateTime Birthdate { get; set; }
 
+        [StringLength(50, MinimumLength = 2)]
+        public String Location { get; set; }
+
         public ICollection<ApplicationUserRole> UserRoles { get; set; }
 
         public List<Post> Posts { get; set; }
+
+        public int PostsCount { get { return Posts != null ? Posts.Count : 0; } }
 
         public List<Picture> Pictures { get; set; }
 

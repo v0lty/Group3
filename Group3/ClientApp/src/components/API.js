@@ -80,8 +80,39 @@ const API = {
     },
     upVotePost: async (params) => {
         return trackPromise(post(baseURL + 'UpVotePost', params));
-    }
+    },
+    getSubjectById: async (params) => {
+        return trackPromise(post(baseURL + 'GetSubjectById', params));
+    },
+    getHotSubjects: async (params) => {
+        return trackPromise(get(baseURL + 'GetHotSubjects', params));
+    },
+    createSubject: async (params) => {
+        return trackPromise(post(baseURL + 'CreateSubject', params));
+    },
+    deleteTopic: async (params) => {
+        return trackPromise(post(baseURL + 'DeleteTopic', params));
+    },
+    deleteSubject: async (params) => {
+        return trackPromise(post(baseURL + 'DeleteSubject', params));
+    },
+    getHotPosts: async (params) => {
+        return trackPromise(get(baseURL + 'GetHotPosts', params));
+    },
+    getLatestPosts: async (params) => {
+        return trackPromise(get(baseURL + 'GetLatestPosts', params));
+    },
+    createChatMessage: async (params) => {
+        return trackPromise(post(baseURL + 'CreateChatMessage', params));
+    },
+    getAllUsers: async (params) => {
+        return trackPromise(get(baseURL + 'GetAllUsers', params));
+    },
+    getUserByName: async (params) => {
+        return trackPromise(post(baseURL + 'GetUserByName', params));
+    },
 }
+
 
 export const get = (url) => {
     const promise = new Promise((resolve, reject) => {

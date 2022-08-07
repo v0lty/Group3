@@ -7,7 +7,12 @@ export default function Home() {
 
     return (
         <div>
-            <h3>Hello {authContext.user != null ? authContext.user.Name + "!" : "..."}</h3>
+            {authContext.user != null ? (
+                <h3>Welcome back {authContext.user.Name}!</h3>
+            ) : (
+                <h3>Hello stranger..</h3>
+            )}
+            <br/>
             <News />
         </div>
     );
