@@ -31,7 +31,7 @@ export default function Sidebar_Posts() {
     return (
         <div className="d-flex flex-column align-items-stretch border-0 mb-5">
             <div className="">
-                <h5>Most Likes</h5>
+                <h6 style={{ color: "#1c4966" }}>MOST LIKES</h6>
             </div>
             <ListGroup as="ul" className="shadow" >
                 {posts.reverse().map(post =>
