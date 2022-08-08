@@ -36,7 +36,7 @@ export default function Menu() {
     const submitSignIn = async (e) => {
         e.preventDefault();
 
-       API.signIn({
+        API.signIn({
             email: e.target.elements['formEmail'].value,
             password: e.target.elements['formPassword'].value
         }).then((user) => {
@@ -58,11 +58,11 @@ export default function Menu() {
                         <input type="submit" id="submitInput" className="d-none" />
                         <Form.Group className="m-2" controlId="formEmail">
                             <Form.Label>Email</Form.Label>
-                            <Form.Control type="text" required />
+                            <Form.Control type="text" placeholder="Enter email" required />
                         </Form.Group>
                         <Form.Group className="m-2" controlId="formPassword">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" required />
+                            <Form.Control type="password" placeholder="Enter password" required />
                         </Form.Group>
                     </Form>
                 </Modal.Body>
@@ -71,8 +71,8 @@ export default function Menu() {
                 </Modal.Footer>
             </Modal>
 
-            <Navbar className="navbar-expand-sm navbar-toggleable-sm">     
-                <NavbarBrand tag={Link} to="/"className="text-secondary fw-bold">LOGO</NavbarBrand>
+            <Navbar className="navbar-expand-sm navbar-toggleable-sm">
+                <NavbarBrand tag={Link} to="/" className="text-secondary fw-bold">LOGO</NavbarBrand>
                 <NavbarToggler onClick={() => setcollapsedMenu(!collapsedMenu)} />
                 <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!collapsedMenu} navbar>
                     <ul className="navbar-nav flex-grow">
@@ -90,19 +90,19 @@ export default function Menu() {
                         <NavItem>
                             {authContext.user == null && (
                                 <NavLink tag={Link} to="/signup">SignUp</NavLink>
-                            )}                            
+                            )}
                         </NavItem>
                         <NavItem>
                             {authContext.user == null ? (
                                 <NavLink tag={Link} to="#" onClick={() => setCollapsedUser(!collapsedUser)}>SignIn</NavLink>
-                            ) : (                            
-                                <DropdownButton variant="link" title={authContext?.user.Name} id="userButton">
-                                    <Dropdown.Item onClick={() => routeChange('/profile')} ><i className="fa fa-gear" />  Profile</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => routeChange('/messages')}><i className="fa fa-envelope" /> Messages</Dropdown.Item>
-                                    <Dropdown.Divider />
-                                    <Dropdown.Item onClick={() => signOutUser()}><i className="fa fa-close" /> Logout</Dropdown.Item>
-                                </DropdownButton>
-                            )}   
+                            ) : (
+                                    <DropdownButton variant="link" title={authContext?.user.Name} id="userButton">
+                                        <Dropdown.Item onClick={() => routeChange('/profile')} ><i className="fa fa-gear" />  Profile</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => routeChange('/messages')}><i className="fa fa-envelope" /> Messages</Dropdown.Item>
+                                        <Dropdown.Divider />
+                                        <Dropdown.Item onClick={() => signOutUser()}><i className="fa fa-close" /> Logout</Dropdown.Item>
+                                    </DropdownButton>
+                                )}
                         </NavItem>
                     </ul>
                 </Collapse>

@@ -33,29 +33,31 @@ export default function Signup(props) {
             <Form onSubmit={onFormSubmit}> 
                 <Form.Group className="m-2" controlId="formFirstName">
                     <Form.Label>FirstName</Form.Label>
-                    <Form.Control />
+                    <Form.Control type="firstname" placeholder="Enter firstname" required/>
+                    
                 </Form.Group>
                 <Form.Group className="m-2" controlId="formLastName">
                     <Form.Label>LastName</Form.Label>
-                    <Form.Control />
+                    <Form.Control type="lastname" placeholder="Enter lastname" required />
+                    
                 </Form.Group>
                 <Form.Group className="m-2" controlId="formBirthdate">
                     <Form.Label>Date Of Birth</Form.Label>
-                    <Form.Control type="date" placeholder="YYYY/MM/DD"/>
+                    <Form.Control type="date" placeholder="YYYY/MM/DD" required />
                 </Form.Group>
                
                 <Form.Group className="m-2" controlId="formEmail">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control />
+                    <Form.Control type="email" placeholder="Enter email" required />
+                   
                 </Form.Group>
                 <Form.Group className="m-2" controlId="formPassword">
                     <Form.Label>Password</Form.Label>
-
-                    <Form.Control type="password" />
+                    <Form.Control type="password" placeholder="Enter password" required />
                 </Form.Group>
                 <Form.Group className="m-2" controlId="formConfirm">
                     <Form.Label>Confirm</Form.Label>
-                    <Form.Control type="password" />
+                    <Form.Control type="password" placeholder="Enter confirmpswd" required />
                 </Form.Group>    
                 <Button className="m-2" type="submit">Submit</Button>
             </Form>
