@@ -26,7 +26,7 @@ export default function Sidebar_Categories() {
 
     return (
         <div className="d-flex flex-column align-items-stretch border-0 mb-5">
-            <h5>Categories</h5>
+            <h6 style={{ color: "#1c4966" }}>CATEGORIES</h6>
             <ListGroup as="ul" className="shadow">
                 {categories.map(category =>
                     <ListGroup.Item key={category.Id} as="li" className="d-flex justify-content-between align-items-start border-0 border-top shadow" onClick={() => onCategoryClick(category.Id)}>
