@@ -31,7 +31,7 @@ export default function Sidebar_Latest() {
 
     return (
         <div className="d-flex flex-column align-items-stretch border-0 mb-5">           
-            <h5>Latest Posts</h5>         
+            <h6 style={{ color: "#1c4966" }}>LATEST POSTS</h6>
             <ListGroup as="ul" className="shadow">
                 {posts.map(post =>
                     <ListGroup.Item key={post.Id} as="li" className="d-flex justify-content-between align-items-start border-0 shadow border-top" onClick={() => onPostClick(post.Subject.Id)}>
