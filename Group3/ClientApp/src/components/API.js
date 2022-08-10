@@ -111,6 +111,9 @@ const API = {
     getUserByName: async (params) => {
         return trackPromise(post(baseURL + 'GetUserByName', params));
     },
+    getAllNews: async (params) => {
+        return trackPromise(post(baseURL + 'GetAllNews', params));
+    },
 }
 
 

@@ -1,6 +1,18 @@
 import React, { useContext } from 'react';
 import { AuthContext } from "../UserAuthentication";
 import News from "./News";
+import API from "../API";
+
+const postNews = async () => {
+    API.GetNewsPosts({
+        
+    });
+}
+
+export async function getStaticProps() {
+
+    await postNews();
+}
 
 export default function Home() {
     const authContext = useContext(AuthContext);
@@ -15,5 +27,9 @@ export default function Home() {
             <br/>
             <News />
         </div>
+
+
+
+
     );
 }

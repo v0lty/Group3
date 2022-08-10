@@ -72,35 +72,35 @@ export default function Menu() {
             </Modal>
 
             <Navbar className="navbar-expand-sm navbar-toggleable-sm">
-                <NavbarBrand tag={Link} to="/" className="text-secondary fw-bold">LOGO</NavbarBrand>
+                <NavbarBrand tag={Link} to="/" className="text-secondary fw-bold"><h3 style={{ color: "#1c4966" }}>&emsp; &nbsp;CODE/talk</h3></NavbarBrand>
                 <NavbarToggler onClick={() => setcollapsedMenu(!collapsedMenu)} />
                 <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!collapsedMenu} navbar>
                     <ul className="navbar-nav flex-grow">
                         <NavItem>
-                            <NavLink tag={Link} to="/">Home</NavLink>
+                            <NavLink tag={Link} to="/"><h7 style={{ color: "#1c4966" }}>HOME</h7></NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} to="/forum">Forum</NavLink>
+                            <NavLink tag={Link} to="/forum"><h7 style={{ color: "#1c4966" }}>FORUM</h7></NavLink>
                         </NavItem>
                         <NavItem>
                             {(authContext.user != null && authContext.user.HasAuthority) && (
-                                <NavLink tag={Link} to="/managment">Managment</NavLink>
+                                <NavLink tag={Link} to="/management"><h7 style={{ color: "#1c4966" }}>MANAGEMENT</h7></NavLink>
                             )}
                         </NavItem>
                         <NavItem>
                             {authContext.user == null && (
-                                <NavLink tag={Link} to="/signup">SignUp</NavLink>
+                                <NavLink tag={Link} to="/signup"><h7 style={{ color: "#1c4966" }}>SIGN UP</h7></NavLink>
                             )}
                         </NavItem>
                         <NavItem>
                             {authContext.user == null ? (
-                                <NavLink tag={Link} to="#" onClick={() => setCollapsedUser(!collapsedUser)}>SignIn</NavLink>
+                                <NavLink tag={Link} to="#" onClick={() => setCollapsedUser(!collapsedUser)}><h7 style={{ color: "#1c4966" }}>SIGN IN</h7></NavLink>
                             ) : (
                                     <DropdownButton variant="link" title={authContext?.user.Name} id="userButton">
                                         <Dropdown.Item onClick={() => routeChange('/profile')} ><i className="fa fa-gear" />  Profile</Dropdown.Item>
                                         <Dropdown.Item onClick={() => routeChange('/messages')}><i className="fa fa-envelope" /> Messages</Dropdown.Item>
                                         <Dropdown.Divider />
-                                        <Dropdown.Item onClick={() => signOutUser()}><i className="fa fa-close" /> Logout</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => signOutUser()}><i className="fa fa-close" /> Sign out</Dropdown.Item>
                                     </DropdownButton>
                                 )}
                         </NavItem>

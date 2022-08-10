@@ -69,6 +69,9 @@ export default function App() {
                             <Route exact path='/managment'>
                                 <Managment />
                             </Route>
+                            <Route exact path='/GetNewsPosts'>
+                                <Managment />
+                            </Route>
                             <div className="d-flex justify-content-center">
                                 <LoadingIndicator />
                             </div>                            
