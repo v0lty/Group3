@@ -23,6 +23,7 @@
     "react-rte": "^0.16.5",
     "reactstrap": "~8.10.1",
     "rimraf": "^3.0.2",
+    "rss": "^1.2.2",
     "sassy-datepicker": "^0.8.0"
   },
   "devDependencies": {

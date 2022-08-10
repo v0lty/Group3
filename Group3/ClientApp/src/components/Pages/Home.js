@@ -1,6 +1,14 @@
 import React, { useContext } from 'react';
 import { AuthContext } from "../UserAuthentication";
 import News from "./News";
+//import generatedRSS from "./lib/RSSFeed";
+
+
+
+//export async function getStaticProps() {
+
+    //await generatedRSS();
+//}
 
 export default function Home() {
     const authContext = useContext(AuthContext);
@@ -15,5 +23,9 @@ export default function Home() {
             <br/>
             <News />
         </div>
+
+
+
+
     );
 }

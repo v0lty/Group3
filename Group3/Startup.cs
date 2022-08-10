@@ -75,7 +75,7 @@ namespace Group3
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                    pattern: "{controller}/{action=Index}/{id?}"); 
             });
 
             app.UseSpa(spa =>
@@ -87,6 +87,8 @@ namespace Group3
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
+
         }
     }
 }
