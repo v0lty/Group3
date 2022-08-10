@@ -111,8 +111,13 @@ const API = {
     getUserByName: async (params) => {
         return trackPromise(post(baseURL + 'GetUserByName', params));
     },
+    getNewsByDate: async (params) => {
+        return trackPromise(post(baseURL + 'GetNewsByDate', params));
+    },
+    getPostsByDate: async (params) => {
+        return trackPromise(post(baseURL + 'getPostsByDate', params));
+    },
 }
-
 
 export const get = (url) => {
     const promise = new Promise((resolve, reject) => {

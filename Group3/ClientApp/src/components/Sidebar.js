@@ -7,6 +7,8 @@ import Sidebar_Subjects from "./Sidebar_Subjects";
 import Sidebar_Posts from "./Sidebar_Posts";
 import Sidebar_Calendar from "./Sidebar_Calendar";
 
+
+
 export const SidebarLeft = () => {
     return (
         <div>
@@ -18,11 +20,18 @@ export const SidebarLeft = () => {
 }
 
 export const SidebarRight = () => {
+    const [fakeCurrentDate, setFakeCurrentDate] = useState(new Date()) // default value can be anything you want
+
+    useEffect(() => {
+        setTimeout(() => setFakeCurrentDate(new Date()), 10000)
+    }, [fakeCurrentDate])
+
+
     return (
         <div>  
             <Sidebar_News />            
             <Sidebar_Subjects />
-            <Sidebar_Calendar />  
+            <Sidebar_Calendar />
         </div>
     );
 }
