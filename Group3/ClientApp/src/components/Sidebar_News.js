@@ -29,7 +29,7 @@ export default function Sidebar_News() {
 
     return (
         <div className="d-flex flex-column align-items-stretch border-0 mb-5">
-            <h5>Latest News</h5>
+            <h6 style={{ color: "#1c4966" }}>LATEST NEWS</h6>
             <ListGroup as="ul" className="shadow">
                 {news?.Topics?.map(topic =>
                     <ListGroup.Item key={topic.Id} as="li" className="d-flex justify-content-between align-items-start border-0 border-top shadow" onClick={() => onTopicClick(topic.Id)}>

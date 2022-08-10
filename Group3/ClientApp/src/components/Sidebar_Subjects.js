@@ -31,7 +31,7 @@ export default function Sidebar_Subjects() {
     return (
         <div className="d-flex flex-column align-items-stretch border-0 mb-5">
             <div>
-                <h5>Hot Subjects &#128293;</h5>
+                <h6 style={{ color: "#1c4966" }}>HOT SUBJECTS&#128293;</h6>
             </div>
             <ListGroup as="ul" className="shadow">
                 {subjects?.reverse().map(subject =>
