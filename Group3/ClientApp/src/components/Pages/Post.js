@@ -55,7 +55,7 @@ export const Post = props => {
 
     const onSave = () => {
         const text = value.toString('html')
-            + `<span><i>Last edited by ${authContext?.user?.Name}@ ${moment(moment.now()).format('YYYY/MM/DD HH:mm:ss')}</i></span><br/>`;
+            + `<span><i>Edited by ${authContext?.user?.Name}@ ${moment(moment.now()).format('YYYY/MM/DD HH:mm:ss')}</i></span><br/>`;
 
         API.editPost({
             postId: editPost.Id,

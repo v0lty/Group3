@@ -148,7 +148,7 @@ export default function Messages() {
                             </div>
                             {/*MESSAGE BUTTON*/}
                             <div className="d-flex justify-content-end w-100">
-                                <button className="btn border-0 button-speech-bubble fw-bold" onClick={() => onReplay(chat)}>Replay</button>
+                                <button className="btn border-0 button-speech-bubble fw-bold" onClick={() => onReplay(chat)}>Reply</button>
                             </div>
                         </Tab.Pane>
                     </Tab.Content>                          

@@ -92,7 +92,7 @@ export const Subject = props => {
                 {authContext.user != null &&
                     <button
                         className="btn btn-secondary my-2" onClick={() => { setModalVisible(!modalVisible); }}>
-                        Replay
+                        Reply
                     </button>     
                 }
             </div>

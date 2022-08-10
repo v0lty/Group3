@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
-
 using Group3.Models;
 
 namespace Group3.Data
@@ -139,6 +138,7 @@ namespace Group3.Data
             var category1 = new Category { Id = -1, Name = "News", Description = "Breaking news here!" };
             var category2 = new Category { Id = -2, Name = "Frontend", Description = "Javascript, React and more." };
             var category3 = new Category { Id = -3, Name = "Backend", Description = "C++ and C#" };
+            var category4 = new Category { Id = -4, Name = "Events", Description = "Something happening here!" };
 
             var topic1 = new Topic { Id = -1, Name = "Trending", Description="What's hot right now?", CategoryId = category1.Id, AurthorId = adminUserRole.UserId };
             var topic2 = new Topic { Id = -2, Name = "HTML", Description="Tag TAG <b>TAG!</b>", CategoryId = category2.Id, AurthorId = user1.Id };
