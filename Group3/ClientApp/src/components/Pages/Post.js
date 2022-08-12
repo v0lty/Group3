@@ -5,6 +5,8 @@ import RichTextEditor from 'react-rte';
 import API from "../API";
 import { useParams } from 'react-router';
 import { useHistory } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 // URL
 export const PostPath = () => {
@@ -42,6 +44,10 @@ export const Post = props => {
     const [editMode, setEditMode] = useState(false);
     const [editPost, setEditPost] = useState(null);
     const [value, setValue] = useState(RichTextEditor.createEmptyValue());
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
    
     const onEditClick = (post) => {
         setValue(RichTextEditor.createValueFromString(post.Text, 'html'));
@@ -117,6 +123,38 @@ export const Post = props => {
                                 <span className="text-muted">from <b>{props?.post?.Aurthor?.Location}</b></span><br />                               
                                 <span>with <b className="text-danger">{props?.post?.Aurthor?.PostsCount}</b> posts.</span>
                             </div>
+
+                            <>
+                                <Button variant="primary" onClick={handleShow}>
+                                    Show profile
+                                </Button>
+
+                                <Modal
+                                    show={show}
+                                    onHide={handleClose}
+                                    backdrop="static"
+                                    keyboard={false}
+                                >
+                                    <Modal.Header closeButton>
+                                        <Modal.Title>Profile</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <div>
+                                            <h6>Name: </h6>
+                                            <p>{props?.post?.Aurthor?.Name}</p><br />
+                                            <h6>Date of birth: </h6>
+                                            <p>{moment((props?.post?.Aurthor?.Birthdate)).format("DD/MM/yyyy")}</p><br />
+                                            <h6>E-mail: </h6>
+                                            <p>{props?.post?.Aurthor?.Email}</p><br />
+                                        </div>
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                        <Button variant="secondary" onClick={handleClose}>
+                                            Close
+                                        </Button>
+                                    </Modal.Footer>
+                                </Modal>
+                            </>
                         </div>
                     </div>
                 </div>
