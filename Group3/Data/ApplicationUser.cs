@@ -33,6 +33,8 @@ namespace Group3.Models
 
         public List<Picture> Pictures { get; set; }
 
+        public virtual List<UserGroupEnlistment> UserGroupEnlistments { get; set; }
+
         public Picture ProfilePicture { get { return (Pictures != null && Pictures.Count > 0) ? Pictures[0] : null; } }
 
         public String RoleString

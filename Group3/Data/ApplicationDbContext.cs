@@ -18,7 +18,7 @@ namespace Group3.Data
         public DbSet<Picture> Pictures { get; set; }        
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Message> Messages { get; set; }
-
+        public DbSet<UserGroupEnlistment> UserGroupEnlistments { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
@@ -37,6 +37,12 @@ namespace Group3.Data
                 .HasMany(user => user.Pictures)
                 .WithOne(picture => picture.User)
                 .HasForeignKey(picture => picture.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(user => user.UserGroupEnlistments)
+                .WithOne(post => post.ApplicationUser)
+                .HasForeignKey(post => post.ApplicationUserID)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Topic>()
@@ -70,6 +76,21 @@ namespace Group3.Data
                 .HasOne(c => c.Message)
                 .WithMany(m => m.Chats)
                 .HasForeignKey(ur => ur.MessageId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<UserGroupEnlistment>()
+                .HasKey(ur => new { ur.ApplicationUserID, ur.CategoryId });
+
+            modelBuilder.Entity<UserGroupEnlistment>()
+                .HasOne(c => c.ApplicationUser)
+                .WithMany(u => u.UserGroupEnlistments)
+                .HasForeignKey(c => c.ApplicationUserID)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<UserGroupEnlistment>()
+                .HasOne(c => c.Category)
+                .WithMany(m => m.UserGroupEnlistments)
+                .HasForeignKey(ur => ur.CategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ApplicationUserRole>()
@@ -135,21 +156,24 @@ namespace Group3.Data
                 PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "password")
             };
 
-            var category1 = new Category { Id = -1, Name = "News", Description = "Breaking news here!" };
-            var category2 = new Category { Id = -2, Name = "Frontend", Description = "Javascript, React and more." };
-            var category3 = new Category { Id = -3, Name = "Backend", Description = "C++ and C#" };
+            var category1 = new Category { Id = -1, Name = "News", Description = "Breaking news here!", UserGroup = false };
+            var category2 = new Category { Id = -2, Name = "Frontend", Description = "Javascript, React and more.", UserGroup = false };
+            var category3 = new Category { Id = -3, Name = "Backend", Description = "C++ and C#", UserGroup = false };
+            var category4 = new Category { Id = -4, Name = "Testgruppen", Description = "En grupp av testare.", UserGroup = true };
 
             var topic1 = new Topic { Id = -1, Name = "Trending", Description="What's hot right now?", CategoryId = category1.Id, AurthorId = adminUserRole.UserId };
             var topic2 = new Topic { Id = -2, Name = "HTML", Description="Tag TAG <b>TAG!</b>", CategoryId = category2.Id, AurthorId = user1.Id };
             var topic3 = new Topic { Id = -3, Name = "CSS", Description= "The necessary evil?", CategoryId = category2.Id, AurthorId = user2.Id };
             var topic4 = new Topic { Id = -4, Name = "Entity Framework", Description="Because SQL is even worse.", CategoryId = category3.Id, AurthorId = user2.Id };
             var topic5 = new Topic { Id = -5, Name = "Events", Description = "Planned occasions.", CategoryId = category1.Id, AurthorId = adminUserRole.UserId };
+            var topic6 = new Topic { Id = -6, Name = "User Group Test", Description = "For random testing.", CategoryId = category4.Id, AurthorId = user2.Id };
 
             var subject1 = new Subject { Id = -1, Name = "HTML Tables?", TopicId = topic2.Id, AurthorId = user1.Id };
             var subject2 = new Subject { Id = -2, Name = "Visual Studio 2022", TopicId = topic1.Id, AurthorId = user2.Id };
             var subject3 = new Subject { Id = -3, Name = "Am I'm the chosen one?", TopicId = topic3.Id, AurthorId = user2.Id };
             var subject4 = new Subject { Id = -4, Name = "Site launch.", TopicId = topic5.Id, AurthorId = user1.Id };
             var subject5 = new Subject { Id = -5, Name = "Site presentation.", TopicId = topic5.Id, AurthorId = user1.Id };
+            var subject6 = new Subject { Id = -6, Name = "What?.", TopicId = topic6.Id, AurthorId = user2.Id };
 
             var post1 = new Post { Id = -1, Text = "Is this version any good?", Time = DateTime.Now.AddDays(-2), SubjectId = subject2.Id, AurthorId = user2.Id, Reports = 0, Votes = 1 };
             var post2 = new Post { Id = -2, Text = "Maybe, but I'll stick with 2019!", Time = DateTime.Now.AddDays(-1), SubjectId = subject2.Id, AurthorId = user1.Id, Reports = 2, Votes = 0 };
@@ -159,6 +183,8 @@ namespace Group3.Data
             var post6 = new Post { Id = -6, Text = "WoW first post?!?", Time = DateTime.Now.AddYears(-3), SubjectId = subject3.Id, AurthorId = user2.Id, Reports = 0, Votes = 1 };
             var post7 = new Post { Id = -7, Text = "Site launch.<br><br>Day for site launch. We will see if it is possible to host the site on freeasphosting.net", Time = DateTime.Now.AddDays(-7), SubjectId = subject4.Id, AurthorId = user1.Id, Reports = 0, Votes = 0, EventDate = DateTime.Now.AddDays(10).Date };
             var post8 = new Post { Id = -8, Text = "Site presentation.<br><br>Day for presentation. Our project was to create a community portal for an organization, including a news feed, events, member lists and discussion forums. ", Time = DateTime.Now.AddDays(-7), SubjectId = subject5.Id, AurthorId = user1.Id, Reports = 0, Votes = 0, EventDate = DateTime.Now.AddDays(11).Date };
+            var post9 = new Post { Id = -9, Text = "What should we talk about in our user group test forum?", Time = DateTime.Now.AddDays(-2), SubjectId = subject6.Id, AurthorId = user2.Id, Reports = 0, Votes = 0 };
+            var post10 = new Post { Id = -10, Text = "Anything.", Time = DateTime.Now.AddDays(-1), SubjectId = subject6.Id, AurthorId = user3.Id, Reports = 0, Votes = 0 };
 
             var picture1 = new Picture { Id = -1, Path = string.Format($"{user1.Email}/picture1.jpg"), UserId = user1.Id };
             var picture2 = new Picture { Id = -2, Path = string.Format($"{user2.Email}/picture2.jpg"), UserId = user2.Id };
@@ -170,6 +196,8 @@ namespace Group3.Data
             var message4 = new Message { Id = -4, AurthorId = user1.Id, Time = DateTime.Now.AddDays(-1), Text = $"Umm.." };
             var message5 = new Message { Id = -5, AurthorId = user3.Id, Time = DateTime.Now.AddDays(-1), Text = $"Message from {user3.FirstName} to {user2.FirstName}" };
 
+            var userGroupEnlistment1 = new UserGroupEnlistment { UserGroupEnlistmentID = -1, CategoryId = -4, ApplicationUserID = user2.Id };
+            var userGroupEnlistment2 = new UserGroupEnlistment { UserGroupEnlistmentID = -2, CategoryId = -4, ApplicationUserID = user3.Id };
 
             modelBuilder.Entity<ApplicationRole>().HasData(adminRole);
             modelBuilder.Entity<ApplicationRole>().HasData(userRole);
@@ -223,6 +251,9 @@ namespace Group3.Data
             modelBuilder.Entity<Picture>().HasData(picture1);
             modelBuilder.Entity<Picture>().HasData(picture2);
             modelBuilder.Entity<Picture>().HasData(picture3);
+            modelBuilder.Entity<Category>().HasData(category4);
+            modelBuilder.Entity<UserGroupEnlistment>().HasData(userGroupEnlistment1);
+            modelBuilder.Entity<UserGroupEnlistment>().HasData(userGroupEnlistment2);
         }
     }
 }

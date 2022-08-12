@@ -18,6 +18,10 @@ namespace Group3.Models
 
         public List<Topic> Topics { get; set; }
 
+        public bool UserGroup { get; set; }
+
+        public virtual List<UserGroupEnlistment> UserGroupEnlistments { get; set; }
+
         public int TopicsCount { get { return Topics != null ? Topics.Count : 0; } }        
     }
 }
