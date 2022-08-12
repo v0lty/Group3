@@ -110,6 +110,7 @@ export const Post = props => {
                         </div>
                         <div className="row m-0">
                             <h5>{props?.post?.Aurthor?.Name}</h5>
+                            <h5>{moment((props?.post?.EventDate)).format("DD/MM/yyyy")}</h5>
                             <div>
                                 <span className="text-info fw-bold">{props?.post?.Aurthor?.RoleString}</span><br />
                                 <span className="text-muted"><b>{moment().diff(props?.post?.Aurthor?.Birthdate, 'years')}</b> years old</span><br />

@@ -138,16 +138,18 @@ namespace Group3.Data
             var category1 = new Category { Id = -1, Name = "News", Description = "Breaking news here!" };
             var category2 = new Category { Id = -2, Name = "Frontend", Description = "Javascript, React and more." };
             var category3 = new Category { Id = -3, Name = "Backend", Description = "C++ and C#" };
-            var category4 = new Category { Id = -4, Name = "Events", Description = "Something happening here!" };
 
             var topic1 = new Topic { Id = -1, Name = "Trending", Description="What's hot right now?", CategoryId = category1.Id, AurthorId = adminUserRole.UserId };
             var topic2 = new Topic { Id = -2, Name = "HTML", Description="Tag TAG <b>TAG!</b>", CategoryId = category2.Id, AurthorId = user1.Id };
             var topic3 = new Topic { Id = -3, Name = "CSS", Description= "The necessary evil?", CategoryId = category2.Id, AurthorId = user2.Id };
             var topic4 = new Topic { Id = -4, Name = "Entity Framework", Description="Because SQL is even worse.", CategoryId = category3.Id, AurthorId = user2.Id };
+            var topic5 = new Topic { Id = -5, Name = "Events", Description = "Planned occasions.", CategoryId = category1.Id, AurthorId = adminUserRole.UserId };
 
             var subject1 = new Subject { Id = -1, Name = "HTML Tables?", TopicId = topic2.Id, AurthorId = user1.Id };
             var subject2 = new Subject { Id = -2, Name = "Visual Studio 2022", TopicId = topic1.Id, AurthorId = user2.Id };
             var subject3 = new Subject { Id = -3, Name = "Am I'm the chosen one?", TopicId = topic3.Id, AurthorId = user2.Id };
+            var subject4 = new Subject { Id = -4, Name = "Site launch.", TopicId = topic5.Id, AurthorId = user1.Id };
+            var subject5 = new Subject { Id = -5, Name = "Site presentation.", TopicId = topic5.Id, AurthorId = user1.Id };
 
             var post1 = new Post { Id = -1, Text = "Is this version any good?", Time = DateTime.Now.AddDays(-2), SubjectId = subject2.Id, AurthorId = user2.Id, Reports = 0, Votes = 1 };
             var post2 = new Post { Id = -2, Text = "Maybe, but I'll stick with 2019!", Time = DateTime.Now.AddDays(-1), SubjectId = subject2.Id, AurthorId = user1.Id, Reports = 2, Votes = 0 };
@@ -155,6 +157,8 @@ namespace Group3.Data
             var post4 = new Post { Id = -4, Text = "I dont know..", Time = DateTime.Now.AddDays(-4), SubjectId = subject1.Id, AurthorId = user2.Id, Reports = 1, Votes = 0 };
             var post5 = new Post { Id = -5, Text = "Me neither..", Time = DateTime.Now.AddHours(-3), SubjectId = subject1.Id, AurthorId = user3.Id, Reports = 0, Votes = 1 };
             var post6 = new Post { Id = -6, Text = "WoW first post?!?", Time = DateTime.Now.AddYears(-3), SubjectId = subject3.Id, AurthorId = user2.Id, Reports = 0, Votes = 1 };
+            var post7 = new Post { Id = -7, Text = "Site launch.<br><br>Day for site launch. We will see if it is possible to host the site on freeasphosting.net", Time = DateTime.Now.AddDays(-7), SubjectId = subject4.Id, AurthorId = user1.Id, Reports = 0, Votes = 0, EventDate = DateTime.Now.AddDays(10).Date };
+            var post8 = new Post { Id = -8, Text = "Site presentation.<br><br>Day for presentation. Our project was to create a community portal for an organization, including a news feed, events, member lists and discussion forums. ", Time = DateTime.Now.AddDays(-7), SubjectId = subject5.Id, AurthorId = user1.Id, Reports = 0, Votes = 0, EventDate = DateTime.Now.AddDays(11).Date };
 
             var picture1 = new Picture { Id = -1, Path = string.Format($"{user1.Email}/picture1.jpg"), UserId = user1.Id };
             var picture2 = new Picture { Id = -2, Path = string.Format($"{user2.Email}/picture2.jpg"), UserId = user2.Id };
@@ -165,6 +169,7 @@ namespace Group3.Data
             var message3 = new Message { Id = -3, AurthorId = user3.Id, Time = DateTime.Now.AddDays(-1), Text = $"What's up??" };
             var message4 = new Message { Id = -4, AurthorId = user1.Id, Time = DateTime.Now.AddDays(-1), Text = $"Umm.." };
             var message5 = new Message { Id = -5, AurthorId = user3.Id, Time = DateTime.Now.AddDays(-1), Text = $"Message from {user3.FirstName} to {user2.FirstName}" };
+
 
             modelBuilder.Entity<ApplicationRole>().HasData(adminRole);
             modelBuilder.Entity<ApplicationRole>().HasData(userRole);
@@ -201,15 +206,20 @@ namespace Group3.Data
             modelBuilder.Entity<Topic>().HasData(topic2);
             modelBuilder.Entity<Topic>().HasData(topic3);
             modelBuilder.Entity<Topic>().HasData(topic4);
+            modelBuilder.Entity<Topic>().HasData(topic5);
             modelBuilder.Entity<Subject>().HasData(subject1);
             modelBuilder.Entity<Subject>().HasData(subject2);
             modelBuilder.Entity<Subject>().HasData(subject3);
+            modelBuilder.Entity<Subject>().HasData(subject4);
+            modelBuilder.Entity<Subject>().HasData(subject5);
             modelBuilder.Entity<Post>().HasData(post1);
             modelBuilder.Entity<Post>().HasData(post2);
             modelBuilder.Entity<Post>().HasData(post3);
             modelBuilder.Entity<Post>().HasData(post4);
             modelBuilder.Entity<Post>().HasData(post5);
             modelBuilder.Entity<Post>().HasData(post6);
+            modelBuilder.Entity<Post>().HasData(post7);
+            modelBuilder.Entity<Post>().HasData(post8);
             modelBuilder.Entity<Picture>().HasData(picture1);
             modelBuilder.Entity<Picture>().HasData(picture2);
             modelBuilder.Entity<Picture>().HasData(picture3);

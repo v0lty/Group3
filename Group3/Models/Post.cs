@@ -28,5 +28,8 @@ namespace Group3.Models
         public int Reports { get; set; }
 
         public int Votes { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime? EventDate { get; set; }
     }
 }

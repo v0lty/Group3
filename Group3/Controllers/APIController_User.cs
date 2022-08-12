@@ -83,7 +83,7 @@ namespace Group3.Controllers
 
         [HttpGet]
         [Route("SignOut")]
-        public new async Task<JsonResult> SignOut()
+        public async Task<JsonResult> SignOut()
         {
             try {
                 await signInManager.SignOutAsync();
