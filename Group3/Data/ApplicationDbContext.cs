@@ -235,11 +235,13 @@ namespace Group3.Data
             modelBuilder.Entity<Topic>().HasData(topic3);
             modelBuilder.Entity<Topic>().HasData(topic4);
             modelBuilder.Entity<Topic>().HasData(topic5);
+            modelBuilder.Entity<Topic>().HasData(topic6);
             modelBuilder.Entity<Subject>().HasData(subject1);
             modelBuilder.Entity<Subject>().HasData(subject2);
             modelBuilder.Entity<Subject>().HasData(subject3);
             modelBuilder.Entity<Subject>().HasData(subject4);
             modelBuilder.Entity<Subject>().HasData(subject5);
+            modelBuilder.Entity<Subject>().HasData(subject6);
             modelBuilder.Entity<Post>().HasData(post1);
             modelBuilder.Entity<Post>().HasData(post2);
             modelBuilder.Entity<Post>().HasData(post3);
@@ -248,6 +250,8 @@ namespace Group3.Data
             modelBuilder.Entity<Post>().HasData(post6);
             modelBuilder.Entity<Post>().HasData(post7);
             modelBuilder.Entity<Post>().HasData(post8);
+            modelBuilder.Entity<Post>().HasData(post9);
+            modelBuilder.Entity<Post>().HasData(post10);
             modelBuilder.Entity<Picture>().HasData(picture1);
             modelBuilder.Entity<Picture>().HasData(picture2);
             modelBuilder.Entity<Picture>().HasData(picture3);
