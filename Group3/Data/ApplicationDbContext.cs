@@ -72,14 +72,15 @@ namespace Group3.Data
                 .HasForeignKey(ur => ur.MessageId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // TODO: User can't be deleted if there are message references. 
+            // TODO: User can't be deleted if there are message references to Aurthor. 
             // rebuild database with this fix to see if it works..
-            modelBuilder.Entity<Message>()
-                .HasMany(m => m.Chats)
-                .WithOne(x => x.Message)
-                .HasForeignKey(c => c.MessageId)
-                .HasForeignKey(c => c.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+            // It's not one-to-many or many-to-one RS so it should be something other then ForeignKey
+            //modelBuilder.Entity<Message>()
+            //    .HasMany(m => m.Chats)
+            //    .WithOne(x => x.Message)
+            //    .HasForeignKey(c => c.MessageId)
+            //    .HasPrincipalKey(c => c.AurthorId)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ApplicationUserRole>()
                 .HasKey(ur => new { ur.UserId, ur.RoleId });
