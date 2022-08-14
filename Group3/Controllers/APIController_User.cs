@@ -12,11 +12,27 @@ namespace Group3.Controllers
     public partial class APIController : Controller
     {
         [HttpGet]
-        [Route("GetCurrentUser")]       
+        [Route("GetCurrentUser")]
         public JsonResult GetCurrentUser()
-        {           
+        {
             var user = dbContext.Users
                 .Where(x => x.UserName == User.Identity.Name)
+                .Include(x => x.Pictures)
+                .Include(x => x.UserRoles)
+                .ThenInclude(x => x.Role)
+                .FirstOrDefault();
+
+            return new JsonResult(user);
+        }
+
+        [HttpPost]
+        [Route("GetUserById")]
+        public JsonResult GetUserById(string userId)
+        {
+            var user = dbContext.Users
+                .Where(x => x.Id == userId)
+                .Include(x => x.Posts)
+                .Include(x => x.Chats)
                 .Include(x => x.Pictures)
                 .Include(x => x.UserRoles)
                 .ThenInclude(x => x.Role)
@@ -57,25 +73,27 @@ namespace Group3.Controllers
             }
 
             return new JsonResult(users);
-    }
+        }
 
-    [HttpPost]
+        [HttpPost]
         [Route("SignIn")]
         public async Task<JsonResult> SignIn(string email, string password)
-        {          
+        {
             var result = await signInManager.PasswordSignInAsync(email, password, true, lockoutOnFailure: false);
-            if (result.Succeeded) {
+            if (result.Succeeded)
+            {
 
                 var user = dbContext.Users
                     .Where(x => x.UserName == email)
                     .Include(x => x.Pictures)
-                    .Include(x => x.UserRoles)                    
+                    .Include(x => x.UserRoles)
                     .ThenInclude(x => x.Role)
                     .FirstOrDefault();
 
                 return new JsonResult(user);
-            }            
-            else {
+            }
+            else
+            {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
                 return new JsonResult(new { Success = "False", responseText = string.Format($"Failed to sign in user '{email}.'") });
             }
@@ -85,10 +103,12 @@ namespace Group3.Controllers
         [Route("SignOut")]
         public async Task<JsonResult> SignOut()
         {
-            try {
+            try
+            {
                 await signInManager.SignOutAsync();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
                 return new JsonResult(new { Success = "False", responseText = ex.Message });
             }
@@ -101,7 +121,8 @@ namespace Group3.Controllers
         public JsonResult EditUser(string email, string firstName, string lastName, DateTime birthdate)
         {
             var user = dbContext.Users.Where(x => x.Email == email).FirstOrDefault();
-            if (user == null) {
+            if (user == null)
+            {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
                 return new JsonResult(new { Success = "False", responseText = string.Format($"Could not find user '{email}.'") });
             }
@@ -119,7 +140,7 @@ namespace Group3.Controllers
 
         [HttpPost]
         [Route("CreateUser")]
-        public JsonResult CreateUser(string email, string firstName, string lastName, DateTime birthdate, string password)
+        public async Task<JsonResult> CreateUser(string email, string firstName, string lastName, DateTime birthdate, string location, string password)
         {
             var existingUser = dbContext.Users.Where(x => x.Email == email).FirstOrDefault();
             if (existingUser != null) {
@@ -127,10 +148,12 @@ namespace Group3.Controllers
                 return new JsonResult(new { Success = "False", responseText = string.Format($"User already exist '{email}.'") });
             }
 
-            var user = new ApplicationUser() {
+            var user = new ApplicationUser()
+            {
                 FirstName = firstName,
                 LastName = lastName,
                 Birthdate = birthdate,
+                Location = location,
                 Email = email,
                 UserName = email,
                 NormalizedUserName = email.ToUpper(),
@@ -141,9 +164,40 @@ namespace Group3.Controllers
 
             dbContext.Users.Add(user);
             dbContext.SaveChanges();
-            this.userManager.AddToRoleAsync(user, "User");
+
+            await this.userManager.AddToRoleAsync(user, "User");
+            dbContext.SaveChanges();
 
             return new JsonResult(user);
+        }
+
+        [HttpPost]
+        [Route("RemoveUser")]
+        public JsonResult RemoveUser(string userId)
+        {
+            var user = dbContext.Users.Where(x => x.Id == userId).FirstOrDefault();
+            if (user == null) {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return new JsonResult(new { Success = "False", responseText = string.Format($"User with id '{userId}' not found.") });
+            }
+
+            if (user.UserName == User.Identity.Name) {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return new JsonResult(new { Success = "False", responseText = string.Format($"You can't remove yourself.") });
+            }
+            
+            try {
+                dbContext.Users.Remove(user);
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex) {
+                // TODO: check ApplicationDbContext.cs line 75.
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return new JsonResult(new { Success = "False", responseText = ex.Message 
+                    + ex.InnerException != null ? $"\n\nInner Exception: {ex.InnerException.Message}" : "" });
+            }
+
+            return new JsonResult(null);
         }
     }
 }

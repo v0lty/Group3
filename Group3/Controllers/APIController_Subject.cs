@@ -54,17 +54,13 @@ namespace Group3.Controllers
         [Route("GetHotSubjects")]
         public JsonResult GetHotSubjects()
         {
-            var subjects = this.dbContext.Subjects
+            var subjects = this.dbContext.Subjects               
                 .Include(x => x.Posts)
                 .ToList()
+                .Where(x => x.PostsCount > 0)
                 .OrderByDescending(x => x.PostsCount)
                 .Take(5)
                 .ToList();
-
-            if (subjects.Count > 0) {
-                subjects.Where(x => x.PostsCount == 0).ToList().ForEach(x => subjects.Remove(x));
-                subjects.Sort((x, y) => x.PostsCount.CompareTo(y.PostsCount));                
-            }
 
             return new JsonResult(subjects);
         }

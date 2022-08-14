@@ -11,9 +11,6 @@ namespace Group3.Controllers
 {
     public class RSSController : Controller
     {
-       
-        
-
         [ResponseCache(Duration = 1200)]
         [HttpGet]
         [Route("GetNewsPosts")]
@@ -48,9 +45,10 @@ namespace Group3.Controllers
                     rssFormatter.WriteTo(xmlWriter);
                     xmlWriter.Flush();
                 }
+
+                // TODO: this need to be new JsonResult(..file)?
                 return File(stream.ToArray(), "application/rss+xml; charset=utf-8");
             }
         }
-        
     }
 }

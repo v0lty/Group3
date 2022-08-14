@@ -8,25 +8,31 @@ import Row from 'react-bootstrap/Row';
 import Tab from 'react-bootstrap/Tab';
 import InputModal from '../InputModal';
 import UserSelectModal from '../UserSelectModal';
+import { useParams } from 'react-router';
+import { useHistory } from "react-router-dom";
 
 export default function Messages() {
     const authContext = useContext(AuthContext);
     const [chats, setChats] = useState([]);
     const [chat, setChat] = useState(null);
     const [people, setPeople] = useState([]);
+    const [peopleNames, setPeopleNames] = useState("");
     const [chatModalVisible, setChatModalVisible] = useState(false);
     const [peopleSelectModalVisible, setPeopleSelectModalVisible] = useState(false);
-    
+    const { id } = useParams();
     const [bottomElement, setBottomElement] = useState(null);
 
     useEffect(() => {
+        if (id != null && id != "null") {
+            const ids = [id];
+            onPeopleSelectSubmit(ids);
+        }
         updateChats();
         scrollToBottom();
-    }, [])
+    }, [id])
 
     const scrollToBottom = () => {        
-        if (bottomElement != null) {            
-            console.log("scrolling..");
+        if (bottomElement != null) {          
             // TODO: This only works once for some reason
             bottomElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
         }
@@ -46,8 +52,9 @@ export default function Messages() {
     };
 
     const onReplay = (chat) => {
-        setChatModalVisible(!chatModalVisible);
         setChat(chat);
+        setPeopleNames(chat?.Users?.map(user => user.FirstName).toString());
+        setChatModalVisible(true);        
     };
 
     const onCreateConversation = () => {
@@ -68,8 +75,6 @@ export default function Messages() {
             });
         }
         else {
-            console.log(people);
-            console.log(people?.toString());
             API.createChatMessage({
                 userIdArray: people?.toString(),
                 aurthorId: authContext?.user.Id,
@@ -87,8 +92,21 @@ export default function Messages() {
 
     const onPeopleSelectSubmit = async (users) => {
         setPeople(users);
+
+        users?.forEach(id => {
+            API.getUserById({
+                userId: id,
+            }).then((user) => {
+                setPeopleNames(user.FirstName + ", " + peopleNames);
+            })
+        });
+        
         setPeopleSelectModalVisible(false);
         setChatModalVisible(true);
+    }
+
+    const onDeleteClick = (message) => {
+        // TODO: API function to delete message
     }
 
     return (   
@@ -128,21 +146,26 @@ export default function Messages() {
                                             <img className="profile-image-small" src={`../Pictures/${message?.Aurthor.ProfilePicture?.Path}`}></img>                                           
                                             {/*USERNAME*/}
                                             {authContext?.user?.Id == message.Aurthor.Id ? (
-                                                <h5>You</h5> ) : (                                                                  
-                                                <h5>{message.Aurthor.FirstName}</h5>                                                                   
+                                                <h5>You</h5>) : (                                       
+                                                <h5>{message.Aurthor.FirstName}</h5>
                                             )}                                             
                                         </div>
                                     </div>
                                     <div className="col">
                                         <div className="row">
                                             {/*TIME*/}
-                                            <div>
+                                            <span>                                                
                                                 <span className="float-end">{moment(message.Time).fromNow()}</span>
-                                            </div>
-                                                {/*TEXT*/}
-                                                <div dangerouslySetInnerHTML={{ __html: message.Text }} />
+                                            </span>
+                                            {/*TEXT*/}
+                                            <div dangerouslySetInnerHTML={{ __html: message.Text }} />                                        
                                         </div>
-                                    </div>                                     
+                                        </div>
+                                        {authContext?.user?.Id == message.Aurthor.Id && (
+                                            <span>
+                                                <a className="float-end btn-link text-danger" onClick={() => { onDeleteClick(message); } }>Delete</a>
+                                            </span>
+                                        )}
                                 </div>
                                 )}
                             </div>
@@ -165,12 +188,12 @@ export default function Messages() {
             />
             <InputModal
                 title="Create Message"
-                useTitle={chat != null}
-                inputTitle={chat != null ? "To: " + chat?.Users?.map(user => " " + user.FirstName).toString() : ""}
+                useTitle={true}
+                inputTitle={"To: " + peopleNames}
                 input=""
                 onSubmit={onChatSubmit}
                 visible={chatModalVisible}
-                onHide={() => { setChatModalVisible(!chatModalVisible); setChat(null); }}
+                onHide={() => { setChatModalVisible(!chatModalVisible); setChat(null); setPeopleNames(""); }}
             />
         </Tab.Container>           
     );

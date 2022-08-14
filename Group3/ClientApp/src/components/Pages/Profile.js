@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import API from "../API";
 
+{/*TODO: Admin can change other users data? (create ProfilePath wrapper for URL and props.user in Profile)*/ }
 export default function Profile(props) {
     const authContext = useContext(AuthContext);
     const [pictures, setPictures] = useState([]);
@@ -49,6 +50,7 @@ export default function Profile(props) {
 
             <h3>Profile</h3>
             <Form className="shadow p-3 mb-3" onSubmit={onFormSubmit}>
+                {/*TODO: Switch these to FloatingLabels?*/}
                 <Form.Group controlId="formEmail">
                     <Form.Label>Email</Form.Label>
                     <Form.Control defaultValue={ authContext?.user?.Email } />
