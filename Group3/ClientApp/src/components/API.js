@@ -33,6 +33,9 @@ const API = {
     getCategoryById: async (params) => {
         return trackPromise(post(baseURL + 'GetCategoryById', params));
     },
+    createCategory: async (params) => {
+        return trackPromise(post(baseURL + '"CreateCategory"', params));
+    },
     getTopicById: async (params) => {
         return trackPromise(post(baseURL + 'GetTopicById', params));
     },
