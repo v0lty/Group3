@@ -8,6 +8,8 @@ import Form from 'react-bootstrap/Form'
 import API from "../API";
 import { useHistory } from "react-router-dom";
 
+var isItUserGroup = false;
+
 export const Management = props => {
     const authContext = useContext(AuthContext);
     const history = useHistory();
@@ -41,6 +43,18 @@ export const Management = props => {
             userId: id,
         }).then(() => {
             getAllUsers();
+        });
+    }
+
+    const onCategorySubmit = (event, title, text) => {
+        API.createCategory({
+            name: title,
+            description: text,
+            userGroup: isItUserGroup,
+        }).then(() => {
+            // setInput("");        copied from kim's post create code in the subject.js that doesn't seem to be useful here
+            // props?.onUpdate();
+            setModalVisible(!modalVisible)
         });
     }
 
