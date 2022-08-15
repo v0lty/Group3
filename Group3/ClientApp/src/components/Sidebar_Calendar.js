@@ -1,6 +1,7 @@
 ﻿import DatePicker from 'sassy-datepicker';
 import API from "./API";
 import React, { useContext, useState } from 'react';
+import moment from "moment";
 
 export default function Sidebar_Latest() {
     const [posts, setPosts] = useState([]);
@@ -19,7 +20,9 @@ export default function Sidebar_Latest() {
     return (
         <div>
             {posts?.map(post =>
-                <a>{post.Time} - {post.Aurthor.FirstName} : {post.Text} </a>
+
+                <a>{moment((post?.Time)).format("DD/MM/yyyy")} - {post.Aurthor.FirstName} : {post.Text} </a>
+
             )}
             <DatePicker onChange={onChange} />
 

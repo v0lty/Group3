@@ -8,6 +8,8 @@ import { useHistory } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
+var oneHour = 60 * 60 * 1000; /* ms is the standard time measurement in js */
+
 // URL
 export const PostPath = () => {
     const { id } = useParams();
@@ -175,15 +177,15 @@ export const Post = props => {
                 </div>
                 <div className="row">
                     <div>
-                        {(authContext?.user?.Id == props?.post?.Aurthor?.Id || authContext?.user?.HasAuthority) ? (
-                            <div>                                
+                        {(((authContext?.user?.Id == props?.post?.Aurthor?.Id && moment(props?.post?.Time) + oneHour) > (new Date)) || authContext?.user?.HasAuthority) ? (
+                            <div>
                                 <button className="btn btn-link float-end" onClick={() => onDelete(props?.post?.Id)}>Delete</button>
                                 <button className="btn btn-link float-end" onClick={() => onEditClick(props?.post)}>Edit</button>
                             </div>
                         ) : (
                             <button className="btn btn-link float-end" onClick={() => onReport(props?.post.Id)}>Report</button>
                         )}
-                        {authContext?.user?.Id != props?.post?.Aurthor?.Id && (                            
+                        {authContext?.user?.Id != props?.post?.Aurthor?.Id && (
                             <button className="btn btn-link float-end" onClick={() => props.onQuote(props?.post)}>Quote</button>
                         )}
                     </div>
