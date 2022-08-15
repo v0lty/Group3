@@ -59,8 +59,11 @@ namespace Group3.Controllers
                 // Possible File already Exist due to FileMode.CreateNew
             }
 
+            // TODO: this should now work when user is created and then directly set profile picture?
+            string userName = file.FileName.Split("/").FirstOrDefault();
+
             var currentUser = dbContext.Users
-                .Where(x => x.UserName == User.Identity.Name)
+                .Where(x => x.UserName == userName)
                 .FirstOrDefault();
 
             Picture picture = new Picture() { Path = file.FileName, UserId = currentUser.Id };

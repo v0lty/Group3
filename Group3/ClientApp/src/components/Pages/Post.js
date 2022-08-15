@@ -47,6 +47,7 @@ export const Post = props => {
     const [editPost, setEditPost] = useState(null);
     const [value, setValue] = useState(RichTextEditor.createEmptyValue());
     const [show, setShow] = useState(false);
+    const history = useHistory();
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -114,49 +115,61 @@ export const Post = props => {
                     {/*USER*/}
                     <div>
                         <div className="row m-0">
-                            <img className="profile-picture" src={`../Pictures/${props?.post?.Aurthor.ProfilePicture?.Path}`}></img>
+                            <img className="profile-picture pb-2" src={`../Pictures/${props?.post?.Aurthor.ProfilePicture?.Path}`}></img>
                         </div>
                         <div className="row m-0">
-                            <h5>{props?.post?.Aurthor?.Name}</h5>
-                            <h5>{moment((props?.post?.EventDate)).format("DD/MM/yyyy")}</h5>
-                            <div>
-                                <span className="text-info fw-bold">{props?.post?.Aurthor?.RoleString}</span><br />
-                                <span className="text-muted"><b>{moment().diff(props?.post?.Aurthor?.Birthdate, 'years')}</b> years old</span><br />
-                                <span className="text-muted">from <b>{props?.post?.Aurthor?.Location}</b></span><br />                               
-                                <span>with <b className="text-danger">{props?.post?.Aurthor?.PostsCount}</b> posts.</span>
-                            </div>
-
-                            <>
-                                <Button variant="primary" onClick={handleShow}>
-                                    Show profile
-                                </Button>
-
-                                <Modal
-                                    show={show}
-                                    onHide={handleClose}
-                                    backdrop="static"
-                                    keyboard={false}
-                                >
-                                    <Modal.Header closeButton>
-                                        <Modal.Title>Profile</Modal.Title>
-                                    </Modal.Header>
-                                    <Modal.Body>
-                                        <div>
-                                            <h6>Name: </h6>
-                                            <p>{props?.post?.Aurthor?.Name}</p><br />
-                                            <h6>Date of birth: </h6>
-                                            <p>{moment((props?.post?.Aurthor?.Birthdate)).format("DD/MM/yyyy")}</p><br />
-                                            <h6>E-mail: </h6>
-                                            <p>{props?.post?.Aurthor?.Email}</p><br />
-                                        </div>
-                                    </Modal.Body>
-                                    <Modal.Footer>
-                                        <Button variant="secondary" onClick={handleClose}>
-                                            Close
-                                        </Button>
-                                    </Modal.Footer>
-                                </Modal>
-                            </>
+                            {authContext?.user?.Id != props?.post?.Aurthor?.Id ? (
+                                <h5>{props?.post?.Aurthor?.Name}</h5>
+                            ) : (
+                                <h5>You</h5>
+                            )}
+                            <span className="text-muted">
+                                <b className="text-info">{props?.post?.Aurthor?.RoleString}</b><br />
+                                <b>{moment().diff(props?.post?.Aurthor?.Birthdate, 'years')}</b> years old<br />
+                                from <b>{props?.post?.Aurthor?.Location}</b><br />                               
+                                with <b className="text-danger">{props?.post?.Aurthor?.PostsCount}</b> posts.<br />
+                                <br />
+                                <span>
+                                    <a className="btn-link" onClick={() => history.push(`/user/${props?.post?.Aurthor?.Id}`)}>Show Profile </a><br />
+                                    {authContext?.user?.Id != props?.post?.Aurthor?.Id && (
+                                        <a className="btn-link" onClick={() => history.push(`/messages/${props?.post?.Aurthor?.Id}`)}>Send Message</a>
+                                    )}
+                                </span>
+                            </span>
+                            {/*NOTE: same as /user/id?*/}
+                            <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>{props?.post?.Aurthor?.Name}</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>                                 
+                                        <div className="d-flex flex-row">
+                                            <div className="p-2" >
+                                                <img className="" src={`../Pictures/${props?.post?.Aurthor.ProfilePicture?.Path}`}></img>
+                                            </div>
+                                            <div className="p-2">
+                                                <span>                                                        
+                                                    Date of birth:<br/>
+                                                    <b>{moment((props?.post?.Aurthor?.Birthdate)).format("DD/MM/yyyy")}</b>
+                                                    <br />
+                                                    From:<br />
+                                                    <b>{props?.post?.Aurthor?.Location}</b>
+                                                    <br />
+                                                    E-mail:<br />
+                                                    <b>{props?.post?.Aurthor?.Email}</b>
+                                                    <br />
+                                                    Posts:<br />
+                                                    <b>{props?.post?.Aurthor?.PostsCount}</b>
+                                                </span>
+                                            </div>
+                                        </div>  
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={handleClose}>
+                                        Close
+                                    </Button>
+                                </Modal.Footer>
+                            </Modal>
+                          
                         </div>
                     </div>
                 </div>

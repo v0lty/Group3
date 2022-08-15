@@ -117,6 +117,12 @@ const API = {
     getPostsByDate: async (params) => {
         return trackPromise(post(baseURL + 'getPostsByDate', params));
     },
+    getUserById: async (params) => {
+        return trackPromise(post(baseURL + 'GetUserById', params));
+    },
+    removeUser: async (params) => {
+        return trackPromise(post(baseURL + 'RemoveUser', params));
+    },
 }
 
 export const get = (url) => {

@@ -34,10 +34,10 @@ export default function Sidebar_Subjects() {
                 <h6 style={{ color: "#1c4966" }}>HOT SUBJECTS&#128293;</h6>
             </div>
             <ListGroup as="ul" className="shadow">
-                {subjects?.reverse().map(subject =>
+                {subjects?.map((subject, subjectIndex) =>
                     <ListGroup.Item key={subject.Id} as="li" className="d-flex justify-content-between align-items-start border-0 border-top shadow pe-2" onClick={() => onSubjectClick(subject.Id)}>       
                         <div>
-                        <span className="btn-link">{truncate(subject.Name)}</span><br />
+                        <a className="btn-link">{truncate(subject.Name)}</a><br />
                             ...
                         </div>
                         <div className="col p-0 d-flex justify-content-end">

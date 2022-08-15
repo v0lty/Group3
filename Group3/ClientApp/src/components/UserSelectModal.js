@@ -34,6 +34,10 @@ export const UserSelectModal = props => {
         event.preventDefault();
         var children = Array.from(document.getElementsByClassName('form-check-input'));
         var checked = children.filter(item => item.checked);
+        if (checked == null || checked.length == 0) {
+            alert("Select atleast one User!");
+            return;
+        }
         var ids = checked.map(el => (el.id));
         props?.onSubmit(ids);
     }

@@ -17,6 +17,7 @@ export default function Signup(props) {
             firstName: event.target.elements['formFirstName'].value,
             lastName: event.target.elements['formLastName'].value,
             birthdate: event.target.elements['formBirthdate'].value,
+            location: event.target.elements['formLocation'].value,
             email: event.target.elements['formEmail'].value,
             password: event.target.elements['formPassword'].value,
             confirm: event.target.elements['formConfirm'].value   
@@ -30,35 +31,43 @@ export default function Signup(props) {
     return (
         <div>
             <h1>Create account</h1>
-            <Form onSubmit={onFormSubmit}> 
+            <Form onSubmit={onFormSubmit}>
+                {/*TODO: Switch these to FloatingLabels?*/}
                 <Form.Group className="m-2" controlId="formFirstName">
                     <Form.Label>FirstName</Form.Label>
-                    <Form.Control type="firstname" placeholder="Enter firstname" required/>
-                    
+                    <Form.Control type="text" placeholder="Enter firstname" required/>
                 </Form.Group>
+
                 <Form.Group className="m-2" controlId="formLastName">
                     <Form.Label>LastName</Form.Label>
-                    <Form.Control type="lastname" placeholder="Enter lastname" required />
-                    
+                    <Form.Control type="text" placeholder="Enter lastname" required />
                 </Form.Group>
+
                 <Form.Group className="m-2" controlId="formBirthdate">
                     <Form.Label>Date Of Birth</Form.Label>
                     <Form.Control type="date" placeholder="YYYY/MM/DD" required />
                 </Form.Group>
+
+                <Form.Group className="m-2" controlId="formLocation">
+                    <Form.Label>Location</Form.Label>
+                    <Form.Control type="text" placeholder="Enter your location" required />
+                </Form.Group>
                
                 <Form.Group className="m-2" controlId="formEmail">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" required />
-                   
+                    <Form.Control type="email" placeholder="Enter email" required />                   
                 </Form.Group>
+
                 <Form.Group className="m-2" controlId="formPassword">
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" placeholder="Enter password" required />
                 </Form.Group>
+
                 <Form.Group className="m-2" controlId="formConfirm">
                     <Form.Label>Confirm</Form.Label>
-                    <Form.Control type="password" placeholder="Enter confirmpswd" required />
-                </Form.Group>    
+                    <Form.Control type="password" placeholder="Confirm password" required />
+                </Form.Group>
+
                 <Button className="m-2" type="submit">Submit</Button>
             </Form>
         </div>

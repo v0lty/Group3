@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Forum from './components/Pages/Forum';
 import Profile from './components/Pages/Profile';
 import Messages from './components/Pages/Messages';
+import { User, UserPath } from './components/Pages/User';
 import { Category, CategoryPath } from './components/Pages/Category';
 import { Topic, TopicPath } from './components/Pages/Topic';
 import { Subject, SubjectPath } from './components/Pages/Subject';
@@ -15,7 +16,7 @@ import { usePromiseTracker } from "react-promise-tracker";
 import Spinner from 'react-bootstrap/Spinner'
 import { SidebarLeft, SidebarRight } from './components/Sidebar';
 import Signup from './components/Pages/Signup';
-import Managment from './components/Pages/Managment';
+import Management from './components/Pages/Management';
 
 import './custom.css'
 
@@ -60,17 +61,17 @@ export default function App() {
                             <Route exact path='/profile'>
                                 <Profile />
                             </Route>
-                            <Route exact path='/messages'>
+                            <Route exact path='/messages/:id'>
                                 <Messages />
+                            </Route>
+                            <Route exact path='/user/:id'>
+                                <UserPath />
                             </Route>
                             <Route exact path='/signup'>
                                 <Signup />
                             </Route>
-                            <Route exact path='/managment'>
-                                <Managment />
-                            </Route>
-                            <Route exact path='/GetNewsPosts'>
-                                <Managment />
+                            <Route exact path='/management'>
+                                <Management />
                             </Route>
                             <div className="d-flex justify-content-center">
                                 <LoadingIndicator />

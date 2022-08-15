@@ -37,14 +37,24 @@ namespace Group3.Models
 
         public Picture ProfilePicture { get { return (Pictures != null && Pictures.Count > 0) ? Pictures[0] : null; } }
 
+        public List<String> Roles
+        {
+            get { return UserRoles != null ? UserRoles.Select(x => x.Role.Name).ToList() : new List<string>(); }
+        }
+
         public String RoleString
         {
-            get{ return UserRoles != null ? string.Join(",", UserRoles.Select(x => x.Role.Name).ToList()) : ""; }
+            get{ return string.Join(",", Roles); }
         }
 
         public bool HasAuthority
         {
-            get { return UserRoles != null ? UserRoles.Select(x => x.Role.Name).ToList().Any(x => x == "Admin" || x == "Moderator") : false; }
+            get { return Roles.Any(x => x == "Admin" || x == "Moderator") ? true : false; }
+        }
+
+        public bool IsAdmin
+        {
+            get { return Roles.Any(x => x == "Admin") ? true : false; }
         }
 
         public List<Chat> Chats { get; set; }
