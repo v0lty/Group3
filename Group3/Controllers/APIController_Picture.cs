@@ -20,19 +20,11 @@ namespace Group3.Controllers
         [Route("GetUserPictures")]
         public JsonResult GetUserPictures(string userId)
         {
-            var currentUser = dbContext.Users
-                  .Where(x => x.UserName == User.Identity.Name)
-                  .FirstOrDefault();
-            if (currentUser != null)
-            {
-                var pictures = this.dbContext.Pictures
-                    .Where(x => x.UserId == currentUser.Id)
-                    .ToArray();
+            var pictures = this.dbContext.Pictures
+                .Where(x => x.UserId == userId)
+                .ToArray();
 
-                return new JsonResult(pictures);
-            }
-
-            return new JsonResult(null);
+            return new JsonResult(pictures);
         }
 
         [HttpPost("UploadFile")]

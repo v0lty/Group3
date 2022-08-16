@@ -58,7 +58,7 @@ export const UserSelectModal = props => {
                     <Form.Group className="m-2">
                         <div id="userForm">
                             {users?.map((user, userIndex) =>
-                                <div className="form-check form-switch">
+                                <div className="form-check form-switch" key={userIndex}>
                                     <input className="form-check-input" type="checkbox" id={user.Id} />
                                     <label className="form-check-label">{user.Name}</label>
                                 </div>

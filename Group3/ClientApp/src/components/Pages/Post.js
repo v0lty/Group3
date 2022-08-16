@@ -5,8 +5,6 @@ import RichTextEditor from 'react-rte';
 import API from "../API";
 import { useParams } from 'react-router';
 import { useHistory } from "react-router-dom";
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
 
 var oneHour = 60 * 60 * 1000; /* ms is the standard time measurement in js */
 
@@ -136,40 +134,6 @@ export const Post = props => {
                                     )}
                                 </span>
                             </span>
-                            {/*NOTE: same as /user/id?*/}
-                            <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
-                                <Modal.Header closeButton>
-                                    <Modal.Title>{props?.post?.Aurthor?.Name}</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>                                 
-                                        <div className="d-flex flex-row">
-                                            <div className="p-2" >
-                                                <img className="" src={`../Pictures/${props?.post?.Aurthor.ProfilePicture?.Path}`}></img>
-                                            </div>
-                                            <div className="p-2">
-                                                <span>                                                        
-                                                    Date of birth:<br/>
-                                                    <b>{moment((props?.post?.Aurthor?.Birthdate)).format("DD/MM/yyyy")}</b>
-                                                    <br />
-                                                    From:<br />
-                                                    <b>{props?.post?.Aurthor?.Location}</b>
-                                                    <br />
-                                                    E-mail:<br />
-                                                    <b>{props?.post?.Aurthor?.Email}</b>
-                                                    <br />
-                                                    Posts:<br />
-                                                    <b>{props?.post?.Aurthor?.PostsCount}</b>
-                                                </span>
-                                            </div>
-                                        </div>  
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <Button variant="secondary" onClick={handleClose}>
-                                        Close
-                                    </Button>
-                                </Modal.Footer>
-                            </Modal>
-                          
                         </div>
                     </div>
                 </div>

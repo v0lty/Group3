@@ -3,7 +3,7 @@ import Home from './components/Pages/Home';
 import Menu from './components/Menu';
 import Footer from './components/Footer';
 import Forum from './components/Pages/Forum';
-import Profile from './components/Pages/Profile';
+import { Profile, ProfilePath } from './components/Pages/Profile';
 import Messages from './components/Pages/Messages';
 import { User, UserPath } from './components/Pages/User';
 import { Category, CategoryPath } from './components/Pages/Category';
@@ -58,8 +58,8 @@ export default function App() {
                             <Route exact path='/post/:id'>
                                 <PostPath />
                             </Route>
-                            <Route exact path='/profile'>
-                                <Profile />
+                            <Route exact path='/profile/:id'>
+                                <ProfilePath />
                             </Route>
                             <Route exact path='/messages/:id'>
                                 <Messages />

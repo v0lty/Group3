@@ -17,7 +17,6 @@ export const UserPath = () => {
             userId: id
         }).then((user) => {
             setUser(user);
-            console.log(user);
         });
     };
 
@@ -78,7 +77,7 @@ export const User = props => {
 
             {authContext?.user?.HasAuthority && !props?.user?.IsAdmin && authContext?.user?.Id != props?.user?.Id && (
                 <div className="row">
-                    <a className="btn-link" onClick={() => history.push(`/messages/${props?.user?.Id}`)}>Edit User</a>
+                    <a className="btn-link" onClick={() => history.push(`/profile/${props?.user?.Id}`)}>Edit User</a>
                     <a className="btn-link" onClick={() => onRemoveClick(props?.user?.Id)}>Remove User</a>
                 </div>
             )}

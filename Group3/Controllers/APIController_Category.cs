@@ -15,6 +15,9 @@ namespace Group3.Controllers
         public JsonResult GetAllCategories()
         {
             var categories = this.dbContext.Categories
+                .Include(cat => cat.UserGroup)
+                .ThenInclude(x => x.UserGroupEnlistments)
+                .ThenInclude(x => x.User)
                 .Include(cat => cat.Topics)
                 .ThenInclude(topic => topic.Subjects)
                 .ToArray();
