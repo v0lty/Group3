@@ -12,6 +12,8 @@ namespace Group3.Models
         [StringLength(200, MinimumLength = 3)]
         public string Name { get; set; }
 
+        public string UrlSlug { get; set; }
+
         public Topic Topic { get; set; }
 
         public int TopicId { get; set; }

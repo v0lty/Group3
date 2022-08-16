@@ -177,12 +177,15 @@ namespace Group3.Data
             var topic4 = new Topic { Id = -4, Name = "Entity Framework", Description="Because SQL is even worse.", CategoryId = category3.Id, AurthorId = user2.Id };
             var topic5 = new Topic { Id = -5, Name = "Events", Description = "Planned occasions.", CategoryId = category1.Id, AurthorId = adminUserRole.UserId };
             var topic6 = new Topic { Id = -6, Name = "User Group Test", Description = "For random testing.", CategoryId = category4.Id, AurthorId = user2.Id };
+            var topic7 = new Topic { Id = -7, Name = "Backend", Description = "Backend news", CategoryId = category1.Id, AurthorId = adminUserRole.UserId };
+            var topic8 = new Topic { Id = -8, Name = "Frontend", Description = "News about frontend subjects", CategoryId = category1.Id, AurthorId = adminUserRole.UserId };
+            var topic9 = new Topic { Id = -9, Name = "Other", Description = "Other news", CategoryId = category1.Id, AurthorId = adminUserRole.UserId };
 
             var subject1 = new Subject { Id = -1, Name = "HTML Tables?", TopicId = topic2.Id, AurthorId = user1.Id };
-            var subject2 = new Subject { Id = -2, Name = "Visual Studio 2022", TopicId = topic1.Id, AurthorId = user2.Id };
+            var subject2 = new Subject { Id = -2, Name = "Visual Studio 2022", TopicId = topic1.Id, AurthorId = user2.Id, UrlSlug = "Visual-Studio-2022" };
             var subject3 = new Subject { Id = -3, Name = "Am I'm the chosen one?", TopicId = topic3.Id, AurthorId = user2.Id };
-            var subject4 = new Subject { Id = -4, Name = "Site launch.", TopicId = topic5.Id, AurthorId = user1.Id };
-            var subject5 = new Subject { Id = -5, Name = "Site presentation.", TopicId = topic5.Id, AurthorId = user1.Id };
+            var subject4 = new Subject { Id = -4, Name = "Site launch", TopicId = topic5.Id, AurthorId = user1.Id, UrlSlug = "Site-launch" };
+            var subject5 = new Subject { Id = -5, Name = "Site presentation", TopicId = topic5.Id, AurthorId = user1.Id, UrlSlug = "Site-presentation" };
             var subject6 = new Subject { Id = -6, Name = "What?.", TopicId = topic6.Id, AurthorId = user2.Id };
 
             var post1 = new Post { Id = -1, Text = "Is this version any good?", Time = DateTime.Now.AddDays(-2), SubjectId = subject2.Id, AurthorId = user2.Id, Reports = 0, Votes = 1 };
@@ -246,6 +249,9 @@ namespace Group3.Data
             modelBuilder.Entity<Topic>().HasData(topic4);
             modelBuilder.Entity<Topic>().HasData(topic5);
             modelBuilder.Entity<Topic>().HasData(topic6);
+            modelBuilder.Entity<Topic>().HasData(topic7);
+            modelBuilder.Entity<Topic>().HasData(topic8);
+            modelBuilder.Entity<Topic>().HasData(topic9);
             modelBuilder.Entity<Subject>().HasData(subject1);
             modelBuilder.Entity<Subject>().HasData(subject2);
             modelBuilder.Entity<Subject>().HasData(subject3);

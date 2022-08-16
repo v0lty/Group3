@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+
+	<channel>
+		<title>Software development communnity</title>
+		<link>https://www.w3schools.com</link>
+		<description>A forum for a software development community</description>
+		<item>
+			<title>RSS Tutorial</title>
+			<link>https://www.w3schools.com/xml/xml_rss.asp</link>
+			<description>New RSS tutorial on W3Schools</description>
+		</item>
+		<item>
+			<title>XML Tutorial</title>
+			<link>https://www.w3schools.com/xml</link>
+			<description>New XML tutorial on W3Schools</description>
+		</item>
+		<item>
+			<category>Trending</category>
+			<title>Visual Studio 2022</title>
+			<link>http://localhost:13021/subject/-2</link>
+			<description>Is this version any good?</description>
+		</item>
+	</channel>
+
+</rss>

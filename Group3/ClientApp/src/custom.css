@@ -108,6 +108,10 @@ footer .fa {
     background: #125688;
 }
 
+.fa-rss-square {
+    background: #125699;
+}
+
 .sidenav {
     overflow-x: hidden !important;
     background-color: #808080 !important;
