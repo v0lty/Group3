@@ -6,6 +6,7 @@ import Post from './Post';
 import InputModal from '../InputModal';
 import moment from "moment";
 import { useHistory } from "react-router-dom";
+import generateRSS from "./lib/generateRssFeed";
 
 // URL PATH -> LOCALHOST/SUBJECT/{ID}
 export const SubjectPath = () => {
@@ -28,6 +29,9 @@ export const SubjectPath = () => {
     return (
         <Subject subject={subject} onUpdate={updateSubject} />
     );
+}
+export async function getStaticProps() {
+    await generateRSS(); // calling to generate the feed
 }
 
 // PROPS
@@ -59,6 +63,7 @@ export const Subject = props => {
         }).then(() => {
             setInput("");
             props?.onUpdate();
+            getStaticProps()
             setModalVisible(!modalVisible)
         });
     }
