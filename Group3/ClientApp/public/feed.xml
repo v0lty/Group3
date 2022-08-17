@@ -3,17 +3,27 @@
 
 	<channel>
 		<title>Software development communnity</title>
-		<link>https://www.w3schools.com</link>
+		<link>http://localhost:13021</link>
 		<description>A forum for a software development community</description>
 		<item>
-			<title>RSS Tutorial</title>
-			<link>https://www.w3schools.com/xml/xml_rss.asp</link>
-			<description>New RSS tutorial on W3Schools</description>
+			<category>Events</category>
+			<title>Site presentation</title>
+			<link>http://localhost:13021/subject/-5</link>
+			<description>
+				Site presentation.
+
+				Day for presentation. Our project was to create a community portal for an organization, including a news feed, events, member lists and discussion forums.
+			</description>
 		</item>
 		<item>
-			<title>XML Tutorial</title>
-			<link>https://www.w3schools.com/xml</link>
-			<description>New XML tutorial on W3Schools</description>
+			<category>Events</category>
+			<title>Site launch</title>
+			<link>http://localhost:13021/subject/-4</link>
+			<description>
+				Site launch.
+
+				Day for site launch. We will see if it is possible to host the site on freeasphosting.net
+			</description>
 		</item>
 		<item>
 			<category>Trending</category>

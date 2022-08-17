@@ -14,6 +14,7 @@ export const SidebarLeft = () => {
         <div>
             <Sidebar_Categories />
             <Sidebar_Latest />
+            <Sidebar_Subjects />
             <Sidebar_Posts />
         </div>
     );
@@ -29,8 +30,7 @@ export const SidebarRight = () => {
 
     return (
         <div>  
-            <Sidebar_News />            
-            <Sidebar_Subjects />
+            <Sidebar_News />                     
             <Sidebar_Calendar />
         </div>
     );
