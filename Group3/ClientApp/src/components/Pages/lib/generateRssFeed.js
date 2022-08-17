@@ -1,6 +1,6 @@
 ﻿import { writeFileSync } from "fs";
 import RSS from "rss";
-import API from "../API";
+import API from "../../API";
 
 export default async function getRSS() {
     const siteURL = "http://localhost:13021";
