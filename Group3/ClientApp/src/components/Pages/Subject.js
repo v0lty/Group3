@@ -6,7 +6,7 @@ import Post from './Post';
 import InputModal from '../InputModal';
 import moment from "moment";
 import { useHistory } from "react-router-dom";
-import generateRSS from "./lib/generateRssFeed";
+import generateRSS from "./lib/generateRssFeed";     // NOTE: Site crashes when we import generateRssFeed because it has some buggy code somewhere
 
 // URL PATH -> LOCALHOST/SUBJECT/{ID}
 export const SubjectPath = () => {
