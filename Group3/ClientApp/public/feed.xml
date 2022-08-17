@@ -1,36 +1,32 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0">
-
-	<channel>
-		<title>Software development communnity</title>
-		<link>http://localhost:13021</link>
-		<description>A forum for a software development community</description>
-		<item>
-			<category>Events</category>
-			<title>Site presentation</title>
-			<link>http://localhost:13021/subject/-5</link>
-			<description>
-				Site presentation.
-
-				Day for presentation. Our project was to create a community portal for an organization, including a news feed, events, member lists and discussion forums.
-			</description>
-		</item>
-		<item>
-			<category>Events</category>
-			<title>Site launch</title>
-			<link>http://localhost:13021/subject/-4</link>
-			<description>
-				Site launch.
-
-				Day for site launch. We will see if it is possible to host the site on freeasphosting.net
-			</description>
-		</item>
-		<item>
-			<category>Trending</category>
-			<title>Visual Studio 2022</title>
-			<link>http://localhost:13021/subject/-2</link>
-			<description>Is this version any good?</description>
-		</item>
-	</channel>
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<rss
+  version="2.0">
+  <channel>
+    <title>Title</title>
+    <link>http://localhost:13021/feed.xml</link>
+    <description>Description</description>
+    <copyright>2022 Group 3</copyright>
+    <lastBuildDate>Wed, 17 Aug 2022 22:58:41 +0200</lastBuildDate>
+    <item>
+      <guid
+        isPermaLink="false">a-professional-asp.net-core-rss</guid>
+      <link>http://localhost:13021/Blog/Article/a-professional-asp.net-core-rss</link>
+      <title>A Professional ASP.NET Core - RSS</title>
+      <description>RSS feeds provide an excellent mechanism for websites to publish their content for consumption by others.</description>
+    </item>
+    <item>
+      <guid
+        isPermaLink="false">a-professional-asp.net-core-api-caching</guid>
+      <link>http://localhost:13021/Blog/Article/a-professional-asp.net-core-api-caching</link>
+      <title>A Professional ASP.NET Core API - Caching</title>
+      <description>Caching is a technique of storing the frequently accessed/used data so that the future requests for those sets of data can be served much faster to the client..</description>
+    </item>
+    <item>
+      <guid
+        isPermaLink="false">aurelia-2-with-tailwindcss-and-webpack</guid>
+      <link>http://localhost:13021/Blog/Article/aurelia-2-with-tailwindcss-and-webpack</link>
+      <title>Using Tailwind CSS with Aurelia 2 and Webpack</title>
+      <description>Tailwind CSS is a highly customizable, low-level CSS framework that gives you all of the building blocks you need to build bespoke designs without any annoying opinionated styles you have to fight to override.</description>
+    </item>
+  </channel>
 </rss>

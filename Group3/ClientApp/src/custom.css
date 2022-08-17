@@ -247,3 +247,12 @@ footer .fa {
         margin-right: -1.937em;
     }
 
+.calendnar-dot {
+    height: 7px;
+    width: 7px; 
+    border-radius: 100%;
+    background: red; 
+    position: absolute; 
+    top: 2px;
+    right: 10px;
+}

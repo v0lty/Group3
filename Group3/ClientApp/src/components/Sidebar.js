@@ -12,10 +12,10 @@ import Sidebar_Calendar from "./Sidebar_Calendar";
 export const SidebarLeft = () => {
     return (
         <div>
-            <Sidebar_Categories />
-            <Sidebar_Latest />
-            <Sidebar_Subjects />
+            {/*<Sidebar_Categories />*/}
+            <Sidebar_Latest />            
             <Sidebar_Posts />
+            
         </div>
     );
 }
@@ -30,8 +30,9 @@ export const SidebarRight = () => {
 
     return (
         <div>  
-            <Sidebar_News />                     
-            <Sidebar_Calendar />
+            <Sidebar_News />
+            {/*<Sidebar_Subjects />*/}
+            {/*<Sidebar_Calendar />*/}
         </div>
     );
 }

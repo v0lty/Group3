@@ -138,6 +138,9 @@ const API = {
     deleteRole: async (params) => {
         return trackPromise(post(baseURL + 'DeleteRole', params));
     },
+    getRSS: async (params) => {
+        return trackPromise(get(baseURL + 'GetRSS', params));
+    },
 }
 
 export const get = (url) => {

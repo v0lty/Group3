@@ -28,7 +28,8 @@ namespace Group3.Controllers
         [Route("GetCategoryById")]
         public JsonResult GetCategoryById(string categoryId)
         {
-            try {
+            try
+            {
                 var category = dbContext.Categories
                     .Where(x => x.Id == int.Parse(categoryId))
                     .Include(x => x.Topics)

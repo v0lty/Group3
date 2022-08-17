@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Group3.Models
 {
@@ -22,6 +23,22 @@ namespace Group3.Models
 
         public UserGroup UserGroup { get; set; }
 
-        public int TopicsCount { get { return Topics != null ? Topics.Count : 0; } }        
+        public int TopicsCount { get { return Topics != null ? Topics.Count : 0; } }  
+        
+        public List<DateTime> PostDates
+        {
+            get
+            {
+                return Topics != null // TODO: use map.map.map in react instead
+                     ? Topics.SelectMany(x =>
+                        x.Subjects != null 
+                      ? x.Subjects.SelectMany(
+                          x => x.Posts != null 
+                        ? x.Posts.Select(x => x.Time)
+                        : new List<DateTime>()) 
+                      : new List<DateTime>()).Distinct().ToList()
+                     : new List<DateTime>();
+            }
+        }
     }
 }
