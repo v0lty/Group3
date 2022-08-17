@@ -87,6 +87,10 @@ footer .fa {
     text-decoration: none;
 }
 
+.fa-rss-square {
+    background: #fce303;
+}
+
 .fa:hover {
     color: white;
     opacity: 0.6;
@@ -95,7 +99,7 @@ footer .fa {
 .fa-facebook {
     background: #3B5998;
 }
-
+ 
 .fa-twitter {
     background: #55ACEE;
 }
@@ -106,10 +110,6 @@ footer .fa {
 
 .fa-instagram {
     background: #125688;
-}
-
-.fa-rss-square {
-    background: #e5a218;
 }
 
 .sidenav {
