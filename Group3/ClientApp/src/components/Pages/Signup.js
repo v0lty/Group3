@@ -5,6 +5,8 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import API from "../API";
 import { useHistory } from "react-router-dom";
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+
 
 export default function Signup(props) {
     const authContext = useContext(AuthContext);
@@ -29,46 +31,34 @@ export default function Signup(props) {
     }
 
     return (
-        <div>
+        <div class="container mt-3">
             <h1>Create account</h1>
-            <Form onSubmit={onFormSubmit}>
-                {/*TODO: Switch these to FloatingLabels?*/}
-                <Form.Group className="m-2" controlId="formFirstName">
-                    <Form.Label>FirstName</Form.Label>
-                    <Form.Control type="text" placeholder="Enter firstname" required/>
-                </Form.Group>
-
-                <Form.Group className="m-2" controlId="formLastName">
-                    <Form.Label>LastName</Form.Label>
-                    <Form.Control type="text" placeholder="Enter lastname" required />
-                </Form.Group>
-
-                <Form.Group className="m-2" controlId="formBirthdate">
-                    <Form.Label>Date Of Birth</Form.Label>
-                    <Form.Control type="date" placeholder="YYYY/MM/DD" required />
-                </Form.Group>
-
-                <Form.Group className="m-2" controlId="formLocation">
-                    <Form.Label>Location</Form.Label>
-                    <Form.Control type="text" placeholder="Enter your location" required />
-                </Form.Group>
+            <Form className="shadow p-3 mb-3" onSubmit={onFormSubmit}>
                
-                <Form.Group className="m-2" controlId="formEmail">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" required />                   
-                </Form.Group>
+                <FloatingLabel label="Firstname" className="mb-3">
+                    <Form.Control type="text" placeholder="Enter Firstname" id="firstnameInput"  required/>
+                    </FloatingLabel>
+                <FloatingLabel label="Lastname" className="mb-3">
+                    <Form.Control type="text" placeholder="Enter Lastname" id="lastnameInput" required />
+                </FloatingLabel>
+                <FloatingLabel label="DateOfBirth" className="mb-3">
+                    <Form.Control type="date" placeholder="yyyy/mm/dd" id="dateofbirthInput" required />
+                </FloatingLabel>
+                <FloatingLabel label="Location" className="mb-3">
+                    <Form.Control type="text" placeholder="Enter Location" id="locationInput" required />
+                </FloatingLabel>
+                <FloatingLabel label="Email" className="mb-3">
+                    <Form.Control type="Emali" placeholder="Enter Email" id="emailInput" required />
+                </FloatingLabel>
+                <FloatingLabel label="Password" className="mb-3">
+                    <Form.Control type="password" placeholder="Enter Password" id="passwordInput" required />
+                </FloatingLabel>
 
-                <Form.Group className="m-2" controlId="formPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Enter password" required />
-                </Form.Group>
+                <FloatingLabel label="Confirm" className="mb-3">
+                    <Form.Control type="password" placeholder="Confirm Password" id="confirmInput" required />
+                </FloatingLabel>
 
-                <Form.Group className="m-2" controlId="formConfirm">
-                    <Form.Label>Confirm</Form.Label>
-                    <Form.Control type="password" placeholder="Confirm password" required />
-                </Form.Group>
-
-                <Button className="m-2" type="submit">Submit</Button>
+                <Button className="m-2" type="submit">Register</Button>
             </Form>
         </div>
     );
