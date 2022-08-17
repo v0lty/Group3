@@ -101,7 +101,7 @@ export default function Menu() {
                                         <Dropdown.Toggle variant="light" className="menu-item" id="dropdown-custom-1">{authContext?.user.Name}</Dropdown.Toggle>
                                 
                                 <Dropdown.Menu className="menu-item">
-                                    <Dropdown.Item onClick={() => routeChange('/profile')} active ><i className="fa fa-gear" />  Profile</Dropdown.Item>
+                                            <Dropdown.Item onClick={() => routeChange(`/profile/${authContext?.user?.Id}`)} active ><i className="fa fa-gear" />  Profile</Dropdown.Item>
                                     <Dropdown.Item onClick={() => routeChange('/messages/null')}><i className="fa fa-envelope" /> Messages</Dropdown.Item>
                                     <Dropdown.Divider />
                                     <Dropdown.Item onClick={() => signOutUser()}><i className="fa fa-close" /> Sign out</Dropdown.Item>

@@ -121,8 +121,7 @@ namespace Group3.Controllers
         public JsonResult EditUser(string email, string firstName, string lastName, DateTime birthdate)
         {
             var user = dbContext.Users.Where(x => x.Email == email).FirstOrDefault();
-            if (user == null)
-            {
+            if (user == null) {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
                 return new JsonResult(new { Success = "False", responseText = string.Format($"Could not find user '{email}.'") });
             }
@@ -198,6 +197,110 @@ namespace Group3.Controllers
             }
 
             return new JsonResult(null);
+        }
+
+        [HttpGet]
+        [Route("GetAllRoles")]
+        public JsonResult GetAllRoles()
+        {
+            return new JsonResult(dbContext.Roles.Include(x => x.UserRoles).ThenInclude(x => x.User));
+        }
+
+        [HttpPost]
+        [Route("SetUserRoles")]
+        public async Task<JsonResult> SetUserRoles(string userId, string roleArrayString)
+        {
+            var user = dbContext.Users
+                .Where(x => x.Id == userId)
+                .Include(x => x.UserRoles)
+                .ThenInclude(x => x.Role)
+                .FirstOrDefault();
+
+            if (user == null) {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return new JsonResult(new { Success = "False", responseText = string.Format($"User with id '{userId}' not found.") });
+            }
+
+            var userRoles = user.UserRoles.Select(x => x.Role.Name).ToList();
+            var roleArray = roleArrayString.Split(',');
+            if (roleArray == null) {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return new JsonResult(new { Success = "False", responseText = string.Format($"No roles selected.") });
+            }
+
+            foreach (string role in roleArray.Where(r1 => !userRoles.Any(r2 => r2.Equals(r1))))
+                await userManager.AddToRoleAsync(user, role);
+
+            foreach (string role in userRoles.Where(r1 => !roleArray.Any(r2 => r2.Equals(r1))))
+                await userManager.RemoveFromRoleAsync(user, role);
+
+            dbContext.SaveChanges();
+
+            return new JsonResult(null);
+        }
+
+        [HttpPost]
+        [Route("CreateRole")]
+        public async Task<JsonResult> CreateRole(string roleName)
+        {
+            var result = await roleManager.CreateAsync(new ApplicationRole(roleName));
+
+            if (result.Succeeded == false) {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return new JsonResult(new { Success = "False", responseText = string.Format($"Failed to create role.") });
+            }     
+
+            return new JsonResult(roleName);
+        }
+
+        [HttpPost]
+        [Route("EditRole")]
+        public async Task<JsonResult> EditRole(string roleId, string roleName)
+        {
+            var role = await roleManager.FindByIdAsync(roleId);
+            if (role == null) { 
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return new JsonResult(new { Success = "False", responseText = string.Format($"Role with id={roleId} could not be found.") });
+            }
+
+            if (role.Name == "Admin") {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return new JsonResult(new { Success = "False", responseText = string.Format($"Admin role is protected.") });
+            }
+
+            role.Name = roleName;
+
+            var result = await roleManager.UpdateAsync(role);
+            if (result.Succeeded == false) { 
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return new JsonResult(new { Success = "False", responseText = string.Format($"Failed to edit role.") });
+            }
+
+            return new JsonResult(roleName);
+        }
+
+        [HttpPost]
+        [Route("DeleteRole")]
+        public async Task<JsonResult> DeleteRole(string roleId)
+        {
+            var role = await roleManager.FindByIdAsync(roleId);
+            if (role == null) {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return new JsonResult(new { Success = "False", responseText = string.Format($"Role with id={roleId} does not exist.") });
+            }
+
+            if (role.Name == "Admin") {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return new JsonResult(new { Success = "False", responseText = string.Format($"Admin role is protected.") });
+            }
+  
+            var result = await roleManager.DeleteAsync(role);
+            if (result.Succeeded == false) {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return new JsonResult(new { Success = "False", responseText = string.Format($"Failed to delete role.") });
+            }
+
+            return new JsonResult(roleId);
         }
     }
 }

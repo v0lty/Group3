@@ -19,6 +19,8 @@ namespace Group3.Data
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<UserGroupEnlistment> UserGroupEnlistments { get; set; }
+        public DbSet<UserGroup> UserGroups { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
@@ -38,13 +40,7 @@ namespace Group3.Data
                 .WithOne(picture => picture.User)
                 .HasForeignKey(picture => picture.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<ApplicationUser>()
-                .HasMany(user => user.UserGroupEnlistments)
-                .WithOne(post => post.ApplicationUser)
-                .HasForeignKey(post => post.ApplicationUserID)
-                .OnDelete(DeleteBehavior.Cascade);
-
+        
             modelBuilder.Entity<Topic>()
                 .HasOne(topic => topic.Category)
                 .WithMany(category => category.Topics)
@@ -88,20 +84,24 @@ namespace Group3.Data
             //    .HasPrincipalKey(c => c.AurthorId)
             //    .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<UserGroupEnlistment>()
-                .HasKey(ur => new { ur.ApplicationUserID, ur.CategoryId });
+
+            modelBuilder.Entity<Category>()
+                .HasOne(c => c.UserGroup)
+                .WithOne(g => g.Category)
+                .HasForeignKey<UserGroup>(b => b.CategoryId);
 
             modelBuilder.Entity<UserGroupEnlistment>()
-                .HasOne(c => c.ApplicationUser)
+                .HasKey(ur => new { ur.UserId, ur.UserGroupId });
+
+            modelBuilder.Entity<UserGroupEnlistment>()
+                .HasOne(m => m.UserGroup)
+                .WithMany(g => g.UserGroupEnlistments)
+                .HasForeignKey(m => m.UserGroupId);
+
+            modelBuilder.Entity<UserGroupEnlistment>()
+                .HasOne(e => e.User)
                 .WithMany(u => u.UserGroupEnlistments)
-                .HasForeignKey(c => c.ApplicationUserID)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<UserGroupEnlistment>()
-                .HasOne(c => c.Category)
-                .WithMany(m => m.UserGroupEnlistments)
-                .HasForeignKey(ur => ur.CategoryId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(e => e.UserId);
 
             modelBuilder.Entity<ApplicationUserRole>()
                 .HasKey(ur => new { ur.UserId, ur.RoleId });
@@ -166,10 +166,15 @@ namespace Group3.Data
                 PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "password")
             };
 
-            var category1 = new Category { Id = -1, Name = "News", Description = "Breaking news here!", UserGroup = false };
-            var category2 = new Category { Id = -2, Name = "Frontend", Description = "Javascript, React and more.", UserGroup = false };
-            var category3 = new Category { Id = -3, Name = "Backend", Description = "C++ and C#", UserGroup = false };
-            var category4 = new Category { Id = -4, Name = "Testgruppen", Description = "En grupp av testare.", UserGroup = true };
+            var category1 = new Category { Id = -1, Name = "News", Description = "Breaking news here!" };
+            var category2 = new Category { Id = -2, Name = "Frontend", Description = "Javascript, React and more."};
+            var category3 = new Category { Id = -3, Name = "Backend", Description = "C++ and C#" };
+            var category4 = new Category { Id = -4, Name = "Testgruppen", Description = "En grupp av testare."};
+
+            var userGroup1 = new UserGroup { Id = -1, CategoryId = category4.Id };
+
+            var userGroupMember1 = new UserGroupEnlistment { Id = -1, UserId = user1.Id, UserGroupId = userGroup1.Id };
+            var userGroupMember2 = new UserGroupEnlistment { Id = -2, UserId = user3.Id, UserGroupId = userGroup1.Id };
 
             var topic1 = new Topic { Id = -1, Name = "Trending", Description="What's hot right now?", CategoryId = category1.Id, AurthorId = adminUserRole.UserId };
             var topic2 = new Topic { Id = -2, Name = "HTML", Description="Tag TAG <b>TAG!</b>", CategoryId = category2.Id, AurthorId = user1.Id };
@@ -209,9 +214,6 @@ namespace Group3.Data
             var message4 = new Message { Id = -4, AurthorId = user1.Id, Time = DateTime.Now.AddDays(-1), Text = $"Umm.." };
             var message5 = new Message { Id = -5, AurthorId = user3.Id, Time = DateTime.Now.AddDays(-1), Text = $"Message from {user3.FirstName} to {user2.FirstName}" };
 
-            var userGroupEnlistment1 = new UserGroupEnlistment { UserGroupEnlistmentID = -1, CategoryId = -4, ApplicationUserID = user2.Id };
-            var userGroupEnlistment2 = new UserGroupEnlistment { UserGroupEnlistmentID = -2, CategoryId = -4, ApplicationUserID = user3.Id };
-
             modelBuilder.Entity<ApplicationRole>().HasData(adminRole);
             modelBuilder.Entity<ApplicationRole>().HasData(userRole);
             modelBuilder.Entity<ApplicationRole>().HasData(moderatorRole);            
@@ -226,20 +228,24 @@ namespace Group3.Data
             modelBuilder.Entity<Message>().HasData(message3);
             modelBuilder.Entity<Message>().HasData(message4);
             modelBuilder.Entity<Message>().HasData(message5);
+
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -1, UserId = user1.Id, MessageId = message1.Id });
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -1, UserId = user2.Id, MessageId = message1.Id });
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -1, UserId = user3.Id, MessageId = message1.Id });
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -1, UserId = user1.Id, MessageId = message2.Id });
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -1, UserId = user2.Id, MessageId = message2.Id });
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -1, UserId = user3.Id, MessageId = message2.Id });
+
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -2, UserId = user1.Id, MessageId = message3.Id });
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -2, UserId = user2.Id, MessageId = message3.Id });
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -2, UserId = user3.Id, MessageId = message3.Id });
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -2, UserId = user1.Id, MessageId = message4.Id });
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -2, UserId = user2.Id, MessageId = message4.Id });
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -2, UserId = user3.Id, MessageId = message4.Id });
+
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -3, UserId = user2.Id, MessageId = message5.Id });
             modelBuilder.Entity<Chat>().HasData(new Chat() { Id = -3, UserId = user3.Id, MessageId = message5.Id });
+
             modelBuilder.Entity<Category>().HasData(category1);
             modelBuilder.Entity<Category>().HasData(category2);
             modelBuilder.Entity<Category>().HasData(category3);
@@ -272,8 +278,9 @@ namespace Group3.Data
             modelBuilder.Entity<Picture>().HasData(picture2);
             modelBuilder.Entity<Picture>().HasData(picture3);
             modelBuilder.Entity<Category>().HasData(category4);
-            modelBuilder.Entity<UserGroupEnlistment>().HasData(userGroupEnlistment1);
-            modelBuilder.Entity<UserGroupEnlistment>().HasData(userGroupEnlistment2);
+            modelBuilder.Entity<UserGroup>().HasData(userGroup1);
+            modelBuilder.Entity<UserGroupEnlistment>().HasData(userGroupMember1);
+            modelBuilder.Entity<UserGroupEnlistment>().HasData(userGroupMember2);
         }
     }
 }

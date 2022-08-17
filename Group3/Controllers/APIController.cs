@@ -21,14 +21,21 @@ namespace Group3.Controllers
     {
         private readonly ApplicationDbContext dbContext;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly RoleManager<ApplicationRole> roleManager;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IWebHostEnvironment hostEnvironment;
 
-        public APIController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IWebHostEnvironment environment)
+        public APIController(
+            ApplicationDbContext context, 
+            UserManager<ApplicationUser> userManager, 
+            RoleManager<ApplicationRole> roleManager, 
+            SignInManager<ApplicationUser> signInManager, 
+            IWebHostEnvironment environment)
         {
             this.dbContext = context;
             this.hostEnvironment = environment;
             this.userManager = userManager;
+            this.roleManager = roleManager;
             this.signInManager = signInManager;            
         }
     }

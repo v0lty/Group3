@@ -123,6 +123,21 @@ const API = {
     removeUser: async (params) => {
         return trackPromise(post(baseURL + 'RemoveUser', params));
     },
+    getAllRoles: async (params) => {
+        return trackPromise(get(baseURL + 'GetAllRoles', params));
+    },
+    setUserRoles: async (params) => {
+        return trackPromise(post(baseURL + 'SetUserRoles', params));
+    },
+    createRole: async (params) => {
+        return trackPromise(post(baseURL + 'CreateRole', params));
+    },
+    editRole: async (params) => {
+        return trackPromise(post(baseURL + 'EditRole', params));
+    },
+    deleteRole: async (params) => {
+        return trackPromise(post(baseURL + 'DeleteRole', params));
+    },
 }
 
 export const get = (url) => {

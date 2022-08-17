@@ -23,7 +23,12 @@ export default function Forum() {
             <ListGroup as="ol">
                 {categories.map((category, categoryIndex) => category.Name != "News" && (
                     <ListGroup.Item key={categoryIndex} as="li" className="border-0">
-                        <Category category={category} onUpdate={updateCategories} />
+                        {/*NOTE: view category if UserGroup is null OR if UserGroup contains User.Id
+                                 .map(x => (x.User.Id) selects User.Id into array, remove it to access full User.*/}
+                        {(category?.UserGroup == null
+                       || category?.UserGroup?.UserGroupEnlistments?.map(x => (x.User.Id)).includes(authContext?.user?.Id)) &&
+                            <Category category={category} onUpdate={updateCategories} />
+                        }
                     </ListGroup.Item>
                 ))}
             </ListGroup>

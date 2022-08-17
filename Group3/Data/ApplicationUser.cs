@@ -58,5 +58,7 @@ namespace Group3.Models
         }
 
         public List<Chat> Chats { get; set; }
+
+        public List<UserGroup> UserGroups { get; set; }
     }
 }
