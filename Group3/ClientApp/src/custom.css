@@ -73,22 +73,22 @@ header {
 }
 
 footer {
-    min-height: 115px;
+    min-height: 75px;
     border: none;
 }
 
 footer .fa {
     color: white;
-    margin: 5px;
-    padding: 20px;
-    font-size: 25px;
-    min-width: 75px;
+    margin-left: 10px;
+    padding: 10px;
+    font-size: 20px;
+    min-width: 50px;
     text-align: center;
     text-decoration: none;
 }
 
 .fa-rss-square {
-    background: #fce303;
+    background: RGB(247, 160, 0);
 }
 
 .fa:hover {

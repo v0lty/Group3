@@ -48,5 +48,29 @@ namespace Group3.Controllers
                 return new JsonResult(new { Success = "False", responseText = ex.Message });
             }
         }
+
+        [HttpPost]
+        [Route("CreateCategory")]
+        public JsonResult CreateCategory(string name, string description)
+        {
+            var category = new Category() { Name = name, Description = description };
+            dbContext.Categories.Add(category);
+            dbContext.SaveChanges();
+
+            return new JsonResult(category);
+        }
+
+        [HttpPost]
+        [Route("DeleteCategory")]
+        public JsonResult DeleteCategory(string categoryId)
+        {
+            var category = dbContext.Categories.Where(x => x.Id == int.Parse(categoryId)).FirstOrDefault();
+            if (category != null) {
+                dbContext.Categories.Remove(category);
+                dbContext.SaveChanges();
+            }
+
+            return new JsonResult(null);
+        }
     }
 }

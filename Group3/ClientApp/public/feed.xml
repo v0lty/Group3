@@ -6,7 +6,7 @@
     <link>http://localhost:13021/feed.xml</link>
     <description>Description</description>
     <copyright>2022 Group 3</copyright>
-    <lastBuildDate>Thu, 18 Aug 2022 19:21:27 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 18 Aug 2022 19:46:18 +0200</lastBuildDate>
     <item>
       <guid
         isPermaLink="false">http://localhost:13021</guid>
@@ -31,9 +31,9 @@
     <item>
       <guid
         isPermaLink="false">http://localhost:13021</guid>
-      <link>http://localhost:13021/post/4</link>
+      <link>http://localhost:13021/post/1</link>
       <title>Test Subject</title>
-      <description>&lt;p&gt;test post&lt;/p&gt;</description>
+      <description>&lt;p&gt;Test Post&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

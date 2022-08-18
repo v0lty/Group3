@@ -13,9 +13,9 @@ export default function Footer() {
                 <a href="#" className="fa fa-google"></a>
                 <a href="#" className="fa fa-instagram"></a>
       
-                <a type="application/rss+xml" href="http://localhost:13021/feed.xml" className="fa fa-rss-square" ></a>
+                <a type="application/rss+xml" href="http://localhost:13021/feed.xml" className="fa fa-rss-square" target="_blank"></a>
             </div>
-            <span>&copy; {new Date().toLocaleDateString()}</span>
+            <span>&copy;<b>Group3</b> {new Date().toLocaleDateString()}</span>
         </footer>
     );
 }

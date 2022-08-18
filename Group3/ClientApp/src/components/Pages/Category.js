@@ -81,7 +81,8 @@ export const Category = props => {
             {/*NOTE: For testing only 
                      .map(x => (x.User.Name) selects User.Name into array, remove it to access full User.*/}
             {props?.category?.UserGroup != null &&
-                <b className="text-muted">UserGroup Memebers: {props?.category?.UserGroup?.UserGroupEnlistments?.map(x => (x.User.Name)).join(', ')}</b>
+                <p className="text-muted">Memebers: {props?.category?.UserGroup?.UserGroupEnlistments?.map(x => (x.User.Name)).join(', ')}</p>
+                
             }            
             <ListGroup as="ol" className="pb-2">
                 {/*TOPICS*/}

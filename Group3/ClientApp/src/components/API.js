@@ -141,6 +141,15 @@ const API = {
     getRSS: async (params) => {
         return trackPromise(get(baseURL + 'GetRSS', params));
     },
+    banUser: async (params) => {
+        return trackPromise(post(baseURL + 'BanUser', params));
+    },
+    createCategory: async (params) => {
+        return trackPromise(post(baseURL + 'CreateCategory', params));
+    },
+    deleteCategory: async (params) => {
+        return trackPromise(post(baseURL + 'DeleteCategory', params));
+    },
 }
 
 export const get = (url) => {
@@ -149,7 +158,7 @@ export const get = (url) => {
         resolve(axios.get(url)
             .then((response) => response.data)
             .catch((error) => {
-                if (window.confirm(error + '\nMessage: ' + error.response.data.responseText + '\n\nRetry?')) {
+                if (window.confirm(error + '\n\nMessage: ' + error.response.data.responseText + '\n\nRetry?')) {
                     // recursive call
                     return get(url);
                 }
@@ -164,7 +173,7 @@ export const post = (url, params) => {
         resolve(axios.post(url, null, { params: params })
             .then((response) => response.data)
             .catch((error) => {
-                if (window.confirm(error + '\nMessage: ' + error.response.data.responseText + '\n\nRetry?')) {
+                if (window.confirm(error + '\n\nMessage: ' + error.response.data.responseText + '\n\nRetry?')) {
                     // recursive call
                     return post(url, params);
                 }
