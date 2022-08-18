@@ -2,31 +2,38 @@
 <rss
   version="2.0">
   <channel>
-    <title>Title</title>
+    <title>Software Development News</title>
     <link>http://localhost:13021/feed.xml</link>
     <description>Description</description>
     <copyright>2022 Group 3</copyright>
-    <lastBuildDate>Wed, 17 Aug 2022 22:58:41 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 18 Aug 2022 19:21:27 +0200</lastBuildDate>
     <item>
       <guid
-        isPermaLink="false">a-professional-asp.net-core-rss</guid>
-      <link>http://localhost:13021/Blog/Article/a-professional-asp.net-core-rss</link>
-      <title>A Professional ASP.NET Core - RSS</title>
-      <description>RSS feeds provide an excellent mechanism for websites to publish their content for consumption by others.</description>
+        isPermaLink="false">http://localhost:13021</guid>
+      <link>http://localhost:13021/post/-8</link>
+      <title>Site presentation</title>
+      <description>Site presentation.&lt;br&gt;&lt;br&gt;Day for presentation. Our project was to create a community portal for an organization, including a news feed, events, member lists and discussion forums. </description>
     </item>
     <item>
       <guid
-        isPermaLink="false">a-professional-asp.net-core-api-caching</guid>
-      <link>http://localhost:13021/Blog/Article/a-professional-asp.net-core-api-caching</link>
-      <title>A Professional ASP.NET Core API - Caching</title>
-      <description>Caching is a technique of storing the frequently accessed/used data so that the future requests for those sets of data can be served much faster to the client..</description>
+        isPermaLink="false">http://localhost:13021</guid>
+      <link>http://localhost:13021/post/-7</link>
+      <title>Site launch</title>
+      <description>Site launch.&lt;br&gt;&lt;br&gt;Day for site launch. We will see if it is possible to host the site on freeasphosting.net</description>
     </item>
     <item>
       <guid
-        isPermaLink="false">aurelia-2-with-tailwindcss-and-webpack</guid>
-      <link>http://localhost:13021/Blog/Article/aurelia-2-with-tailwindcss-and-webpack</link>
-      <title>Using Tailwind CSS with Aurelia 2 and Webpack</title>
-      <description>Tailwind CSS is a highly customizable, low-level CSS framework that gives you all of the building blocks you need to build bespoke designs without any annoying opinionated styles you have to fight to override.</description>
+        isPermaLink="false">http://localhost:13021</guid>
+      <link>http://localhost:13021/post/-2</link>
+      <title>Visual Studio 2022</title>
+      <description>Maybe, but I'll stick with 2019!</description>
+    </item>
+    <item>
+      <guid
+        isPermaLink="false">http://localhost:13021</guid>
+      <link>http://localhost:13021/post/4</link>
+      <title>Test Subject</title>
+      <description>&lt;p&gt;test post&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

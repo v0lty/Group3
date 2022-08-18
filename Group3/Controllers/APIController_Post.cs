@@ -98,16 +98,22 @@ namespace Group3.Controllers
         [Route("CreatePost")]
         public async Task<JsonResult> CreatePost(string userId, string subjectId, string text)
         {
+            var subject = dbContext.Subjects.Where(x => x.Id == int.Parse(subjectId)).Include(x => x.Posts).FirstOrDefault();
             var post = new Post {
                 Text = text,
                 Time = DateTime.Now,
                 Aurthor = await dbContext.Users.FindAsync(userId), 
-                Subject = await dbContext.Subjects.FindAsync(int.Parse(subjectId))
-            };        
-
+                Subject = subject
+            };    
+            
             try {
                 await dbContext.Posts.AddAsync(post);
                 dbContext.SaveChanges();
+
+                if (subject.Posts.Count == 1) {
+                    await GetRSS();
+                }
+
                 return new JsonResult(post);
             }
             catch (Exception ex) {
