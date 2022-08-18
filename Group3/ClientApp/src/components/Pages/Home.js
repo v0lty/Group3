@@ -6,14 +6,14 @@ export default function Home() {
     const authContext = useContext(AuthContext);
 
     return (
-        <div>
+        <div class="Main">
             {authContext.user != null ? (
                 <h3>Welcome back {authContext.user.Name}!</h3>
             ) : (
                 <h3>Hello stranger..</h3>
             )}
             <br/>
-            <News />
+                   <News />
         </div>
 
 

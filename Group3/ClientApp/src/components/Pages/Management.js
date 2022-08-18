@@ -154,7 +154,7 @@ export const Management = props => {
     }
 
     return (
-        <div>
+        <div class="Main">
             <h3>Management</h3>
             <Tabs defaultActiveKey="users" className="mb-3 pt-3">
                 <Tab eventKey="users" title="Users">

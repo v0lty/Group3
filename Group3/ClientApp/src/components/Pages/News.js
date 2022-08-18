@@ -7,14 +7,28 @@ import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { addDays, format, isWeekend } from 'date-fns';
 
+function getSunday(d) {
+    d = new Date(d);
+    var day = d.getDay(),
+        diff = d.getDate() - day + (day == 0 ? -6 : 0); // adjust when day is sunday
+    return new Date(d.setDate(diff));
+}
+
+function getSaturday() {
+    var now = new Date();
+    var sunday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + (6 - now.getDay()));
+    return sunday;
+}
+
+
 export default function News() {
     const authContext = useContext(AuthContext);
     const [newsCategory, setNewsCategory] = useState(null);
 
     const [state, setState] = useState({
         selection: {
-            startDate: new Date(),
-            endDate: addDays(new Date(), 2),
+            startDate: getSunday(new Date()),
+            endDate: getSaturday(),
             key: 'selection'
         }
     });
