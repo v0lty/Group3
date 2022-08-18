@@ -16,24 +16,24 @@ export default function Signup(props) {
         event.preventDefault();
 
         API.createUser({
-            firstName: event.target.elements['formFirstName'].value,
-            lastName: event.target.elements['formLastName'].value,
-            birthdate: event.target.elements['formBirthdate'].value,
-            location: event.target.elements['formLocation'].value,
-            email: event.target.elements['formEmail'].value,
-            password: event.target.elements['formPassword'].value,
-            confirm: event.target.elements['formConfirm'].value   
+            firstName: event.target.elements['firstnameInput'].value,
+            lastName: event.target.elements['lastnameInput'].value,
+            birthdate: event.target.elements['dateofbirthInput'].value,
+            location: event.target.elements['locationInput'].value,
+            email: event.target.elements['emailInput'].value,
+            password: event.target.elements['passwordInput'].value,
+            confirm: event.target.elements['confirmInput'].value   
         }).then((user) => {
             authContext.setUser(user);
             alert("Account has been created!");
-            history.push("/profile");
+            history.push("/");
         });
     }
 
     return (
-        <div class="container mt-3">
+        <div>
             <h1>Create account</h1>
-            <Form className="shadow p-3 mb-3" onSubmit={onFormSubmit}>
+            <Form  onSubmit={onFormSubmit}>
                
                 <FloatingLabel label="Firstname" className="mb-3">
                     <Form.Control type="text" placeholder="Enter Firstname" id="firstnameInput"  required/>
