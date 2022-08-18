@@ -18,14 +18,12 @@ namespace Group3.Controllers
         [Route("GetRSS")]
         public async Task<JsonResult> GetRSS()
         {     
-            var feed = new SyndicationFeed("Title", "Description", new Uri("http://localhost:13021/feed.xml"), "RSSUrl", DateTime.Now);
+            var feed = new SyndicationFeed("Software Development News", "Description", new Uri("http://localhost:13021/feed.xml"), "RSSUrl", DateTime.Now);
             feed.Copyright = new TextSyndicationContent($"{DateTime.Now.Year} Group 3");
             var items = new List<SyndicationItem>();
 
             var categories = dbContext.Categories
-                .Include(cat => cat.UserGroup)
-                .ThenInclude(x => x.UserGroupEnlistments)
-                .ThenInclude(x => x.User)
+                .Where(x => x.Name == "News")
                 .Include(cat => cat.Topics)
                 .ThenInclude(topic => topic.Subjects)
                 .ThenInclude(subject => subject.Posts)
@@ -37,27 +35,12 @@ namespace Group3.Controllers
                 {
                     foreach (var subject in topic.Subjects)
                     {
-                        foreach (var post in subject.Posts)
-                        {
-                            // NOTE: Generate SyndicationItem here
-                            // items.Add(SyndicationItem);
-                        }
+                        var post = subject.Posts.FirstOrDefault();
+                        items.Add(new SyndicationItem(subject.Name, post.Text, new Uri($"http://localhost:13021/post/{post.Id}"), $"http://localhost:13021", post.Time));                      
                     }
                 }
             }
 
-            // This can be removed after generated real items
-            var postings = NewsPosts.GetBlogPosts();
-            foreach (var item in postings)
-            {
-                var postUrl = Url.Action("Article", "Blog", new { id = item.UrlSlug }, HttpContext.Request.Scheme);
-                var category = item.Category;
-                var title = item.Title;
-                var description = item.Description;
-                items.Add(new SyndicationItem(title, description, new Uri(postUrl), item.UrlSlug, item.CreatedDate));
-            }
-
-            // Leave this
             feed.Items = items;
             var settings = new XmlWriterSettings
             {
@@ -66,8 +49,6 @@ namespace Group3.Controllers
                 NewLineOnAttributes = true,
                 Indent = true
             };
-
-            string fileName = "feed.xml";
 
             using (var stream = new MemoryStream())
             {
@@ -78,17 +59,17 @@ namespace Group3.Controllers
                     xmlWriter.Flush();
                 }
 
+                string fileName = "feed.xml";
                 string rootPath = Path.Combine(hostEnvironment.ContentRootPath, "ClientApp\\public\\");
                 string filePath = Path.Combine(rootPath, fileName);
 
-                // this causing page to reload..
                 using (var file = new FileStream(filePath, FileMode.Create))
                 {
                     stream.WriteTo(file);
-                }          
-            }
+                }
 
-            return new JsonResult(fileName);
+                return new JsonResult(fileName);
+            }
         }
     }
 }
