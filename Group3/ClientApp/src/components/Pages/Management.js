@@ -49,13 +49,14 @@ export const Management = props => {
         });
     }
 
-    const onRemoveClick = (id) => {
-        API.removeUser({
-            userId: id,
-        }).then(() => {
-            getAllUsers();
-            alert("Are you sure you want to delete?");
-        });
+    const onDeleteUser = (id) => {
+        if (confirm("Are you sure you want to delete this user?")) {
+            API.removeUser({
+                userId: id,
+            }).then(() => {
+                getAllUsers();
+            });
+        }
     }
 
     const onEditClick = (user) => {
@@ -94,12 +95,14 @@ export const Management = props => {
     }
 
     const onDeleteRole = (role) => {
-        API.deleteRole({
-            roleId: role.Id,
-        }).then(() => {
-            getAllRoles();
-            
-        });
+        if (confirm("Are you sure you want to delete this role?")) {
+            API.deleteRole({
+                roleId: role.Id,
+            }).then(() => {
+                getAllUsers();
+                getAllRoles();
+            });
+        }
     }
 
     return (
@@ -140,7 +143,7 @@ export const Management = props => {
                                             Edit Profile
                                         </button>
                                         {authContext?.user?.Id != user?.Id && !user?.IsAdmin && (
-                                            <button className="btn btn-link text-danger py-0" onClick={() => onRemoveClick(user.Id)}>
+                                            <button className="btn btn-link text-danger py-0" onClick={() => onDeleteUser(user.Id)}>
                                                 Delete
                                             </button>
                                         )}
