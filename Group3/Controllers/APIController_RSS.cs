@@ -51,6 +51,7 @@ namespace Group3.Controllers
             foreach (var item in postings)
             {
                 var postUrl = Url.Action("Article", "Blog", new { id = item.UrlSlug }, HttpContext.Request.Scheme);
+                var category = item.Category;
                 var title = item.Title;
                 var description = item.Description;
                 items.Add(new SyndicationItem(title, description, new Uri(postUrl), item.UrlSlug, item.CreatedDate));

@@ -6,13 +6,13 @@
     <link>http://localhost:13021/feed.xml</link>
     <description>Description</description>
     <copyright>2022 Group 3</copyright>
-    <lastBuildDate>Wed, 17 Aug 2022 22:58:41 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 18 Aug 2022 19:56:59 +0200</lastBuildDate>
     <item>
       <guid
-        isPermaLink="false">a-professional-asp.net-core-rss</guid>
-      <link>http://localhost:13021/Blog/Article/a-professional-asp.net-core-rss</link>
-      <title>A Professional ASP.NET Core - RSS</title>
-      <description>RSS feeds provide an excellent mechanism for websites to publish their content for consumption by others.</description>
+        isPermaLink="false">Visual-Studio-2022</guid>
+      <link>http://localhost:13021/Blog/Article/Visual-Studio-2022</link>
+      <title>Visual Studio 2022</title>
+      <description>Is this version any good?</description>
     </item>
     <item>
       <guid

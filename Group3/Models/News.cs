@@ -7,6 +7,7 @@ namespace Group3.Models
 {
     public class News
     {
+        public string Category { get; set; }
         public string Title { get; set; }
         public string UrlSlug { get; set; }
         public string Description { get; set; }
