@@ -54,6 +54,7 @@ export const Management = props => {
             userId: id,
         }).then(() => {
             getAllUsers();
+            alert("Are you sure you want to delete?");
         });
     }
 
@@ -97,6 +98,7 @@ export const Management = props => {
             roleId: role.Id,
         }).then(() => {
             getAllRoles();
+            
         });
     }
 
