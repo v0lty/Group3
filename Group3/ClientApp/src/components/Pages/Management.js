@@ -4,7 +4,7 @@ import { AuthContext } from "../UserAuthentication";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import Form from 'react-bootstrap/Form'
+import Form from 'react-bootstrap/Form';
 import API from "../API";
 import { useHistory } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
@@ -178,7 +178,7 @@ export const Management = props => {
                             {users?.map((user, userIndex) =>
                                 <tr key={userIndex}>
                                     <td>
-                                        <img className="profile-image-extra-small" src={`../Pictures/${user.ProfilePicture?.Path}`}></img>
+                                        <img className="profile-image-extra-small" src={'../Pictures/${user.ProfilePicture?.Path}'}></img>
                                     </td>
                                     <td>{user.FirstName}</td>
                                     <td>{user.LastName}</td>
@@ -244,7 +244,12 @@ export const Management = props => {
                         </tbody>
                     </table>
                 </Tab>
+                <Tab eventKey="create event" title="Create Event">
+                    <button className="btn btn-link text-success py-0 me-3" onClick={() => setShowCreateEventModal(true)}>Create a new Event</button>
+                </Tab>  
+
             </Tabs>
+              
 
             <Modal show={showRolesModel} onHide={() => setShowRolesModel(false)} backdrop="static">
                 <Modal.Header closeButton>
@@ -330,6 +335,7 @@ export const Management = props => {
                     <label htmlFor="submitInput" className="btn btn-primary">Submit</label>
                 </Modal.Footer>
             </Modal>
+             
         </div>
     );
 }

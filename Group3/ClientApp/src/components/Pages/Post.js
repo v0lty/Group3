@@ -29,9 +29,9 @@ export const PostPath = () => {
     return (
         <div>
             <h5 className="m-0 p-0 pb-3">
-                <a className="text-decoration-none" href={`/category/${post?.Subject?.Topic?.Category?.Id}`}>{post?.Subject?.Topic?.Category?.Name}</a>
+                <a className="text-decoration-none" href={'/category/${post?.Subject?.Topic?.Category?.Id}'}>{post?.Subject?.Topic?.Category?.Name}</a>
                 {" > "}
-                <a className="text-decoration-none" href={`/topic/${post?.Subject?.Topic?.Id}`}>{post?.Subject?.Topic?.Name}</a>
+                <a className="text-decoration-none" href={'/topic/${post?.Subject?.Topic?.Id}'}>{post?.Subject?.Topic?.Name}</a>
             </h5>
             <Post post={post} onUpdate={updatePost} onEdit={updatePost} onDelete={() => { history.push('/'); }} />
         </div>
@@ -62,7 +62,7 @@ export const Post = props => {
 
     const onSave = () => {
         const text = value.toString('html')
-            + `<span><i>Edited by ${authContext?.user?.Name}@ ${moment(moment.now()).format('YYYY/MM/DD HH:mm:ss')}</i></span><br/>`;
+            + '<span><i>Edited by ${authContext?.user?.Name}@ ${moment(moment.now()).format('YYYY/MM/DD HH:mm:ss')}</i></span><br/>';
 
         API.editPost({
             postId: editPost.Id,
@@ -113,7 +113,7 @@ export const Post = props => {
                     {/*USER*/}
                     <div>
                         <div className="row m-0">
-                            <img className="profile-picture pb-2" src={`../Pictures/${props?.post?.Aurthor.ProfilePicture?.Path}`}></img>
+                            <img className="profile-picture pb-2" src={'../Pictures/${props?.post?.Aurthor.ProfilePicture?.Path}'}></img>
                         </div>
                         <div className="row m-0">
                             {authContext?.user?.Id != props?.post?.Aurthor?.Id ? (
@@ -128,9 +128,9 @@ export const Post = props => {
                                 with <b className="text-danger">{props?.post?.Aurthor?.PostsCount}</b> posts.<br />
                                 <br />
                                 <span>
-                                    <a className="btn-link" onClick={() => history.push(`/user/${props?.post?.Aurthor?.Id}`)}>Show Profile </a><br />
+                                    <a className="btn-link" onClick={() => history.push('/user/${props?.post?.Aurthor?.Id}')}>Show Profile </a><br />
                                     {authContext?.user?.Id != props?.post?.Aurthor?.Id && (
-                                        <a className="btn-link" onClick={() => history.push(`/messages/${props?.post?.Aurthor?.Id}`)}>Send Message</a>
+                                        <a className="btn-link" onClick={() => history.push('/messages/${props?.post?.Aurthor?.Id}')}>Send Message</a>
                                     )}
                                 </span>
                             </span>
