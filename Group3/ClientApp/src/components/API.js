@@ -24,6 +24,9 @@ const API = {
     createPost: async (params) => {
         return trackPromise(post(baseURL + 'CreatePost', params));
     },
+    createEvent: async (params) => {
+        return trackPromise(post(baseURL + 'CreateEvent', params));
+    },
     deletePost: async (params) => {
         return trackPromise(post(baseURL + 'DeletePost', params));
     },

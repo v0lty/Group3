@@ -9,6 +9,7 @@ import API from "../API";
 import { useHistory } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import moment from "moment";
+import InputModal from '../InputModal';
 
 export const Management = props => {
     const authContext = useContext(AuthContext);
@@ -151,6 +152,57 @@ export const Management = props => {
                 getAllRoles();
             });
         }
+    }
+
+    const onEventSubmit = async (event, title, text) => {
+        if (title == "") {
+            alert("Subject can't be empty!");
+            return;
+        }
+        API.createSubject({
+            name: title,
+            topicId: props?.topic?.Id
+        }).then((subject) => {
+            API.createEvent({
+                userId: authContext?.user?.Id,
+                subjectId: subject.Id,
+                text: text,
+            }).then((post) => {
+                setModalVisible(false);
+                history.push('/subject/' + subject.Id);
+            });
+        });
+    }
+
+    const onFormSubmit = async (event) => {
+        event.preventDefault();
+        if (title == "") {
+            alert("Subject can't be empty!");
+            return;
+        }
+        API.createSubject({
+            name: title,
+            topicId: props?.topic?.Id
+        }).then((subject) => {
+            API.createEvent({
+                userId: authContext?.user?.Id,
+                subjectId: subject.Id,
+                text: text,
+            }).then((post) => {
+                setModalVisible(false);
+                history.push('/subject/' + subject.Id);
+            });
+        });
+
+        API.createSubject({
+            name: event.target.elements['nameInput'].value,
+            name: event.target.elements['nameInput'].value,
+        }).then((user) => {
+
+            authContext.setUser(user);
+            alert("Account has been created!");
+            history.push("/");
+        });
     }
 
     return (
