@@ -48,6 +48,9 @@ const API = {
     getNews: async () => {
         return trackPromise(get(baseURL + 'GetNews'));
     },
+    getLatestNews: async () => {
+        return trackPromise(get(baseURL + 'GetLatestNews'));
+    },
     getMessages: async (params) => {
         return trackPromise(post(baseURL + 'GetMessages', params));
     },
