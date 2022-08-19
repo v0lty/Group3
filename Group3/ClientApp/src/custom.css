@@ -1,3 +1,4 @@
+
 .modal-content {
     -webkit-box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
     -moz-box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
@@ -24,6 +25,7 @@ a {
 
 .new-post-editor {
     min-height: 250px;
+
 }
 
 .float-bottom {
@@ -35,6 +37,7 @@ a {
     height: 60vh;
     overflow-y: scroll;
     overflow-x: hidden;
+
 }
 
 blockquote, q {
@@ -45,7 +48,6 @@ blockquote, q {
 }
 
 body {
-    height: 100vh;
     padding: 25px;
     overflow: hidden;
     background-image: linear-gradient(rgb(53, 54, 58), rgb(32, 33, 36));
@@ -60,7 +62,8 @@ body {
 }
 
 .content {
-    background-color: white;
+    background: #dedcca;
+    color: #1c4966;
     width: 100%;
     margin: auto;
     box-shadow: rgba(0, 0, 0, 1) 0px 10px 50px 10px;
@@ -68,11 +71,13 @@ body {
 }
 
 header {
+    background: white;
     min-height: 50px;
     border: none;
 }
 
 footer {
+    background: white;
     min-height: 75px;
     border: none;
 }
@@ -115,6 +120,17 @@ footer .fa {
 .sidenav {
     overflow-x: hidden !important;
     background-color: #808080 !important;
+}
+
+.sidebar-text {
+    font-size: 14px;
+}
+
+.sidebar-news {
+    text-decoration: none;
+    text-decoration-color: white;
+    font-weight: bold;
+    color: #f29c11;
 }
 
 .category-view {
@@ -247,7 +263,7 @@ footer .fa {
         margin-right: -1.937em;
     }
 
-.calendnar-dot {
+.news-dot {
     height: 7px;
     width: 7px; 
     border-radius: 100%;
@@ -255,4 +271,23 @@ footer .fa {
     position: absolute; 
     top: 2px;
     right: 10px;
+}
+
+.event-dot {
+    height: 7px;
+    width: 7px;
+    border-radius: 100%;
+    background: red;
+    position: absolute;
+    bottom: 2px;
+    right: 10px;
+}
+
+
+.Main {
+    background: white;
+    border: 1px solid RGBA(13, 110, 253, 0.15);
+    margin: 1em;
+    padding: 1em;
+    border-radius: .4em;
 }

@@ -42,19 +42,17 @@ export default function Sidebar_News() {
                             <div className="col">
                                 <div className="row">
                                     <div className="col">
-                                        <span className="fw-bold">{topic.Name}</span>
-                                    </div>
-                                    {subject?.Posts?.map(post => (
-                                        <div className="col p-0 pe-1 d-flex justify-content-end">
-                                            <Badge bg="success" pill>
-                                                <span>{moment(post.Time).fromNow()}</span>
-                                            </Badge>
-                                        </div>
-                                    ))}
+                                        <span>{topic.Name}</span>
+                                    </div>                             
+                                    <div className="col p-0 pe-1 d-flex justify-content-end">
+                                        <Badge bg="danger" pill>
+                                        <span>{moment(subject?.FirstOrDefaultPost?.Time).fromNow()}</span>
+                                        </Badge>
+                                    </div>                              
                                 </div>
                                 <div className="btn btn-link p-0 m-0">
                                     <div className="ms-2 me-auto">
-                                        <div dangerouslySetInnerHTML={{ __html: truncate(subject.Name) }} />
+                                        <a className="sidebar-news">{truncate(subject.Name)}</a>
                                     </div>
                                 </div>
                             </div>
