@@ -158,7 +158,13 @@ const API = {
     },
     getPostsByDate: async (params) => {
         return trackPromise(post(baseURL + 'GetPostsByDate', params));
-    },    
+    },
+    createEvent: async (params) => {
+        return trackPromise(post(baseURL + 'CreateEvent', params));
+    },
+    updateCheck: async (params) => {
+        return trackPromise(get(baseURL + 'UpdateCheck', params));
+    },
 }
 
 export const get = (url) => {

@@ -24,7 +24,7 @@ export const SidebarRight = () => {
     const [fakeCurrentDate, setFakeCurrentDate] = useState(new Date()) // default value can be anything you want
 
     useEffect(() => {
-        setTimeout(() => setFakeCurrentDate(new Date()), 10000)
+        setTimeout(() => setFakeCurrentDate(new Date()), 10000);
     }, [fakeCurrentDate])
 
 

@@ -143,7 +143,7 @@ export default function Messages() {
                                     <div className="col-3" style={{ width: 100 }}>                                        
                                         <div className="text-center p-2">
                                             {/*USERPICTURE*/}
-                                            <img className="profile-image-small" src={`../Pictures/${message?.Aurthor.ProfilePicture?.Path}`}></img>                                           
+                                            <img className="profile-image-small" src={'../Pictures/${message?.Aurthor.ProfilePicture?.Path}'}></img>                                           
                                             {/*USERNAME*/}
                                             {authContext?.user?.Id == message.Aurthor.Id ? (
                                                 <h5>You</h5>) : (                                       

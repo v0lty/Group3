@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 
 namespace Group3.Controllers
 {
+   
+
     // Use [Authorize(Roles = "Admin")] to limit access for a certain role
 
     // CONSTRUCTOR & GENERAL
@@ -19,6 +21,7 @@ namespace Group3.Controllers
     [Route("[controller]")]
     public partial class APIController : Controller
     {
+        private bool needsUpdate = false;
         private readonly ApplicationDbContext dbContext;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<ApplicationRole> roleManager;
@@ -37,6 +40,13 @@ namespace Group3.Controllers
             this.userManager = userManager;
             this.roleManager = roleManager;
             this.signInManager = signInManager;            
+        }
+
+        [HttpGet]
+        [Route("UpdateCheck")]
+        public JsonResult UpdateCheck()
+        {
+            return new JsonResult(needsUpdate);
         }
     }
 }

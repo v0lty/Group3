@@ -1,14 +1,16 @@
 ﻿import React, { Component, useEffect, useState, useContext } from 'react';
-import sortHook, { SortButton } from '../SortHook'
+import sortHook, { SortButton } from '../SortHook';
 import { AuthContext } from "../UserAuthentication";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import Form from 'react-bootstrap/Form'
+import Form from 'react-bootstrap/Form';
 import API from "../API";
 import { useHistory } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import moment from "moment";
+import InputModal from '../InputModal';
+import RichTextEditor from 'react-rte'; // https://github.com/sstur/react-rte
 
 export const Management = props => {
     const authContext = useContext(AuthContext);
@@ -23,10 +25,13 @@ export const Management = props => {
     const [banEndDate, setBanEndDate] = useState(null);
     const [showCreateRoleModal, setShowCreateRoleModal] = useState(false);
     const [showEditRoleModal, setShowEditRoleModal] = useState(false);
-
+    const [showCreateEventModal, setShowCreateEventModal] = useState(false);
+    const [value, setValue] = useState(RichTextEditor.createValueFromString("", 'html'));
+    
     const { items, requestSort, sortConfig } = sortHook(
         users,
         props?.config
+      
     )
 
     const getAllUsers = async () => {
@@ -162,9 +167,22 @@ export const Management = props => {
             date: event.target.elements['eventDateInput'].value,
             text: value.toString('html'),
         }).then(() => {
-            setShowCreateEventModal(false);
+        
         });
     }
+
+//    const onEventSubmit = async (event) => {
+//        console.log("event");
+//        event.preventDefault();    
+//        
+//        API.createEvent({
+//            title: event.target.elements['eventTitleInput'].value,
+//            date: event.target.elements['eventDateInput'].value,
+//            text: value.toString('html'),
+//        }).then(() => {
+//            setShowCreateEventModal(false);
+//        });
+//    }
 
     return (
         <div class="Main">
@@ -191,7 +209,7 @@ export const Management = props => {
                             {users?.map((user, userIndex) =>
                                 <tr key={userIndex}>
                                     <td>
-                                        <img className="profile-image-extra-small" src={`../Pictures/${user.ProfilePicture?.Path}`}></img>
+                                        <img className="profile-image-extra-small" src={'../Pictures/${user.ProfilePicture?.Path}'}></img>
                                     </td>
                                     <td>{user.FirstName}</td>
                                     <td>{user.LastName}</td>
@@ -257,7 +275,36 @@ export const Management = props => {
                         </tbody>
                     </table>
                 </Tab>
+                <Tab eventKey="create event" title="Create Event">
+                    <button className="btn btn-link text-success py-0 me-3" onClick={() => setShowCreateEventModal(true)}>Create a new Event</button>
+                </Tab>  
+
             </Tabs>
+
+            <Modal show={showCreateEventModal} onHide={() => setShowCreateEventModal(false)} backdrop="static">
+                <Modal.Header closeButton>
+                    <Modal.Title>Create Event</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={onEventSubmit}>
+                        <input type="submit" id="submitInput" className="d-none" />
+                        <FloatingLabel label="Title" className="mb-3"> 
+                            <Form.Control type="text" id="eventTitleInput" required />
+                        </FloatingLabel>
+                        <FloatingLabel label="Event Date" className="mb-3">
+                            <Form.Control type="date" id="eventDateInput" required />
+                        </FloatingLabel>
+                        <RichTextEditor id="eventTextInput" className="new-post-editor"
+                            value={value}
+                            onChange={(value) => setValue(value)}
+                            autoFocus />
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <label htmlFor="submitInput" className="btn btn-primary">Submit</label>
+                </Modal.Footer>
+            </Modal>
+
 
             <Modal show={showRolesModel} onHide={() => setShowRolesModel(false)} backdrop="static">
                 <Modal.Header closeButton>
@@ -343,6 +390,7 @@ export const Management = props => {
                     <label htmlFor="submitInput" className="btn btn-primary">Submit</label>
                 </Modal.Footer>
             </Modal>
+             
         </div>
     );
 }

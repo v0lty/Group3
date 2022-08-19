@@ -81,6 +81,42 @@ namespace Group3.Controllers
         }
 
         [HttpPost]
+        [Route("CreateEvent")]
+        public JsonResult CreateEvent(string title, string date, string text)
+        {
+            try
+            {
+                needsUpdate = true;
+
+                var user = dbContext.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+                if (user == null) {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                    return new JsonResult(new { Success = "False", responseText = "User is null" });
+                }
+
+                var subject = new Subject() {
+                    Name = title,
+                    AurthorId = user.Id,
+                    TopicId = dbContext.Topics.Where(x => x.Name == "Events").FirstOrDefault().Id
+                };
+
+                dbContext.Subjects.Add(subject);
+                dbContext.SaveChanges();
+                    
+                var post = new Post() { AurthorId = user.Id, Text = text, Time = DateTime.Parse(date), EventDate = DateTime.Parse(date), SubjectId = subject.Id };
+                dbContext.Posts.Add(post);
+                dbContext.SaveChanges();
+            }
+            catch(Exception ex) 
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
+            return new JsonResult(null);
+        }
+
+        [HttpPost]
         [Route("DeleteSubject")]
         public async Task<JsonResult> DeleteSubject(string subjectId)
         {

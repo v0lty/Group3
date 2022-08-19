@@ -74,7 +74,7 @@ export const Topic = props => {
     return (
         <div className="p-3">         
             <h5 className="m-0 p-0 pb-3">
-                <a className="text-decoration-none" href={`/category/${props?.topic?.Category?.Id}`}>{props?.topic?.Category?.Name}</a>
+                <a className="text-decoration-none" href={'/category/${props?.topic?.Category?.Id}'}>{props?.topic?.Category?.Name}</a>
                 {" > "}
                 <span>{props?.topic?.Name}</span>
             </h5>
