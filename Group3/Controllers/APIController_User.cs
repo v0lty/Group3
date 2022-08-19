@@ -92,6 +92,11 @@ namespace Group3.Controllers
 
                 return new JsonResult(user);
             }
+            else if (result.IsLockedOut) {
+                var user = dbContext.Users.Where(x => x.UserName == email).FirstOrDefault();
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Locked;
+                return new JsonResult(new { Success = "False", responseText = string.Format($"You are banned until {user.LockoutEnd.ToString()}") });
+            }
             else
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
@@ -197,6 +202,39 @@ namespace Group3.Controllers
             }
 
             return new JsonResult(null);
+        }
+
+        [HttpPost]
+        [Route("BanUser")]
+        public JsonResult BanUser(string userId, string invokeBan, string endDate)
+        {
+            var user = dbContext.Users.Where(x => x.Id == userId).FirstOrDefault();
+            if (user == null) {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return new JsonResult(new { Success = "False", responseText = string.Format($"User with id '{userId}' not found.") });
+            }
+
+            if (endDate == null) {
+                user.LockoutEnabled = false;
+                user.LockoutEnd = null;
+            }
+            else
+            {
+                var date = new DateTimeOffset(DateTime.Parse(endDate));
+                if (date < DateTime.Now) {
+                    user.LockoutEnabled = false;
+                    user.LockoutEnd = null;
+                }
+                else {
+                    user.LockoutEnabled = bool.Parse(invokeBan);
+                    user.LockoutEnd = date;
+                }
+            }
+
+            dbContext.Users.Update(user);
+            dbContext.SaveChanges();
+
+            return new JsonResult(endDate);
         }
 
         [HttpGet]

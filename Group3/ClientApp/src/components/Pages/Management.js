@@ -8,15 +8,21 @@ import Form from 'react-bootstrap/Form'
 import API from "../API";
 import { useHistory } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
+import moment from "moment";
 
 export const Management = props => {
     const authContext = useContext(AuthContext);
     const history = useHistory();
     const [users, setUsers] = useState([]);
-    const [selectedUser, setSelectedUser] = useState(null);
     const [roles, setRoles] = useState([]);
+    const [selectedUser, setSelectedUser] = useState(null);
+    const [selectedRole, setSelectedRole] = useState(null);    
     const [showRolesModel, setShowRolesModel] = useState(false);
+    const [showBanUsereModal, setShowBanUsereModal] = useState(false);
+    const [banSelected, setBanSelected] = useState(false);
+    const [banEndDate, setBanEndDate] = useState(null);
     const [showCreateRoleModal, setShowCreateRoleModal] = useState(false);
+    const [showEditRoleModal, setShowEditRoleModal] = useState(false);
 
     const { items, requestSort, sortConfig } = sortHook(
         users,
@@ -41,12 +47,25 @@ export const Management = props => {
         getAllRoles();
     }, [props])
 
-    const onSearchChange = async (event) => {
+    const onSearchUsersChange = async (event) => {
         API.getUserByName({
             search: event.target.value,
         }).then((users) => {
             setUsers(users);
         });
+    }
+
+    const onEditUser = (user) => {
+        setShowRolesModel(true);
+        setSelectedUser(user);
+    }
+
+    const onBanUser = (user) => {
+        setShowBanUsereModal(true);
+        setSelectedUser(user);
+
+        setBanSelected(user.LockoutEnabled);
+        setBanEndDate(moment(user.LockoutEnd).format('YYYY-MM-DD'));
     }
 
     const onDeleteUser = (id) => {
@@ -59,12 +78,7 @@ export const Management = props => {
         }
     }
 
-    const onEditClick = (user) => {
-        setShowRolesModel(!showRolesModel);
-        setSelectedUser(user);
-    }
-
-    const onRolesSubmit = async (event) => {
+    const onEditUserRolesSubmit = async (event) => {
         event.preventDefault();
 
         var checked = Array.from(document.getElementsByClassName('form-check-input')).filter(item => item.checked);
@@ -80,6 +94,21 @@ export const Management = props => {
         }).then(() => {
             setShowRolesModel(false);
             getAllUsers();
+            getAllRoles();
+        });
+    }
+
+    const onBanUserSubmit = async (event) => {
+        event.preventDefault();
+        console.log("ban");
+        API.banUser({
+            userId: selectedUser.Id,
+            invokeBan: banSelected,
+            endDate: banSelected ? event.target.elements['banEndDateInput'].value : null,
+        }).then(() => {
+            setShowBanUsereModal(false);
+            getAllUsers();
+            getAllRoles();
         });
     }
 
@@ -92,6 +121,25 @@ export const Management = props => {
             getAllRoles();
             setShowCreateRoleModal(false);
         });
+    }
+
+    const onEditRoleSubmit = async (event) => {
+        event.preventDefault();
+
+        API.editRole({
+            roleId: selectedRole?.Id,
+            roleName: event.target.elements['roleNameEditInput'].value,
+        }).then(() => {
+            getAllUsers();
+            getAllRoles();
+            setShowEditRoleModal(false);
+        });
+    }
+    
+
+    const onEditRole = (role) => {
+        setSelectedRole(role);
+        setShowEditRoleModal(true);
     }
 
     const onDeleteRole = (role) => {
@@ -111,7 +159,7 @@ export const Management = props => {
             <Tabs defaultActiveKey="users" className="mb-3 pt-3">
                 <Tab eventKey="users" title="Users">
                     <FloatingLabel label="Search" className="mb-3">
-                        <Form.Control type="text" id="searchInput" onChange={onSearchChange} />
+                        <Form.Control type="text" id="searchInput" onChange={onSearchUsersChange} />
                     </FloatingLabel>
                     <table className='table'>
                         <thead>
@@ -120,6 +168,7 @@ export const Management = props => {
                                 <th><SortButton sortConfig={sortConfig} id="FirstName" onClick={() => requestSort('FirstName')} /></th>
                                 <th><SortButton sortConfig={sortConfig} id="LastName" onClick={() => requestSort('LastName')} /></th>
                                 <th><SortButton sortConfig={sortConfig} id="Email" onClick={() => requestSort('Email')} /></th>
+                                <th><SortButton sortConfig={sortConfig} id="Banned" onClick={() => requestSort('Email')} /></th>
                                 <th><SortButton sortConfig={sortConfig} id="Roles" onClick={() => requestSort('Roles')} /></th>
                                 <th className="tiny-th">
                                 </th>
@@ -134,13 +183,24 @@ export const Management = props => {
                                     <td>{user.FirstName}</td>
                                     <td>{user.LastName}</td>
                                     <td>{user.Email}</td>
+                                    <td>
+                                        {user.LockoutEnabled ? (
+                                            moment(user.LockoutEnd).format('YYYY/MM/DD HH:mm')
+                                        ): (
+                                            "False"
+                                        )}
+                                    </td>
                                     <td>{user.RoleString} </td>
                                     <td>
-                                        <button className="btn btn-link text-info py-0" onClick={() => onEditClick(user) }>
+
+                                        <button className="btn btn-link text-info py-0" onClick={() => onEditUser(user) }>
                                             Edit Roles
                                         </button>
                                         <button className="btn btn-link text-info py-0" onClick={() => history.push(`/profile/${user.Id}`)}>
                                             Edit Profile
+                                        </button>
+                                        <button className="btn btn-link text-info py-0" onClick={() => onBanUser(user)}>
+                                            Edit Ban
                                         </button>
                                         {authContext?.user?.Id != user?.Id && !user?.IsAdmin && (
                                             <button className="btn btn-link text-danger py-0" onClick={() => onDeleteUser(user.Id)}>
@@ -172,6 +232,9 @@ export const Management = props => {
                                     <td>{role.Name}</td>     
                                     <td>{role.UserRoles.map(x => (x.User.Name)).join(', ')}</td>
                                     <td>
+                                        <button className="btn btn-link text-info py-0" onClick={() => onEditRole(role)}>
+                                            Edit
+                                        </button>
                                         <button className="btn btn-link text-danger py-0" onClick={() => onDeleteRole(role)}>
                                             Delete
                                         </button>
@@ -181,8 +244,6 @@ export const Management = props => {
                         </tbody>
                     </table>
                 </Tab>
-                <Tab eventKey="groups" title="Groups" disabled>
-                </Tab>
             </Tabs>
 
             <Modal show={showRolesModel} onHide={() => setShowRolesModel(false)} backdrop="static">
@@ -190,7 +251,7 @@ export const Management = props => {
                     <Modal.Title>Select Roles</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form onSubmit={onRolesSubmit}>
+                    <Form onSubmit={onEditUserRolesSubmit}>
                         <input type="submit" id="submitInput" className="d-none" />
                         <Form.Group className="m-2">
                             <div id="rolesForm">
@@ -213,6 +274,29 @@ export const Management = props => {
                 </Modal.Footer>
             </Modal>
 
+            <Modal show={showBanUsereModal} onHide={() => setShowBanUsereModal(false)} backdrop="static">
+                <Modal.Header closeButton>
+                    <Modal.Title>Ban User</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={onBanUserSubmit}>
+                        <input type="submit" id="submitInput" className="d-none" />
+                        <div className="form-check form-switch mb-3">
+                            <input className="form-check-input" type="checkbox" defaultChecked={banSelected} onChange={() => setBanSelected(!banSelected)} />
+                            <label className="form-check-label">Invoke Ban</label>
+                        </div>
+                        {banSelected && 
+                            <FloatingLabel label="End Date" className="mb-3">
+                            <Form.Control type="date" id="banEndDateInput" value={banEndDate ? banEndDate : ''} required={banSelected} onChange={(e) => setBanEndDate(e.target.value) } />
+                            </FloatingLabel>
+                        }
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <label htmlFor="submitInput" className="btn btn-primary">Submit</label>
+                </Modal.Footer>
+            </Modal>
+
             <Modal show={showCreateRoleModal} onHide={() => setShowCreateRoleModal(false)} backdrop="static">
                 <Modal.Header closeButton>
                     <Modal.Title>Create Role</Modal.Title>
@@ -222,6 +306,23 @@ export const Management = props => {
                         <input type="submit" id="submitInput" className="d-none" />
                         <FloatingLabel label="Role Name" className="mb-3">
                             <Form.Control type="text" id="roleNameInput" />
+                        </FloatingLabel>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <label htmlFor="submitInput" className="btn btn-primary">Submit</label>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal show={showEditRoleModal} onHide={() => setShowEditRoleModal(false)} backdrop="static">
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit Role</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={onEditRoleSubmit}>
+                        <input type="submit" id="submitInput" className="d-none" />
+                        <FloatingLabel label="Role Name" className="mb-3">
+                            <Form.Control type="text" id="roleNameEditInput" defaultValue={selectedRole?.Name} />
                         </FloatingLabel>
                     </Form>
                 </Modal.Body>

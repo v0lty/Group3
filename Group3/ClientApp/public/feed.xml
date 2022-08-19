@@ -6,7 +6,7 @@
     <link>http://localhost:13021/feed.xml</link>
     <description>Description</description>
     <copyright>2022 Group 3</copyright>
-    <lastBuildDate>Thu, 18 Aug 2022 20:05:59 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 18 Aug 2022 19:46:18 +0200</lastBuildDate>
     <item>
       <guid
         isPermaLink="false">http://localhost:13021</guid>
@@ -27,13 +27,6 @@
       <link>http://localhost:13021/post/-2</link>
       <title>Visual Studio 2022</title>
       <description>Maybe, but I'll stick with 2019!</description>
-    </item>
-    <item>
-      <guid
-        isPermaLink="false">http://localhost:13021</guid>
-      <link>http://localhost:13021/post/3</link>
-      <title>A wind for Sweden</title>
-      <description>&lt;p&gt;Sweden won the Euro Tennis Table Championship.&lt;/p&gt;</description>
     </item>
     <item>
       <guid
