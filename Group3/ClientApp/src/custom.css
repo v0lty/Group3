@@ -122,6 +122,17 @@ footer .fa {
     background-color: #808080 !important;
 }
 
+.sidebar-text {
+    font-size: 14px;
+}
+
+.sidebar-news {
+    text-decoration: none;
+    text-decoration-color: white;
+    font-weight: bold;
+    color: #f29c11;
+}
+
 .category-view {
     background-color: rgb(53, 54, 58) !important;
     color: white;

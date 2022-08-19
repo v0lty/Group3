@@ -25,5 +25,34 @@ namespace Group3.Controllers
 
             return new JsonResult(category);
         }
+
+        // For right sidebar Last News top list
+        [HttpGet]
+        [Route("GetLatestNews")]
+        public JsonResult GetLatestNews()
+        {
+            var category = this.dbContext.Categories
+                .Where(category => category.Name == "News")
+                .Include(category => category.Topics)
+                .ThenInclude(topic => topic.Subjects)
+                .ThenInclude(subject => subject.Posts)
+                .FirstOrDefault();
+
+            return new JsonResult(category);
+        }
+
+        // For right sidebar Next Events top list
+        [HttpGet]
+        [Route("GetNextEvents")]
+        public JsonResult GetNextEvents()
+        {
+            var topic = this.dbContext.Topics
+                .Where(topic => topic.Name == "Events")
+                .Include(topic => topic.Subjects)
+                .ThenInclude(subject => subject.Posts)
+                .FirstOrDefault();
+
+            return new JsonResult(topic);
+        }
     }
 }
