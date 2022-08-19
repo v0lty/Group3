@@ -46,7 +46,7 @@ export default function Sidebar_Events() {
                                 </div>
                                 {subject?.Posts?.map(post => (
                                     <div className="col p-0 pe-1 d-flex justify-content-end">
-                                        <Badge bg="secondary" pill>
+                                        <Badge bg="success" pill>
                                             <span>{moment(post.EventDate).fromNow()}</span>
                                         </Badge>
                                     </div>
