@@ -50,7 +50,7 @@ export default function Forum() {
         <div>
             <ListGroup as="ol">
                 {categories.map((category, categoryIndex) => category.Name != "News" && (
-                    <ListGroup.Item key={categoryIndex} as="li" className="border-0">
+                    <ListGroup.Item key={categoryIndex} as="li" className="border-0" className="sidebar-text">
                         {/*NOTE: view category if UserGroup is null OR if UserGroup contains User.Id
                          .map(x => (x.User.Id) selects User.Id into array, remove it to access full User.*/}
                         {(category?.UserGroup == null

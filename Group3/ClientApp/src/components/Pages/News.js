@@ -32,13 +32,13 @@ export default function News() {
             key: 'selection'
         }
     });
-
+   
     const updateNews = async () => {
         API.getNews().then((newsCategory) => {
             setNewsCategory(newsCategory);
         });
     }
-
+    
     useEffect(() => {
         updateNews();
     }, [])

@@ -42,7 +42,7 @@ export default function Sidebar_Posts() {
                         <div className="col">
                             <div className="row">
                                 <div className="col">
-                                    <span className="fw-bold">{post.Aurthor.FirstName}</span>
+                                    <span className="sidebar-text"><b>{post.Aurthor.FirstName}</b></span>
                                 </div>
                                 <div className="col-4 p-0 d-flex justify-content-end">
                                     <Badge bg="light" className="bg-white text-dark" pill>
@@ -51,7 +51,7 @@ export default function Sidebar_Posts() {
                                 </div>
                             </div>
                             <div className="p-0 m-0">
-                                <div dangerouslySetInnerHTML={{ __html: truncate(post.Text) }} />
+                                <div className="sidebar-text" dangerouslySetInnerHTML={{ __html: truncate(post.Text) }} />
                             </div>
                         </div>
                     </ListGroup.Item>

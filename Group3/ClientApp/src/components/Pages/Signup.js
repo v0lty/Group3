@@ -33,7 +33,7 @@ export default function Signup(props) {
     return (
         <div>
             <h1>Create account</h1>
-            <Form  onSubmit={onFormSubmit}>
+            <Form className="sidebar-text" onSubmit={onFormSubmit}>
                
                 <FloatingLabel label="Firstname" className="mb-3">
                     <Form.Control type="text" placeholder="Enter Firstname" id="firstnameInput"  required/>
@@ -42,7 +42,7 @@ export default function Signup(props) {
                     <Form.Control type="text" placeholder="Enter Lastname" id="lastnameInput" required />
                 </FloatingLabel>
                 <FloatingLabel label="DateOfBirth" className="mb-3">
-                    <Form.Control type="date" placeholder="yyyy/mm/dd" id="dateofbirthInput" required />
+                    <Form.Control className="sidebar-text" type="date" placeholder="yyyy/mm/dd" id="dateofbirthInput" required />
                 </FloatingLabel>
                 <FloatingLabel label="Location" className="mb-3">
                     <Form.Control type="text" placeholder="Enter Location" id="locationInput" required />
