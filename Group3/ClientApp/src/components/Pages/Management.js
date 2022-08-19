@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import moment from "moment";
 import InputModal from '../InputModal';
+import RichTextEditor from 'react-rte'; // https://github.com/sstur/react-rte
 
 export const Management = props => {
     const authContext = useContext(AuthContext);
@@ -24,10 +25,13 @@ export const Management = props => {
     const [banEndDate, setBanEndDate] = useState(null);
     const [showCreateRoleModal, setShowCreateRoleModal] = useState(false);
     const [showEditRoleModal, setShowEditRoleModal] = useState(false);
-
+    const [showCreateEventModal, setShowCreateEventModal] = useState(false);
+    const [value, setValue] = useState(RichTextEditor.createValueFromString("", 'html'));
+    
     const { items, requestSort, sortConfig } = sortHook(
         users,
         props?.config
+      
     )
 
     const getAllUsers = async () => {
@@ -154,54 +158,16 @@ export const Management = props => {
         }
     }
 
-    const onEventSubmit = async (event, title, text) => {
-        if (title == "") {
-            alert("Subject can't be empty!");
-            return;
-        }
-        API.createSubject({
-            name: title,
-            topicId: props?.topic?.Id
-        }).then((subject) => {
-            API.createEvent({
-                userId: authContext?.user?.Id,
-                subjectId: subject.Id,
-                text: text,
-            }).then((post) => {
-                setModalVisible(false);
-                history.push('/subject/' + subject.Id);
-            });
-        });
-    }
-
-    const onFormSubmit = async (event) => {
-        event.preventDefault();
-        if (title == "") {
-            alert("Subject can't be empty!");
-            return;
-        }
-        API.createSubject({
-            name: title,
-            topicId: props?.topic?.Id
-        }).then((subject) => {
-            API.createEvent({
-                userId: authContext?.user?.Id,
-                subjectId: subject.Id,
-                text: text,
-            }).then((post) => {
-                setModalVisible(false);
-                history.push('/subject/' + subject.Id);
-            });
-        });
-
-        API.createSubject({
-            name: event.target.elements['nameInput'].value,
-            name: event.target.elements['nameInput'].value,
-        }).then((user) => {
-
-            authContext.setUser(user);
-            alert("Account has been created!");
-            history.push("/");
+    const onEventSubmit = async (event) => {
+        console.log("event");
+        event.preventDefault();    
+        
+        API.createEvent({
+            title: event.target.elements['eventTitleInput'].value,
+            date: event.target.elements['eventDateInput'].value,
+            text: value.toString('html'),
+        }).then(() => {
+        
         });
     }
 
@@ -301,7 +267,31 @@ export const Management = props => {
                 </Tab>  
 
             </Tabs>
-              
+
+            <Modal show={showCreateEventModal} onHide={() => setShowCreateEventModal(false)} backdrop="static">
+                <Modal.Header closeButton>
+                    <Modal.Title>Create Event</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={onEventSubmit}>
+                        <input type="submit" id="submitInput" className="d-none" />
+                        <FloatingLabel label="Title" className="mb-3"> 
+                            <Form.Control type="text" id="eventTitleInput" required />
+                        </FloatingLabel>
+                        <FloatingLabel label="Event Date" className="mb-3">
+                            <Form.Control type="date" id="eventDateInput" required />
+                        </FloatingLabel>
+                        <RichTextEditor id="eventTextInput" className="new-post-editor"
+                            value={value}
+                            onChange={(value) => setValue(value)}
+                            autoFocus />
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <label htmlFor="submitInput" className="btn btn-primary">Submit</label>
+                </Modal.Footer>
+            </Modal>
+
 
             <Modal show={showRolesModel} onHide={() => setShowRolesModel(false)} backdrop="static">
                 <Modal.Header closeButton>
