@@ -51,7 +51,6 @@ export default function Sidebar_News() {
                                             </Badge>
                                         </div>
                                     ))}
-
                                 </div>
                                 <div className="btn btn-link p-0 m-0">
                                     <div className="ms-2 me-auto">
@@ -59,11 +58,6 @@ export default function Sidebar_News() {
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-
                         </ListGroup.Item>
                     ))
                 ))}
