@@ -54,7 +54,7 @@ export default function Sidebar_Events() {
                             </div>
                             <div className="btn btn-link p-0 m-0">
                                 <div className="ms-2 me-auto">
-                                    <div dangerouslySetInnerHTML={{ __html: truncate(subject.Name) }} />
+                                    <div className="sidebar-news" dangerouslySetInnerHTML={{ __html: truncate(subject.Name) }} />
                                 </div>
                             </div>
                         </div>

@@ -16,7 +16,7 @@ export const SidebarLeft = () => {
             {/*<Sidebar_Categories />*/}
             <Sidebar_Latest />            
             <Sidebar_Posts />
-            
+            <Sidebar_News />
         </div>
     );
 }

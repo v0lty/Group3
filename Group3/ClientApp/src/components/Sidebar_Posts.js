@@ -51,7 +51,7 @@ export default function Sidebar_Posts() {
                                 </div>
                             </div>
                             <div className="p-0 m-0">
-                                <div dangerouslySetInnerHTML={{ __html: truncate(post.Text) }} />
+                                <div className="sidebar-text" dangerouslySetInnerHTML={{ __html: truncate(post.Text) }} />
                             </div>
                         </div>
                     </ListGroup.Item>

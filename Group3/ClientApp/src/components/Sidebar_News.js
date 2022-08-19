@@ -42,7 +42,7 @@ export default function Sidebar_News() {
                             <div className="col">
                                 <div className="row">
                                     <div className="col">
-                                        <span className="fw-bold">{topic.Name}</span>
+                                        <span>{topic.Name}</span>
                                     </div>
                                     {subject?.Posts?.map(post => (
                                         <div className="col p-0 pe-1 d-flex justify-content-end">
@@ -54,7 +54,7 @@ export default function Sidebar_News() {
                                 </div>
                                 <div className="btn btn-link p-0 m-0">
                                     <div className="ms-2 me-auto">
-                                        <div dangerouslySetInnerHTML={{ __html: truncate(subject.Name) }} />
+                                        <div className="sidebar-news" dangerouslySetInnerHTML={{ __html: truncate(subject.Name) }} />
                                     </div>
                                 </div>
                             </div>
