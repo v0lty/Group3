@@ -153,6 +153,19 @@ export const Management = props => {
         }
     }
 
+    const onEventSubmit = async (event) => {
+        console.log("event");
+        event.preventDefault();    
+        
+        API.createEvent({
+            title: event.target.elements['eventTitleInput'].value,
+            date: event.target.elements['eventDateInput'].value,
+            text: value.toString('html'),
+        }).then(() => {
+            setShowCreateEventModal(false);
+        });
+    }
+
     return (
         <div class="Main">
             <h3>Management</h3>
