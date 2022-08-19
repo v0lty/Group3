@@ -1,5 +1,5 @@
 ﻿import React, { Component, useEffect, useState, useContext } from 'react';
-import sortHook, { SortButton } from '../SortHook'
+import sortHook, { SortButton } from '../SortHook';
 import { AuthContext } from "../UserAuthentication";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
