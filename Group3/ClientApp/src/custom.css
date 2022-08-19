@@ -263,7 +263,7 @@ footer .fa {
         margin-right: -1.937em;
     }
 
-.calendnar-dot {
+.news-dot {
     height: 7px;
     width: 7px; 
     border-radius: 100%;
@@ -272,6 +272,17 @@ footer .fa {
     top: 2px;
     right: 10px;
 }
+
+.event-dot {
+    height: 7px;
+    width: 7px;
+    border-radius: 100%;
+    background: red;
+    position: absolute;
+    bottom: 2px;
+    right: 10px;
+}
+
 
 .Main {
     background: white;

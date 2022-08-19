@@ -17,25 +17,25 @@ namespace Group3.Controllers
             return epoch.AddMilliseconds(unixTimeMillis);
         }
 
-        [HttpPost]
-        [Route("GetPostsByDate")]
-        public JsonResult GetPostsByDate(string date)
-        {
-            var dateTime = FromUnixTime(Int64.Parse(date));
+        //[HttpPost]
+        //[Route("GetPostsByDate")]
+        //public JsonResult GetPostsByDate(string date)
+        //{
+        //    var dateTime = FromUnixTime(Int64.Parse(date));
 
-            var posts = dbContext.Posts
-                .Where(x => x.Time.Date == dateTime.Date)
-                .Include(post => post.Aurthor)
-                .ThenInclude(user => user.Pictures)
-                .Include(post => post.Aurthor)
-                .ThenInclude(user => user.UserRoles)
-                .ThenInclude(role => role.Role)
-                .Include(post => post.Pictures)
-                .Include(post => post.Subject)
-                .ThenInclude(subject => subject.Topic).ToArray();
+        //    var posts = dbContext.Posts
+        //        .Where(x => x.Time.Date == dateTime.Date)
+        //        .Include(post => post.Aurthor)
+        //        .ThenInclude(user => user.Pictures)
+        //        .Include(post => post.Aurthor)
+        //        .ThenInclude(user => user.UserRoles)
+        //        .ThenInclude(role => role.Role)
+        //        .Include(post => post.Pictures)
+        //        .Include(post => post.Subject)
+        //        .ThenInclude(subject => subject.Topic).ToArray();
 
-            return new JsonResult(posts);
-        }
+        //    return new JsonResult(posts);
+        //}
 
         [HttpGet]
         [Route("GetAllPosts")]
@@ -226,6 +226,22 @@ namespace Group3.Controllers
                 .OrderByDescending(x => x.Time)
                 .Take(5)
                 .ToList();
+
+            return new JsonResult(posts);
+        }
+
+        [HttpPost]
+        [Route("GetPostsByDate")]
+        public JsonResult GetPostsByDate(string startDate, string EndDate)
+        {
+            var category = this.dbContext.Categories
+                .Where(category => category.Name == "News")
+                .Include(category => category.Topics)
+                .ThenInclude(topic => topic.Subjects)
+                .ThenInclude(subject => subject.Posts)
+                .FirstOrDefault();
+
+            var posts = category.GetPostsByDate(DateTime.Parse(startDate), DateTime.Parse(EndDate));
 
             return new JsonResult(posts);
         }

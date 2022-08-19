@@ -24,6 +24,8 @@ function getSaturday() {
 export default function News() {
     const authContext = useContext(AuthContext);
     const [newsCategory, setNewsCategory] = useState(null);
+    const [eventsTopic, setEventsTopic] = useState(null);
+    const [selectedPost, setSelectedPost] = useState([]);
 
     const [state, setState] = useState({
         selection: {
@@ -36,6 +38,7 @@ export default function News() {
     const updateNews = async () => {
         API.getNews().then((newsCategory) => {
             setNewsCategory(newsCategory);
+            setEventsTopic(newsCategory.Topics.find(x => x.Name == "Events"));
         });
     }
 
@@ -46,14 +49,25 @@ export default function News() {
     const handleSelect = (item) => {
         setState({ ...state, ...item });
 
-        console.log(format(item.selection.startDate, "yyyy-MM-dd") + " > " + format(item.selection.endDate, "yyyy-MM-dd"));
+        //console.log(format(item.selection.startDate, "yyyy-MM-dd") + " > " + format(item.selection.endDate, "yyyy-MM-dd"));
+
+        API.getPostsByDate({
+            startDate: format(item.selection.startDate, "yyyy-MM-dd"),
+            endDate: format(item.selection.endDate, "yyyy-MM-dd"),
+        }).then((posts) => {
+            setSelectedPost(posts);
+            console.log(posts);
+        });
     }
     
     const customDayContent = (day) =>  {
         return (
             <div>
                 {newsCategory?.PostDates?.map(x => (format(Date.parse(x), "yyyy-MM-dd"))).includes(format(day, "yyyy-MM-dd")) &&
-                    <div className="calendnar-dot bg-danger" />
+                    <div className="news-dot bg-danger" />
+                }
+                {eventsTopic?.PostDates?.map(x => (format(Date.parse(x != null ? x : ''), "yyyy-MM-dd"))).includes(format(day, "yyyy-MM-dd")) &&
+                    <div className="event-dot bg-success" />
                 }
                 <span>{format(day, "d")}</span>
             </div>
@@ -71,7 +85,11 @@ export default function News() {
                 ranges={[state.selection]}
                 dayContentRenderer={customDayContent}
             />
-            <Category category={newsCategory} onUpdate={updateNews} />
+
+            {/*{selectedPost?.map((post, postIndex) =>*/}
+                
+            {/*}*/}
+
         </div>
     );
 }

@@ -13,9 +13,7 @@ export default function Home() {
                 <h3>Hello stranger..</h3>
             )}
             <br/>
-                   <News />
+            <News />
         </div>
-
-
     );
 }

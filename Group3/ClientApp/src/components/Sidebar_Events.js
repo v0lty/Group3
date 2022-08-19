@@ -44,17 +44,16 @@ export default function Sidebar_Events() {
                                 <div className="col">
                                     <span className="fw-bold">Events</span>
                                 </div>
-                                {subject?.Posts?.map(post => (
+
                                     <div className="col p-0 pe-1 d-flex justify-content-end">
                                         <Badge bg="success" pill>
-                                            <span>{moment(post.EventDate).fromNow()}</span>
+                                            <span>{moment(subject?.FirstOrDefaultPost?.EventDate).fromNow()}</span>
                                         </Badge>
                                     </div>
-                                ))}
                             </div>
                             <div className="btn btn-link p-0 m-0">
                                 <div className="ms-2 me-auto">
-                                    <div className="sidebar-news" dangerouslySetInnerHTML={{ __html: truncate(subject.Name) }} />
+                                    <a className="sidebar-news">{truncate(subject.Name)}</a>
                                 </div>
                             </div>
                         </div>

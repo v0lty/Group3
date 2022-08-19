@@ -156,6 +156,9 @@ const API = {
     deleteCategory: async (params) => {
         return trackPromise(post(baseURL + 'DeleteCategory', params));
     },
+    getPostsByDate: async (params) => {
+        return trackPromise(post(baseURL + 'GetPostsByDate', params));
+    },    
 }
 
 export const get = (url) => {

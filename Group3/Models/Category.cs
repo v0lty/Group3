@@ -40,5 +40,15 @@ namespace Group3.Models
                      : new List<DateTime>();
             }
         }
+
+        public List<Post> GetPostsByDate(DateTime startDate, DateTime endDate)
+        {
+            var result = new List<Post>();
+
+            if (Topics != null)
+                Topics.ForEach(topic => result.AddRange(topic.GetPostsByDate(startDate, endDate)));
+
+            return result;
+        }
     }
 }
