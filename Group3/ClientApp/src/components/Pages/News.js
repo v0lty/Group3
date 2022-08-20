@@ -5,8 +5,8 @@ import { Calendar, DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { addDays, format, isWeekend } from 'date-fns';
-import Post from './Post';
 import { enGB } from 'date-fns/locale'
+import moment from "moment";
 
 export default function News() {
     const authContext = useContext(AuthContext);
@@ -38,7 +38,7 @@ export default function News() {
 
         API.getPostsByDate({
             startDate: format(item.selection.startDate, "yyyy-MM-dd"),
-            endDate: format(item.selection.endDate, "yyyy-MM-dd"),
+            endDate: format(addDays(item.selection.endDate, 1), "yyyy-MM-dd"),
         }).then((posts) => {
             setSelectedPost(posts);
             console.log(posts);
@@ -62,6 +62,7 @@ export default function News() {
     return (
         <div>
             <DateRangePicker
+                className="w-100 mb-3"
                 locale={enGB}
                 weekStartsOn={1}
                 showDateDisplay={false}
@@ -74,10 +75,33 @@ export default function News() {
                 dayContentRenderer={customDayContent}
             />
             {selectedPost?.map((post, postIndex) =>
-                <Post
-                    key={postIndex}
-                    post={post}
-                />
+                <div className="border-top p-3">
+                    <h4>{moment(post.EventDate != null ? post.EventDate : post.Time).format('YYYY/MM/DD')}</h4>
+                    <div className="row p-3 ">
+                        <div className="col-1" style={{ minWidth: 175 }}>                      
+                            <div className="row m-0">
+                                <img className="profile-picture pb-2" src={`../Pictures/${post?.Aurthor.ProfilePicture?.Path}`}></img>
+                            </div>
+                            <div className="row m-0">
+                                <h5>{post.Aurthor?.Name}</h5>
+                                <span className="text-muted">
+                                    <b className="text-info">{post.Aurthor?.RoleString}</b><br />
+                                    <b>{moment().diff(post.Aurthor?.Birthdate, 'years')}</b> years old<br />
+                                    from <b>{post.Aurthor?.Location}</b><br />
+                                    with <b className="text-danger">{post.Aurthor?.PostsCount}</b> posts.<br />                               
+                                </span>
+                            </div>
+                        </div>
+                        <div className="col" style={{ minWidth: 250 }, { minHeight: 100 }}>
+                            
+                            <div className="bubble h-100 w-100 p-3">
+                                <h4>{post.Subject.Name}</h4>
+                                <div dangerouslySetInnerHTML={{ __html: post.Text }} />                         
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+
             )}
         </div>
     );

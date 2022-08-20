@@ -252,6 +252,7 @@ namespace Group3.Controllers
                 .FirstOrDefault();
 
             var posts = category.GetPostsByDate(DateTime.Parse(startDate), DateTime.Parse(EndDate));
+            posts.Sort((x, y) => x.Time.CompareTo(y.Time));
 
             return new JsonResult(posts);
         }

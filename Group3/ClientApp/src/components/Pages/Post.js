@@ -101,7 +101,7 @@ export const Post = props => {
     }
 
     return (
-        <div className="mb-4 border-bottom bg-gray">
+        <div className="mb-3 pb-3 bg-white border-bottom">
             <div className="row p-2">
                 <div>
                     {/*TIME*/}
@@ -147,7 +147,7 @@ export const Post = props => {
                     </div>
                 </div>
                 <div className="col pe-4 px-2" style={{ minWidth: 250 },{ minHeight: 100 }}>
-                    <div className="p-2 pb-2 h-100 speech-bubble-left-light">
+                    <div className="h-100 w-100 p-3 bubble">
                         {editMode == true ? (
                             /*EDIT*/
                             <div>

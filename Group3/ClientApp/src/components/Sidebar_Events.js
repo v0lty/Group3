@@ -28,36 +28,30 @@ export default function Sidebar_Events() {
     }
 
     const truncate = (str) => {
-        return str.length > 23 ? str.substring(0, 20) + "..." : str;
+        return str.length > 25 ? str.substring(0, 23) + ".." : str;
     }
 
     return (
-        <div className="d-flex flex-column align-items-stretch border-0 mb-4">
-            <h6 style={{ color: "#1c4966" }}>NEXT EVENTS</h6>
-            <ListGroup as="ul" className="shadow">
-                {events?.Subjects?.map(subject => (
-                    <ListGroup.Item key={subject.Id} as="li" className="sidebar-item d-flex justify-content-between align-items-start border-0 border-top shadow" onClick={() => onSubjectClick(subject.Id)}>
-                        <div className="col-3" style={{ width: 30 }}>
-                            <FontAwesomeIcon icon={faCalendar} />
-                        </div>
-                        <div className="col">
-                            <div className="row">
-                                <div className="col">
-                                    <span className="fw-bold">Event</span>
-                                </div>
-                                <div className="col p-0 pe-1 d-flex justify-content-end">
-                                    <Badge bg="info" pill>
-                                        <span>{moment(subject?.FirstOrDefaultPost?.EventDate).fromNow()}</span>
-                                    </Badge>
-                                </div>
-                            </div>
-                            <div className="p-0 m-0">
-                                <div className="sidebar-text" dangerouslySetInnerHTML={{ __html: truncate(subject.Name) }} />
-                            </div>
-                        </div>
-                    </ListGroup.Item>
-                ))}
-            </ListGroup>
+        <div className="bg-white shadow">
+            <div className="px-2">
+                <h6 style={{ color: "#1c4966" }}>NEXT EVENTS</h6>
+            </div>
+            {events?.Subjects?.map((subject, subjectIndex) => (
+                <div key={subjectIndex} className="sidebar-item d-flex align-items-start border-0 border-top pt-2" onClick={() => onSubjectClick(subject.Id)}>
+                    <div className="px-2">
+                        <FontAwesomeIcon icon={faCalendar} />
+                    </div>                                       
+                    <div className="row pb-2">
+                        <span className="fw-bold">{subject.Name}</span>
+                        <div className="sidebar-text" dangerouslySetInnerHTML={{ __html: truncate(subject.FirstOrDefaultPost.Text) }} />
+                    </div>
+                    <div className="px-2">
+                        <Badge bg="info" pill>
+                            <span>{moment(subject?.FirstOrDefaultPost?.EventDate).fromNow()}</span>
+                        </Badge>      
+                    </div>
+                </div>
+            ))}        
         </div>
     );
 }

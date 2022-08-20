@@ -27,17 +27,17 @@ export default function Sidebar_Posts() {
     }
 
     const truncate = (str) => {
-        return str.length > 23 ? str.substring(0, 20) + " ..." : str;
+        return str.length > 22 ? str.substring(0, 19) + " .." : str;
     }
 
     return (
-        <div className="d-flex flex-column align-items-stretch border-0 mb-5">
+        <div className="bg-white shadow p-2 mb-4">
             <div className="">
                 <h6 style={{ color: "#1c4966" }}>MOST LIKES</h6>
             </div>
-            <ListGroup as="ul" className="shadow" >
+            <ListGroup as="ul">
                 {posts?.map(post =>
-                    <ListGroup.Item key={post.Id} as="li" className="sidebar-item d-flex justify-content-between align-items-start border-0 border-top shadow" onClick={() => onPostClick(post.Id)}>
+                    <ListGroup.Item key={post.Id} as="li" className="sidebar-item d-flex justify-content-between align-items-start border-0 border-top px-2" onClick={() => onPostClick(post.Id)}>
                         <div className="col-3" style={{ width: 45 }}>
                             <img className="profile-image-extra-small" src={`../Pictures/${post?.Aurthor.ProfilePicture?.Path}`}></img>
                         </div>
@@ -46,7 +46,7 @@ export default function Sidebar_Posts() {
                                 <div className="col">
                                     <span className="fw-bold">{post.Aurthor.FirstName}</span>
                                 </div>
-                                <div className="col-4 p-0 d-flex justify-content-end">
+                                <div className="col-4 p-0 me-2 d-flex justify-content-end">
                                     <Badge bg="light" className="bg-white text-dark" pill>
                                         {post.Votes} <FontAwesomeIcon className="text-warning" icon={faThumbsUp} />
                                     </Badge>

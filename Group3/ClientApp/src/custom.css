@@ -9,25 +9,29 @@
 a {
     cursor: pointer;
 }
-.sidebar-item {
-    cursor: pointer;
-}
+
 
 .context {
     padding: 15px;
     margin-bottom: 10px;
 }
 
-.sidebar-item:hover {
-    background-color: rgba(255, 255, 255, 0.5);
+.sidebar-item {
+ 
+    margin: 0px;
+    cursor: pointer;
 }
+
+    .sidebar-item:hover {
+        background-color: rgba(222, 220, 202, 0.5);
+    }
 
 .list-item {
     cursor: pointer;
 }
 
 .list-item:hover {
-    background-color: RGBA(108, 117, 125, 0.25);
+    background-color: RGBA(222, 220, 202, 1);
 }
 
 .bg-gray {
@@ -313,4 +317,52 @@ footer .fa {
     margin: 1em;
     padding: 1em;
     border-radius: .4em;
+}
+
+.bubble {
+    position: relative;
+    background: #ffffff;
+    min-height: 150px;
+    filter: drop-shadow(0px 2px 10px #A3A3A3);
+    border-radius: 10px;
+}
+
+    .bubble:after {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 0;
+        z-index: 1;
+        border-style: solid;
+        border-width: 0 20px 20px 0;
+        border-color: transparent #ffffff transparent transparent;
+        top: 24%;
+        left: -20px;
+        margin-top: -10px;
+    }
+
+.bubble-right {
+    position: relative;
+    background: #ffffff;
+    min-height: 150px;
+    filter: drop-shadow(0px 2px 10px #A3A3A3);
+    border-radius: 10px;
+}
+
+.bubble-right:after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 0;
+    z-index: 1;
+    border-style: solid;
+    border-width: 20px 20px 0 0;
+    border-color: #ffffff transparent transparent transparent;
+    top: 24%;
+    right: -20px;
+    margin-top: -10px;
+}
+
+.bg-color1 {
+   background-color: RGBA(108, 117, 125, 0.15) !important;
 }

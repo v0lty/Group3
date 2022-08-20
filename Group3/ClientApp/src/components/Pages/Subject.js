@@ -68,7 +68,7 @@ export const Subject = props => {
     }
 
     return (
-        <div className="category-item">
+        <div className="">
             <h5 className="m-0 p-0 pb-3">
                 <a className="text-decoration-none" href={`/category/${props?.subject?.Topic?.Category?.Id}`}>{props?.subject?.Topic?.Category?.Name}</a>
                 {" > "}
@@ -84,7 +84,7 @@ export const Subject = props => {
                     onQuote={onPostQuote}
                 />
             )}
-            <div className="border-top d-flex justify-content-end">
+            <div className="d-flex justify-content-end">
                 <InputModal                    
                     title="Reply"
                     useTitle={false}
