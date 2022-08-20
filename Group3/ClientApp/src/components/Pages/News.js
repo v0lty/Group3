@@ -1,7 +1,6 @@
 ﻿import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from "../UserAuthentication";
 import API from "../API";
-import Category from './Category';
 import { Calendar, DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
@@ -49,8 +48,6 @@ export default function News() {
     const handleSelect = (item) => {
         setState({ ...state, ...item });
 
-        //console.log(format(item.selection.startDate, "yyyy-MM-dd") + " > " + format(item.selection.endDate, "yyyy-MM-dd"));
-
         API.getPostsByDate({
             startDate: format(item.selection.startDate, "yyyy-MM-dd"),
             endDate: format(item.selection.endDate, "yyyy-MM-dd"),
@@ -66,7 +63,7 @@ export default function News() {
                 {newsCategory?.PostDates?.map(x => (format(Date.parse(x), "yyyy-MM-dd"))).includes(format(day, "yyyy-MM-dd")) &&
                     <div className="news-dot bg-danger" />
                 }
-                {eventsTopic?.PostDates?.map(x => (format(Date.parse(x != null ? x : ''), "yyyy-MM-dd"))).includes(format(day, "yyyy-MM-dd")) &&
+                {eventsTopic?.PostDates?.map(x => (format(Date.parse(x), "yyyy-MM-dd"))).includes(format(day, "yyyy-MM-dd")) &&
                     <div className="event-dot bg-success" />
                 }
                 <span>{format(day, "d")}</span>
@@ -85,11 +82,6 @@ export default function News() {
                 ranges={[state.selection]}
                 dayContentRenderer={customDayContent}
             />
-
-            {/*{selectedPost?.map((post, postIndex) =>*/}
-                
-            {/*}*/}
-
         </div>
     );
 }

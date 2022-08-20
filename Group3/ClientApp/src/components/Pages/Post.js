@@ -113,7 +113,7 @@ export const Post = props => {
                     {/*USER*/}
                     <div>
                         <div className="row m-0">
-                            <img className="profile-picture pb-2" src={'../Pictures/${props?.post?.Aurthor.ProfilePicture?.Path}'}></img>
+                            <img className="profile-picture pb-2" src={`../Pictures/${props?.post?.Aurthor.ProfilePicture?.Path}`}></img>
                         </div>
                         <div className="row m-0">
                             {authContext?.user?.Id != props?.post?.Aurthor?.Id ? (

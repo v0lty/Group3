@@ -167,22 +167,9 @@ export const Management = props => {
             date: event.target.elements['eventDateInput'].value,
             text: value.toString('html'),
         }).then(() => {
-        
+            setShowCreateEventModal(false);
         });
     }
-
-//    const onEventSubmit = async (event) => {
-//        console.log("event");
-//        event.preventDefault();    
-//        
-//        API.createEvent({
-//            title: event.target.elements['eventTitleInput'].value,
-//            date: event.target.elements['eventDateInput'].value,
-//            text: value.toString('html'),
-//        }).then(() => {
-//            setShowCreateEventModal(false);
-//        });
-//    }
 
     return (
         <div class="Main">
@@ -209,7 +196,7 @@ export const Management = props => {
                             {users?.map((user, userIndex) =>
                                 <tr key={userIndex}>
                                     <td>
-                                        <img className="profile-image-extra-small" src={'../Pictures/${user.ProfilePicture?.Path}'}></img>
+                                        <img className="profile-image-extra-small" src={`../Pictures/${user.ProfilePicture?.Path}`}></img>
                                     </td>
                                     <td>{user.FirstName}</td>
                                     <td>{user.LastName}</td>
