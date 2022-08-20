@@ -11,6 +11,8 @@ import Modal from 'react-bootstrap/Modal';
 import moment from "moment";
 import InputModal from '../InputModal';
 import RichTextEditor from 'react-rte'; // https://github.com/sstur/react-rte
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faAdd, faBan, faUnlock, faUser, faPencil } from '@fortawesome/free-solid-svg-icons'
 
 export const Management = props => {
     const authContext = useContext(AuthContext);
@@ -168,26 +170,13 @@ export const Management = props => {
             date: event.target.elements['eventDateInput'].value,
             text: value.toString('html'),
         }).then(() => {
-        
+            setShowCreateEventModal(false);
         });
     }
     */
 
-    const onEventSubmit = async (event) => {
-        console.log("event");
-        event.preventDefault();    
-        
-        API.createEvent({
-            title: event.target.elements['eventTitleInput'].value,
-            date: event.target.elements['eventDateInput'].value,
-            text: value.toString('html'),
-        }).then(() => {
-            setShowCreateEventModal(false);
-        });
-    }
-
     return (
-        <div class="Main">
+        <div className="context bg-white shadow">
             <h3>Management</h3>
             <Tabs defaultActiveKey="users" className="mb-3 pt-3">
                 <Tab eventKey="users" title="Users">
@@ -198,10 +187,9 @@ export const Management = props => {
                         <thead>
                             <tr>
                                 <th />
-                                <th><SortButton sortConfig={sortConfig} id="FirstName" onClick={() => requestSort('FirstName')} /></th>
-                                <th><SortButton sortConfig={sortConfig} id="LastName" onClick={() => requestSort('LastName')} /></th>
+                                <th><SortButton sortConfig={sortConfig} id="Name" onClick={() => requestSort('Name')} /></th>
                                 <th><SortButton sortConfig={sortConfig} id="Email" onClick={() => requestSort('Email')} /></th>
-                                <th><SortButton sortConfig={sortConfig} id="Banned" onClick={() => requestSort('Email')} /></th>
+                                <th><SortButton sortConfig={sortConfig} id="Banned" onClick={() => requestSort('Banned')} /></th>
                                 <th><SortButton sortConfig={sortConfig} id="Roles" onClick={() => requestSort('Roles')} /></th>
                                 <th className="tiny-th">
                                 </th>
@@ -211,10 +199,9 @@ export const Management = props => {
                             {users?.map((user, userIndex) =>
                                 <tr key={userIndex}>
                                     <td>
-                                        <img className="profile-image-extra-small" src={'../Pictures/${user.ProfilePicture?.Path}'}></img>
+                                        <img className="profile-image-extra-small" src={`../Pictures/${user.ProfilePicture?.Path}`}></img>
                                     </td>
-                                    <td>{user.FirstName}</td>
-                                    <td>{user.LastName}</td>
+                                    <td>{user.Name}</td>
                                     <td>{user.Email}</td>
                                     <td>
                                         {user.LockoutEnabled ? (
@@ -225,19 +212,18 @@ export const Management = props => {
                                     </td>
                                     <td>{user.RoleString} </td>
                                     <td>
-
-                                        <button className="btn btn-link text-info py-0" onClick={() => onEditUser(user) }>
-                                            Edit Roles
+                                        <button className="btn btn-link text-success p-1" onClick={() => history.push(`/profile/${user.Id}`)}>
+                                            <FontAwesomeIcon icon={faUser} />
                                         </button>
-                                        <button className="btn btn-link text-info py-0" onClick={() => history.push(`/profile/${user.Id}`)}>
-                                            Edit Profile
+                                        <button className="btn btn-link text-info p-1" onClick={() => onEditUser(user)}>
+                                            <FontAwesomeIcon icon={faUnlock} />
                                         </button>
-                                        <button className="btn btn-link text-info py-0" onClick={() => onBanUser(user)}>
-                                            Edit Ban
+                                        <button className="btn btn-link text-warning p-1" onClick={() => onBanUser(user)}>
+                                            <FontAwesomeIcon icon={faBan} />
                                         </button>
                                         {authContext?.user?.Id != user?.Id && !user?.IsAdmin && (
-                                            <button className="btn btn-link text-danger py-0" onClick={() => onDeleteUser(user.Id)}>
-                                                Delete
+                                            <button className="btn btn-link text-danger p-1" onClick={() => onDeleteUser(user.Id)}>
+                                                <FontAwesomeIcon icon={faTrash} />
                                             </button>
                                         )}
                                     </td>
@@ -250,11 +236,12 @@ export const Management = props => {
                     <table className='table'>
                         <thead>
                             <tr>
+                                <th><SortButton sortConfig={sortConfig} id="Id" onClick={() => requestSort('Id')} /></th>
                                 <th><SortButton sortConfig={sortConfig} id="Name" onClick={() => requestSort('Name')} /></th>
                                 <th><SortButton sortConfig={sortConfig} id="Users" onClick={() => requestSort('Users')} /></th>
-                                <th className="tiny-th">
-                                    <button className="btn btn-light text-info" id="add" onClick={() => setShowCreateRoleModal(!showCreateRoleModal)}>
-                                        Create Role
+                                <th className="tiny-th text-end">
+                                    <button className="btn btn-light text-success " id="add" onClick={() => setShowCreateRoleModal(!showCreateRoleModal)}>
+                                        <FontAwesomeIcon icon={faAdd} />
                                     </button>
                                 </th>
                             </tr>
@@ -262,14 +249,15 @@ export const Management = props => {
                         <tbody>
                             {roles?.map((role, roleIndex) =>
                                 <tr key={roleIndex}>
+                                    <td>{role.Id}</td>
                                     <td>{role.Name}</td>     
                                     <td>{role.UserRoles.map(x => (x.User.Name)).join(', ')}</td>
-                                    <td>
+                                    <td className="text-end">
                                         <button className="btn btn-link text-info py-0" onClick={() => onEditRole(role)}>
-                                            Edit
+                                            <FontAwesomeIcon icon={faPencil} />
                                         </button>
                                         <button className="btn btn-link text-danger py-0" onClick={() => onDeleteRole(role)}>
-                                            Delete
+                                            <FontAwesomeIcon icon={faTrash} />
                                         </button>
                                     </td>
                                 </tr>
@@ -277,8 +265,10 @@ export const Management = props => {
                         </tbody>
                     </table>
                 </Tab>
-                <Tab eventKey="create event" title="Create Event">
-                    <button className="btn btn-link text-success py-0 me-3" onClick={() => setShowCreateEventModal(true)}>Create a new Event</button>
+                <Tab eventKey="create event" title="Events">
+                    <button className="btn btn-link text-success py-0 me-3" onClick={() => setShowCreateEventModal(true)}>
+                        <FontAwesomeIcon icon={faAdd} />
+                    </button>
                 </Tab>  
 
             </Tabs>

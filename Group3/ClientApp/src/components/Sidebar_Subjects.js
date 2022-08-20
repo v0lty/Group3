@@ -29,13 +29,13 @@ export default function Sidebar_Subjects() {
     }
 
     return (
-        <div className="d-flex flex-column align-items-stretch border-0 mb-5">
+        <div className="d-flex flex-column align-items-stretch border-0 mb-4">
             <div>
                 <h6 style={{ color: "#1c4966" }}>HOT SUBJECTS&#128293;</h6>
             </div>
             <ListGroup as="ul" className="shadow">
                 {subjects?.map((subject, subjectIndex) =>
-                    <ListGroup.Item key={subject.Id} as="li" className="d-flex justify-content-between align-items-start border-0 border-top shadow pe-2" onClick={() => onSubjectClick(subject.Id)}>       
+                    <ListGroup.Item key={subject.Id} as="li" className="sidebar-item d-flex justify-content-between align-items-start border-0 border-top shadow pe-2" onClick={() => onSubjectClick(subject.Id)}>
                         <div>
                         <a className="btn-link">{truncate(subject.Name)}</a><br />
                             ...

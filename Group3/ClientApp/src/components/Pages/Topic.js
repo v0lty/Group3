@@ -6,6 +6,8 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Badge from 'react-bootstrap/Badge';
 import { useHistory } from "react-router-dom";
 import { useParams } from 'react-router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faAdd } from '@fortawesome/free-solid-svg-icons'
 
 // URL PATH -> LOCALHOST/TOPIC/{ID}
 export const TopicPath = () => {
@@ -26,7 +28,9 @@ export const TopicPath = () => {
     }, [id])
 
     return (
-        <Topic topic={topic} onUpdate={updateTopic} />
+        <div className="context bg-white shadow">
+            <Topic topic={topic} onUpdate={updateTopic} />
+        </div>
     );
 }
 
@@ -72,9 +76,9 @@ export const Topic = props => {
     }
 
     return (
-        <div className="p-3">         
+        <div>         
             <h5 className="m-0 p-0 pb-3">
-                <a className="text-decoration-none" href={'/category/${props?.topic?.Category?.Id}'}>{props?.topic?.Category?.Name}</a>
+                <a className="text-decoration-none" href={`/category/${props?.topic?.Category?.Id}`}>{props?.topic?.Category?.Name}</a>
                 {" > "}
                 <span>{props?.topic?.Name}</span>
             </h5>
@@ -92,9 +96,13 @@ export const Topic = props => {
                                 Posts: {subject.PostsCount}
                             </Badge>
                             {/*DELETE*/}
-                            {authContext?.user != null && authContext?.user?.HasAuthority &&
-                                <button className="btn btn-link p-0 m-0 text-danger" onClick={() => onSubjectDelete(subject)}>Delete Subject</button>
-                            }
+                            <div className="text-end">
+                                {authContext?.user != null && authContext?.user?.HasAuthority &&
+                                    <button className="btn btn-link p-0 m-0 text-danger" onClick={() => onSubjectDelete(subject)}>
+                                        <FontAwesomeIcon icon={faTrash} />
+                                    </button>
+                                }
+                            </div>
                         </div>
                     </ListGroup.Item>
                 )}
@@ -103,17 +111,15 @@ export const Topic = props => {
                 <InputModal
                     title="Create Subject"
                     useTitle={true}
-                    title=""
+                    inputTitle="Title"
                     input=""
                     onSubmit={onSubjectSubmit}
                     visible={modalVisible}
                     onHide={() => { setModalVisible(!modalVisible); }}
                 />
                 {authContext.user != null && 
-                <button
-                    className="btn btn-link my-2"
-                    onClick={() => { setModalVisible(!modalVisible); }}>
-                    Create new Subject
+                    <button className="btn btn-link my-2 text-success" onClick={() => { setModalVisible(!modalVisible); }}>
+                        <FontAwesomeIcon icon={faAdd} />
                     </button>
                 }
             </div>

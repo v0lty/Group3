@@ -8,6 +8,8 @@ import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import { useParams } from 'react-router';
 import { useHistory } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faAdd } from '@fortawesome/free-solid-svg-icons'
 
 // URL PATH -> LOCALHOST/CATEGORY/{ID}
 export const CategoryPath = () => {
@@ -27,8 +29,21 @@ export const CategoryPath = () => {
         updateCategory();
     }, [id])
 
+    const onDeleteCategory = (category) => {
+        event.preventDefault();
+        if (confirm(`Are you sure that you want to delete '${category.Name}' with all its content?`)) {
+            API.deleteCategory({
+                categoryId: category.Id,
+            }).then(() => {
+                updateCategories();
+            });
+        }
+    }
+
     return (
-        <Category category={category} onUpdate={updateCategory} />
+        <div className="Main">
+            <Category category={category} onUpdate={updateCategory} onDelete={onDeleteCategory} />
+        </div>
     );
 }
 
@@ -78,40 +93,51 @@ export const Category = props => {
         <div>
             {/*CATEGORY NAME*/}
             <h5 className="fw-bold">{props?.category?.Name}</h5>
-            {/*NOTE: For testing only 
-                     .map(x => (x.User.Name) selects User.Name into array, remove it to access full User.*/}
             {props?.category?.UserGroup != null &&
-                <p className="text-muted">Memebers: {props?.category?.UserGroup?.UserGroupEnlistments?.map(x => (x.User.Name)).join(', ')}</p>
-                
+                <p className="text-muted">Memebers: {props?.category?.UserGroup?.UserGroupEnlistments?.map(x => (x.User.Name)).join(', ')}</p>                
             }            
             <ListGroup as="ol" className="pb-2">
                 {/*TOPICS*/}
                 {props?.category?.Topics.map((topic, topicIndex) =>
-                    <ListGroup.Item key={topicIndex} as="li" className="d-flex justify-content-between align-items-start border-0 bg-gray m-1 mx-3">
-                        <div className="me-auto">
+                    <ListGroup.Item key={topicIndex} as="li" className="list-item d-flex justify-content-between align-items-start border-0 bg-gray m-1 mx-3" onClick={() => onTopicClick(topic.Id)}>
+                        <div className="me-auto" >
                             {/*TOPIC NAME*/}
-                            <div className=""><button className="btn btn-link fw-bold m-0 p-0" onClick={() => onTopicClick(topic.Id)}>{topic.Name}</button></div>
+                            <b>{topic.Name}</b>
                             {/*TOPIC DESCRIPTION*/}
-                            <div dangerouslySetInnerHTML={{ __html: topic.Description != null ? topic.Description : "No description" }} />
+                            <i><div dangerouslySetInnerHTML={{ __html: topic.Description != null ? topic.Description : "No description" }} /></i>
                         </div>                        
                         <div className="row p-0 m-0">
                             {/*SUBJECTS COUNT*/}
                             <Badge bg="dark" className="mb-1" pill>
                                 Subjects: {topic.SubjectsCount}
                             </Badge>
-                            {/*DELETE*/}
-                            {authContext?.user != null && authContext?.user?.HasAuthority &&
-                                <button className="btn btn-link p-0 m-0 text-danger" onClick={() => onTopicDelete(topic)}>Delete Topic</button>
-                            }
+                            {/*DELETE TOPIC*/}
+                            <div className="text-end">
+                                {authContext?.user != null && authContext?.user?.HasAuthority &&
+                                    <button className="btn btn-link p-0 m-0 text-danger" onClick={() => onTopicDelete(topic)}>
+                                        <FontAwesomeIcon icon={faTrash} />
+                                    </button>
+                                }
+                            </div>
                         </div>
                     </ListGroup.Item>
                 )}
             </ListGroup>
 
-            {/*CREATE NEW TOPIC BUTTON*/}
-            { authContext?.user != null && authContext?.user?.HasAuthority &&
-                <button className="btn btn-link text-success m-0 p-0" onClick={onTopicCreate}>Create a new Topic in {props?.category?.Name}</button>
-            }
+            <div className="text-start">
+                {/*CREATE NEW TOPIC BUTTON*/}
+                { authContext?.user != null && authContext?.user?.HasAuthority &&
+                    <button className="btn btn-link text-success pe-0" onClick={onTopicCreate}>
+                        <FontAwesomeIcon icon={faAdd} />
+                    </button>
+                }
+                {/*DELETE CATEGORY BUTTON*/}
+                {authContext?.user != null && authContext?.user?.HasAuthority &&                
+                    <button className="btn btn-link text-danger pe-0" onClick={props?.onDelete}>
+                        <FontAwesomeIcon icon={faTrash} />
+                    </button>
+               }
+           </div>
 
            {/*CREATE TOPIC MODAL*/}
             <Modal show={modalVisible} onHide={() => setModalVisible(false)} backdrop={false}>

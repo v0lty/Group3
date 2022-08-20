@@ -9,7 +9,8 @@ import Tab from 'react-bootstrap/Tab';
 import InputModal from '../InputModal';
 import UserSelectModal from '../UserSelectModal';
 import { useParams } from 'react-router';
-import { useHistory } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAdd, faReply, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 export default function Messages() {
     const authContext = useContext(AuthContext);
@@ -109,92 +110,100 @@ export default function Messages() {
         // TODO: API function to delete message
     }
 
-    return (   
-        <Tab.Container defaultActiveKey="0">
-            <h2>Conversations</h2><br />
-            <Row>                 
-                {/*BUTTONS*/}
-                <Col sm={4}>                        
-                    <Nav variant="pills" className="flex-column border-bottom">
-                        {chats.map((chat, chatIndex) =>   
-                            <Nav.Item key={chatIndex} className="mb-2">
-                                <Nav.Link eventKey={chatIndex} onClick={() => scrollToBottom()}>
-                                    {/*NAMES*/}
-                                    {chat?.Users.map(user => user.Name).join(', ')} and You
-                                </Nav.Link>
-                            </Nav.Item>
-                        )}
-                    </Nav>
-                    {/*CONVERSATION BUTTON*/}
-                    <button className="btn btn-secondary w-100 mt-3 text-start" onClick={onCreateConversation}>New Conversation</button>
-                </Col>
-                {/*CONTENT*/}
-                <Col sm={8} className="px-5 scrollable-100">
-                {chats.map((chat, chatIndex) =>                        
-                    <Tab.Content key={chatIndex}>
-                        <Tab.Pane eventKey={chatIndex}>
-                            <div className="">
-                                {chat?.Items.map((message, messageIndex) =>
-                                /*BUBBLE*/
-                                <div key={messageIndex} className={message?.Aurthor?.Id == authContext.user?.Id
-                                        ? "row chat-bubble speech-bubble-right"
-                                        : "row chat-bubble speech-bubble-left"}>
-                                    {/*USER*/}
-                                    <div className="col-3" style={{ width: 100 }}>                                        
-                                        <div className="text-center p-2">
-                                            {/*USERPICTURE*/}
-                                            <img className="profile-image-small" src={'../Pictures/${message?.Aurthor.ProfilePicture?.Path}'}></img>                                           
-                                            {/*USERNAME*/}
-                                            {authContext?.user?.Id == message.Aurthor.Id ? (
-                                                <h5>You</h5>) : (                                       
-                                                <h5>{message.Aurthor.FirstName}</h5>
-                                            )}                                             
+    return (
+        <div className="context bg-white shadow">
+            <h4>Conversations</h4><br />
+            <Tab.Container defaultActiveKey="0">                
+                <Row>                 
+                    {/*BUTTONS*/}
+                    <Col sm={4}>                        
+                        <Nav variant="pills" className="flex-column border-bottom">
+                            {chats.map((chat, chatIndex) =>   
+                                <Nav.Item key={chatIndex} className="mb-2">
+                                    <Nav.Link eventKey={chatIndex} onClick={() => scrollToBottom()}>
+                                        {/*NAMES*/}
+                                        {chat?.Users.map(user => user.Name).join(', ')} and You
+                                    </Nav.Link>
+                                </Nav.Item>
+                            )}
+                        </Nav>
+                        {/*CONVERSATION BUTTON*/}
+                        <button className="btn btn-link mt-3 text-success" onClick={onCreateConversation}>
+                            <FontAwesomeIcon icon={faAdd} />
+                        </button>
+                    </Col>
+                    {/*CONTENT*/}
+                    <Col sm={8} className="px-5 scrollable-100">
+                    {chats.map((chat, chatIndex) =>                        
+                        <Tab.Content key={chatIndex}>
+                            <Tab.Pane eventKey={chatIndex}>
+                                <div className="">
+                                    {chat?.Items.map((message, messageIndex) =>
+                                    /*BUBBLE*/
+                                    <div key={messageIndex} className={message?.Aurthor?.Id == authContext.user?.Id
+                                            ? "row chat-bubble speech-bubble-right"
+                                            : "row chat-bubble speech-bubble-left"}>
+                                        {/*USER*/}
+                                        <div className="col-3" style={{ width: 100 }}>                                        
+                                            <div className="text-center p-2">
+                                                {/*USERPICTURE*/}
+                                                <img className="profile-image-small" src={`../Pictures/${message?.Aurthor.ProfilePicture?.Path}`}></img>                                           
+                                                {/*USERNAME*/}
+                                                {authContext?.user?.Id == message.Aurthor.Id ? (
+                                                    <h5>You</h5>) : (                                       
+                                                    <h5>{message.Aurthor.FirstName}</h5>
+                                                )}                                             
+                                            </div>
                                         </div>
+                                        <div className="col">
+                                            <div className="row">
+                                                {/*TIME*/}
+                                                <span>                                                
+                                                    <span className="float-end">{moment(message.Time).fromNow()}</span>
+                                                </span>
+                                                {/*TEXT*/}
+                                                <div dangerouslySetInnerHTML={{ __html: message.Text }} />                                        
+                                            </div>
+                                            </div>
+                                            {authContext?.user?.Id == message.Aurthor.Id && (
+                                                <span>
+                                                    <button className="btn btn-link text-danger float-end p-0 m-0" onClick={() => { onDeleteClick(message); }}>
+                                                        <FontAwesomeIcon icon={faTrash} />
+                                                    </button>
+                                                </span>
+                                            )}
                                     </div>
-                                    <div className="col">
-                                        <div className="row">
-                                            {/*TIME*/}
-                                            <span>                                                
-                                                <span className="float-end">{moment(message.Time).fromNow()}</span>
-                                            </span>
-                                            {/*TEXT*/}
-                                            <div dangerouslySetInnerHTML={{ __html: message.Text }} />                                        
-                                        </div>
-                                        </div>
-                                        {authContext?.user?.Id == message.Aurthor.Id && (
-                                            <span>
-                                                <a className="float-end btn-link text-danger" onClick={() => { onDeleteClick(message); } }>Delete</a>
-                                            </span>
-                                        )}
+                                    )}
                                 </div>
-                                )}
-                            </div>
-                            {/*MESSAGE BUTTON*/}
-                            <div className="d-flex justify-content-end w-100">
-                                <button className="btn border-0 button-speech-bubble fw-bold" onClick={() => onReplay(chat)}>Reply</button>
-                            </div>
-                        </Tab.Pane>
-                    </Tab.Content>                          
-                    )}
-                    <div style={{ float: "right", clear: "both" }} ref={(el) => { setBottomElement(el); }}>
-                    </div>
-                </Col>
-            </Row>
-            <UserSelectModal
-                title="Select People"
-                onSubmit={onPeopleSelectSubmit}
-                visible={peopleSelectModalVisible}
-                onHide={() => { setPeopleSelectModalVisible(!peopleSelectModalVisible); }}
-            />
-            <InputModal
-                title="Create Message"
-                useTitle={true}
-                inputTitle={"To: " + peopleNames}
-                input=""
-                onSubmit={onChatSubmit}
-                visible={chatModalVisible}
-                onHide={() => { setChatModalVisible(!chatModalVisible); setChat(null); setPeopleNames(""); }}
-            />
-        </Tab.Container>           
+                                {/*MESSAGE BUTTON*/}
+                                <div className="d-flex justify-content-end w-100">
+                                    <button className="btn border-0 button-speech-bubble fw-bold px-5" onClick={() => onReplay(chat)}>
+                                        <FontAwesomeIcon icon={faReply} />
+                                    </button>
+                                </div>
+                            </Tab.Pane>
+                        </Tab.Content>                          
+                        )}
+                        <div style={{ float: "right", clear: "both" }} ref={(el) => { setBottomElement(el); }}>
+                        </div>
+                    </Col>
+                </Row>
+                <UserSelectModal
+                    title="Select People"
+                    onSubmit={onPeopleSelectSubmit}
+                    visible={peopleSelectModalVisible}
+                    onHide={() => { setPeopleSelectModalVisible(!peopleSelectModalVisible); }}
+                />
+                <InputModal
+                    title="Create Message"
+                    useTitle={true}
+                    inputTitle={"To: " + peopleNames}
+                    input=""
+                    onSubmit={onChatSubmit}
+                    visible={chatModalVisible}
+                    onHide={() => { setChatModalVisible(!chatModalVisible); setChat(null); setPeopleNames(""); }}
+                />
+            </Tab.Container> 
+        </div>
     );
 }
