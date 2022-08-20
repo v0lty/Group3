@@ -31,10 +31,9 @@ export default function Signup(props) {
     }
 
     return (
-        <div>
-            <h1>Create account</h1>
-            <Form  onSubmit={onFormSubmit}>
-               
+        <div className="Main shadow">
+            <h3>Create account</h3>
+            <Form onSubmit={onFormSubmit} className="mt-3">               
                 <FloatingLabel label="Firstname" className="mb-3">
                     <Form.Control type="text" placeholder="Enter Firstname" id="firstnameInput"  required/>
                     </FloatingLabel>

@@ -4,6 +4,8 @@ import API from "./API";
 import { useHistory } from "react-router-dom";
 import Badge from 'react-bootstrap/Badge';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 
 export default function Sidebar_Posts() {
     const authContext = useContext(AuthContext);
@@ -34,8 +36,8 @@ export default function Sidebar_Posts() {
                 <h6 style={{ color: "#1c4966" }}>MOST LIKES</h6>
             </div>
             <ListGroup as="ul" className="shadow" >
-                {posts.reverse().map(post =>
-                    <ListGroup.Item key={post.Id} as="li" className="d-flex justify-content-between align-items-start border-0 border-top shadow" onClick={() => onPostClick(post.Id)}>
+                {posts?.map(post =>
+                    <ListGroup.Item key={post.Id} as="li" className="sidebar-item d-flex justify-content-between align-items-start border-0 border-top shadow" onClick={() => onPostClick(post.Id)}>
                         <div className="col-3" style={{ width: 45 }}>
                             <img className="profile-image-extra-small" src={`../Pictures/${post?.Aurthor.ProfilePicture?.Path}`}></img>
                         </div>
@@ -46,7 +48,7 @@ export default function Sidebar_Posts() {
                                 </div>
                                 <div className="col-4 p-0 d-flex justify-content-end">
                                     <Badge bg="light" className="bg-white text-dark" pill>
-                                        {post.Votes} &#128077;
+                                        {post.Votes} <FontAwesomeIcon className="text-warning" icon={faThumbsUp} />
                                     </Badge>
                                 </div>
                             </div>

@@ -87,28 +87,30 @@ export const Profile = props => {
     };
 
     return (
-        <div>
-            <h3>Profile</h3>
-            <Form className="shadow p-3 mb-3" onSubmit={onFormSubmit}>
-                <FloatingLabel label="Email" className="mb-3">
-                    <Form.Control type="email" defaultValue={props?.user?.Email} id="emailInput" />
-                </FloatingLabel>
-                <FloatingLabel label="First Name" className="mb-3">
-                    <Form.Control type="text" defaultValue={props?.user?.FirstName} id="firstNameInput" />
-                </FloatingLabel>
-                <FloatingLabel label="Last Name" className="mb-3">
-                    <Form.Control type="text" defaultValue={props?.user?.LastName} id="lastNameInput" />
-                </FloatingLabel>
-                <FloatingLabel label="Date Of Birth" className="mb-3">
-                    <Form.Control type="date" value={date ? dateForPicker(date) : ''}
-                        placeholder={date ? dateForPicker(date) : "dd/mm/yyyy"}
-                        onChange={(e) => setDate(dateFromDateString(e.target.value))} id="birthdateInput" />
-                </FloatingLabel>
-                <Button className="mt-3" type="submit">Save</Button>
-            </Form>
+        <div className="context bg-white shadow">
+            <div className="context shadow mb-3">
+                <h4>Profile</h4>
+                <Form className="p-3 mb-3" onSubmit={onFormSubmit}>
+                    <FloatingLabel label="Email" className="mb-3">
+                        <Form.Control type="email" defaultValue={props?.user?.Email} id="emailInput" />
+                    </FloatingLabel>
+                    <FloatingLabel label="First Name" className="mb-3">
+                        <Form.Control type="text" defaultValue={props?.user?.FirstName} id="firstNameInput" />
+                    </FloatingLabel>
+                    <FloatingLabel label="Last Name" className="mb-3">
+                        <Form.Control type="text" defaultValue={props?.user?.LastName} id="lastNameInput" />
+                    </FloatingLabel>
+                    <FloatingLabel label="Date Of Birth" className="mb-3">
+                        <Form.Control type="date" value={date ? dateForPicker(date) : ''}
+                            placeholder={date ? dateForPicker(date) : "dd/mm/yyyy"}
+                            onChange={(e) => setDate(dateFromDateString(e.target.value))} id="birthdateInput" />
+                    </FloatingLabel>
+                    <Button className="mt-3" type="submit">Save</Button>
+                </Form>
+            </div>
 
-            <h3>Gallery</h3>
-            <div className="shadow p-3">
+            <div className="context shadow">
+                <h4>Gallery</h4>          
                 <div className="d-flex">
                     {pictures?.map((picture, pictureIndex) =>
                         <div key={pictureIndex}>
@@ -118,7 +120,6 @@ export const Profile = props => {
                     )}
                 </div>
                 <input type="file" name="imageInput" onChange={(event) => {
-
                     const file = event.target.files[0];
                     const formData = new FormData();
                     formData.append("file", file, props?.user?.Email + '/' + file.name);
@@ -128,7 +129,7 @@ export const Profile = props => {
                             updatePictures();
                         });
                     }}
-                />
+                />              
             </div>
         </div>
     );

@@ -30,11 +30,11 @@ export default function Sidebar_Latest() {
     }
 
     return (
-        <div className="d-flex flex-column align-items-stretch border-0 mb-5">           
+        <div className="d-flex flex-column align-items-stretch border-0 mb-4">           
             <h6 style={{ color: "#1c4966" }}>LATEST POSTS</h6>
             <ListGroup as="ul" className="shadow">
                 {posts.map(post =>
-                    <ListGroup.Item key={post.Id} as="li" className="d-flex justify-content-between align-items-start border-0 shadow border-top" onClick={() => onPostClick(post.Subject.Id)}>
+                    <ListGroup.Item key={post.Id} as="li" className="sidebar-item d-flex justify-content-between align-items-start border-0 shadow border-top" onClick={() => onPostClick(post.Subject.Id)}>
                         <div className="col-3" style={{ width: 45 }}>
                             <img className="profile-image-extra-small" src={`../Pictures/${post?.Aurthor.ProfilePicture?.Path}`}></img>
                         </div>

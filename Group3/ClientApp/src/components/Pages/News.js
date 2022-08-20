@@ -5,20 +5,8 @@ import { Calendar, DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { addDays, format, isWeekend } from 'date-fns';
-
-function getSunday(d) {
-    d = new Date(d);
-    var day = d.getDay(),
-        diff = d.getDate() - day + (day == 0 ? -6 : 0); // adjust when day is sunday
-    return new Date(d.setDate(diff));
-}
-
-function getSaturday() {
-    var now = new Date();
-    var sunday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + (6 - now.getDay()));
-    return sunday;
-}
-
+import Post from './Post';
+import { enGB } from 'date-fns/locale'
 
 export default function News() {
     const authContext = useContext(AuthContext);
@@ -28,8 +16,8 @@ export default function News() {
 
     const [state, setState] = useState({
         selection: {
-            startDate: getSunday(new Date()),
-            endDate: getSaturday(),
+            startDate: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+            endDate: new Date(),
             key: 'selection'
         }
     });
@@ -74,6 +62,9 @@ export default function News() {
     return (
         <div>
             <DateRangePicker
+                locale={enGB}
+                weekStartsOn={1}
+                showDateDisplay={false}
                 onChange={handleSelect}
                 months={1}
                 minDate={addDays(new Date(), -365)}
@@ -82,6 +73,12 @@ export default function News() {
                 ranges={[state.selection]}
                 dayContentRenderer={customDayContent}
             />
+            {selectedPost?.map((post, postIndex) =>
+                <Post
+                    key={postIndex}
+                    post={post}
+                />
+            )}
         </div>
     );
 }

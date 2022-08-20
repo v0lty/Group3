@@ -197,19 +197,13 @@ namespace Group3.Controllers
         public JsonResult GetHotPosts()
         {
             var posts = this.dbContext.Posts
+                .Where(x => x.Votes > 0)
                 .Include(x => x.Aurthor)
                 .ThenInclude(x => x.Pictures)
                 .Include(x => x.Subject)
-                .ToList()
                 .OrderByDescending(x => x.Votes)
                 .Take(5)
                 .ToList();
-
-            if (posts.Count > 0)
-            {
-                posts.Where(x => x.Votes == 0).ToList().ForEach(x => posts.Remove(x));
-                posts.Sort((x, y) => x.Votes.CompareTo(y.Votes));
-            }
 
             return new JsonResult(posts);
         }
@@ -239,6 +233,22 @@ namespace Group3.Controllers
                 .Include(category => category.Topics)
                 .ThenInclude(topic => topic.Subjects)
                 .ThenInclude(subject => subject.Posts)
+                .ThenInclude(post => post.Aurthor)
+                .ThenInclude(user => user.Pictures)
+                .Include(category => category.Topics)
+                .ThenInclude(topic => topic.Subjects)
+                .ThenInclude(subject => subject.Posts)
+                .ThenInclude(post => post.Aurthor)
+                .ThenInclude(user => user.UserRoles)
+                .ThenInclude(role => role.Role)
+                .Include(category => category.Topics)
+                .ThenInclude(topic => topic.Subjects)
+                .ThenInclude(subject => subject.Posts)
+                .ThenInclude(post => post.Pictures)
+                .Include(category => category.Topics)
+                .ThenInclude(topic => topic.Subjects)
+                .ThenInclude(subject => subject.Posts)
+                .ThenInclude(post => post.Subject)
                 .FirstOrDefault();
 
             var posts = category.GetPostsByDate(DateTime.Parse(startDate), DateTime.Parse(EndDate));

@@ -5,6 +5,8 @@ import RichTextEditor from 'react-rte';
 import API from "../API";
 import { useParams } from 'react-router';
 import { useHistory } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faAdd, faPencilSquare, faQuoteRight, faFlag, faThumbsUp, faAddressBook, faCommenting, faReply } from '@fortawesome/free-solid-svg-icons'
 
 var oneHour = 60 * 60 * 1000; /* ms is the standard time measurement in js */
 
@@ -27,11 +29,11 @@ export const PostPath = () => {
     }, [id])
 
     return (
-        <div>
+        <div className="context">
             <h5 className="m-0 p-0 pb-3">
-                <a className="text-decoration-none" href={'/category/${post?.Subject?.Topic?.Category?.Id}'}>{post?.Subject?.Topic?.Category?.Name}</a>
+                <a className="text-decoration-none" href={`/category/${post?.Subject?.Topic?.Category?.Id}`}>{post?.Subject?.Topic?.Category?.Name}</a>
                 {" > "}
-                <a className="text-decoration-none" href={'/topic/${post?.Subject?.Topic?.Id}'}>{post?.Subject?.Topic?.Name}</a>
+                <a className="text-decoration-none" href={`/topic/${post?.Subject?.Topic?.Id}`}>{post?.Subject?.Topic?.Name}</a>
             </h5>
             <Post post={post} onUpdate={updatePost} onEdit={updatePost} onDelete={() => { history.push('/'); }} />
         </div>
@@ -99,13 +101,16 @@ export const Post = props => {
     }
 
     return (
-        <div className="mb-4 bg-gray">
+        <div className="mb-4 border-bottom bg-gray">
             <div className="row p-2">
                 <div>
                     {/*TIME*/}
                     <span><b>{moment(props?.post?.Time).fromNow()}</b></span>
                     {/*VOTE*/}
-                    <button className="btn border-0 float-end p-0 px-2 fw-bold" onClick={() => onVote(props?.post?.Id)}>{props?.post?.Votes} &#128077;</button>
+                    <button className="btn border-0 float-end p-0 px-2" onClick={() => onVote(props?.post?.Id)}>
+                        <span className="fw-bold">{props?.post?.Votes} </span> 
+                        <FontAwesomeIcon className="text-warning" icon={faThumbsUp} />
+                    </button>
                 </div>
             </div>
             <div className="row">
@@ -127,19 +132,22 @@ export const Post = props => {
                                 from <b>{props?.post?.Aurthor?.Location}</b><br />                               
                                 with <b className="text-danger">{props?.post?.Aurthor?.PostsCount}</b> posts.<br />
                                 <br />
-                                <span>
-                                    <a className="btn-link" onClick={() => history.push('/user/${props?.post?.Aurthor?.Id}')}>Show Profile </a><br />
+                                <div className="d-flex align-items-start">
+                                    <button className="btn btn-link p-0 m-0 pe-3" onClick={() => history.push(`/user/${props?.post?.Aurthor?.Id}`)}>
+                                        <FontAwesomeIcon icon={faAddressBook} />                                        
+                                    </button><br />
                                     {authContext?.user?.Id != props?.post?.Aurthor?.Id && (
-                                        <a className="btn-link" onClick={() => history.push('/messages/${props?.post?.Aurthor?.Id}')}>Send Message</a>
+                                        <button className="btn btn-link p-0 m-0 pe-3" onClick={() => history.push(`/messages/${props?.post?.Aurthor?.Id}`)}>
+                                            <FontAwesomeIcon icon={faCommenting} />
+                                        </button>
                                     )}
-                                </span>
+                                </div>
                             </span>
                         </div>
                     </div>
                 </div>
                 <div className="col pe-4 px-2" style={{ minWidth: 250 },{ minHeight: 100 }}>
-                    <div className="bg-light p-2 pb-2 h-100 speech-bubble-left-light">
-
+                    <div className="p-2 pb-2 h-100 speech-bubble-left-light">
                         {editMode == true ? (
                             /*EDIT*/
                             <div>
@@ -152,18 +160,26 @@ export const Post = props => {
                         )}
                     </div>
                 </div>
-                <div className="row">
+                <div className="row m-0 p-0 pe-1">
                     <div>
                         {(((authContext?.user?.Id == props?.post?.Aurthor?.Id && moment(props?.post?.Time) + oneHour) > (new Date)) || authContext?.user?.HasAuthority) ? (
                             <div>
-                                <button className="btn btn-link float-end" onClick={() => onDelete(props?.post?.Id)}>Delete</button>
-                                <button className="btn btn-link float-end" onClick={() => onEditClick(props?.post)}>Edit</button>
+                                <button className="btn btn-link text-danger float-end" onClick={() => onDelete(props?.post?.Id)}>
+                                    <FontAwesomeIcon icon={faTrash} />
+                                </button>
+                                <button className="btn btn-link float-end" onClick={() => onEditClick(props?.post)}>
+                                    <FontAwesomeIcon icon={faPencilSquare} />
+                                </button>
                             </div>
                         ) : (
-                            <button className="btn btn-link float-end" onClick={() => onReport(props?.post.Id)}>Report</button>
+                            <button className="btn btn-link float-end" onClick={() => onReport(props?.post.Id)}>
+                                <FontAwesomeIcon icon={faFlag} />                                    
+                            </button>
                         )}
                         {authContext?.user?.Id != props?.post?.Aurthor?.Id && (
-                            <button className="btn btn-link float-end" onClick={() => props.onQuote(props?.post)}>Quote</button>
+                            <button className="btn btn-link float-end" onClick={() => props.onQuote(props?.post)}>
+                                <FontAwesomeIcon icon={faQuoteRight} />
+                            </button>
                         )}
                     </div>
                 </div>

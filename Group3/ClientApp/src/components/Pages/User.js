@@ -44,9 +44,8 @@ export const User = props => {
     }
 
     return (
-        <div>
-            <h3>{props?.user?.Name}</h3>
-            
+        <div className="Main shadow">
+            <h3>{props?.user?.Name}</h3>            
             <div className="d-flex flex-row">
                 <div className="p-2" >
                     <img className="" src={`../Pictures/${props?.user?.ProfilePicture?.Path}`}></img>

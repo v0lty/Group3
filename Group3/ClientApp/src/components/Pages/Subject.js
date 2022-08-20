@@ -6,6 +6,8 @@ import Post from './Post';
 import InputModal from '../InputModal';
 import moment from "moment";
 import { useHistory } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faReply } from '@fortawesome/free-solid-svg-icons'
 
 // URL PATH -> LOCALHOST/SUBJECT/{ID}
 export const SubjectPath = () => {
@@ -26,7 +28,9 @@ export const SubjectPath = () => {
     }, [id])
 
     return (
-        <Subject subject={subject} onUpdate={updateSubject} />
+        <div className="context bg-white shadow">
+            <Subject subject={subject} onUpdate={updateSubject} />
+        </div>
     );
 }
 
@@ -64,7 +68,7 @@ export const Subject = props => {
     }
 
     return (
-        <div className="px-3">        
+        <div className="category-item">
             <h5 className="m-0 p-0 pb-3">
                 <a className="text-decoration-none" href={`/category/${props?.subject?.Topic?.Category?.Id}`}>{props?.subject?.Topic?.Category?.Name}</a>
                 {" > "}
@@ -82,7 +86,7 @@ export const Subject = props => {
             )}
             <div className="border-top d-flex justify-content-end">
                 <InputModal                    
-                    title="Create Post"
+                    title="Reply"
                     useTitle={false}
                     input={input}
                     onSubmit={onPostSubmit}
@@ -90,9 +94,8 @@ export const Subject = props => {
                     onHide={() => { setModalVisible(!modalVisible); }}
                 />
                 {authContext.user != null &&
-                    <button
-                        className="btn btn-secondary my-2" onClick={() => { setModalVisible(!modalVisible); }}>
-                        Reply
+                    <button className="btn btn-link my-2 text-dark" onClick={() => { setModalVisible(!modalVisible); }}>                    
+                        <FontAwesomeIcon icon={faReply} />
                     </button>     
                 }
             </div>

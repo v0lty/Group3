@@ -73,7 +73,7 @@ export default function Menu() {
             </Modal>
 
             <Navbar className="navbar-expand-sm navbar-toggleable-sm">
-                <NavbarBrand tag={Link} to="/" className="text-secondary fw-bold p-0 m-0"><h3>&emsp; &nbsp;<b>CODE</b>/talk</h3></NavbarBrand>
+                <NavbarBrand tag={Link} to="/" className="text-secondary fw-bold p-0 m-0"><h3>&emsp; &nbsp;<b>{`<CODE>`}</b>/talk</h3></NavbarBrand>
                 <NavbarToggler onClick={() => setcollapsedMenu(!collapsedMenu)} />
                 <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!collapsedMenu} navbar>
                     <ul className="navbar-nav flex-grow">

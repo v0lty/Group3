@@ -6,6 +6,8 @@ import Category from './Category'
 import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Modal from 'react-bootstrap/Modal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faAdd} from '@fortawesome/free-solid-svg-icons'
 
 export default function Forum() {
     const authContext = useContext(AuthContext);
@@ -36,7 +38,6 @@ export default function Forum() {
 
     const onDeleteCategory = (category) => {
         event.preventDefault();
-
         if (confirm(`Are you sure that you want to delete '${category.Name}' with all its content?`)) {
             API.deleteCategory({
                 categoryId: category.Id,
@@ -47,51 +48,52 @@ export default function Forum() {
     }
 
     return (
-        <div>
-            <ListGroup as="ol">
-                {categories.map((category, categoryIndex) => category.Name != "News" && (
-                    <ListGroup.Item key={categoryIndex} as="li" className="border-0">
-                        {/*NOTE: view category if UserGroup is null OR if UserGroup contains User.Id
-                         .map(x => (x.User.Id) selects User.Id into array, remove it to access full User.*/}
-                        {(category?.UserGroup == null
-                       || category?.UserGroup?.UserGroupEnlistments?.map(x => (x.User.Id)).includes(authContext?.user?.Id)) &&
-                            <Category category={category} onUpdate={updateCategories} />      
-                        }
+        <div>            
+            <div className="context bg-white shadow">
+                <h3>Forum</h3>
+                <ListGroup as="ol">
+                    {categories.map((category, categoryIndex) => category.Name != "News" && (
+                        <ListGroup.Item key={categoryIndex} as="li" className="border-0">
+                            {(category?.UserGroup == null
+                                || (authContext?.user != null &&
+                                    category?.UserGroup?.UserGroupEnlistments?.map(x => (x.User.Id)).includes(authContext?.user?.Id))) &&
+                                <div className="shadow p-3 mb-3">                
+                                    <Category category={category} onUpdate={updateCategories} onDelete={() => onDeleteCategory(category) } />
+                                </div>
+                            }              
+                        </ListGroup.Item>
+                    ))}
+                </ListGroup>
+                <div className="row">
+                    <div className="text-end">
                         {authContext?.user != null && authContext?.user?.HasAuthority &&
-                            <button className="btn btn-link p-0 m-0 text-danger" onClick={() => onDeleteCategory(category)}>Delete {category.Name}</button>
+                            <button className="btn btn-link text-success py-0" onClick={() => setShowCreateCategoryModal(true)}>
+                                <FontAwesomeIcon icon={faAdd} />
+                            </button>
                         }
-                    </ListGroup.Item>
-                ))}
-            </ListGroup>
-            <div className="row">
-                <div class="text-end">
-                    {authContext?.user != null && authContext?.user?.HasAuthority &&
-                        <button className="btn btn-link text-success py-0 me-3" onClick={() => setShowCreateCategoryModal(true)}>Create a new Category</button>
-                    }
-                    <br />
-                    <button className="btn btn-link text-success py-0 me-3">Create a new UserGroup</button>
+                    </div>
                 </div>
-            </div>
 
-            <Modal show={showCreateCategoryModal} onHide={() => setShowCreateCategoryModal(false)} backdrop="static">
-                <Modal.Header closeButton>
-                    <Modal.Title>Create Category</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form onSubmit={onCreateCategorySubmit}>
-                        <input type="submit" id="submitInput" className="d-none" />
-                        <FloatingLabel label="Name" className="mb-3">
-                            <Form.Control type="text" id="categoryNameInput" />
-                        </FloatingLabel>
-                        <FloatingLabel label="Description" className="mb-3">
-                            <Form.Control type="text" id="categoryDescriptionInput" />
-                        </FloatingLabel>
-                    </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <label htmlFor="submitInput" className="btn btn-primary">Submit</label>
-                </Modal.Footer>
-            </Modal>
+                <Modal show={showCreateCategoryModal} onHide={() => setShowCreateCategoryModal(false)} backdrop="static">
+                    <Modal.Header closeButton>
+                        <Modal.Title>Create Category</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form onSubmit={onCreateCategorySubmit}>
+                            <input type="submit" id="submitInput" className="d-none" />
+                            <FloatingLabel label="Name" className="mb-3">
+                                <Form.Control type="text" id="categoryNameInput" />
+                            </FloatingLabel>
+                            <FloatingLabel label="Description" className="mb-3">
+                                <Form.Control type="text" id="categoryDescriptionInput" />
+                            </FloatingLabel>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <label htmlFor="submitInput" className="btn btn-primary">Submit</label>
+                    </Modal.Footer>
+                </Modal>
+            </div>
         </div>
     );
 }

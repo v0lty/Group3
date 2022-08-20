@@ -6,7 +6,7 @@ export default function Home() {
     const authContext = useContext(AuthContext);
 
     return (
-        <div class="Main">
+        <div className="context bg-white shadow">
             {authContext.user != null ? (
                 <h3>Welcome back {authContext.user.Name}!</h3>
             ) : (
