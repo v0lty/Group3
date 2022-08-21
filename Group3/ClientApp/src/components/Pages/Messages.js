@@ -67,7 +67,7 @@ export default function Messages() {
         if (chat != null) {
             API.createChatMessage({
                 userIdArray: chat?.Users.map(user => user.Id).toString(),
-                authorId: authContext?.user.Id,
+                AuthorId: authContext?.user.Id,
                 chatId: chat.Id,
                 text: text,
             }).then(() => {
@@ -78,7 +78,7 @@ export default function Messages() {
         else {
             API.createChatMessage({
                 userIdArray: people?.toString(),
-                authorId: authContext?.user.Id,
+                AuthorId: authContext?.user.Id,
                 chatId: null,
                 text: text,
             }).then(() => {

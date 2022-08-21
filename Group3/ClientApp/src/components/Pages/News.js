@@ -33,7 +33,7 @@ export default function News() {
 
             API.getPostsByDate({
                 startDate: format(state.selection.startDate, "yyyy-MM-dd HH:mm"),
-                endDate: format(addHours(item.selection.endDate, 23), "yyyy-MM-dd HH:mm"),
+                endDate: format(addHours(state.selection.endDate, 23), "yyyy-MM-dd HH:mm"),
             }).then((posts) => {
                 setSelectedPost(posts);
                 console.log(posts);

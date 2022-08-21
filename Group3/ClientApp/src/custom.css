@@ -10,12 +10,21 @@ a {
     cursor: pointer;
 }
 
-.text-news {
-    color: #7f3cc7;
+.user-group {
+    position: relative;
 }
-.bg-news-dot {
-    background-color: #7528c7;
-    background: #7528c7;
+
+.modal-height {
+    min-height: 500px;
+}
+
+.text-news {
+    color: darkgoldenrod;
+}
+
+.bg-news {
+    background-color: darkgoldenrod;
+    background: darkgoldenrod;
 }
 
 .bg-news-pill {
@@ -24,16 +33,12 @@ a {
 }
 
 .text-events {
-    color: #43a047;
-}
-.bg-events-dot {
-    background-color: #388e3c;
-    background: #388e3c;
+    color: olivedrab;
 }
 
-.bg-events-pill {
-    background-color: #43a047;
-    background: #43a047;
+.bg-events {
+    background-color: olivedrab;
+    background: olivedrab;
 }
 
 .calendar-dot-top {

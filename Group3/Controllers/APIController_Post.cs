@@ -228,31 +228,28 @@ namespace Group3.Controllers
         [Route("GetPostsByDate")]
         public JsonResult GetPostsByDate(string startDate, string EndDate)
         {
-            var category = this.dbContext.Categories
-                .Where(category => category.Name == "News")
-                .Include(category => category.Topics)
-                .ThenInclude(topic => topic.Subjects)
-                .ThenInclude(subject => subject.Posts)
-                .ThenInclude(post => post.Author)
-                .ThenInclude(user => user.Pictures)
-                .Include(category => category.Topics)
-                .ThenInclude(topic => topic.Subjects)
-                .ThenInclude(subject => subject.Posts)
-                .ThenInclude(post => post.Author)
+            var head = DateTime.Parse(startDate);
+            var tail = DateTime.Parse(EndDate);
+
+            var posts = dbContext.Posts  // TODO: this is nasty, move events to its own database table if we find time..
+                .Include(x => x.Subject)
+                .ThenInclude(x => x.Posts)
+                .ThenInclude(x => x.Author)
+                .Include(x => x.Subject)
+                .ThenInclude(x => x.Topic)
+                .ThenInclude(x => x.Category)
+                .Include(post => post.Author)
                 .ThenInclude(user => user.UserRoles)
                 .ThenInclude(role => role.Role)
-                .Include(category => category.Topics)
-                .ThenInclude(topic => topic.Subjects)
-                .ThenInclude(subject => subject.Posts)
+                .Include(post => post.Author)
                 .ThenInclude(post => post.Pictures)
-                .Include(category => category.Topics)
-                .ThenInclude(topic => topic.Subjects)
-                .ThenInclude(subject => subject.Posts)
-                .ThenInclude(post => post.Subject)
-                .FirstOrDefault();
-
-            var posts = category.GetPostsByDate(DateTime.Parse(startDate), DateTime.Parse(EndDate));
-
+                .Where(x => x.Subject.Topic.Category.Name == "News" 
+                && ((x.EventDate != null 
+                 && (x.EventDate >= head && x.EventDate <= tail)) 
+                 || (x.Time >= head && x.Time <= tail)))                
+                .OrderBy(x => x.EventDate != null ? x.EventDate : x.Time).ToList()
+                .Where(x => x.Subject.Posts.OrderBy(x => x.Time).ToList().IndexOf(x) == 0).ToList();
+           
             return new JsonResult(posts);
         }
     }

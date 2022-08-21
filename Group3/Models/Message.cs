@@ -12,11 +12,9 @@ namespace Group3.Models
 
         public string AuthorId { get; set; }
 
+        public string AuthorId { get; set; }
+
         public ApplicationUser Author { get; set; }
-
-        public int ConversationId { get; set; }
-
-        public Conversation Conversation { get; set; }
 
         public DateTime Time { get; set; }
 

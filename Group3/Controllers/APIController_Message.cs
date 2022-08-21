@@ -40,17 +40,16 @@ namespace Group3.Controllers
 
         [HttpPost]
         [Route("CreateChatMessage")]
-        public JsonResult CreateChatMessage(string text, string chatId, string 
-            , string userIdArray)
+        public JsonResult CreateChatMessage(string text, string chatId, string AuthorId, string userIdArray)
         {
-            var arr = userIdArray.Split(',').Append(authorId);
+            var arr = userIdArray.Split(',').Append(AuthorId);
 
             if (chatId == null)
                 chatId = (dbContext.Chats.OrderByDescending(x => x.Id).FirstOrDefault().Id + 1).ToString();
 
             foreach (string userId in arr) 
             {
-                var message = new Message { Text = text, Time = DateTime.Now, AuthorId = authorId };
+                var message = new Message { Text = text, Time = DateTime.Now, AuthorId = AuthorId };
                 dbContext.Messages.Add(message);
                 dbContext.SaveChanges();
                 var chat = new Chat { UserId = userId, MessageId = message.Id };

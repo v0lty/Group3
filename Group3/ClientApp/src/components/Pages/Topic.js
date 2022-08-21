@@ -91,7 +91,7 @@ export const Topic = props => {
                             <b>{subject.Name}</b>
                         </div>
                         <div className="row p-0 m-0">
-                            {/*Post COUNT*/}
+                            {/*POST COUNT*/}
                             <Badge bg="dark" className="mb-1" pill>
                                 Posts: {subject.PostsCount}
                             </Badge>
@@ -109,7 +109,7 @@ export const Topic = props => {
             </ListGroup>
             <div className="border-top">
                 <InputModal
-                    title="Create Subject"
+                    title={"Create new Subject in '" + props?.topic?.Name + "'"}
                     useTitle={true}
                     inputTitle="Title"
                     input=""
@@ -117,6 +117,7 @@ export const Topic = props => {
                     visible={modalVisible}
                     onHide={() => { setModalVisible(!modalVisible); }}
                 />
+                {/*CREATE NEW SUBJECT BUTTON*/}
                 {authContext.user != null && 
                     <button className="btn btn-link my-2 text-success" onClick={() => { setModalVisible(!modalVisible); }}>
                         <FontAwesomeIcon icon={faAdd} />

@@ -10,6 +10,7 @@ import { useParams } from 'react-router';
 import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faAdd } from '@fortawesome/free-solid-svg-icons'
+import UserGroup from '../UserGroup';
 
 // URL PATH -> LOCALHOST/CATEGORY/{ID}
 export const CategoryPath = () => {
@@ -90,12 +91,14 @@ export const Category = props => {
     }
 
     return (
-        <div>
-            {/*CATEGORY NAME*/}
-            <h5 className="fw-bold">{props?.category?.Name}</h5>
-            {props?.category?.UserGroup != null &&
-                <p className="text-muted">Memebers: {props?.category?.UserGroup?.UserGroupEnlistments?.map(x => (x.User.Name)).join(', ')}</p>                
-            }            
+        <div className="">
+            <div className="d-flex justify-content-between">
+                {/*CATEGORY NAME*/}
+                <div>
+                    <h5 className="fw-bold">{props?.category?.Name}</h5>
+                </div>
+
+            </div>
             <ListGroup as="ol" className="pb-2">
                 {/*TOPICS*/}
                 {props?.category?.Topics.map((topic, topicIndex) =>
@@ -122,28 +125,36 @@ export const Category = props => {
                         </div>
                     </ListGroup.Item>
                 )}
+
+                <div className="d-flex justify-content-between align-items-start">  
+                    <div className="text-start">
+                        {/*CREATE NEW TOPIC BUTTON*/}
+                        {authContext?.user != null && authContext?.user?.HasAuthority &&
+                            <button className="btn btn-link text-success pe-0" onClick={onTopicCreate}>
+                                <FontAwesomeIcon icon={faAdd} />
+                            </button>
+                        }
+                        {/*DELETE CATEGORY BUTTON*/}
+                        {authContext?.user != null && authContext?.user?.HasAuthority &&
+                            <button className="btn btn-link text-danger pe-0" onClick={props?.onDelete}>
+                                <FontAwesomeIcon icon={faTrash} />
+                            </button>
+                        }
+                    </div>
+                    {props?.category?.UserGroup != null &&
+                        /*USERGROUP*/
+                        <div className="float-end pe-3 pt-2 ">
+                            <UserGroup users={props?.category?.UserGroup?.UserGroupEnlistments?.map(x => (x.User))} />
+                        </div>
+                    }
+                </div>
             </ListGroup>
 
-            <div className="text-start">
-                {/*CREATE NEW TOPIC BUTTON*/}
-                { authContext?.user != null && authContext?.user?.HasAuthority &&
-                    <button className="btn btn-link text-success pe-0" onClick={onTopicCreate}>
-                        <FontAwesomeIcon icon={faAdd} />
-                    </button>
-                }
-                {/*DELETE CATEGORY BUTTON*/}
-                {authContext?.user != null && authContext?.user?.HasAuthority &&                
-                    <button className="btn btn-link text-danger pe-0" onClick={props?.onDelete}>
-                        <FontAwesomeIcon icon={faTrash} />
-                    </button>
-               }
-           </div>
-
            {/*CREATE TOPIC MODAL*/}
-            <Modal show={modalVisible} onHide={() => setModalVisible(false)} backdrop={false}>
+            <Modal show={modalVisible} onHide={() => setModalVisible(false)} backdrop="static" centered>
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        Create Topic
+                        Create Topic in '{props?.category?.Name}'
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
