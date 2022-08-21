@@ -10,6 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faAdd} from '@fortawesome/free-solid-svg-icons'
 import UserSelectModal from '../UserSelectModal';
 import UserGroup from '../UserGroup';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 export default function Forum() {
     const authContext = useContext(AuthContext);
@@ -108,10 +110,12 @@ export default function Forum() {
                 <div className="row">
                     <div className="text-end">
                         {authContext?.user != null && authContext?.user?.HasAuthority &&
-                            /*CREATE CATEGORY BUTTON*/
-                            <button className="btn btn-link text-success py-0" onClick={() => setShowCreateCategoryModal(true)}>
-                                <FontAwesomeIcon icon={faAdd} />
-                            </button>
+                        /*CREATE CATEGORY BUTTON*/
+                            <OverlayTrigger placement="top" overlay={<Tooltip>Create Category</Tooltip>}>
+                                <button className="btn btn-link text-success py-0" onClick={() => setShowCreateCategoryModal(true)}>
+                                    <FontAwesomeIcon icon={faAdd} />
+                                </button>
+                            </OverlayTrigger>
                         }
                     </div>
                 </div>

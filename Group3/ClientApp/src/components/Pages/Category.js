@@ -11,6 +11,8 @@ import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faAdd } from '@fortawesome/free-solid-svg-icons'
 import UserGroup from '../UserGroup';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 // URL PATH -> LOCALHOST/CATEGORY/{ID}
 export const CategoryPath = () => {
@@ -130,6 +132,7 @@ export const Category = props => {
                     <div className="text-start">
                         {/*CREATE NEW TOPIC BUTTON*/}
                         {authContext?.user != null && authContext?.user?.HasAuthority &&
+
                             <button className="btn btn-link text-success pe-0" onClick={onTopicCreate}>
                                 <FontAwesomeIcon icon={faAdd} />
                             </button>
