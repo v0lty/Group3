@@ -9,8 +9,37 @@
 a {
     cursor: pointer;
 }
+
 .sidebar-item {
     cursor: pointer;
+}
+
+.event-days-pill {
+    background-color: #7dc97f;
+    border: none;
+    color: white;
+    padding: 3px 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 32px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.news-days-pill {
+    background-color: #f47174;
+    border: none;
+    color: white;
+    padding: 3px 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 32px;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 .context {

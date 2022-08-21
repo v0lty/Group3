@@ -160,7 +160,6 @@ export const Management = props => {
         }
     }
 
-    /*
     const onEventSubmit = async (event) => {
         console.log("event");
         event.preventDefault();    
@@ -173,7 +172,6 @@ export const Management = props => {
             setShowCreateEventModal(false);
         });
     }
-    */
 
     return (
         <div className="context bg-white shadow">

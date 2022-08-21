@@ -47,9 +47,9 @@ export default function Sidebar_News() {
                                         <b>{topic.Name}</b>
                                     </div>                             
                                     <div className="col p-0 pe-1 d-flex justify-content-end">
-                                        <Badge bg="info" pill>
-                                        <span>{moment(subject?.FirstOrDefaultPost?.Time).fromNow()}</span>
-                                        </Badge>
+                                        <button class="news-days-pill">
+                                            <span>&nbsp;&nbsp;{moment(subject?.FirstOrDefaultPost?.Time).fromNow()}&nbsp;&nbsp;</span>
+                                        </button>
                                     </div>                              
                                 </div>
                                 <div className="p-0 m-0">

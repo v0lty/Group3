@@ -46,9 +46,9 @@ export default function Sidebar_Events() {
                                     <span className="fw-bold">Event</span>
                                 </div>
                                 <div className="col p-0 pe-1 d-flex justify-content-end">
-                                    <Badge bg="info" pill>
-                                        <span>{moment(subject?.FirstOrDefaultPost?.EventDate).fromNow()}</span>
-                                    </Badge>
+                                    <button class="event-days-pill">
+                                        <span>&nbsp;&nbsp;{moment(subject?.FirstOrDefaultPost?.EventDate).fromNow()}&nbsp;&nbsp;</span>
+                                    </button>
                                 </div>
                             </div>
                             <div className="p-0 m-0">
