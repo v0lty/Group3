@@ -26,7 +26,7 @@ export default function Sidebar_Events() {
     }
 
     const truncate = (str) => {
-        return str.length > 33 ? str.substring(0, 31) + ".." : str;
+        return str != null ? str.length > 33 ? str.substring(0, 31) + ".." : str : "";
     }
 
     if (events == null || events.length == 0) {
@@ -53,7 +53,7 @@ export default function Sidebar_Events() {
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="sidebar-text" dangerouslySetInnerHTML={{ __html: truncate(subject.FirstOrDefaultPost.Text) }} />
+                                <div className="sidebar-text" dangerouslySetInnerHTML={{ __html: truncate(subject?.FirstOrDefaultPost?.Text) }} />
                             </div>
 
                         </div>

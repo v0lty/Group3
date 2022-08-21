@@ -6,49 +6,41 @@
     <link>http://localhost:13021/feed.xml</link>
     <description>Description</description>
     <copyright>2022 Group 3</copyright>
-    <lastBuildDate>Sun, 21 Aug 2022 15:19:11 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 21 Aug 2022 23:05:01 +0200</lastBuildDate>
     <item>
       <guid
         isPermaLink="false">http://localhost:13021</guid>
-      <link>http://localhost:13021/post/7</link>
-      <title>Test Subject</title>
-      <description>&lt;p&gt;Test...&lt;/p&gt;</description>
+      <link>http://localhost:13021/post/2</link>
+      <title>gfsf</title>
+      <description>&lt;p&gt;dsfdsfsdf&lt;/p&gt;</description>
+    </item>
+    <item>
+      <guid
+        isPermaLink="false">http://localhost:13021</guid>
+      <link>http://localhost:13021/post/-11</link>
+      <title>Say Hello Party</title>
+      <description>We will celebrate the completion of  our studies with a Say Hello Party on Tuesday 2022-08-23. We're starting a new category that we're naming Other. In that category, we create a topic that we call random talk. In that topic we start a 'Say Hello Party' subject. We will invite the students in the other groups to our forum. If they want, they can register and can contribute a hello in our 'Say Hello Party'.</description>
     </item>
     <item>
       <guid
         isPermaLink="false">http://localhost:13021</guid>
       <link>http://localhost:13021/post/-8</link>
       <title>Site presentation</title>
-      <description>&lt;p&gt;Day for presentation!&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://ps.w.org/coming-soon-master/assets/icon-256x256.jpg?rev=1745498" width="256" height="256"/&gt;&lt;/p&gt;
-&lt;p&gt;Our project was to create a community portal for an organization, including a news feed, events, member lists and discussion forums.&lt;/p&gt;&lt;span&gt;&lt;i&gt;Edited by Bertil Johansson@ 2022/08/21 14:19:28&lt;/i&gt;&lt;/span&gt;&lt;br/&gt;</description>
+      <description>Day for presentation. Our project was to create a community portal for an organization, including a news feed, events, member lists and discussion forums. </description>
     </item>
     <item>
       <guid
         isPermaLink="false">http://localhost:13021</guid>
       <link>http://localhost:13021/post/-7</link>
       <title>Site launch</title>
-      <description>&lt;p&gt;Day for site launch!&amp;nbsp;&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://www.mansfield.gov.uk/images/New_website_homepage_advert.png" width="300" height="300"/&gt;&lt;/p&gt;
-&lt;p&gt;We will see if it is possible to host the site on freeasphosting.net&lt;/p&gt;&lt;span&gt;&lt;i&gt;Edited by Bertil Johansson@ 2022/08/21 14:19:05&lt;/i&gt;&lt;/span&gt;&lt;br/&gt;</description>
+      <description>Day for site launch. We will see if it is possible to host the site on freeasphosting.net</description>
     </item>
     <item>
       <guid
         isPermaLink="false">http://localhost:13021</guid>
-      <link>http://localhost:13021/post/4</link>
-      <title>Say Hello Party</title>
-      <description>&lt;p&gt;We will celebrate the completion of &amp;nbsp;our studies with a Say Hello Party on Saturday 2022-09-03.&lt;/p&gt;
-&lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;We're starting a new category that we're naming Other. In that category, we create a topic that we call random talk. In that topic we start a 'Say Hello Party' subject.&lt;/p&gt;
-&lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;p&gt;We will invite the students in the other groups to our forum. If they want, they can register and can contribute a hello in our 'Say Hello Party'.&amp;nbsp;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <guid
-        isPermaLink="false">http://localhost:13021</guid>
-      <link>http://localhost:13021/post/6</link>
-      <title>Demo class</title>
-      <description>&lt;p&gt;something about visualstudio&lt;/p&gt;</description>
+      <link>http://localhost:13021/post/1</link>
+      <title>gfsf</title>
+      <description>&lt;p&gt;dsfdsfsdf&lt;/p&gt;</description>
     </item>
     <item>
       <guid
