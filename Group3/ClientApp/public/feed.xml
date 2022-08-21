@@ -6,49 +6,38 @@
     <link>http://localhost:13021/feed.xml</link>
     <description>Description</description>
     <copyright>2022 Group 3</copyright>
-    <lastBuildDate>Sun, 21 Aug 2022 15:19:11 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 21 Aug 2022 23:57:39 +0200</lastBuildDate>
     <item>
       <guid
         isPermaLink="false">http://localhost:13021</guid>
-      <link>http://localhost:13021/post/7</link>
-      <title>Test Subject</title>
-      <description>&lt;p&gt;Test...&lt;/p&gt;</description>
+      <link>http://localhost:13021/post/3</link>
+      <title>JavaScript Should be Retired</title>
+      <description>&lt;p&gt;JavaScript Slows Progress, Should be Retired, Argues JSON Creator&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;JavaScript has become a barrier to progress, according to Douglas Crockford, creator of the JSON (JavaScript Object Notation).&lt;/p&gt;
+&lt;p&gt;"The best thing we can do today to JavaScript is to retire it. Twenty years ago, I was one of the few advocates for JavaScript. Its cobbling together of nested functions and dynamic objects was brilliant. I spent a decade trying to correct its flaws. I had a minor success with ES5. But since then, there has been strong interest in further bloating the language instead of making it better. So JavaScript, like the other dinosaur languages, has become a barrier to progress. We should be focused on the next language, which should look more like E than like JavaScript."&lt;/p&gt;
+&lt;p&gt;Crockford also acknowledged there's be two difficulties in replacing browser-based JavaScript, according to the article. "First, we don't have the next language yet. It needs to be a minimal capability-based actor language that is designed specifically for secure distributed programming. Nothing less should be considered.&lt;/p&gt;
+&lt;p&gt;"Second, we need all of the browser makers to adopt it and to simultaneously replace the DOM with a well designed interface. Good luck with that."&lt;/p&gt;</description>
+    </item>
+    <item>
+      <guid
+        isPermaLink="false">http://localhost:13021</guid>
+      <link>http://localhost:13021/post/-11</link>
+      <title>Say Hello Party</title>
+      <description>We will celebrate the completion of  our studies with a Say Hello Party on Tuesday 2022-08-23. We're starting a new category that we're naming Other. In that category, we create a topic that we call random talk. In that topic we start a 'Say Hello Party' subject. We will invite the students in the other groups to our forum. If they want, they can register and can contribute a hello in our 'Say Hello Party'.</description>
     </item>
     <item>
       <guid
         isPermaLink="false">http://localhost:13021</guid>
       <link>http://localhost:13021/post/-8</link>
       <title>Site presentation</title>
-      <description>&lt;p&gt;Day for presentation!&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://ps.w.org/coming-soon-master/assets/icon-256x256.jpg?rev=1745498" width="256" height="256"/&gt;&lt;/p&gt;
-&lt;p&gt;Our project was to create a community portal for an organization, including a news feed, events, member lists and discussion forums.&lt;/p&gt;&lt;span&gt;&lt;i&gt;Edited by Bertil Johansson@ 2022/08/21 14:19:28&lt;/i&gt;&lt;/span&gt;&lt;br/&gt;</description>
+      <description>Day for presentation. Our project was to create a community portal for an organization, including a news feed, events, member lists and discussion forums. </description>
     </item>
     <item>
       <guid
         isPermaLink="false">http://localhost:13021</guid>
       <link>http://localhost:13021/post/-7</link>
       <title>Site launch</title>
-      <description>&lt;p&gt;Day for site launch!&amp;nbsp;&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://www.mansfield.gov.uk/images/New_website_homepage_advert.png" width="300" height="300"/&gt;&lt;/p&gt;
-&lt;p&gt;We will see if it is possible to host the site on freeasphosting.net&lt;/p&gt;&lt;span&gt;&lt;i&gt;Edited by Bertil Johansson@ 2022/08/21 14:19:05&lt;/i&gt;&lt;/span&gt;&lt;br/&gt;</description>
-    </item>
-    <item>
-      <guid
-        isPermaLink="false">http://localhost:13021</guid>
-      <link>http://localhost:13021/post/4</link>
-      <title>Say Hello Party</title>
-      <description>&lt;p&gt;We will celebrate the completion of &amp;nbsp;our studies with a Say Hello Party on Saturday 2022-09-03.&lt;/p&gt;
-&lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;We're starting a new category that we're naming Other. In that category, we create a topic that we call random talk. In that topic we start a 'Say Hello Party' subject.&lt;/p&gt;
-&lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;p&gt;We will invite the students in the other groups to our forum. If they want, they can register and can contribute a hello in our 'Say Hello Party'.&amp;nbsp;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <guid
-        isPermaLink="false">http://localhost:13021</guid>
-      <link>http://localhost:13021/post/6</link>
-      <title>Demo class</title>
-      <description>&lt;p&gt;something about visualstudio&lt;/p&gt;</description>
+      <description>Day for site launch. We will see if it is possible to host the site on freeasphosting.net</description>
     </item>
     <item>
       <guid

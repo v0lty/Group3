@@ -44,7 +44,7 @@ namespace Group3.Models
 
         public String RoleString
         {
-            get{ return string.Join(",", Roles); }
+            get { return string.Join(",", Roles); }
         }
 
         public bool HasAuthority

@@ -60,10 +60,10 @@ export default function News() {
         return (
             <div>
                 {newsCategory?.PostDates?.map(x => (format(Date.parse(x), "yyyy-MM-dd"))).includes(format(day, "yyyy-MM-dd")) &&
-                    <div className="calendar-dot-top bg-news-dot" />
+                    <div className="calendar-dot-top bg-news" />
                 }
                 {eventsTopic?.PostDates?.map(x => (format(Date.parse(x), "yyyy-MM-dd"))).includes(format(day, "yyyy-MM-dd")) &&
-                    <div className="calendar-dot-bottom bg-events-dot" />
+                    <div className="calendar-dot-bottom bg-events" />
                 }
                 <span>{format(day, "d")}</span>
             </div>

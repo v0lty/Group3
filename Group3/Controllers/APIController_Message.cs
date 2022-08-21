@@ -11,6 +11,7 @@ namespace Group3.Controllers
 
     public partial class APIController : Controller
     {
+/*
         [HttpPost]
         [Route("GetChats")]
         public JsonResult GetChats(string userId)
@@ -60,5 +61,6 @@ namespace Group3.Controllers
 
             return new JsonResult(null);
         }
+        */
     }
 }
