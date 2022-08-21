@@ -42,7 +42,7 @@ export default function Sidebar_Events() {
                     <div key={subjectIndex} className="sidebar-item d-flex border-0 border-top pt-2" onClick={() => onSubjectClick(subject.Id)}>
                         <div className="col-2" style={{ width: 30 }}>
                             <div className="ps-2"  >
-                                <FontAwesomeIcon icon={faCalendar} />
+                                <FontAwesomeIcon className="text-events" icon={faCalendar} />
                             </div>
                         </div>
                         <div className="col pe-2">

@@ -7,7 +7,9 @@ import Badge from 'react-bootstrap/Badge';
 import { useHistory } from "react-router-dom";
 import { useParams } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faAdd } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faAdd } from '@fortawesome/free-solid-svg-icons';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 // URL PATH -> LOCALHOST/TOPIC/{ID}
 export const TopicPath = () => {
@@ -98,9 +100,11 @@ export const Topic = props => {
                             {/*DELETE*/}
                             <div className="text-end">
                                 {authContext?.user != null && authContext?.user?.HasAuthority &&
-                                    <button className="btn btn-link p-0 m-0 text-danger" onClick={() => onSubjectDelete(subject)}>
-                                        <FontAwesomeIcon icon={faTrash} />
-                                    </button>
+                                    <OverlayTrigger placement="top" overlay={<Tooltip>Delete Subject</Tooltip>}>
+                                        <button className="btn btn-link p-0 m-0 text-danger" onClick={() => onSubjectDelete(subject)}>
+                                            <FontAwesomeIcon icon={faTrash} />
+                                        </button>
+                                    </OverlayTrigger>
                                 }
                             </div>
                         </div>
@@ -119,9 +123,11 @@ export const Topic = props => {
                 />
                 {/*CREATE NEW SUBJECT BUTTON*/}
                 {authContext.user != null && 
-                    <button className="btn btn-link my-2 text-success" onClick={() => { setModalVisible(!modalVisible); }}>
-                        <FontAwesomeIcon icon={faAdd} />
-                    </button>
+                    <OverlayTrigger placement="top" overlay={<Tooltip>Add Subject</Tooltip>}>
+                        <button className="btn btn-link my-2 text-success" onClick={() => { setModalVisible(!modalVisible); }}>
+                            <FontAwesomeIcon icon={faAdd} />
+                        </button>
+                    </OverlayTrigger>
                 }
             </div>
         </div>

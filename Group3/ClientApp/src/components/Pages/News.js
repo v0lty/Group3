@@ -10,6 +10,8 @@ import moment from "moment";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faNewspaper, faCalendar, faLocationArrow } from '@fortawesome/free-solid-svg-icons'
 import { useHistory } from "react-router-dom";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 export default function News() {
     const authContext = useContext(AuthContext);
@@ -111,9 +113,11 @@ export default function News() {
                             </div>
                             <div className="col" style={{ minWidth: 250 }, { minHeight: 100 }}>
                                 <div className="bubble h-100 w-100 p-3">
-                                    <button className="float-end btn btn-link" onClick={() => { history.push(`/post/${post.Id}`); }}>
-                                        <FontAwesomeIcon className="text-primary h2" icon={faLocationArrow} />
-                                    </button>
+                                    <OverlayTrigger placement="top" overlay={<Tooltip>Go to the comment section</Tooltip>}>
+                                        <button className="float-end btn btn-link" onClick={() => { history.push(`/post/${post.Id}`); }}>
+                                            <FontAwesomeIcon className="text-primary h2" icon={faLocationArrow} />
+                                        </button>
+                                    </OverlayTrigger>
                                     <h4>{post.Subject.Name}</h4>
                                     <div dangerouslySetInnerHTML={{ __html: post.Text }} />
                                 </div>

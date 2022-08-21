@@ -7,6 +7,8 @@ import { useParams } from 'react-router';
 import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faAdd, faPencilSquare, faQuoteRight, faFlag, faThumbsUp, faAddressBook, faCommenting, faReply } from '@fortawesome/free-solid-svg-icons'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 var oneHour = 60 * 60 * 1000; /* ms is the standard time measurement in js */
 
@@ -107,10 +109,12 @@ export const Post = props => {
                     {/*TIME*/}
                     <span><b>{moment(props?.post?.Time).fromNow()}</b></span>
                     {/*VOTE*/}
-                    <button className="btn border-0 float-end p-0 px-2" onClick={() => onVote(props?.post?.Id)}>
-                        <span className="fw-bold">{props?.post?.Votes} </span> 
-                        <FontAwesomeIcon className="text-warning" icon={faThumbsUp} />
-                    </button>
+                    <OverlayTrigger placement="top" overlay={<Tooltip>Like</Tooltip>}>
+                        <button className="btn border-0 float-end p-0 px-2" onClick={() => onVote(props?.post?.Id)}>
+                            <span className="fw-bold">{props?.post?.Votes} </span> 
+                            <FontAwesomeIcon className="text-warning" icon={faThumbsUp} />
+                        </button>
+                    </OverlayTrigger>
                 </div>
             </div>
             <div className="row">
@@ -137,13 +141,18 @@ export const Post = props => {
                                 <br />
                                 {/*PROFILE & MESSAGE*/}
                                 <div className="d-flex align-items-start">
-                                    <button className="btn btn-link p-0 m-0 pe-3" onClick={() => history.push(`/user/${props?.post?.Author?.Id}`)}>
-                                        <FontAwesomeIcon icon={faAddressBook} />                                        
-                                    </button><br />
-                                    {authContext?.user?.Id != props?.post?.Author?.Id && (
-                                        <button className="btn btn-link p-0 m-0 pe-3" onClick={() => history.push(`/messages/${props?.post?.Author?.Id}`)}>
-                                            <FontAwesomeIcon icon={faCommenting} />
+                                    <OverlayTrigger placement="top" overlay={<Tooltip>Profile</Tooltip>}>
+                                        <button className="btn btn-link p-0 m-0 pe-3" onClick={() => history.push(`/user/${props?.post?.Author?.Id}`)}>
+                                            <FontAwesomeIcon icon={faAddressBook} />                                        
                                         </button>
+                                    </OverlayTrigger>
+                                        <br />
+                                    {authContext?.user?.Id != props?.post?.Author?.Id && (
+                                        <OverlayTrigger placement="top" overlay={<Tooltip>Message</Tooltip>}>
+                                            <button className="btn btn-link p-0 m-0 pe-3" onClick={() => history.push(`/messages/${props?.post?.Author?.Id}`)}>
+                                                <FontAwesomeIcon icon={faCommenting} />
+                                            </button>
+                                        </OverlayTrigger>
                                     )}
                                 </div>
                             </span>
@@ -169,25 +178,33 @@ export const Post = props => {
                         {(((authContext?.user?.Id == props?.post?.Author?.Id && moment(props?.post?.Time) + oneHour) > (new Date)) || authContext?.user?.HasAuthority) ? (
                             <div>
                                 {/*DELETE BUTTON*/}
-                                <button className="btn btn-link text-danger float-end" onClick={() => onDelete(props?.post?.Id)}>
-                                    <FontAwesomeIcon icon={faTrash} />
-                                </button>
+                                <OverlayTrigger placement="top" overlay={<Tooltip>Delete Post</Tooltip>}>
+                                    <button className="btn btn-link text-danger float-end" onClick={() => onDelete(props?.post?.Id)}>
+                                        <FontAwesomeIcon icon={faTrash} />
+                                    </button>
+                                </OverlayTrigger>
                                 {/*EDIT BUTTON*/}
-                                <button className="btn btn-link float-end" onClick={() => onEditClick(props?.post)}>
-                                    <FontAwesomeIcon icon={faPencilSquare} />
-                                </button>
+                                <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>}>
+                                    <button className="btn btn-link float-end" onClick={() => onEditClick(props?.post)}>
+                                        <FontAwesomeIcon icon={faPencilSquare} />
+                                    </button>
+                                </OverlayTrigger>
                             </div>
                         ) : (
-                            /*REPORT BUTTON*/
-                            <button className="btn btn-link float-end" onClick={() => onReport(props?.post.Id)}>
-                                <FontAwesomeIcon icon={faFlag} />                                    
-                            </button>
+                                /*REPORT BUTTON*/
+                                <OverlayTrigger placement="top" overlay={<Tooltip>Report</Tooltip>}>
+                                    <button className="btn btn-link float-end" onClick={() => onReport(props?.post.Id)}>
+                                        <FontAwesomeIcon icon={faFlag} />                                    
+                                    </button>
+                                </OverlayTrigger>
                         )}
                         {authContext?.user?.Id != props?.post?.Author?.Id && (
                             /*QUOTE BUTTON*/
-                            <button className="btn btn-link float-end" onClick={() => props.onQuote(props?.post)}>
-                                <FontAwesomeIcon icon={faQuoteRight} />
-                            </button>
+                                <OverlayTrigger placement="top" overlay={<Tooltip>Quote</Tooltip>}>
+                                    <button className="btn btn-link float-end" onClick={() => props.onQuote(props?.post)}>
+                                        <FontAwesomeIcon icon={faQuoteRight} />
+                                    </button>
+                                </OverlayTrigger>
                         )}
                     </div>
                 </div>

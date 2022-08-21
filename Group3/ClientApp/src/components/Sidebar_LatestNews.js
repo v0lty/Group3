@@ -43,7 +43,7 @@ export default function Sidebar_LatestNews() {
                         <div key={subjectIndex} className="sidebar-item d-flex border-0 border-top pt-2" onClick={() => onSubjectClick(subject.Id)}>
                             <div className="col-2" style={{ width: 30 }}>
                                 <div className="ps-2"  >
-                                    <FontAwesomeIcon icon={faNewspaper} />
+                                    <FontAwesomeIcon className="text-news" icon={faNewspaper} />
                                 </div>
                             </div>
                             <div className="col pe-2">

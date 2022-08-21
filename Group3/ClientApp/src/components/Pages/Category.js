@@ -119,9 +119,11 @@ export const Category = props => {
                             {/*DELETE TOPIC*/}
                             <div className="text-end">
                                 {authContext?.user != null && authContext?.user?.HasAuthority &&
-                                    <button className="btn btn-link p-0 m-0 text-danger" onClick={() => onTopicDelete(topic)}>
-                                        <FontAwesomeIcon icon={faTrash} />
-                                    </button>
+                                    <OverlayTrigger placement="top" overlay={<Tooltip>Delete Topic</Tooltip>}>
+                                        <button className="btn btn-link p-0 m-0 text-danger" onClick={() => onTopicDelete(topic)}>
+                                            <FontAwesomeIcon icon={faTrash} />
+                                        </button>
+                                    </OverlayTrigger>
                                 }
                             </div>
                         </div>
@@ -132,16 +134,19 @@ export const Category = props => {
                     <div className="text-start">
                         {/*CREATE NEW TOPIC BUTTON*/}
                         {authContext?.user != null && authContext?.user?.HasAuthority &&
-
-                            <button className="btn btn-link text-success pe-0" onClick={onTopicCreate}>
-                                <FontAwesomeIcon icon={faAdd} />
-                            </button>
+                            <OverlayTrigger placement="top" overlay={<Tooltip>Create Topic</Tooltip>}>
+                                <button className="btn btn-link text-success pe-0" onClick={onTopicCreate}>
+                                    <FontAwesomeIcon icon={faAdd} />
+                                </button>
+                            </OverlayTrigger>
                         }
                         {/*DELETE CATEGORY BUTTON*/}
                         {authContext?.user != null && authContext?.user?.HasAuthority &&
-                            <button className="btn btn-link text-danger pe-0" onClick={props?.onDelete}>
-                                <FontAwesomeIcon icon={faTrash} />
-                            </button>
+                            <OverlayTrigger placement="top" overlay={<Tooltip>Delete Category</Tooltip>}>
+                                <button className="btn btn-link text-danger pe-0" onClick={props?.onDelete}>
+                                    <FontAwesomeIcon icon={faTrash} />
+                                </button>
+                            </OverlayTrigger>
                         }
                     </div>
                     {props?.category?.UserGroup != null &&

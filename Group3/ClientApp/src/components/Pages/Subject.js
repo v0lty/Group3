@@ -8,6 +8,8 @@ import moment from "moment";
 import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faReply } from '@fortawesome/free-solid-svg-icons'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 // URL PATH -> LOCALHOST/SUBJECT/{ID}
 export const SubjectPath = () => {
@@ -97,9 +99,11 @@ export const Subject = props => {
                     onHide={() => { setModalVisible(!modalVisible); }}
                 />
                 {authContext.user != null &&
-                    <button className="btn btn-link my-2 text-dark" onClick={() => { setModalVisible(!modalVisible); }}>                    
-                        <FontAwesomeIcon icon={faReply} />
-                    </button>     
+                    <OverlayTrigger placement="top" overlay={<Tooltip>Post a message in this thread</Tooltip>}>
+                        <button className="btn btn-link my-2 text-dark" onClick={() => { setModalVisible(!modalVisible); }}>                    
+                            <FontAwesomeIcon icon={faReply} />
+                        </button>   
+                    </OverlayTrigger>
                 }
             </div>
         </div>
