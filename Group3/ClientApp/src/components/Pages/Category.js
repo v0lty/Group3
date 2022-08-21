@@ -102,9 +102,9 @@ export const Category = props => {
                     <ListGroup.Item key={topicIndex} as="li" className="list-item d-flex justify-content-between align-items-start border-0 bg-gray m-1 mx-3" onClick={() => onTopicClick(topic.Id)}>
                         <div className="me-auto" >
                             {/*TOPIC NAME*/}
-                            <b>{topic.Name}</b>
+                            <b className="text-primary">{topic.Name}</b>
                             {/*TOPIC DESCRIPTION*/}
-                            <i><div dangerouslySetInnerHTML={{ __html: topic.Description != null ? topic.Description : "No description" }} /></i>
+                            <div dangerouslySetInnerHTML={{ __html: topic.Description != null ? topic.Description : "No description" }} />
                         </div>                        
                         <div className="row p-0 m-0">
                             {/*SUBJECTS COUNT*/}

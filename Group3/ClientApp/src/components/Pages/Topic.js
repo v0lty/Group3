@@ -85,10 +85,10 @@ export const Topic = props => {
             <ListGroup as="ol" className="pb-2">
                 {/*SUBJECTS*/}
                 {props?.topic?.Subjects?.map((subject, subjectIndex) =>
-                    <ListGroup.Item key={subjectIndex} as="li" className="d-flex justify-content-between align-items-start border-0 bg-gray m-1 mx-3">
+                    <ListGroup.Item key={subjectIndex} as="li" className="list-item d-flex justify-content-between align-items-start border-0 bg-gray m-1 mx-3" onClick={() => onSubjectClick(subject.Id)}>
                         <div className="me-auto">
                             {/*SUBJECT NAME*/}
-                            <div className=""><button className="btn btn-link fw-bold m-0 p-0" onClick={() => onSubjectClick(subject.Id)}>{subject.Name}</button></div>
+                            <b>{subject.Name}</b>
                         </div>
                         <div className="row p-0 m-0">
                             {/*Post COUNT*/}

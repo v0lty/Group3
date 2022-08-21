@@ -10,53 +10,62 @@ a {
     cursor: pointer;
 }
 
-.sidebar-item {
-    cursor: pointer;
+.text-news {
+    color: darkgreen;
+}
+.bg-news {
+    background-color: darkgreen;
+    background: darkgreen;
 }
 
-.event-days-pill {
-    background-color: #7dc97f;
-    border: none;
-    color: white;
-    padding: 3px 3px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-    border-radius: 32px;
-    font-size: 12px;
-    font-weight: bold;
+.text-events {
+    color: darkred;
+}
+.bg-events {
+    background-color: darkred;
+    background: darkred;
 }
 
-.news-days-pill {
-    background-color: #f47174;
-    border: none;
-    color: white;
-    padding: 3px 3px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-    border-radius: 32px;
-    font-size: 12px;
-    font-weight: bold;
+.calendar-dot-top {
+    height: 9px;
+    width: 9px;
+    border-radius: 100%;
+    position: absolute;
+    top: 2px;
+    right: 8px;
 }
+
+.calendar-dot-bottom {
+    height: 9px;
+    width: 9px;
+    border-radius: 100%;
+    position: absolute;
+    bottom: 2px;
+    right: 8px;
+}
+
 
 .context {
     padding: 15px;
     margin-bottom: 10px;
 }
 
-.sidebar-item:hover {
-    background-color: rgba(255, 255, 255, 0.5);
+.sidebar-item {
+    height: 65px;
+    margin: 0px;
+    cursor: pointer;
 }
+
+    .sidebar-item:hover {
+        background-color: rgba(222, 220, 202, 0.7);
+    }
 
 .list-item {
     cursor: pointer;
 }
 
 .list-item:hover {
-    background-color: RGBA(108, 117, 125, 0.25);
+    background-color: RGBA(222, 220, 202, 0.7);
 }
 
 .bg-gray {
@@ -112,6 +121,27 @@ body {
     object-fit: fill;
 }
 
+.profile-picture-rounded {
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: fill;
+    border-radius: 50%;
+}
+
+.profile-image-small {
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+    object-fit: fill;
+}
+
+.profile-image-extra-small {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    object-fit: fill;
+}
+
 .content {
     max-width: 1440px;
     background: #dedcca;
@@ -130,7 +160,6 @@ header {
 
 footer {
     background: white;
-    min-height: 75px;
     border: none;
 }
 
@@ -201,20 +230,6 @@ footer .fa {
 
 .category-view a:hover {
     opacity: 0.3;
-}
-
-.profile-image-small {
-    border-radius: 50%;
-    width: 75px;
-    height: 75px;
-    object-fit: fill;
-}
-
-.profile-image-extra-small {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    object-fit: fill;
 }
 
 .speech-bubble-right {
@@ -315,31 +330,58 @@ footer .fa {
         margin-right: -1.937em;
     }
 
-.news-dot {
-    height: 7px;
-    width: 7px; 
-    border-radius: 100%;
-    background: red; 
-    position: absolute; 
-    top: 2px;
-    right: 10px;
-}
-
-.event-dot {
-    height: 7px;
-    width: 7px;
-    border-radius: 100%;
-    background: red;
-    position: absolute;
-    bottom: 2px;
-    right: 10px;
-}
-
-
 .Main {
     background: white;
     border: 1px solid RGBA(13, 110, 253, 0.15);
     margin: 1em;
     padding: 1em;
     border-radius: .4em;
+}
+
+.bubble {
+    position: relative;
+    background: #ffffff;
+    min-height: 150px;
+    filter: drop-shadow(0px 2px 10px #A3A3A3);
+    border-radius: 10px;
+}
+
+    .bubble:after {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 0;
+        z-index: 1;
+        border-style: solid;
+        border-width: 0 20px 20px 0;
+        border-color: transparent #ffffff transparent transparent;
+        top: 24%;
+        left: -20px;
+        margin-top: -10px;
+    }
+
+.bubble-right {
+    position: relative;
+    background: #ffffff;
+    min-height: 150px;
+    filter: drop-shadow(0px 2px 10px #A3A3A3);
+    border-radius: 10px;
+}
+
+.bubble-right:after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 0;
+    z-index: 1;
+    border-style: solid;
+    border-width: 20px 20px 0 0;
+    border-color: #ffffff transparent transparent transparent;
+    top: 24%;
+    right: -20px;
+    margin-top: -10px;
+}
+
+.bg-color1 {
+   background-color: RGBA(108, 117, 125, 0.15) !important;
 }

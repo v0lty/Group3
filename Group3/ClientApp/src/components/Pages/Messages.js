@@ -141,8 +141,8 @@ export default function Messages() {
                                     {chat?.Items.map((message, messageIndex) =>
                                     /*BUBBLE*/
                                     <div key={messageIndex} className={message?.Aurthor?.Id == authContext.user?.Id
-                                            ? "row chat-bubble speech-bubble-right"
-                                            : "row chat-bubble speech-bubble-left"}>
+                                            ? "row bubble-right mt-4"
+                                            : "row bubble mt-4"}>
                                         {/*USER*/}
                                         <div className="col-3" style={{ width: 100 }}>                                        
                                             <div className="text-center p-2">
@@ -176,8 +176,8 @@ export default function Messages() {
                                     )}
                                 </div>
                                 {/*MESSAGE BUTTON*/}
-                                <div className="d-flex justify-content-end w-100">
-                                    <button className="btn border-0 button-speech-bubble fw-bold px-5" onClick={() => onReplay(chat)}>
+                                <div className="text-end">
+                                    <button className="btn btn-link border-0 bubble-right fw-bold mt-4 px-5" style={{ minHeight: 75 }} onClick={() => onReplay(chat)}>
                                         <FontAwesomeIcon icon={faReply} />
                                     </button>
                                 </div>

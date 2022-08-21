@@ -33,6 +33,7 @@ namespace Group3.Controllers
                 var category = dbContext.Categories
                     .Where(x => x.Id == int.Parse(categoryId))
                     .Include(x => x.Topics)
+                    .ThenInclude(x => x.Subjects)
                     .FirstOrDefault();
 
                 if (category == null)

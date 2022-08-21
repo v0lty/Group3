@@ -29,26 +29,16 @@ namespace Group3.Models
         {
             get
             {
-                return Topics != null // TODO: use map.map.map in react instead
-                     ? Topics.SelectMany(x =>
+                return Topics != null // TODO: move events to its own table and get PostDates in frontend instead
+                     ? Topics.Where(x => x.Name != "Events").SelectMany(x =>
                         x.Subjects != null 
                       ? x.Subjects.SelectMany(
                           x => x.Posts != null 
-                        ? x.Posts.Select(x => x.Time)
+                        ? x.Posts.Where(x => x.Subject.Posts.OrderBy(x => x.Time).ToList().IndexOf(x) == 0).Select(x => x.Time)
                         : new List<DateTime>()) 
                       : new List<DateTime>()).Distinct().ToList()
                      : new List<DateTime>();
             }
-        }
-
-        public List<Post> GetPostsByDate(DateTime startDate, DateTime endDate)
-        {
-            var result = new List<Post>();
-
-            if (Topics != null)
-                Topics.ForEach(topic => result.AddRange(topic.GetPostsByDate(startDate, endDate)));
-
-            return result;
         }
     }
 }
