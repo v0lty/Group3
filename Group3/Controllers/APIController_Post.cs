@@ -17,26 +17,6 @@ namespace Group3.Controllers
             return epoch.AddMilliseconds(unixTimeMillis);
         }
 
-        //[HttpPost]
-        //[Route("GetPostsByDate")]
-        //public JsonResult GetPostsByDate(string date)
-        //{
-        //    var dateTime = FromUnixTime(Int64.Parse(date));
-
-        //    var posts = dbContext.Posts
-        //        .Where(x => x.Time.Date == dateTime.Date)
-        //        .Include(post => post.Aurthor)
-        //        .ThenInclude(user => user.Pictures)
-        //        .Include(post => post.Aurthor)
-        //        .ThenInclude(user => user.UserRoles)
-        //        .ThenInclude(role => role.Role)
-        //        .Include(post => post.Pictures)
-        //        .Include(post => post.Subject)
-        //        .ThenInclude(subject => subject.Topic).ToArray();
-
-        //    return new JsonResult(posts);
-        //}
-
         [HttpGet]
         [Route("GetAllPosts")]
         public JsonResult GetAllPosts()
@@ -228,33 +208,29 @@ namespace Group3.Controllers
         [Route("GetPostsByDate")]
         public JsonResult GetPostsByDate(string startDate, string EndDate)
         {
-            var category = this.dbContext.Categories
-                .Where(category => category.Name == "News")
-                .Include(category => category.Topics)
-                .ThenInclude(topic => topic.Subjects)
-                .ThenInclude(subject => subject.Posts)
-                .ThenInclude(post => post.Aurthor)
-                .ThenInclude(user => user.Pictures)
-                .Include(category => category.Topics)
-                .ThenInclude(topic => topic.Subjects)
-                .ThenInclude(subject => subject.Posts)
-                .ThenInclude(post => post.Aurthor)
+            var head = DateTime.Parse(startDate);
+            var tail = DateTime.Parse(EndDate);
+
+            var posts = dbContext.Posts
+                .Include(x => x.Subject)
+                .ThenInclude(x => x.Posts)
+                .ThenInclude(x => x.Aurthor)
+                .Include(x => x.Subject)
+                .ThenInclude(x => x.Topic)
+                .ThenInclude(x => x.Category)
+                .Include(post => post.Aurthor)
                 .ThenInclude(user => user.UserRoles)
                 .ThenInclude(role => role.Role)
-                .Include(category => category.Topics)
-                .ThenInclude(topic => topic.Subjects)
-                .ThenInclude(subject => subject.Posts)
+                .Include(post => post.Aurthor)
                 .ThenInclude(post => post.Pictures)
-                .Include(category => category.Topics)
-                .ThenInclude(topic => topic.Subjects)
-                .ThenInclude(subject => subject.Posts)
-                .ThenInclude(post => post.Subject)
-                .FirstOrDefault();
+                .Where(x => x.Subject.Topic.Category.Name == "News" 
+                && ((x.EventDate != null && (x.EventDate >= head && x.EventDate <= tail)) || (x.Time >= head && x.Time <= tail)))                
+                .OrderBy(x => x.EventDate != null ? x.EventDate : x.Time) 
+                .ToList();
+            // TODO: this is nasty, move events to its own database table if we find time..
+            var firstOrDefaultsByDate = posts.Where(x => x.Subject.Posts.OrderBy(x => x.Time).ToList().IndexOf(x) == 0).ToList();
 
-            var posts = category.GetPostsByDate(DateTime.Parse(startDate), DateTime.Parse(EndDate));
-            posts.Sort((x, y) => x.Time.CompareTo(y.Time));
-
-            return new JsonResult(posts);
+            return new JsonResult(firstOrDefaultsByDate);
         }
     }
 }

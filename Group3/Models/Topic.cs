@@ -33,27 +33,15 @@ namespace Group3.Models
         {
             get
             {
-                var list = Subjects != null ?
-                           Subjects
-                           .SelectMany(x => x.Posts != null
-                                           ? x.Posts
-                                           .Select(x => x.EventDate)
-                                           : new List<DateTime?>()).Distinct().ToList()
-                                           : new List<DateTime?>();
-
-                list.RemoveAll(item => item == null);
-                return list;
+                return Subjects != null ? // TODO: move to frontend
+                       Subjects.SelectMany(x => 
+                       x.Posts != null ? 
+                       x.Posts.Where(x => x.EventDate != null)
+                              .Select(x => x.EventDate)
+                                : new List<DateTime?>()).Distinct().ToList()
+                                : new List<DateTime?>();
+               
             }
-        }
-
-        public List<Post> GetPostsByDate(DateTime startDate, DateTime endDate)
-        {
-            var result = new List<Post>();
-
-            if (Subjects != null)
-                Subjects.ForEach(subject => result.AddRange(subject.GetPostsByDate(startDate, endDate)));
-
-            return result;
         }
     }
 }

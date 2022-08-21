@@ -4,7 +4,7 @@ import API from "../API";
 import { Calendar, DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; 
 import 'react-date-range/dist/theme/default.css'; 
-import { addDays, format, isWeekend } from 'date-fns';
+import { addDays, addHours, format, isWeekend } from 'date-fns';
 import { enGB } from 'date-fns/locale'
 import moment from "moment";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -32,8 +32,8 @@ export default function News() {
             setEventsTopic(newsCategory.Topics.find(x => x.Name == "Events"));
 
             API.getPostsByDate({
-                startDate: format(state.selection.startDate, "yyyy-MM-dd"),
-                endDate: format(addDays(state.selection.endDate, 1), "yyyy-MM-dd"),
+                startDate: format(state.selection.startDate, "yyyy-MM-dd HH:mm"),
+                endDate: format(addHours(item.selection.endDate, 23), "yyyy-MM-dd HH:mm"),
             }).then((posts) => {
                 setSelectedPost(posts);
                 console.log(posts);
@@ -49,11 +49,10 @@ export default function News() {
         setState({ ...state, ...item });
 
         API.getPostsByDate({
-            startDate: format(item.selection.startDate, "yyyy-MM-dd"),
-            endDate: format(addDays(item.selection.endDate, 1), "yyyy-MM-dd"),
+            startDate: format(item.selection.startDate, "yyyy-MM-dd HH:mm"),
+            endDate: format(addHours(item.selection.endDate, 23), "yyyy-MM-dd HH:mm"),
         }).then((posts) => {
             setSelectedPost(posts);
-            console.log(posts);
         });
     }
     
