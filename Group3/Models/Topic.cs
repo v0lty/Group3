@@ -21,9 +21,9 @@ namespace Group3.Models
 
         public int CategoryId { get; set; }
 
-        public ApplicationUser Aurthor { get; set; }
+        public ApplicationUser Author { get; set; }
 
-        public string AurthorId { get; set; }
+        public string AuthorId { get; set; }
 
         public List<Subject> Subjects { get; set; }
 

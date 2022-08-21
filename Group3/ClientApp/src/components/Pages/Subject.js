@@ -45,7 +45,7 @@ export const Subject = props => {
             `<blockquote>
                 <span>
                     Quote by<a href="/post/${post.Id}">
-                        ${post.Aurthor.Name} @ 
+                        ${post.Author.Name} @ 
                         ${moment(post.Time).utc().format('YYYY/MM/DD HH:mm')}
                     </a><br />
                     ${post.Text}
@@ -70,6 +70,7 @@ export const Subject = props => {
     return (
         <div className="">
             <h5 className="m-0 p-0 pb-3">
+                {/*PATH*/}
                 <a className="text-decoration-none" href={`/category/${props?.subject?.Topic?.Category?.Id}`}>{props?.subject?.Topic?.Category?.Name}</a>
                 {" > "}
                 <a className="text-decoration-none" href={`/topic/${props?.subject?.Topic?.Id}`}>{props?.subject?.Topic?.Name}</a>
@@ -77,6 +78,7 @@ export const Subject = props => {
                 <span>{props?.subject?.Name}</span>
             </h5>
             {props?.subject?.Posts?.map((post, postIndex) =>
+                /*POST*/
                 <Post
                     key={postIndex}
                     post={post}        
@@ -85,8 +87,9 @@ export const Subject = props => {
                 />
             )}
             <div className="d-flex justify-content-end">
+                {/*REPLY MODAL*/}
                 <InputModal                    
-                    title="Reply"
+                    title={"Reply to '" + props?.subject?.Name + "'"}
                     useTitle={false}
                     input={input}
                     onSubmit={onPostSubmit}

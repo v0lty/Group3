@@ -22,9 +22,9 @@ namespace Group3.Controllers
         public JsonResult GetAllPosts()
         {
             var posts = dbContext.Posts
-                .Include(post => post.Aurthor)
+                .Include(post => post.Author)
                 .ThenInclude(user => user.Pictures)
-                .Include(post => post.Aurthor)
+                .Include(post => post.Author)
                 .ThenInclude(user => user.UserRoles)
                 .ThenInclude(role => role.Role)                
                 .Include(post => post.Pictures)
@@ -40,9 +40,9 @@ namespace Group3.Controllers
         {
             var posts = dbContext.Posts
                 .Where(x => x.SubjectId == int.Parse(subjectId))
-                .Include(post => post.Aurthor)
+                .Include(post => post.Author)
                 .ThenInclude(user => user.Pictures)
-                .Include(post => post.Aurthor)
+                .Include(post => post.Author)
                 .ThenInclude(user => user.UserRoles)
                 .ThenInclude(role => role.Role)
                 .Include(post => post.Pictures)
@@ -60,9 +60,9 @@ namespace Group3.Controllers
         {
             var post = dbContext.Posts
                 .Where(x => x.Id == int.Parse(postId))
-                .Include(post => post.Aurthor)
+                .Include(post => post.Author)
                 .ThenInclude(user => user.Pictures)
-                .Include(post => post.Aurthor)
+                .Include(post => post.Author)
                 .ThenInclude(user => user.UserRoles)
                 .ThenInclude(role => role.Role)
                 .Include(post => post.Pictures)
@@ -82,7 +82,7 @@ namespace Group3.Controllers
             var post = new Post {
                 Text = text,
                 Time = DateTime.Now,
-                Aurthor = await dbContext.Users.FindAsync(userId), 
+                Author = await dbContext.Users.FindAsync(userId), 
                 Subject = subject
             };    
             
@@ -178,7 +178,7 @@ namespace Group3.Controllers
         {
             var posts = this.dbContext.Posts
                 .Where(x => x.Votes > 0)
-                .Include(x => x.Aurthor)
+                .Include(x => x.Author)
                 .ThenInclude(x => x.Pictures)
                 .Include(x => x.Subject)
                 .OrderByDescending(x => x.Votes)
@@ -193,7 +193,7 @@ namespace Group3.Controllers
         public JsonResult GetLatestPosts()
         {
             var posts = this.dbContext.Posts
-                .Include(x => x.Aurthor)
+                .Include(x => x.Author)
                 .ThenInclude(x => x.Pictures)
                 .Include(x => x.Subject)
                 .ToList()
@@ -211,26 +211,26 @@ namespace Group3.Controllers
             var head = DateTime.Parse(startDate);
             var tail = DateTime.Parse(EndDate);
 
-            var posts = dbContext.Posts
+            var posts = dbContext.Posts  // TODO: this is nasty, move events to its own database table if we find time..
                 .Include(x => x.Subject)
                 .ThenInclude(x => x.Posts)
-                .ThenInclude(x => x.Aurthor)
+                .ThenInclude(x => x.Author)
                 .Include(x => x.Subject)
                 .ThenInclude(x => x.Topic)
                 .ThenInclude(x => x.Category)
-                .Include(post => post.Aurthor)
+                .Include(post => post.Author)
                 .ThenInclude(user => user.UserRoles)
                 .ThenInclude(role => role.Role)
-                .Include(post => post.Aurthor)
+                .Include(post => post.Author)
                 .ThenInclude(post => post.Pictures)
                 .Where(x => x.Subject.Topic.Category.Name == "News" 
-                && ((x.EventDate != null && (x.EventDate >= head && x.EventDate <= tail)) || (x.Time >= head && x.Time <= tail)))                
-                .OrderBy(x => x.EventDate != null ? x.EventDate : x.Time) 
-                .ToList();
-            // TODO: this is nasty, move events to its own database table if we find time..
-            var firstOrDefaultsByDate = posts.Where(x => x.Subject.Posts.OrderBy(x => x.Time).ToList().IndexOf(x) == 0).ToList();
-
-            return new JsonResult(firstOrDefaultsByDate);
+                && ((x.EventDate != null 
+                 && (x.EventDate >= head && x.EventDate <= tail)) 
+                 || (x.Time >= head && x.Time <= tail)))                
+                .OrderBy(x => x.EventDate != null ? x.EventDate : x.Time).ToList()
+                .Where(x => x.Subject.Posts.OrderBy(x => x.Time).ToList().IndexOf(x) == 0).ToList();
+           
+            return new JsonResult(posts);
         }
     }
 }

@@ -18,6 +18,7 @@ namespace Group3.Controllers
                 .Include(cat => cat.UserGroup)
                 .ThenInclude(x => x.UserGroupEnlistments)
                 .ThenInclude(x => x.User)
+                .ThenInclude(x => x.Pictures)
                 .Include(cat => cat.Topics)
                 .ThenInclude(topic => topic.Subjects)
                 .ToArray();
@@ -52,11 +53,26 @@ namespace Group3.Controllers
 
         [HttpPost]
         [Route("CreateCategory")]
-        public JsonResult CreateCategory(string name, string description)
+        public JsonResult CreateCategory(string name, string description, string users)
         {
             var category = new Category() { Name = name, Description = description };
             dbContext.Categories.Add(category);
             dbContext.SaveChanges();
+
+            if (!string.IsNullOrEmpty(users)) {
+                var userIdArray = users.Split(',');
+                var userGroup = new UserGroup() { CategoryId = category.Id };
+
+                dbContext.UserGroups.Add(userGroup);
+                dbContext.SaveChanges();
+
+                foreach (var id in userIdArray)
+                {
+                    var enlistment = new UserGroupEnlistment() { UserId = id, UserGroupId = userGroup.Id };
+                    dbContext.UserGroupEnlistments.Add(enlistment);
+                    dbContext.SaveChanges();
+                }
+            }
 
             return new JsonResult(category);
         }

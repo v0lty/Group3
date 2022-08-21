@@ -1,5 +1,4 @@
 ﻿import React, { useState, useContext, useEffect } from 'react';
-import RichTextEditor from 'react-rte'; // https://github.com/sstur/react-rte
 import Modal from 'react-bootstrap/Modal'
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form'
@@ -13,7 +12,7 @@ export const UserSelectModal = props => {
 
     useEffect(() => {
         API.getAllUsers().then((users) => {
-            setUsers(users.filter(x => x.Id != authContext?.user?.Id));
+            setUsers(users);
         });
     }, [])
 
@@ -25,25 +24,24 @@ export const UserSelectModal = props => {
         API.getUserByName({
             search: event.target.value,
         }).then((users) => {
-
-            setUsers(users.filter(x => x.Id != authContext?.user?.Id));
+            setUsers(users);
         });
     }
 
     const onSelectSubmit = async (event) => {
         event.preventDefault();
-        var children = Array.from(document.getElementsByClassName('form-check-input'));
+        var children = Array.from(event.target.getElementsByClassName('form-check-input'));
         var checked = children.filter(item => item.checked);
         if (checked == null || checked.length == 0) {
             alert("Select atleast one User!");
             return;
         }
-        var ids = checked.map(el => (el.id));
+        var ids = checked.map(el => (users[el.id]));
         props?.onSubmit(ids);
     }
 
     return (
-        <Modal show={modalVisible} onHide={props?.onHide} backdrop={false} size="lg">
+        <Modal show={modalVisible} onHide={props?.onHide} backdrop={false} size="lg" centered contentClassName="modal-height">
             <Modal.Header closeButton>
                 <Modal.Title>
                     {props?.title}
@@ -59,7 +57,7 @@ export const UserSelectModal = props => {
                         <div id="userForm">
                             {users?.map((user, userIndex) =>
                                 <div className="form-check form-switch" key={userIndex}>
-                                    <input className="form-check-input" type="checkbox" id={user.Id} />
+                                    <input className="form-check-input" type="checkbox" id={userIndex} />
                                     <label className="form-check-label">{user.Name}</label>
                                 </div>
                             )}

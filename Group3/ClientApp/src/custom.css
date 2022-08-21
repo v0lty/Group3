@@ -10,20 +10,30 @@ a {
     cursor: pointer;
 }
 
-.text-news {
-    color: darkgreen;
+.user-group {
+    position: relative;
 }
+
+.modal-height {
+    min-height: 500px;
+}
+
+.text-news {
+    color: darkgoldenrod;
+}
+
 .bg-news {
-    background-color: darkgreen;
-    background: darkgreen;
+    background-color: darkgoldenrod;
+    background: darkgoldenrod;
 }
 
 .text-events {
-    color: darkred;
+    color: olivedrab;
 }
+
 .bg-events {
-    background-color: darkred;
-    background: darkred;
+    background-color: olivedrab;
+    background: olivedrab;
 }
 
 .calendar-dot-top {

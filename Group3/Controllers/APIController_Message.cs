@@ -19,7 +19,7 @@ namespace Group3.Controllers
                 .Include(x => x.User)
                 .ThenInclude(x => x.Pictures)
                 .Include(x => x.Message)
-                .ThenInclude(x => x.Aurthor)
+                .ThenInclude(x => x.Author)
                 .ThenInclude(x => x.Pictures)
                 .Where(x => x.User.Id == userId);
 
@@ -40,16 +40,16 @@ namespace Group3.Controllers
 
         [HttpPost]
         [Route("CreateChatMessage")]
-        public JsonResult CreateChatMessage(string text, string chatId, string aurthorId, string userIdArray)
+        public JsonResult CreateChatMessage(string text, string chatId, string AuthorId, string userIdArray)
         {
-            var arr = userIdArray.Split(',').Append(aurthorId);
+            var arr = userIdArray.Split(',').Append(AuthorId);
 
             if (chatId == null)
                 chatId = (dbContext.Chats.OrderByDescending(x => x.Id).FirstOrDefault().Id + 1).ToString();
 
             foreach (string userId in arr) 
             {
-                var message = new Message { Text = text, Time = DateTime.Now, AurthorId = aurthorId };
+                var message = new Message { Text = text, Time = DateTime.Now, AuthorId = AuthorId };
                 dbContext.Messages.Add(message);
                 dbContext.SaveChanges();
                 var chat = new Chat { UserId = userId, MessageId = message.Id };

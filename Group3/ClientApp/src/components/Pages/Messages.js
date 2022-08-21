@@ -67,7 +67,7 @@ export default function Messages() {
         if (chat != null) {
             API.createChatMessage({
                 userIdArray: chat?.Users.map(user => user.Id).toString(),
-                aurthorId: authContext?.user.Id,
+                AuthorId: authContext?.user.Id,
                 chatId: chat.Id,
                 text: text,
             }).then(() => {
@@ -78,7 +78,7 @@ export default function Messages() {
         else {
             API.createChatMessage({
                 userIdArray: people?.toString(),
-                aurthorId: authContext?.user.Id,
+                AuthorId: authContext?.user.Id,
                 chatId: null,
                 text: text,
             }).then(() => {
@@ -140,18 +140,18 @@ export default function Messages() {
                                 <div className="">
                                     {chat?.Items.map((message, messageIndex) =>
                                     /*BUBBLE*/
-                                    <div key={messageIndex} className={message?.Aurthor?.Id == authContext.user?.Id
+                                    <div key={messageIndex} className={message?.Author?.Id == authContext.user?.Id
                                             ? "row bubble-right mt-4"
                                             : "row bubble mt-4"}>
                                         {/*USER*/}
                                         <div className="col-3" style={{ width: 100 }}>                                        
                                             <div className="text-center p-2">
                                                 {/*USERPICTURE*/}
-                                                <img className="profile-image-small" src={`../Pictures/${message?.Aurthor.ProfilePicture?.Path}`}></img>                                           
+                                                <img className="profile-image-small" src={`../Pictures/${message?.Author.ProfilePicture?.Path}`}></img>                                           
                                                 {/*USERNAME*/}
-                                                {authContext?.user?.Id == message.Aurthor.Id ? (
+                                                {authContext?.user?.Id == message.Author.Id ? (
                                                     <h5>You</h5>) : (                                       
-                                                    <h5>{message.Aurthor.FirstName}</h5>
+                                                    <h5>{message.Author.FirstName}</h5>
                                                 )}                                             
                                             </div>
                                         </div>
@@ -165,7 +165,7 @@ export default function Messages() {
                                                 <div dangerouslySetInnerHTML={{ __html: message.Text }} />                                        
                                             </div>
                                             </div>
-                                            {authContext?.user?.Id == message.Aurthor.Id && (
+                                            {authContext?.user?.Id == message.Author.Id && (
                                                 <span>
                                                     <button className="btn btn-link text-danger float-end p-0 m-0" onClick={() => { onDeleteClick(message); }}>
                                                         <FontAwesomeIcon icon={faTrash} />
