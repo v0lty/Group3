@@ -16,7 +16,7 @@ namespace Group3.Controllers
         {
             var topics = this.dbContext.Topics
                 .Include(topic => topic.Subjects)
-                .ThenInclude(post => post.Aurthor).ToArray();
+                .ThenInclude(post => post.Author).ToArray();
 
             return new JsonResult(topics);
         }
@@ -30,17 +30,17 @@ namespace Group3.Controllers
                     .Where(x => x.Id == int.Parse(topicId))
                     .Include(x => x.Category)
                     .Include(x => x.Subjects)
-                    .ThenInclude(x => x.Aurthor)
+                    .ThenInclude(x => x.Author)
                     .ThenInclude(x => x.Pictures)
                     .Include(x => x.Subjects)
                     .ThenInclude(x => x.Posts)
-                    .ThenInclude(x => x.Aurthor)
+                    .ThenInclude(x => x.Author)
                     .ThenInclude(x => x.UserRoles)
                     .ThenInclude(x => x.Role)                    
                     .FirstOrDefault();
 
                 topic.Subjects.ForEach(x => x.Posts.Sort((x, y) => x.Time.CompareTo(y.Time)));
-                topic.Subjects.ForEach(x => x.Posts.ForEach(y => y.Aurthor.Posts = dbContext.Posts.Where(z => z.Aurthor.Id == y.Aurthor.Id).ToList()));
+                topic.Subjects.ForEach(x => x.Posts.ForEach(y => y.Author.Posts = dbContext.Posts.Where(z => z.Author.Id == y.Author.Id).ToList()));
 
                 if (topic == null)
                     throw new Exception("Topic not found.");

@@ -45,7 +45,7 @@ export const Subject = props => {
             `<blockquote>
                 <span>
                     Quote by<a href="/post/${post.Id}">
-                        ${post.Aurthor.Name} @ 
+                        ${post.Author.Name} @ 
                         ${moment(post.Time).utc().format('YYYY/MM/DD HH:mm')}
                     </a><br />
                     ${post.Text}

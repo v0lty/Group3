@@ -59,6 +59,10 @@ namespace Group3.Models
 
         public List<Chat> Chats { get; set; }
 
+        public List<ConversationParticipation> ConversationParticipations { get; set; }
+
+        public List<Message> Messages { get; set; }
+
         public List<UserGroup> UserGroups { get; set; }
     }
 }

@@ -14,7 +14,7 @@ export default function Home() {
                 {authContext.user != null ? (
                     <div className="text-muted">
                         <h3 className="text-dark">Welcome back {authContext.user.Name},</h3>
-                        <h5><span>Keep up to date by checking out the latest <span className="text-news">news</span> and <span className="text-events"> events</span>!</span></h5>
+                        <h5><span>Keep up to date by checking out the latest <span className="text-news"><b>news</b></span> and <span className="text-events"><b>events</b></span>!</span></h5>
                     </div>
                 ) : (
                     <div className="text-muted">

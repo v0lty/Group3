@@ -20,9 +20,9 @@ namespace Group3.Models
 
         public int TopicId { get; set; }
 
-        public ApplicationUser Aurthor { get; set; }
+        public ApplicationUser Author { get; set; }
 
-        public string AurthorId { get; set; }
+        public string AuthorId { get; set; }
 
         public List<Post> Posts { get; set; }
 

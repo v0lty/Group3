@@ -43,12 +43,12 @@ export default function Sidebar_MostLikes() {
                         <div key={post.Id} className="sidebar-item d-flex border-0 border-top pt-2" onClick={() => onPostClick(post.Id)}>
                             <div className="col-2" style={{ width: 55 }}>
                                 <div className="ps-2"  >
-                                    <img className="profile-image-extra-small" src={`../Pictures/${post?.Aurthor.ProfilePicture?.Path}`}></img>
+                                    <img className="profile-image-extra-small" src={`../Pictures/${post?.Author.ProfilePicture?.Path}`}></img>
                                 </div>
                             </div>
                             <div className="col">
                                 <div className="d-flex justify-content-between align-items-start">
-                                    <span className="fw-bold">{post.Aurthor.FirstName}</span>
+                                    <span className="fw-bold">{post.Author.FirstName}</span>
                                     <Badge bg="light" className="bg-white text-dark" pill>
                                         {post.Votes} <FontAwesomeIcon className="text-warning pe-1" icon={faThumbsUp} />
                                     </Badge>

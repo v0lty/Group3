@@ -21,9 +21,9 @@ namespace Group3.Models
 
         public int CategoryId { get; set; }
 
-        public ApplicationUser Aurthor { get; set; }
+        public ApplicationUser Author { get; set; }
 
-        public string AurthorId { get; set; }
+        public string AuthorId { get; set; }
 
         public List<Subject> Subjects { get; set; }
 
@@ -33,15 +33,27 @@ namespace Group3.Models
         {
             get
             {
-                return Subjects != null ? // TODO: move to frontend
-                       Subjects.SelectMany(x => 
-                       x.Posts != null ? 
-                       x.Posts.Where(x => x.EventDate != null)
-                              .Select(x => x.EventDate)
-                                : new List<DateTime?>()).Distinct().ToList()
-                                : new List<DateTime?>();
-               
+                var list = Subjects != null ?
+                           Subjects
+                           .SelectMany(x => x.Posts != null
+                                           ? x.Posts
+                                           .Select(x => x.EventDate)
+                                           : new List<DateTime?>()).Distinct().ToList()
+                                           : new List<DateTime?>();
+
+                list.RemoveAll(item => item == null);
+                return list;
             }
+        }
+
+        public List<Post> GetPostsByDate(DateTime startDate, DateTime endDate)
+        {
+            var result = new List<Post>();
+
+            if (Subjects != null)
+                Subjects.ForEach(subject => result.AddRange(subject.GetPostsByDate(startDate, endDate)));
+
+            return result;
         }
     }
 }

@@ -48,7 +48,7 @@ export default function Sidebar_Events() {
                         <div className="col pe-2">
                             <div className="d-flex justify-content-between align-items-start">
                                 <span className="fw-bold">{subject.Name}</span>
-                                <div className="badge rounded-pill bg-events" >
+                                <div className="badge rounded-pill bg-events-pill" >
                                     <span>{moment(subject?.FirstOrDefaultPost?.EventDate).fromNow()}</span>
                                 </div>
                             </div>

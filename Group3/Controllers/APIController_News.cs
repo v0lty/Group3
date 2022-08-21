@@ -20,7 +20,7 @@ namespace Group3.Controllers
                 .Include(x => x.Topics)
                 .ThenInclude(x => x.Subjects)
                 .ThenInclude(x => x.Posts)
-                .ThenInclude(x => x.Aurthor)
+                .ThenInclude(x => x.Author)
                 .FirstOrDefault();
 
             return new JsonResult(category);

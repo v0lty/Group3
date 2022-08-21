@@ -11,19 +11,29 @@ a {
 }
 
 .text-news {
-    color: darkgreen;
+    color: #7f3cc7;
 }
-.bg-news {
-    background-color: darkgreen;
-    background: darkgreen;
+.bg-news-dot {
+    background-color: #7528c7;
+    background: #7528c7;
+}
+
+.bg-news-pill {
+    background-color: #8950c7;
+    background: #8950c7;
 }
 
 .text-events {
-    color: darkred;
+    color: #43a047;
 }
-.bg-events {
-    background-color: darkred;
-    background: darkred;
+.bg-events-dot {
+    background-color: #388e3c;
+    background: #388e3c;
+}
+
+.bg-events-pill {
+    background-color: #43a047;
+    background: #43a047;
 }
 
 .calendar-dot-top {

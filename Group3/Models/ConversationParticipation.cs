@@ -5,22 +5,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Group3.Models
 {
-    public class Message 
+    public class ConversationParticipation
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public string AuthorId { get; set; }
+        public string UserId { get; set; }
 
-        public ApplicationUser Author { get; set; }
+        public ApplicationUser User { get; set; }
 
         public int ConversationId { get; set; }
 
         public Conversation Conversation { get; set; }
-
-        public DateTime Time { get; set; }
-
-        [StringLength(10000, MinimumLength = 1)]
-        public string Text { get; set; }
     }
 }

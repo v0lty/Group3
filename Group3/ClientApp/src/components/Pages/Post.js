@@ -118,26 +118,26 @@ export const Post = props => {
                     {/*USER*/}
                     <div>
                         <div className="row m-0">
-                            <img className="profile-picture pb-2" src={`../Pictures/${props?.post?.Aurthor.ProfilePicture?.Path}`}></img>
+                            <img className="profile-picture pb-2" src={`../Pictures/${props?.post?.Author.ProfilePicture?.Path}`}></img>
                         </div>
                         <div className="row m-0">
-                            {authContext?.user?.Id != props?.post?.Aurthor?.Id ? (
-                                <h5>{props?.post?.Aurthor?.Name}</h5>
+                            {authContext?.user?.Id != props?.post?.Author?.Id ? (
+                                <h5>{props?.post?.Author?.Name}</h5>
                             ) : (
                                 <h5>You</h5>
                             )}
                             <span className="text-muted">
-                                <b className="text-info">{props?.post?.Aurthor?.RoleString}</b><br />
-                                <b>{moment().diff(props?.post?.Aurthor?.Birthdate, 'years')}</b> years old<br />
-                                from <b>{props?.post?.Aurthor?.Location}</b><br />                               
-                                with <b className="text-danger">{props?.post?.Aurthor?.PostsCount}</b> posts.<br />
+                                <b className="text-info">{props?.post?.Author?.RoleString}</b><br />
+                                <b>{moment().diff(props?.post?.Author?.Birthdate, 'years')}</b> years old<br />
+                                from <b>{props?.post?.Author?.Location}</b><br />                               
+                                with <b className="text-danger">{props?.post?.Author?.PostsCount}</b> posts.<br />
                                 <br />
                                 <div className="d-flex align-items-start">
-                                    <button className="btn btn-link p-0 m-0 pe-3" onClick={() => history.push(`/user/${props?.post?.Aurthor?.Id}`)}>
+                                    <button className="btn btn-link p-0 m-0 pe-3" onClick={() => history.push(`/user/${props?.post?.Author?.Id}`)}>
                                         <FontAwesomeIcon icon={faAddressBook} />                                        
                                     </button><br />
-                                    {authContext?.user?.Id != props?.post?.Aurthor?.Id && (
-                                        <button className="btn btn-link p-0 m-0 pe-3" onClick={() => history.push(`/messages/${props?.post?.Aurthor?.Id}`)}>
+                                    {authContext?.user?.Id != props?.post?.Author?.Id && (
+                                        <button className="btn btn-link p-0 m-0 pe-3" onClick={() => history.push(`/messages/${props?.post?.Author?.Id}`)}>
                                             <FontAwesomeIcon icon={faCommenting} />
                                         </button>
                                     )}
@@ -162,7 +162,7 @@ export const Post = props => {
                 </div>
                 <div className="row m-0 p-0 pe-1">
                     <div>
-                        {(((authContext?.user?.Id == props?.post?.Aurthor?.Id && moment(props?.post?.Time) + oneHour) > (new Date)) || authContext?.user?.HasAuthority) ? (
+                        {(((authContext?.user?.Id == props?.post?.Author?.Id && moment(props?.post?.Time) + oneHour) > (new Date)) || authContext?.user?.HasAuthority) ? (
                             <div>
                                 <button className="btn btn-link text-danger float-end" onClick={() => onDelete(props?.post?.Id)}>
                                     <FontAwesomeIcon icon={faTrash} />
@@ -176,7 +176,7 @@ export const Post = props => {
                                 <FontAwesomeIcon icon={faFlag} />                                    
                             </button>
                         )}
-                        {authContext?.user?.Id != props?.post?.Aurthor?.Id && (
+                        {authContext?.user?.Id != props?.post?.Author?.Id && (
                             <button className="btn btn-link float-end" onClick={() => props.onQuote(props?.post)}>
                                 <FontAwesomeIcon icon={faQuoteRight} />
                             </button>

@@ -49,7 +49,7 @@ export default function Sidebar_LatestNews() {
                             <div className="col pe-2">
                                 <div className="d-flex justify-content-between align-items-start">
                                     <span className="fw-bold">{topic.Name}</span>
-                                    <div className="badge rounded-pill bg-news" >
+                                    <div className="badge rounded-pill bg-news-pill" >
                                         {moment(subject?.FirstOrDefaultPost?.Time).fromNow()}
                                     </div>
                                 </div>

@@ -20,15 +20,15 @@ namespace Group3.Controllers
                     .Include(x => x.Topic)
                     .ThenInclude(x => x.Category)
                     .Include(x => x.Posts)
-                    .ThenInclude(x => x.Aurthor)
+                    .ThenInclude(x => x.Author)
                     .ThenInclude(x => x.Pictures)
                     .Include(x => x.Posts)
-                    .ThenInclude(x => x.Aurthor)
+                    .ThenInclude(x => x.Author)
                     .ThenInclude(x => x.UserRoles)
                     .ThenInclude(x => x.Role)
-                    .Include(x => x.Aurthor)
+                    .Include(x => x.Author)
                     .ThenInclude(x => x.Posts)
-                    .ThenInclude(x => x.Aurthor)
+                    .ThenInclude(x => x.Author)
                     .ThenInclude(x => x.UserRoles)
                     .ThenInclude(x => x.Role)   
                     .FirstOrDefault();
@@ -37,7 +37,7 @@ namespace Group3.Controllers
                     throw new Exception("Subject not found.");
 
                 subject.Posts.Sort((x, y) => x.Time.CompareTo(y.Time));
-               // subject.Subjects.ForEach(x => x.Posts.ForEach(y => y.Aurthor.Posts = dbContext.Posts.Where(z => z.Aurthor.Id == y.Aurthor.Id).ToList()));
+               // subject.Subjects.ForEach(x => x.Posts.ForEach(y => y.Author.Posts = dbContext.Posts.Where(z => z.Author.Id == y.Author.Id).ToList()));
 
                 return new JsonResult(subject);
             }
@@ -96,14 +96,14 @@ namespace Group3.Controllers
 
                 var subject = new Subject() {
                     Name = title,
-                    AurthorId = user.Id,
+                    AuthorId = user.Id,
                     TopicId = dbContext.Topics.Where(x => x.Name == "Events").FirstOrDefault().Id
                 };
 
                 dbContext.Subjects.Add(subject);
                 dbContext.SaveChanges();
                     
-                var post = new Post() { AurthorId = user.Id, Text = text, Time = DateTime.Parse(date), EventDate = DateTime.Parse(date), SubjectId = subject.Id };
+                var post = new Post() { AuthorId = user.Id, Text = text, Time = DateTime.Parse(date), EventDate = DateTime.Parse(date), SubjectId = subject.Id };
                 dbContext.Posts.Add(post);
                 dbContext.SaveChanges();
             }

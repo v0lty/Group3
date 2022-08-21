@@ -60,10 +60,10 @@ export default function News() {
         return (
             <div>
                 {newsCategory?.PostDates?.map(x => (format(Date.parse(x), "yyyy-MM-dd"))).includes(format(day, "yyyy-MM-dd")) &&
-                    <div className="calendar-dot-top bg-news" />
+                    <div className="calendar-dot-top bg-news-dot" />
                 }
                 {eventsTopic?.PostDates?.map(x => (format(Date.parse(x), "yyyy-MM-dd"))).includes(format(day, "yyyy-MM-dd")) &&
-                    <div className="calendar-dot-bottom bg-events" />
+                    <div className="calendar-dot-bottom bg-events-dot" />
                 }
                 <span>{format(day, "d")}</span>
             </div>
@@ -103,10 +103,10 @@ export default function News() {
                         <div className="row py-2 ">
                             <div className="col-1" style={{ minWidth: 175 }}>
                                 <div className="row m-0">
-                                    <img className="profile-picture-rounded pb-2" src={`../Pictures/${post?.Aurthor.ProfilePicture?.Path}`}></img>
+                                    <img className="profile-picture-rounded pb-2" src={`../Pictures/${post?.Author.ProfilePicture?.Path}`}></img>
                                 </div>
-                                <div className="text-center text-primary" onClick={() => { history.push(`/user/${post.Aurthor.Id}`); }}>
-                                    <h5><a>{post.Aurthor?.Name}</a></h5>
+                                <div className="text-center text-primary" onClick={() => { history.push(`/user/${post.Author.Id}`); }}>
+                                    <h5><a>{post.Author?.Name}</a></h5>
                                 </div>
                             </div>
                             <div className="col" style={{ minWidth: 250 }, { minHeight: 100 }}>
