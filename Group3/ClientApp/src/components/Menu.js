@@ -2,14 +2,12 @@
 import API from "./API";
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "./UserAuthentication";
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Button from 'react-bootstrap/Button';
 
 export default function Menu() {
     const authContext = useContext(AuthContext);

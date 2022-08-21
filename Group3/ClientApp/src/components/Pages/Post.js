@@ -29,7 +29,7 @@ export const PostPath = () => {
     }, [id])
 
     return (
-        <div className="context">
+        <div className="context bg-white">
             <h5 className="m-0 p-0 pb-3">
                 <a className="text-decoration-none" href={`/category/${post?.Subject?.Topic?.Category?.Id}`}>{post?.Subject?.Topic?.Category?.Name}</a>
                 {" > "}

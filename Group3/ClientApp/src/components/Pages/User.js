@@ -4,6 +4,8 @@ import moment from "moment";
 import API from "../API";
 import { useParams } from 'react-router';
 import { useHistory } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCommenting } from '@fortawesome/free-solid-svg-icons'
 
 // URL
 export const UserPath = () => {
@@ -44,7 +46,7 @@ export const User = props => {
     }
 
     return (
-        <div className="Main shadow">
+        <div className="context bg-white shadow">
             <h3>{props?.user?.Name}</h3>            
             <div className="d-flex flex-row">
                 <div className="p-2" >
@@ -69,8 +71,10 @@ export const User = props => {
             </div>
 
             {authContext?.user?.Id != props?.user?.Id && (
-                <div className="row">
-                    <a className="btn-link" onClick={() => history.push(`/messages/${props?.user?.Id}`)}>Send Message</a>
+                <div className="d-flex align-items-start">
+                    <button className="btn btn-link" onClick={() => history.push(`/messages/${props?.user?.Id}`)}>
+                        <FontAwesomeIcon icon={faCommenting} />
+                    </button>
                 </div>
             )}
 

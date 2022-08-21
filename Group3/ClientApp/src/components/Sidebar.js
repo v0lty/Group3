@@ -1,16 +1,16 @@
 ﻿import React, { useState, useContext, useEffect } from 'react';
 
-import Sidebar_News from "./Sidebar_News";
+import Sidebar_LatestNews from "./Sidebar_LatestNews";
 import Sidebar_Events from "./Sidebar_Events";
-import Sidebar_Latest from "./Sidebar_Latest";
-import Sidebar_Posts from "./Sidebar_Posts";
+import Sidebar_LatestPosts from "./Sidebar_LatestPosts";
+import Sidebar_MostLikes from "./Sidebar_MostLikes";
 
 export const SidebarLeft = () => {
     return (
         <div>
             {/*<Sidebar_Categories />*/}
-            <Sidebar_Latest />            
-            <Sidebar_Posts />
+            <Sidebar_LatestPosts />
+            <Sidebar_MostLikes />
         </div>
     );
 }
@@ -18,7 +18,7 @@ export const SidebarLeft = () => {
 export const SidebarRight = () => {
     return (
         <div>  
-            <Sidebar_News />
+            <Sidebar_LatestNews />
             <Sidebar_Events />
             {/*<Sidebar_Subjects />*/}
             {/*<Sidebar_Calendar />*/}
