@@ -67,36 +67,26 @@ namespace Group3.Data
             modelBuilder.Entity<ConversationParticipation>()
                 .HasOne(cp => cp.Conversation)
                 .WithMany(c => c.ConversationParticipations)
-                .HasForeignKey(cp => cp.ConversationId);
+                .HasForeignKey(cp => cp.ConversationId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ConversationParticipation>()
                 .HasOne(cp => cp.User)
                 .WithMany(u => u.ConversationParticipations)
-                .HasForeignKey(cp => cp.UserId);
-
-            modelBuilder.Entity<Message>()
-                .HasKey(m => new { m.AuthorId, m.ConversationId });
+                .HasForeignKey(cp => cp.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Message>()
                 .HasOne(m => m.Conversation)
                 .WithMany(c => c.Messages)
-                .HasForeignKey(m => m.ConversationId);
+                .HasForeignKey(m => m.ConversationId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Message>()
                 .HasOne(m => m.Author)
                 .WithMany(u => u.Messages)
-                .HasForeignKey(m => m.AuthorId);
-
-            // TODO: User can't be deleted if there are message references to Author. 
-            // rebuild database with this fix to see if it works..
-            // It's not one-to-many or many-to-one RS so it should be something other then ForeignKey
-            //modelBuilder.Entity<Message>()
-            //    .HasMany(m => m.Chats)
-            //    .WithOne(x => x.Message)
-            //    .HasForeignKey(c => c.MessageId)
-            //    .HasPrincipalKey(c => c.AuthorId)
-            //    .OnDelete(DeleteBehavior.Cascade);
-
+                .HasForeignKey(m => m.AuthorId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Category>()
                 .HasOne(c => c.UserGroup)
@@ -192,27 +182,27 @@ namespace Group3.Data
             var userGroupMember1 = new UserGroupEnlistment { Id = -1, UserId = user1.Id, UserGroupId = userGroup1.Id };
             var userGroupMember2 = new UserGroupEnlistment { Id = -2, UserId = user3.Id, UserGroupId = userGroup1.Id };
 
-            var topic1 = new Topic { Id = -1, Name = "Trending", Description = "What's hot right now?", CategoryId = category1.Id, AuthorId = adminUserRole.UserId };
-            var topic2 = new Topic { Id = -2, Name = "HTML", Description = "Tag TAG <b>TAG!</b>", CategoryId = category2.Id, AuthorId = user1.Id };
-            var topic3 = new Topic { Id = -3, Name = "CSS", Description = "The necessary evil?", CategoryId = category2.Id, AuthorId = user2.Id };
-            var topic4 = new Topic { Id = -4, Name = "Entity Framework", Description = "Because SQL is even worse.", CategoryId = category3.Id, AuthorId = user2.Id };
-            var topic5 = new Topic { Id = -5, Name = "Events", Description = "Planned occasions.", CategoryId = category1.Id, AuthorId = adminUserRole.UserId };
-            var topic6 = new Topic { Id = -6, Name = "User Group Test", Description = "For random testing.", CategoryId = category4.Id, AuthorId = user2.Id };
-            var topic7 = new Topic { Id = -7, Name = "Backend", Description = "Backend news", CategoryId = category1.Id, AuthorId = adminUserRole.UserId };
-            var topic8 = new Topic { Id = -8, Name = "Frontend", Description = "News about frontend subjects", CategoryId = category1.Id, AuthorId = adminUserRole.UserId };
-            var topic9 = new Topic { Id = -9, Name = "Other", Description = "Other news", CategoryId = category1.Id, AuthorId = adminUserRole.UserId };
-            var topic10 = new Topic { Id = -10, Name = "Unreal Engine", Description = "A 3D computer graphics game engine developed by Epic Games.", CategoryId = category5.Id, AuthorId = adminUserRole.UserId };
-            var topic11 = new Topic { Id = -11, Name = "This Forum", Description = "About developing this very forum.", CategoryId = category6.Id, AuthorId = adminUserRole.UserId };
-            var topic12 = new Topic { Id = -12, Name = "Games", Description = "Computer games.", CategoryId = category7.Id, AuthorId = adminUserRole.UserId };
-            var topic13 = new Topic { Id = -13, Name = "Random Talk", Description = "Where we can talk about anything.", CategoryId = category7.Id, AuthorId = adminUserRole.UserId };
+            var topic1 = new Topic { Id = -1, Name = "Trending", Description = "What's hot right now?", CategoryId = category1.Id};
+            var topic2 = new Topic { Id = -2, Name = "HTML", Description = "Tag TAG <b>TAG!</b>", CategoryId = category2.Id};
+            var topic3 = new Topic { Id = -3, Name = "CSS", Description = "The necessary evil?", CategoryId = category2.Id };
+            var topic4 = new Topic { Id = -4, Name = "Entity Framework", Description = "Because SQL is even worse.", CategoryId = category3.Id };
+            var topic5 = new Topic { Id = -5, Name = "Events", Description = "Planned occasions.", CategoryId = category1.Id };
+            var topic6 = new Topic { Id = -6, Name = "User Group Test", Description = "For random testing.", CategoryId = category4.Id };
+            var topic7 = new Topic { Id = -7, Name = "Backend", Description = "Backend news", CategoryId = category1.Id};
+            var topic8 = new Topic { Id = -8, Name = "Frontend", Description = "News about frontend subjects", CategoryId = category1.Id };
+            var topic9 = new Topic { Id = -9, Name = "Other", Description = "Other news", CategoryId = category1.Id };
+            var topic10 = new Topic { Id = -10, Name = "Unreal Engine", Description = "A 3D computer graphics game engine developed by Epic Games.", CategoryId = category5.Id };
+            var topic11 = new Topic { Id = -11, Name = "This Forum", Description = "About developing this very forum.", CategoryId = category6.Id };
+            var topic12 = new Topic { Id = -12, Name = "Games", Description = "Computer games.", CategoryId = category7.Id };
+            var topic13 = new Topic { Id = -13, Name = "Random Talk", Description = "Where we can talk about anything.", CategoryId = category7.Id };
 
-            var subject1 = new Subject { Id = -1, Name = "HTML Tables?", TopicId = topic2.Id, AuthorId = user1.Id };
-            var subject2 = new Subject { Id = -2, Name = "Visual Studio 2022", TopicId = topic1.Id, AuthorId = user2.Id, UrlSlug = "Visual-Studio-2022" };
-            var subject3 = new Subject { Id = -3, Name = "Am I'm the chosen one?", TopicId = topic3.Id, AuthorId = user2.Id };
-            var subject4 = new Subject { Id = -4, Name = "Site launch", TopicId = topic5.Id, AuthorId = user1.Id, UrlSlug = "Site-launch" };
-            var subject5 = new Subject { Id = -5, Name = "Site presentation", TopicId = topic5.Id, AuthorId = user1.Id, UrlSlug = "Site-presentation" };
-            var subject6 = new Subject { Id = -6, Name = "What?.", TopicId = topic6.Id, AuthorId = user2.Id };
-            var subject7 = new Subject { Id = -7, Name = "Say Hello Party", TopicId = topic5.Id, AuthorId = user1.Id, UrlSlug = "Say-Hello-Party" };
+            var subject1 = new Subject { Id = -1, Name = "HTML Tables?", TopicId = topic2.Id };
+            var subject2 = new Subject { Id = -2, Name = "Visual Studio 2022", TopicId = topic1.Id, UrlSlug = "Visual-Studio-2022" };
+            var subject3 = new Subject { Id = -3, Name = "Am I'm the chosen one?", TopicId = topic3.Id };
+            var subject4 = new Subject { Id = -4, Name = "Site launch", TopicId = topic5.Id, UrlSlug = "Site-launch" };
+            var subject5 = new Subject { Id = -5, Name = "Site presentation", TopicId = topic5.Id, UrlSlug = "Site-presentation" };
+            var subject6 = new Subject { Id = -6, Name = "What?.", TopicId = topic6.Id };
+            var subject7 = new Subject { Id = -7, Name = "Say Hello Party", TopicId = topic5.Id, UrlSlug = "Say-Hello-Party" };
 
             var post1 = new Post { Id = -1, Text = "Is this version any good?", Time = DateTime.Now.AddDays(-2), SubjectId = subject2.Id, AuthorId = user2.Id, Reports = 0, Votes = 1 };
             var post2 = new Post { Id = -2, Text = "Maybe, but I'll stick with 2019!", Time = DateTime.Now.AddDays(-1), SubjectId = subject2.Id, AuthorId = user1.Id, Reports = 2, Votes = 0 };
@@ -237,9 +227,10 @@ namespace Group3.Data
             var conversationParticipation1 = new ConversationParticipation { Id = -1, UserId = user1.Id, ConversationId = conversation1.Id };
             var conversationParticipation2 = new ConversationParticipation { Id = -2, UserId = user2.Id, ConversationId = conversation1.Id };
             var conversationParticipation3 = new ConversationParticipation { Id = -3, UserId = user3.Id, ConversationId = conversation1.Id };
+
             var conversationParticipation4 = new ConversationParticipation { Id = -4, UserId = user1.Id, ConversationId = conversation2.Id };
-            var conversationParticipation5 = new ConversationParticipation { Id = -5, UserId = user2.Id, ConversationId = conversation2.Id };
             var conversationParticipation6 = new ConversationParticipation { Id = -6, UserId = user3.Id, ConversationId = conversation2.Id };
+
             var conversationParticipation7 = new ConversationParticipation { Id = -7, UserId = user2.Id, ConversationId = conversation3.Id };
             var conversationParticipation8 = new ConversationParticipation { Id = -8, UserId = user3.Id, ConversationId = conversation3.Id };
 
@@ -270,7 +261,6 @@ namespace Group3.Data
             modelBuilder.Entity<ConversationParticipation>().HasData(conversationParticipation2);
             modelBuilder.Entity<ConversationParticipation>().HasData(conversationParticipation3);
             modelBuilder.Entity<ConversationParticipation>().HasData(conversationParticipation4);
-            modelBuilder.Entity<ConversationParticipation>().HasData(conversationParticipation5);
             modelBuilder.Entity<ConversationParticipation>().HasData(conversationParticipation6);
             modelBuilder.Entity<ConversationParticipation>().HasData(conversationParticipation7);
             modelBuilder.Entity<ConversationParticipation>().HasData(conversationParticipation8);

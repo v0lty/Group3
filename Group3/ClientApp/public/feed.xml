@@ -6,18 +6,7 @@
     <link>http://localhost:13021/feed.xml</link>
     <description>Description</description>
     <copyright>2022 Group 3</copyright>
-    <lastBuildDate>Sun, 21 Aug 2022 23:57:39 +0200</lastBuildDate>
-    <item>
-      <guid
-        isPermaLink="false">http://localhost:13021</guid>
-      <link>http://localhost:13021/post/3</link>
-      <title>JavaScript Should be Retired</title>
-      <description>&lt;p&gt;JavaScript Slows Progress, Should be Retired, Argues JSON Creator&amp;nbsp;&lt;/p&gt;
-&lt;p&gt;JavaScript has become a barrier to progress, according to Douglas Crockford, creator of the JSON (JavaScript Object Notation).&lt;/p&gt;
-&lt;p&gt;"The best thing we can do today to JavaScript is to retire it. Twenty years ago, I was one of the few advocates for JavaScript. Its cobbling together of nested functions and dynamic objects was brilliant. I spent a decade trying to correct its flaws. I had a minor success with ES5. But since then, there has been strong interest in further bloating the language instead of making it better. So JavaScript, like the other dinosaur languages, has become a barrier to progress. We should be focused on the next language, which should look more like E than like JavaScript."&lt;/p&gt;
-&lt;p&gt;Crockford also acknowledged there's be two difficulties in replacing browser-based JavaScript, according to the article. "First, we don't have the next language yet. It needs to be a minimal capability-based actor language that is designed specifically for secure distributed programming. Nothing less should be considered.&lt;/p&gt;
-&lt;p&gt;"Second, we need all of the browser makers to adopt it and to simultaneously replace the DOM with a well designed interface. Good luck with that."&lt;/p&gt;</description>
-    </item>
+    <lastBuildDate>Mon, 22 Aug 2022 22:30:52 +0200</lastBuildDate>
     <item>
       <guid
         isPermaLink="false">http://localhost:13021</guid>

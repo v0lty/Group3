@@ -57,8 +57,8 @@ const API = {
     getMessages: async (params) => {
         return trackPromise(post(baseURL + 'GetMessages', params));
     },
-    getChats: async (params) => {
-        return trackPromise(post(baseURL + 'GetChats', params));
+    getConversations: async (params) => {
+        return trackPromise(post(baseURL + 'GetConversations', params));
     },
     uploadFile: async (params) => {
         return trackPromise(postData(baseURL + 'UploadFile', params));
@@ -108,8 +108,8 @@ const API = {
     getLatestPosts: async (params) => {
         return trackPromise(get(baseURL + 'GetLatestPosts', params));
     },
-    createChatMessage: async (params) => {
-        return trackPromise(post(baseURL + 'CreateChatMessage', params));
+    createConversationMessage: async (params) => {
+        return trackPromise(post(baseURL + 'CreateConversationMessage', params));
     },
     getAllUsers: async (params) => {
         return trackPromise(get(baseURL + 'GetAllUsers', params));
@@ -164,6 +164,12 @@ const API = {
     },
     updateCheck: async (params) => {
         return trackPromise(get(baseURL + 'UpdateCheck', params));
+    },
+    createConversation: async (params) => {
+        return trackPromise(post(baseURL + 'CreateConversation', params));
+    },
+    deleteConversationMessage: async (params) => {
+        return trackPromise(post(baseURL + 'DeleteConversationMessage', params));
     },
 }
 

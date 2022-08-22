@@ -26,11 +26,6 @@ namespace Group3.Controllers
                     .ThenInclude(x => x.Author)
                     .ThenInclude(x => x.UserRoles)
                     .ThenInclude(x => x.Role)
-                    .Include(x => x.Author)
-                    .ThenInclude(x => x.Posts)
-                    .ThenInclude(x => x.Author)
-                    .ThenInclude(x => x.UserRoles)
-                    .ThenInclude(x => x.Role)   
                     .FirstOrDefault();
 
                 if (subject == null)
@@ -96,7 +91,6 @@ namespace Group3.Controllers
 
                 var subject = new Subject() {
                     Name = title,
-                    AuthorId = user.Id,
                     TopicId = dbContext.Topics.Where(x => x.Name == "Events").FirstOrDefault().Id
                 };
 

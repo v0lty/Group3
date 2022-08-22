@@ -17,26 +17,6 @@ namespace Group3.Controllers
             return epoch.AddMilliseconds(unixTimeMillis);
         }
 
-        //[HttpPost]
-        //[Route("GetPostsByDate")]
-        //public JsonResult GetPostsByDate(string date)
-        //{
-        //    var dateTime = FromUnixTime(Int64.Parse(date));
-
-        //    var posts = dbContext.Posts
-        //        .Where(x => x.Time.Date == dateTime.Date)
-        //        .Include(post => post.Author)
-        //        .ThenInclude(user => user.Pictures)
-        //        .Include(post => post.Author)
-        //        .ThenInclude(user => user.UserRoles)
-        //        .ThenInclude(role => role.Role)
-        //        .Include(post => post.Pictures)
-        //        .Include(post => post.Subject)
-        //        .ThenInclude(subject => subject.Topic).ToArray();
-
-        //    return new JsonResult(posts);
-        //}
-
         [HttpGet]
         [Route("GetAllPosts")]
         public JsonResult GetAllPosts()

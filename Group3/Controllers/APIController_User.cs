@@ -32,7 +32,6 @@ namespace Group3.Controllers
             var user = dbContext.Users
                 .Where(x => x.Id == userId)
                 .Include(x => x.Posts)
-                .Include(x => x.Chats)
                 .Include(x => x.Pictures)
                 .Include(x => x.UserRoles)
                 .ThenInclude(x => x.Role)

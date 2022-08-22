@@ -114,7 +114,7 @@ export const Profile = props => {
                 <div className="d-flex">
                     {pictures?.map((picture, pictureIndex) =>
                         <div key={pictureIndex}>
-                            <img className="profile-picture p-2" src={`../Pictures/${picture.Path}`}></img>
+                            <img className="profile-picture p-2" loading="lazy" src={`../Pictures/${picture.Path}`}></img>
                             <a onClick={() => removePicture(picture.Id)}>X</a>
                         </div>
                     )}

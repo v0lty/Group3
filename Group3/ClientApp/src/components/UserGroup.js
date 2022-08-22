@@ -10,11 +10,11 @@ export const UserGroup = props => {
         <div className="">
             <div className="d-flex align-items-start">
                 {props?.users?.map((user, userIndex) =>
-                    <img key={userIndex} className="profile-image-extra-small user-group" src={`../Pictures/${user?.ProfilePicture?.Path}`} style={{ left: userIndex * -15 }}></img>                
+                    <img key={userIndex} className="profile-image-extra-small user-group" loading="lazy" src={`../Pictures/${user?.ProfilePicture?.Path}`} style={{ left: userIndex * -15 }}></img>
                 )}
             </div>
             <div>
-                <a>{props?.users?.map(x => (x.FirstName)).join(", ")}</a>
+                <a>{props?.users?.map(x => (x?.FirstName)).join(", ")}</a>
             </div>
         </div>
         

@@ -123,7 +123,7 @@ export const Post = props => {
                     <div>
                         <div className="row m-0">
                             {/*PICTURE*/}
-                            <img className="profile-picture pb-2" src={`../Pictures/${props?.post?.Author.ProfilePicture?.Path}`}></img>
+                            <img className="profile-picture pb-2" loading="lazy" src={`../Pictures/${props?.post?.Author.ProfilePicture?.Path}`}></img>
                         </div>
                         <div className="row m-0">
                             {/*NAME*/}

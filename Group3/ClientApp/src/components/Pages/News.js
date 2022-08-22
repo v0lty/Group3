@@ -105,7 +105,7 @@ export default function News() {
                         <div className="row py-2 ">
                             <div className="col-1" style={{ minWidth: 175 }}>
                                 <div className="row m-0">
-                                    <img className="profile-picture-rounded pb-2" src={`../Pictures/${post?.Author.ProfilePicture?.Path}`}></img>
+                                    <img className="profile-picture-rounded pb-2" loading="lazy" src={`../Pictures/${post?.Author.ProfilePicture?.Path}`}></img>
                                 </div>
                                 <div className="text-center text-primary" onClick={() => { history.push(`/user/${post.Author.Id}`); }}>
                                     <h5><a>{post.Author?.Name}</a></h5>

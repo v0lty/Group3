@@ -21,10 +21,6 @@ namespace Group3.Models
 
         public int CategoryId { get; set; }
 
-        public ApplicationUser Author { get; set; }
-
-        public string AuthorId { get; set; }
-
         public List<Subject> Subjects { get; set; }
 
         public int SubjectsCount { get { return Subjects != null ? Subjects.Count : 0; } }

@@ -199,7 +199,7 @@ export const Management = props => {
                             {users?.map((user, userIndex) =>
                                 <tr key={userIndex}>
                                     <td>
-                                        <img className="profile-image-extra-small" src={`../Pictures/${user.ProfilePicture?.Path}`}></img>
+                                        <img className="profile-image-extra-small" loading="lazy" src={`../Pictures/${user.ProfilePicture?.Path}`}></img>
                                     </td>
                                     <td>{user.Name}</td>
                                     <td>{user.Email}</td>

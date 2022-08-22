@@ -60,7 +60,7 @@ export const Subject = props => {
     const onPostSubmit = (event, title, text) => {
         API.createPost({
             text: text,
-            userId: authContext.user.Id,
+            userId: authContext?.user?.Id,
             subjectId: props?.subject?.Id
         }).then(() => {
             setInput("");

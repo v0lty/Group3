@@ -15,8 +15,7 @@ namespace Group3.Controllers
         public JsonResult GetAllTopics()
         {
             var topics = this.dbContext.Topics
-                .Include(topic => topic.Subjects)
-                .ThenInclude(post => post.Author).ToArray();
+                .Include(topic => topic.Subjects).ToArray();
 
             return new JsonResult(topics);
         }
@@ -30,8 +29,6 @@ namespace Group3.Controllers
                     .Where(x => x.Id == int.Parse(topicId))
                     .Include(x => x.Category)
                     .Include(x => x.Subjects)
-                    .ThenInclude(x => x.Author)
-                    .ThenInclude(x => x.Pictures)
                     .Include(x => x.Subjects)
                     .ThenInclude(x => x.Posts)
                     .ThenInclude(x => x.Author)

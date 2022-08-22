@@ -50,7 +50,7 @@ export const User = props => {
             <h3>{props?.user?.Name}</h3>            
             <div className="d-flex flex-row">
                 <div className="p-2" >
-                    <img className="" src={`../Pictures/${props?.user?.ProfilePicture?.Path}`}></img>
+                    <img className="" loading="lazy" src={`../Pictures/${props?.user?.ProfilePicture?.Path}`}></img>
                 </div>
                 <div className="p-2">
                     <span>

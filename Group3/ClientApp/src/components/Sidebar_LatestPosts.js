@@ -38,10 +38,10 @@ export default function Sidebar_LatestPosts() {
                 </div>
                 <div className="">
                     {posts?.map(post =>
-                        <div key={post.Id} className="sidebar-item d-flex border-0 border-top pt-2" onClick={() => onPostClick(post.Id)}>
+                        <div key={post.Id} className="sidebar-item d-flex border-0 border-top pt-2" onClick={() => onPostClick(post.Subject.Id)}>
                             <div className="col-2" style={{ width: 55 }}>
                                 <div className="ps-2"  >
-                                    <img className="profile-image-extra-small" src={`../Pictures/${post?.Author.ProfilePicture?.Path}`}></img>
+                                    <img className="profile-image-extra-small" loading="lazy" src={`../Pictures/${post?.Author.ProfilePicture?.Path}`}></img>
                                 </div>
                             </div>
                             <div className="col">
