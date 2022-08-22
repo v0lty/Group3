@@ -46,7 +46,7 @@ export default function Sidebar_LatestPosts() {
                             </div>
                             <div className="col">
                                 <div className="d-flex justify-content-between align-items-start">
-                                    <span>{post.Author.FirstName}</span> 
+                                    <span className="fw-bold">{post.Author.FirstName}</span>
                                     <div className="pe-2">
                                         <div className="badge rounded-pill bg-info" >
                                             <span>{moment(post.Time).fromNow()}</span>
@@ -54,7 +54,7 @@ export default function Sidebar_LatestPosts() {
                                     </div>
                                 </div>
                                 <div className="row">
-                                   <div className="sidebar-text" dangerouslySetInnerHTML={{ __html: truncate("<b>" + post.Subject.Name + "</b>") }} />
+                                   <div className="sidebar-text" dangerouslySetInnerHTML={{ __html: truncate(post.Subject.Name) }} />
                                 </div>
 
                             </div>
