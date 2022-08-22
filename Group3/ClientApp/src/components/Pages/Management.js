@@ -1,4 +1,4 @@
-﻿import React, { Component, useEffect, useState, useContext } from 'react';
+import React, { Component, useEffect, useState, useContext } from 'react';
 import sortHook, { SortButton } from '../SortHook';
 import { AuthContext } from "../UserAuthentication";
 import Tab from 'react-bootstrap/Tab';
@@ -167,6 +167,7 @@ export const Management = props => {
             date: event.target.elements['eventDateInput'].value,
             text: value.toString('html'),
         }).then(() => {
+            setShowCreateEventModal(false);
         
         });
     }
